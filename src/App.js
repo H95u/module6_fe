@@ -5,7 +5,7 @@ import Content from "./components/content/Content";
 import TransferForm from "./components/login/TransferForm";
 
 import UserInfo from "./components/user-info/UserInfo";
-import Navbar from "./components/navbar/Navbar";
+import {ComplexNavbar} from "./components/navbar/Navbar";
 import PartnerInfo from "./components/user-info/PartnerInfo";
 import RegisterUser from "./components/login/RegisterUser";
 import RegisterCCDV from "./components/login/RegisterCCDV";
@@ -15,7 +15,7 @@ import Login from "./components/login/Login";
 export default function App() {
     return (
         <>
-            <Navbar/>
+            <ComplexNavbar/>
             <BrowserRouter>
                 <Routes>
                     <Route path={"/"} element={<Content/>}></Route>

@@ -1,11 +1,7 @@
-.nav {
+#nav {
     z-index: 999;
     position: fixed;
-    background-color: #eedfdf;
-    padding: 10px;
-    width: 100%;
-    margin-bottom: 50px;
-    height: 100px;
+    margin-left: 105px;
 }
 
 .content {
