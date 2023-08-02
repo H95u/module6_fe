@@ -1,4 +1,6 @@
 import { Typography } from "@material-tailwind/react";
+import {Link} from "react-router-dom";
+
 
 export function FooterWithLogo() {
     return (

@@ -1,6 +1,10 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {FooterWithLogo} from "./components/footer/Footer";
-import Content from "./components/content/Content";
+import Navbar from "./components/navbar/Navbar";
+import Login from "./components/login/Login";
+import RegisterUser from "./components/login/RegisterUser";
+import RegisterCCDV from "./components/login/RegisterCCDV";
+
 
 
 export default function App() {
@@ -8,10 +12,12 @@ export default function App() {
         <>
             <BrowserRouter>
                 <Routes>
-                    <Route path={"/"} element={<Content/>}></Route>
+                    <Route path={"/registerUser"} element={<RegisterUser/>}></Route>
+                    <Route path={"/registerCCDV"} element={<RegisterCCDV/>}></Route>
+                    <Route path={"/"} element={<Login/>}></Route>
+                    <Route path={"/login"} element={<Login/>}></Route>
                 </Routes>
             </BrowserRouter>
-            <FooterWithLogo/>
         </>
     );
 }
