@@ -22,7 +22,7 @@ export default function TranstForm () {
                         <div className={"create_account-button"}>
                             "Bạn chưa có tài khoản"
                             <br/>
-                            <Link className={"btn btn-success"}  to="/">Đăng ký tại đây.</Link>
+                            <Link className={"btn btn-success"}  to="/">Đăng ký tại đây</Link>
                         </div>
                     </li>
                     <li>
@@ -38,7 +38,7 @@ export default function TranstForm () {
                             <div className={"create_account-button"}>
                                 "Bạn chưa có tài khoản"
                                 <br/>
-                                <Link className={"btn btn-success"} to="/">Đăng ký tại đây.</Link>
+                                <Link className={"btn btn-success"} to="/">Đăng ký tại đây</Link>
                             </div>
                         </h2>
                     </li>

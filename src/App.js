@@ -17,7 +17,7 @@ export default function App() {
             <BrowserRouter>
                 <Routes>
                     {/*<Route path={"/"} element={<Content/>}></Route>*/}
-                    <Route path={"/"} element={<TranstForm/>}></Route>
+                    <Route path={"/login"} element={<TranstForm/>}></Route>
 
                     <Route path={"/"} element={<Content/>}></Route>
                     <Route path={"/user/:id"} element={<PartnerInfo/>}></Route>
