@@ -1,9 +1,10 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import "./TranstForm.css"
 export default function TranstForm () {
     return(
         <>
-            <div className="create_account-content">
+            <div className={"create_account-content"}>
                 <ul>
                     <li>
                         <h2>
@@ -12,32 +13,32 @@ export default function TranstForm () {
                             <em>Cộng tác viên</em>
                         </h2>
                         <p>
-                            "Chúng tôi là dịch vụ cho thuê người yêu
-                            chuyên nghiệp và uy tín nhất tại Việt Nam."
+                            "Bạn muốn gia tăng thêm thu nhập? Hãy tham gia trở thành
+                            cộng tác viên của chúng tôi."
                         </p>
                         <p>
-                            <Link to="/">Đăng nhập</Link>
+                            <Link className={"btn btn-success"} to="/">Đăng nhập</Link>
                         </p>
-                        <div className="create_account-button">
+                        <div className={"create_account-button"}>
                             "Bạn chưa có tài khoản"
                             <br/>
-                            <Link to="/">Đăng ký tại đây.</Link>
+                            <Link className={"btn btn-success"}  to="/">Đăng ký tại đây.</Link>
                         </div>
                     </li>
                     <li>
                         <h2>
-                            "For"
+                            "Dành cho"
                             <em>Người dùng</em>
                             <p>
                                 "Tham gia với chúng tôi để nhận được dịch vụ tốt nhất."
                             </p>
                             <p>
-                                <Link to="/">Đăng nhập</Link>
+                                <Link className={"btn btn-success"} to="/">Đăng nhập</Link>
                             </p>
-                            <div className="create_account-button">
+                            <div className={"create_account-button"}>
                                 "Bạn chưa có tài khoản"
                                 <br/>
-                                <Link to="/">Đăng ký tại đây.</Link>
+                                <Link className={"btn btn-success"} to="/">Đăng ký tại đây.</Link>
                             </div>
                         </h2>
                     </li>

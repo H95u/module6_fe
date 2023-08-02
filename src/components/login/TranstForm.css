@@ -21,9 +21,9 @@
 
 li {
     line-height: 1.538em;
-    font-weight: 400;
+    font-weight: 300;
     color: #576871;
-    font-size: 13px;
+    font-size: 36px;
 }
 
 .create_account-content li h2 {
@@ -32,6 +32,7 @@ li {
     font-weight: 300;
     text-align: center;
     position: relative;
+    color: #576871;
 }
 
 h2 {
