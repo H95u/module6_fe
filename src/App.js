@@ -1,6 +1,4 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {FooterWithLogo} from "./components/footer/Footer";
-import Navbar from "./components/navbar/Navbar";
 import Login from "./components/login/Login";
 import RegisterUser from "./components/login/RegisterUser";
 import RegisterCCDV from "./components/login/RegisterCCDV";
@@ -10,6 +8,7 @@ import RegisterCCDV from "./components/login/RegisterCCDV";
 export default function App() {
     return (
         <>
+            <Navbar/>
             <BrowserRouter>
                 <Routes>
                     <Route path={"/registerUser"} element={<RegisterUser/>}></Route>
@@ -18,6 +17,7 @@ export default function App() {
                     <Route path={"/login"} element={<Login/>}></Route>
                 </Routes>
             </BrowserRouter>
+            <FooterWithSocialLinks/>
         </>
     );
 }
