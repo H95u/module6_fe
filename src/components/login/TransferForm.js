@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import "./TranstForm.css"
-export default function TranstForm () {
+import "./TransferForm.css"
+export default function TransferForm () {
     return(
         <>
             <div className={"create_account-content"}>

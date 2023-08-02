@@ -1,7 +1,9 @@
 .create_account-content {
+    background-image: linear-gradient(to right, #ccbcbe, #eedfdf);
     min-width: 600px;
     position: relative;
     z-index: 2;
+    padding: 35px 0 0;
 }
 
 .create_account-content ul {
