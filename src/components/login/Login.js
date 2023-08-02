@@ -170,6 +170,18 @@ const Login = () => {
                                             >
                                                 {isSubmitting ? "Loading..." : "Login"}
                                             </Button>
+                                            &ensp;
+                                            &ensp;
+
+                                            <Button
+                                                type="reset"
+                                                className="mb-4 px-5"
+                                                variant="dark"
+                                                size="lg"
+                                                disabled={isSubmitting}
+                                            >
+                                                {isSubmitting ? "Loading..." : "Login"}
+                                            </Button>
                                         </Form>
                                     )}
                                 </Formik>
