@@ -1,0 +1,125 @@
+#inner-info {
+    margin-bottom: 20px;
+}
+
+.item-nav-name {
+    font-family: initial;
+    font-size: 20px
+}
+
+.item-nav-value {
+    color: red;
+}
+
+.partner-profile {
+    width: 80%;
+    margin: auto;
+    padding: 200px 10px;
+}
+
+.card {
+    width: 25%;
+    border: white;
+    padding-top: 10px;
+    color: lightslategrey;
+}
+
+.card img {
+    border-radius: 10px;
+    height: 350px;
+    width: 300px;
+}
+
+.ready {
+    margin-top: 10px;
+    text-align: center;
+    font-family: initial;
+    font-size: 20px;
+    color: #04be54;
+}
+
+.dob {
+    text-align: center;
+    font-family: initial;
+    font-size: 20px;
+}
+
+.info {
+    margin: 20px;
+    width: 50%;
+}
+
+.info h2 {
+    font-size: 25px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.info button {
+    color: white;
+    background: #fa4b2d;
+    border: solid 1px;
+    border-radius: 20px;
+    margin-top: 10px;
+    padding-bottom: 2px;
+    width: 100px;
+}
+
+hr {
+    width: 98%;
+}
+
+.action {
+    width: 25%;
+    height: 320px;
+    margin-top: 20px;
+    text-align: center;
+    border: solid 1px #e1dede;
+    border-radius: 10px;
+}
+
+.action a {
+    border: solid 1px #e1dede;
+    margin-top: 35px;
+    width: 90%;
+    height: 55px;
+    padding-top: 16px;
+    font-family: initial;
+}
+
+.action h1 {
+    margin-top: 10px;
+    font-size: 25px;
+    margin-right: 150px;
+    color: #fa4b2d;
+    font-weight: bold;
+}
+
+.option {
+    margin-top: 20px;
+}
+
+.option a {
+    width: 100%;
+}
+
+.album-of-player img {
+    width: 121px;
+    height: 121px;
+}
+
+#inner-option {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.profile {
+    font-family: initial;
+    font-size: 17px;
+    margin-top: 20px;
+}
+
+.profile p {
+    padding-top: 2px;
+
+}

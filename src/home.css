@@ -1,0 +1,54 @@
+.nav {
+    z-index: 999;
+    position: fixed;
+    background-color: #eedfdf;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.content {
+    padding: 50px;
+}
+
+.footer {
+    padding: 20px;
+    background-color: #eedfdf;
+}
+
+.banner {
+    margin-top: 150px;
+    margin-bottom: 100px;
+}
+
+.card {
+    margin-bottom: 80px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination li {
+    padding: 20px;
+    color: black;
+}
+
+.custom-page {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.custom-page.active {
+    background-color: cyan;
+}
+
+#logo {
+    width: 100px;
+    height: 50px;
+}
