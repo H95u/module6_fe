@@ -1,0 +1,119 @@
+.create_account-content {
+    min-width: 600px;
+    position: relative;
+    z-index: 2;
+}
+
+.create_account-content ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+
+.create_account-content li {
+    max-height: 700px;
+    min-width:  600px;
+    margin: 100px 0 120px;
+    width: 50%;
+    text-align: center;
+    position: relative;
+}
+
+li {
+    line-height: 1.538em;
+    font-weight: 400;
+    color: #576871;
+    font-size: 13px;
+}
+
+.create_account-content li h2 {
+    font-size: 36px;
+    line-height: 48px;
+    font-weight: 300;
+    text-align: center;
+    position: relative;
+}
+
+h2 {
+    margin-left: -0.1em !important;
+    color: #39424e;
+}
+
+.create_account-content li h2 strong {
+    display: block;
+    color: #fff;
+    background: #068932;
+    line-height: 20px;
+    font-size: 12px;
+    padding: 0 10px;
+    border-radius: 4px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -20px);
+}
+h2 strong {
+    font-weight: 700;
+}
+.create_account-content li:first-child h2 em {
+    color: #068932;
+}
+.create_account-content li h2 em {
+    color: #097BBF;
+    font-style: normal;
+}
+h2 em {
+    color: #068932;
+    background: -webkit-linear-gradient(right, #32C766, #068932);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-style: normal;
+}
+.create_account-content li p:nth-child(2) {
+    margin: 24px auto;
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.create_account-content li p {
+    text-align: center;
+    margin: 20px auto;
+    font-size: 18px;
+    line-height: 24px;
+    color: #050C1B;
+    font-weight: 300;
+    max-width: 415px;
+}
+.create_account-content li:first-child .hr_button {
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    border-color: #068932;
+    background: #068932;
+}
+.create_account-bottom {
+    position: absolute;
+    margin-bottom: -24px;
+    left: 50%;
+    top: 100%;
+    transform: translate(-50%, 0);
+
+}
+.create_account-bottom {
+    text-align: center;
+    margin: 20px auto;
+    font-size: 18px;
+    line-height: 24px;
+    color: #050C1B;
+    font-weight: 300;
+    max-width: 415px;
+}
+.create_account-bottom a {
+    color: #0E141E;
+    font-weight: bold;
+    font-size: 16px;
+}
+a {
+    outline: none;
+}
