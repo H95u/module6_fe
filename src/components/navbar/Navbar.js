@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {
     Navbar,
     Typography,
@@ -8,7 +8,6 @@ import {
     MenuList,
     MenuItem,
     Avatar,
-    Card,
     Input,
 } from "@material-tailwind/react";
 import {
@@ -21,33 +20,65 @@ import {
 
 } from "@heroicons/react/24/outline";
 
+
+const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
+
+const handleProfileInfo = () => {
+    // Implement the function for "Thông tin cá nhân"
+    // e.g., redirect to the user's profile page
+};
+
+const handleEditProfile = () => {
+    // Implement the function for "Chỉnh sửa thông tin"
+    // e.g., redirect to the edit profile page
+};
+
+const handleRecharge = () => {
+    // Implement the function for "Nạp tiền"
+    // e.g., show a recharge modal or redirect to a recharge page
+};
+
+const handleHelp = () => {
+    // Implement the function for "Trợ giúp"
+    // e.g., show a help modal or redirect to a help page
+};
+
+const handleLogout = () => {
+    localStorage.removeItem("loggingUser");
+    window.location.reload();
+};
+
 // profile menu component
 const profileMenuItems = [
     {
         label: "Thông tin cá nhân",
         icon: UserCircleIcon,
+        handler: handleProfileInfo, // Replace handleProfileInfo with the actual function
     },
     {
         label: "Chỉnh sửa thông tin",
         icon: Cog6ToothIcon,
+        handler: handleEditProfile, // Replace handleEditProfile with the actual function
     },
     {
         label: "Nạp tiền",
         icon: InboxArrowDownIcon,
+        handler: handleRecharge, // Replace handleRecharge with the actual function
     },
     {
         label: "Trợ giúp",
         icon: LifebuoyIcon,
+        handler: handleHelp, // Replace handleHelp with the actual function
     },
     {
         label: "Đăng xuất",
         icon: PowerIcon,
+        handler: handleLogout, // Replace handleLogout with the actual function
     },
 ];
 
 function ProfileMenu() {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
     const closeMenu = () => setIsMenuOpen(false);
 
     return (
@@ -63,8 +94,9 @@ function ProfileMenu() {
                         size="sm"
                         alt="tania andrew"
                         className="border border-blue-500 p-0.5"
-                        src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+                        src={loggingUser.img}
                     />
+
                     <ChevronDownIcon
                         strokeWidth={2.5}
                         className={`h-3 w-3 transition-transform ${
@@ -74,12 +106,15 @@ function ProfileMenu() {
                 </Button>
             </MenuHandler>
             <MenuList className="p-1">
-                {profileMenuItems.map(({ label, icon }, key) => {
+                {profileMenuItems.map(({label, icon, handler}, key) => {
                     const isLastItem = key === profileMenuItems.length - 1;
                     return (
                         <MenuItem
                             key={label}
-                            onClick={closeMenu}
+                            onClick={() => {
+                                closeMenu();
+                                handler();
+                            }}
                             className={`flex items-center gap-2 rounded ${
                                 isLastItem
                                     ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
@@ -106,6 +141,7 @@ function ProfileMenu() {
     );
 }
 
+
 export function ComplexNavbar() {
 
 
@@ -117,7 +153,7 @@ export function ComplexNavbar() {
                     href="#"
                     className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
                 >
-                   Lover
+                    Lover
                 </Typography>
                 <div className="relative flex w-full gap-2 md:w-max">
                     <Input
@@ -129,11 +165,10 @@ export function ComplexNavbar() {
                         }}
                     />
                     <Button size="sm" className="!absolute right-1 top-1 rounded">
-                      Tìm kiếm
+                        Tìm kiếm
                     </Button>
                 </div>
-
-                <ProfileMenu />
+                {loggingUser != null ? <ProfileMenu/> : ""}
             </div>
 
         </Navbar>
