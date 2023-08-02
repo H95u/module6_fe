@@ -85,6 +85,10 @@ hr {
     height: 55px;
     padding-top: 16px;
     font-family: initial;
+    font-weight: bold;
+}
+.booking {
+    color: white;
 }
 
 .action h1 {
@@ -108,8 +112,9 @@ hr {
     height: 121px;
 }
 
-#inner-option {
-    text-align: center;
+.service-name {
+    flex: 0 0 auto;
+    width: auto;
     margin-bottom: 10px;
 }
 

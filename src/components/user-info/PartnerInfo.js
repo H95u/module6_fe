@@ -78,8 +78,8 @@ export default function PartnerInfo() {
                             <h2>Dịch vụ</h2>
                             <div className={`row`}>
                                 {options.map(item => (
-                                    <div className={`col-lg-4`} id={`inner-option`}>
-                                        <a className={"btn btn-outline-secondary"}>{item.name}</a>
+                                    <div className={`service-name`}>
+                                        <a className={"btn btn-outline-danger"}>{item.name}</a>
                                     </div>
                                 ))}
                             </div>
@@ -111,7 +111,7 @@ export default function PartnerInfo() {
                     </div>
                     <div className={"action"}>
                         <h1>80.000đ/h</h1>
-                        <div><a className={"btn btn-danger"}>THUÊ</a></div>
+                        <div className={`booking`}><a className={"btn btn-danger"}>THUÊ</a></div>
                         <div><a className={"btn btn-light"}>TẶNG TIỀN</a></div>
                         <div><a className={"btn btn-light"}><i className={"bi bi-chat-square-fill"}></i> CHÁT</a></div>
                     </div>
