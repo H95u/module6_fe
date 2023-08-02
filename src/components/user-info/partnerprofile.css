@@ -17,18 +17,18 @@
     padding: 200px 10px;
 }
 
-/*.card {*/
-/*    width: 25%;*/
-/*    border: white;*/
-/*    padding-top: 10px;*/
-/*    color: lightslategrey;*/
-/*}*/
+.title {
+    width: 25%;
+    border: white;
+    padding-top: 10px;
+    color: lightslategrey;
+}
 
-/*.card img {*/
-/*    border-radius: 10px;*/
-/*    height: 350px;*/
-/*    width: 300px;*/
-/*}*/
+.title img {
+    border-radius: 10px;
+    height: 350px;
+    width: 300px;
+}
 
 .ready {
     margin-top: 10px;

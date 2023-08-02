@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Container, Row, Col, Card, Image, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { FaCubes } from 'react-icons/fa';
-
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 const Login = () => {
@@ -180,7 +179,7 @@ const Login = () => {
                                                 size="lg"
                                                 disabled={isSubmitting}
                                             >
-                                                {isSubmitting ? "Loading..." : "Login"}
+                                                {isSubmitting ? "Loading..." : "Reset"}
                                             </Button>
                                         </Form>
                                     )}
