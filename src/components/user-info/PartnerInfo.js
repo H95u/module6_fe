@@ -19,7 +19,7 @@ export default function PartnerInfo() {
     }, [])
 
     return (
-        <>
+        <div className={"partner-info"}>
             <div className={`partner-profile`}>
                 <div className={`d-flex justify-content-center`}>
                     <div className={`card`}>
@@ -117,6 +117,6 @@ export default function PartnerInfo() {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }

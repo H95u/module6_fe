@@ -3,6 +3,7 @@ import {FooterWithSocialLinks} from "./components/footer/Footer";
 import Content from "./components/content/Content";
 import UserInfo from "./components/user-info/UserInfo";
 import Navbar from "./components/navbar/Navbar";
+import PartnerInfo from "./components/user-info/PartnerInfo";
 
 
 export default function App() {
@@ -12,7 +13,7 @@ export default function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path={"/"} element={<Content/>}></Route>
-                    <Route path={"/user/:id"} element={<UserInfo/>}></Route>
+                    <Route path={"/user/:id"} element={<PartnerInfo/>}></Route>
                 </Routes>
             </BrowserRouter>
             <FooterWithSocialLinks/>
