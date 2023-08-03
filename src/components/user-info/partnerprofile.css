@@ -124,3 +124,7 @@ hr {
 .modal-footer {
     text-align: center;
 }
+.form-check-label {
+    margin-bottom: 0;
+    margin-left: 20px;
+}
