@@ -218,7 +218,7 @@ const RegisterCCDV = () => {
                                                         </div>
 
                                                         <div className='d-grid'>
-                                                            <button type='submit' className='btn btn-primary btn-lg'
+                                                            <button  className='btn btn-primary btn-lg'
                                                                     disabled={isSubmitting}>Đăng kí
                                                             </button>
                                                         </div>

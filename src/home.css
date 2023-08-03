@@ -1,18 +1,17 @@
 #nav {
-    z-index: 999;
-    position: sticky;
-    margin-left: 75px;
     top: 0;
     right: 0;
-    /*transition: transform 0.3s ease-in-out;*/
+    position: sticky;
+    z-index: 1000;
 }
-
 .content {
     padding: 50px;
 }
 
 .footer {
+
     background-color: #fff;
+    padding: 20px;
 }
 
 .banner {
@@ -23,6 +22,7 @@
 
 .card {
     margin-bottom: 80px;
+    box-shadow: 0 10px 20px rgb(110, 115, 119);
 }
 
 .pagination {

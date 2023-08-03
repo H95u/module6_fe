@@ -1,8 +1,16 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import Banner from "../banner/Banner";
 import ReactPaginate from "react-paginate";
+import {
+    Card,
+    CardHeader,
+    CardBody,
+    CardFooter,
+    Typography,
+    Button,
+} from "@material-tailwind/react";
 
 export default function Content() {
     const [users, setUsers] = useState([]);
@@ -29,25 +37,32 @@ export default function Content() {
     const currentPageData = users.slice(startIndex, endIndex);
 
     return (
-        <div className={"content"}>
+        <div className={"content"} style={{margin: 0}}>
             <div className={"container"}>
-                <Banner />
+                <Banner/>
                 <div className={"row"}>
                     {currentPageData.map((item) => (
                         <div className={"col-md-3"} key={item.id}>
                             <Link to={`/user/${item.id}`}>
-                                <div className="card" style={{ width: "18rem" }}>
-                                    <img
-                                        style={{ height: "250px" }}
-                                        src={item.img}
-                                        className="card-img-top"
-                                        alt="..."
-                                    />
-                                    <div className="card-body">
-                                        <h5 className="card-title">{item.username}</h5>
-                                        <p className="card-text">{item.price} / giờ</p>
-                                    </div>
-                                </div>
+                                <Card className={"card"}>
+                                    <CardHeader color="blue-gray" className="relative h-60">
+                                        <img
+                                            src={item.img}
+                                            alt="card-image"
+                                        />
+                                    </CardHeader>
+                                    <CardBody>
+                                        <Typography variant="h5" color="blue-gray" className="mb-2">
+                                            {item.username}
+                                        </Typography>
+                                        <Typography>
+                                            {item.price}
+                                        </Typography>
+                                    </CardBody>
+                                    <CardFooter className="pt-0">
+                                        <Button>Thuê ngay</Button>
+                                    </CardFooter>
+                                </Card>
                             </Link>
                         </div>
                     ))}

@@ -5,10 +5,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    /*width: 80%;*/
 }
 
 .slider {
-    width: 850px;
+    width: 1050px;
     height: 200px;
     border-radius: 10px;
     overflow: hidden;
@@ -30,7 +31,7 @@
 }
 
 .slide img {
-    width: 850px;
+    width: 1050px;
     height: 200px;
 }
 
@@ -38,7 +39,7 @@
     position: absolute;
     width: 800px;
     margin-top: -320px;
-    padding-left: 45px;
+    padding-left: 250px;
     display: flex;
     justify-content: center;
 }
@@ -78,7 +79,7 @@
     width: 800px;
     justify-content: center;
     margin-top: 180px;
-    padding-left: 45px;
+    padding-left: 250px;
 }
 .navigation-auto div{
     border: 2px solid #d2b9b9;
