@@ -3,7 +3,7 @@ import axios from "axios";
 import * as Yup from "yup";
 import {Link, useNavigate} from "react-router-dom";
 import Swal from "sweetalert2";
-import {Container, Row, Col, Card, Image, InputGroup, FormControl, Button} from 'react-bootstrap';
+import {Container, Row, Col, Card, Image, InputGroup, Button} from 'react-bootstrap';
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import "./Login.css";
 import {Typography, Avatar} from '@mui/material';
@@ -18,10 +18,10 @@ const Login = () => {
 
     const validateSchema = Yup.object({
         username: Yup.string()
-            .required("UserName is required")
-            .matches(/^[a-zA-ZÀ-ỹ]+(([',. -][a-zA-ZÀ-ỹ ])?[a-zA-ZÀ-ỹ]*)*$/, "username must contain only letters"),
+            .required("Tên là bắt buộc")
+            .matches(/^[a-zA-ZÀ-ỹ]+(([',. -][a-zA-ZÀ-ỹ ])?[a-zA-ZÀ-ỹ]*)*$/, "Nhập tên từ a-zA-Z có dấu và không chứa chữ số"),
         password: Yup.string()
-            .required("Password is required")
+            .required("Mật khẩu là bắt buộc")
     });
 
     const handleSubmit = (values, {setSubmitting, setErrors}) => {
@@ -36,7 +36,7 @@ const Login = () => {
             .post("http://localhost:8080/api/auth/login", values, config)
             .then(response => {
                 Swal.fire({
-                    title: "Login success!",
+                    title: "Đăng nhập thành công!",
                     icon: "success",
                     confirmButtonText: "OK"
                 }).then(result => {
@@ -48,10 +48,10 @@ const Login = () => {
                 });
             })
             .catch(error => {
-                setErrors({errorMessage: "Login failed"});
+                setErrors({errorMessage: "Kiểm tra lại tên đăng nhập hoặc mật khẩu"});
                 Swal.fire({
-                    title: "Error!",
-                    text: "Login failed",
+                    title: "Lỗi rồi!",
+                    text: "Đăng nhập thất bại",
                     icon: "error",
                     confirmButtonText: "OK"
                 });
@@ -66,7 +66,7 @@ const Login = () => {
             <Container className="-my-75">
                 <Card>
                     <Row className="g-0">
-                        <Col md="6">
+                        <Col md="3">
                             <Image
                                 src="https://image-us.24h.com.vn/upload/3-2018/images/2018-07-27/1532655855-378-hot-girl-tram-anh-xinh-dep-di-su-kien-bo-mac-loi-xi-xao-8-1532653812-width640height960.jpg"
                                 alt="login form"
@@ -96,7 +96,7 @@ const Login = () => {
                                         <LockOutlinedIcon/>
                                     </Avatar>
                                     <Typography component="h1" variant="h5">
-                                        Sign in
+                                        Trang đăng nhập
                                     </Typography>
                                 </div>
 
@@ -108,7 +108,7 @@ const Login = () => {
                                     {({isSubmitting, errors, touched}) => (
                                         <Form>
                                             <InputGroup className="mb-4">
-                                                <InputGroup.Text>User name</InputGroup.Text>
+                                                <InputGroup.Text>Tên đăng nhập</InputGroup.Text>
                                                 <Field
                                                     type="text"
                                                     id="username"
@@ -126,9 +126,8 @@ const Login = () => {
                                                 />
                                             </InputGroup>
 
-
                                             <InputGroup className="mb-4">
-                                                <InputGroup.Text>Password</InputGroup.Text>
+                                                <InputGroup.Text>Mật khẩu</InputGroup.Text>
                                                 <Field
                                                     type="password"
                                                     id="password"
@@ -156,7 +155,7 @@ const Login = () => {
                                                     size="lg"
                                                     disabled={isSubmitting}
                                                 >
-                                                    {isSubmitting ? "Loading..." : "Login"}
+                                                    {isSubmitting ? "Loading..." : "Đăng nhập"}
                                                 </Button>
 
                                                 &ensp;
@@ -169,7 +168,7 @@ const Login = () => {
                                                     size="lg"
                                                     disabled={isSubmitting}
                                                 >
-                                                    {isSubmitting ? "Loading..." : "Reset"}
+                                                    {isSubmitting ? "Loading..." : "Đặt lại"}
                                                 </Button>
                                             </div>
 
@@ -177,30 +176,15 @@ const Login = () => {
                                     )}
                                 </Formik>
 
-                                <div style={{display: 'flex', justifyContent: 'space-between', color: "#393f81"}}>
-                                    <Link href="#" variant="body2">
-                                        Forgot password?
+                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                    <Link href="#" variant="body2" style={{color: "#393f81"}}>
+                                        Bạn quên mật khẩu?
                                     </Link>
-
-                                    <Link to={"/signup"}>
-                                        Don't have an account? Sign Up
-                                    </Link>
+                                    <p>Bạn chưa có tài khoản ?
+                                    <Link to={"/signup"} style={{color: "#393f81"}}>
+                                        Đăng kí ở đây
+                                    </Link></p>
                                 </div>
-
-                                {/*<div style={{*/}
-                                {/*    display: "flex",*/}
-                                {/*    justifyContent: "center",*/}
-                                {/*    alignItems: "center",*/}
-                                {/*    height: "100vh",*/}
-                                {/*    marginTop: "-20px"*/}
-                                {/*}}>*/}
-                                {/*    <img*/}
-                                {/*        src="https://files.playerduo.net/production/images/donate_gif/0.gif"*/}
-                                {/*        className="jumping-image"*/}
-                                {/*        alt="load"*/}
-                                {/*        style={{width: "200px", height: "200px",}}*/}
-                                {/*    />*/}
-                                {/*</div>*/}
                             </Card.Body>
                         </Col>
                     </Row>

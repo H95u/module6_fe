@@ -1,7 +1,10 @@
 #nav {
     z-index: 999;
-    position: fixed;
-    margin-left: 105px;
+    position: sticky;
+    margin-left: 75px;
+    top: 0;
+    right: 0;
+    /*transition: transform 0.3s ease-in-out;*/
 }
 
 .content {
@@ -9,11 +12,11 @@
 }
 
 .footer {
-    padding: 20px;
-    background-color: #eedfdf;
+    background-color: #fff;
 }
 
 .banner {
+
     margin-top: 150px;
     margin-bottom: 100px;
 }
