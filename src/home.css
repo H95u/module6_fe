@@ -1,8 +1,9 @@
 #nav {
     top: 0;
     right: 0;
+    left: 70px;
     position: sticky;
-    z-index: 1000;
+    z-index: 999;
 }
 .content {
     padding: 50px;

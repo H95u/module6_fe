@@ -1,5 +1,13 @@
 .create_account-content {
-    background-image: linear-gradient(to right, #ccbcbe, #eedfdf);
+    /*background-image: linear-gradient(to right, #ccbcbe, #eedfdf);*/
+    /*min-width: 600px;*/
+    /*position: relative;*/
+    /*z-index: 2;*/
+    /*padding: 35px 0 0;*/
+    background-image: linear-gradient(to right, #ccbcbe, #ccbcbe 50%, #ffffff 50%);
+    background-size: 200% 100%;
+    background-position: left center;
+    background-repeat: no-repeat;
     min-width: 600px;
     position: relative;
     z-index: 2;

@@ -147,7 +147,8 @@ const Login = () => {
                                             {errors.errorMessage && (
                                                 <div className="text-danger mb-4">{errors.errorMessage}</div>
                                             )}
-                                            <div style={{display: 'flex', justifyContent: 'center'}}>
+                                            <div style={{display: 'flex', justifyContent: 'center',
+                                            }}>
                                                 <Button
                                                     type="submit"
                                                     className="mb-4 px-5"
