@@ -66,7 +66,7 @@ const Login = () => {
             <Container className="-my-75">
                 <Card>
                     <Row className="g-0">
-                        <Col md="3">
+                        <Col md="4">
                             <Image
                                 src="https://image-us.24h.com.vn/upload/3-2018/images/2018-07-27/1532655855-378-hot-girl-tram-anh-xinh-dep-di-su-kien-bo-mac-loi-xi-xao-8-1532653812-width640height960.jpg"
                                 alt="login form"
@@ -74,7 +74,7 @@ const Login = () => {
                             />
                         </Col>
 
-                        <Col md="6">
+                        <Col md="8">
                             <Card.Body className="d-flex flex-column">
                                 <div className="d-flex flex-row mt-2">
                                     <img

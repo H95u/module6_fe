@@ -1,23 +1,13 @@
 button,
 [type='reset'],
-[type='submit']
-{
+[type='submit'] {
     background-color: #007bff;
 }
 
+.-my-75 {
+    margin: 100px auto;
+}
 
-
-{/*<div style={{*/}
-{/*    display: "flex",*/}
-{/*    justifyContent: "center",*/}
-{/*    alignItems: "center",*/}
-{/*    height: "100vh",*/}
-{/*    marginTop: "-20px"*/}
-{/*}}>*/}
-{/*    <img*/}
-{/*        src="https://files.playerduo.net/production/images/donate_gif/0.gif"*/}
-{/*        className="jumping-image"*/}
-{/*        alt="load"*/}
-{/*        style={{width: "200px", height: "200px",}}*/}
-{/*    />*/}
-{/*</div>*/}
+.container-xxl {
+    margin: 100px auto;
+}
