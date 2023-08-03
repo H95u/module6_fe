@@ -16,19 +16,14 @@
     margin: auto;
     padding: 200px 10px;
 }
-
-<<<<<<< HEAD
-.title {
-=======
 .cards {
->>>>>>> 9ceb10723698c40c4dd4692fe207328c9849c83d
     width: 25%;
     border: white;
     padding-top: 10px;
     color: lightslategrey;
 }
 
-.title img {
+.cards img {
     border-radius: 10px;
     height: 350px;
     width: 300px;
