@@ -37,7 +37,7 @@ export default function Content() {
     const currentPageData = users.slice(startIndex, endIndex);
 
     return (
-        <div className={"content"}>
+        <div className={"content"} style={{margin: 0}}>
             <div className={"container"}>
                 <Banner/>
                 <div className={"row"}>
