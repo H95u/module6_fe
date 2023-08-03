@@ -21,7 +21,6 @@ import {
 } from "@heroicons/react/24/outline";
 
 
-
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
 
 const handleProfileInfo = () => {
@@ -53,43 +52,45 @@ const profileMenuItems = [
     {
         label: "Thông tin cá nhân",
         icon: UserCircleIcon,
-        handler: handleProfileInfo, // Replace handleProfileInfo with the actual function
+        handler: handleProfileInfo,
     },
     {
         label: "Chỉnh sửa thông tin",
         icon: Cog6ToothIcon,
-        handler: handleEditProfile, // Replace handleEditProfile with the actual function
+        handler: handleEditProfile,
     },
     {
         label: "Nạp tiền",
         icon: InboxArrowDownIcon,
-        handler: handleRecharge, // Replace handleRecharge with the actual function
+        handler: handleRecharge,
     },
     {
         label: "Trợ giúp",
         icon: LifebuoyIcon,
-        handler: handleHelp, // Replace handleHelp with the actual function
+        handler: handleHelp,
     },
     {
         label: "Đăng xuất",
         icon: PowerIcon,
-        handler: handleLogout, // Replace handleLogout with the actual function
+        handler: handleLogout,
     },
 ];
 
-export function LoginButton() {
-
+function LoginButton() {
     return (
-        <div>
+        <div className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto">
+            <a href="/login">
             <Button
-                variant={"gradient"}
-                size={"sm"}
-                className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+                variant="gradient"
+                size="sm"
             >
+                Đăng nhập
             </Button>
+            </a>
         </div>
     );
 }
+
 
 function ProfileMenu() {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -157,7 +158,6 @@ function ProfileMenu() {
 
 
 export function ComplexNavbar() {
-
 
     return (
         <Navbar id={"nav"} className="mx-auto max-w-screen-xl px-4 py-3">
