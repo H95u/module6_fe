@@ -54,16 +54,6 @@
     font-weight: bold;
 }
 
-.info button {
-    color: white;
-    background: #fa4b2d;
-    border: solid 1px;
-    border-radius: 20px;
-    margin-top: 10px;
-    padding-bottom: 2px;
-    width: 100px;
-}
-
 hr {
     width: 98%;
 }
@@ -125,5 +115,15 @@ hr {
 
 .profile p {
     padding-top: 2px;
-
+}
+.modal-title {
+    font-weight: bold;
+    margin-left: 125px;
+}
+.modal-footer {
+    text-align: center;
+}
+.form-check-label {
+    margin-bottom: 0;
+    margin-left: 20px;
 }

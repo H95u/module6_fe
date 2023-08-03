@@ -34,7 +34,7 @@ export default function Content() {
                 <Banner />
                 <div className={"row"}>
                     {currentPageData.map((item) => (
-                        <div className={"col-lg-3"} key={item.id}>
+                        <div className={"col-md-3"} key={item.id}>
                             <Link to={`/user/${item.id}`}>
                                 <div className="card" style={{ width: "18rem" }}>
                                     <img
