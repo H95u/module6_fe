@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import Banner from "../banner/Banner";
+import Story from "../story/Story";
 import ReactPaginate from "react-paginate";
 import {
     Card,
@@ -38,9 +39,10 @@ export default function Content() {
     const currentPageData = users.slice(startIndex, endIndex);
 
     return (
-        <div className={"content"} style={{margin: 0}}>
+        <div className={"content"} style={{margin: 0, padding:0}}>
             <div className={"container"}>
                 <Banner/>
+                <Story/>
                 <Typography variant="h3" color="red" className="mb-8 text-center" textGradient>
                     Danh sách hot girl, hot boy
                 </Typography>
