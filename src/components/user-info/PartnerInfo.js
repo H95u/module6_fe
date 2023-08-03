@@ -11,7 +11,8 @@ export default function PartnerInfo() {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/users/${id}`).then((response) => {
+        axios.get(`http://localhost:8080/api/users/${id}`)
+            .then((response) => {
             setUser(response.data);
             setOptions(response.data.options);
             setAddress(response.data.address)
