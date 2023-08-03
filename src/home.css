@@ -15,6 +15,7 @@
 
 .card {
     margin-bottom: 80px;
+    box-shadow: 0 10px 20px rgb(35, 156, 218);
 }
 
 .pagination {
