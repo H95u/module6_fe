@@ -2,22 +2,55 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import "./partnerprofile.css";
+import * as bootstrap from 'bootstrap';
 
 export default function PartnerInfo() {
     const [user, setUser] = useState({});
     const [options, setOptions] = useState([]);
+    const [newOptions, setNewOptions] = useState([]);
     const [allOptions, setAllOptions] = useState([]);
     const [address, setAddress] = useState("");
     const {id} = useParams();
+    const handleCheck = (id) => {
+        setNewOptions(prev => {
+            const isChecked = newOptions.includes(id);
+            if (isChecked) {
+                return newOptions.filter(item => item !== id)
+            } else {
+                return [...prev, id]
+            }
+        });
+    }
+
+    const handleSubmit = () => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }
+        axios.post("http://localhost:8080/api/users/add-options", {
+            optionIds: newOptions,
+
+        }, config).then((response) => {
+            console.log("abc->>>>>>>>>>>", response.data)
+            setOptions(response.data)
+            const myModalEl = document.getElementById('exampleModal');
+            let modal = bootstrap.Modal.getInstance(myModalEl)
+            if (modal ==  null) {
+                return;
+            }
+            modal._hideModal();
+        })
+    }
 
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/users/${id}`)
-            .then((response) => {
-                setUser(response.data);
-                setOptions(response.data.options);
-                setAddress(response.data.address)
-            })
+        axios.get(`http://localhost:8080/api/users/${id}`).then((response) => {
+            setUser(response.data);
+            setOptions(response.data.options);
+            setAddress(response.data.address)
+        })
     }, [])
 
 
@@ -47,7 +80,7 @@ export default function PartnerInfo() {
                                     <h2>{user.nickname}</h2>
                                 </div>
                                 <div>
-                                    <button className={`btn btn-success`} data-bs-toggle={"modal"}
+                                    <button className={`btn btn-danger`} data-bs-toggle={"modal"}
                                             data-bs-target={"#exampleModal"}>Cập nhật dịch vụ cung cấp
                                     </button>
                                 </div>
@@ -91,7 +124,7 @@ export default function PartnerInfo() {
                                 <h2>Dịch vụ</h2>
                                 <div className={`row`}>
                                     {options.map(item => (
-                                        <div className={`service-name`}>
+                                        <div className={`service-name`} key={item.id}>
                                             <a className={"btn btn-outline-danger"}>{item.name}</a>
                                         </div>
                                     ))}
@@ -123,7 +156,12 @@ export default function PartnerInfo() {
                             </div>
                         </div>
                         <div className={"action"}>
-                            <h1>80.000đ/h</h1>
+                            {user.price != null &&
+                                <h1>{user.price} đ/h</h1>
+                            }
+                            {user.price == null &&
+                                <h1>---</h1>
+                            }
                             <div className={`booking`}><a className={"btn btn-danger"}>THUÊ</a></div>
                             <div><a className={"btn btn-light"}>TẶNG TIỀN</a></div>
                             <div><a className={"btn btn-light"}><i className={"bi bi-chat-square-fill"}></i> CHÁT</a>
@@ -143,17 +181,19 @@ export default function PartnerInfo() {
                             <button className={"btn-close"} data-bs-dismiss={"modal"} aria-label={"Close"}></button>
                         </div>
                         <div className={"modal-body"}>
-                            {allOptions.map((items) =>
-                                <div className={"form-check form-switch"}>
-                                    <input className={"form-check-input"} type={"checkbox"} id={items.id}/>
-                                    <label className={"form-check-label"} htmlFor={items.id}>{items.name}</label>
+                            {allOptions.map(item =>
+                                <div className={"form-check form-switch"} key={item.id}>
+                                    <input className={"form-check-input"} type={"checkbox"} id={item.id}
+                                           checked={newOptions.includes(item.id)}
+                                           onChange={() => handleCheck(item.id)}/>
+                                    <label className={"form-check-label"} htmlFor={item.id}>{item.name}</label>
                                 </div>
                             )}
 
                         </div>
                         <div className={"modal-footer"}>
-                            <button className={"btn btn-secondary"} data-bs-dismiss={"modal"}>Đóng</button>
-                            <button className={"btn btn-primary"}>Cập nhật</button>
+                            <button onClick={handleSubmit} className={"btn btn-danger"}>Cập nhật</button>
+                            <button className={"btn btn-light"} data-bs-dismiss={"modal"}>Đóng</button>
                         </div>
                     </div>
                 </div>
