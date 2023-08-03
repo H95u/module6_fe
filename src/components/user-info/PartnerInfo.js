@@ -41,11 +41,11 @@ export default function PartnerInfo() {
                             <hr/>
                         </div>
                         <div className={"info"}>
-                            <div className={`row`} id={`inner-info`}>
-                                <div className={"col-sm-7"}>
+                            <div className={`d-flex justify-content-between`} id={`inner-info`}>
+                                <div>
                                     <h2>{user.nickname}</h2>
                                 </div>
-                                <div className={"col-sm-5"}>
+                                <div>
                                     <button className={`btn btn-success`} data-bs-toggle={"modal"}
                                             data-bs-target={"#exampleModal"}>Cập nhật dịch vụ cung cấp
                                     </button>
