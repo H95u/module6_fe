@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {
     Navbar,
     Typography,
@@ -8,7 +8,7 @@ import {
     MenuList,
     MenuItem,
     Avatar,
-    Input, Dialog, CardHeader, CardBody, Checkbox, CardFooter,
+    Input,
 } from "@material-tailwind/react";
 import {
     UserCircleIcon,
@@ -19,14 +19,13 @@ import {
     PowerIcon,
 
 } from "@heroicons/react/24/outline";
-import {Card} from "react-bootstrap";
+
 
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
 
 const handleProfileInfo = () => {
-    // Implement the function for "Thông tin cá nhân"
-    // e.g., redirect to the user's profile page
+    window.location.href = "http://localhost:3000/user-info"
 };
 
 const handleEditProfile = () => {
@@ -78,60 +77,17 @@ const profileMenuItems = [
     },
 ];
 
-export function DialogWithForm() {
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen((cur) => !cur);
+export function LoginButton() {
 
     return (
-        <>
+        <div>
             <Button
                 variant={"gradient"}
                 size={"sm"}
                 className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
-                onClick={handleOpen}>Đăng nhập
-            </Button>
-            <Dialog
-                size="xs"
-                open={open}
-                handler={handleOpen}
-                className="bg-transparent shadow-none"
             >
-                <Card className="mx-auto w-full max-w-[24rem]">
-                    <CardHeader
-                        variant="gradient"
-                        color="blue"
-                        className="mb-4 grid h-28 place-items-center"
-                    >
-                        <Typography variant="h3" color="white">
-                            Đăng nhập
-                        </Typography>
-                    </CardHeader>
-                    <CardBody className="flex flex-col gap-4">
-                        <Input label="Tên đăng nhập" size="lg" />
-                        <Input label="Mật khẩu" size="lg" />
-
-                    </CardBody>
-                    <CardFooter className="pt-0">
-                        <Button variant="gradient" onClick={handleOpen} fullWidth>
-                            Đăng nhập
-                        </Button>
-                        <Typography variant="small" className="mt-6 flex justify-center">
-                            Bạn chưa có tài khoản?
-                            <Typography
-                                as="a"
-                                href="/login"
-                                variant="small"
-                                color="blue"
-                                className="ml-1 font-bold"
-                                onClick={handleOpen}
-                            >
-                                Đăng ký
-                            </Typography>
-                        </Typography>
-                    </CardFooter>
-                </Card>
-            </Dialog>
-        </>
+            </Button>
+        </div>
     );
 }
 
@@ -208,7 +164,7 @@ export function ComplexNavbar() {
             <div className="mx-auto flex text-blue-gray-900">
                 <Typography
                     as="a"
-                    href="#"
+                    href="/"
                     className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
                 >
                     Lover
@@ -226,7 +182,7 @@ export function ComplexNavbar() {
                         Tìm kiếm
                     </Button>
                 </div>
-                {loggingUser != null ? <ProfileMenu/> : <DialogWithForm/>
+                {loggingUser != null ? <ProfileMenu/> : <LoginButton/>
                 }
             </div>
 

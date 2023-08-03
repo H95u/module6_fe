@@ -4,7 +4,6 @@ import Content from "./components/content/Content";
 
 import TransferForm from "./components/login/TransferForm";
 
-import UserInfo from "./components/user-info/UserInfo";
 import {ComplexNavbar} from "./components/navbar/Navbar";
 import PartnerInfo from "./components/user-info/PartnerInfo";
 import RegisterUser from "./components/login/RegisterUser";
