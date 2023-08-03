@@ -22,7 +22,11 @@ export default function PartnerInfo() {
         <div className={"partner-info"}>
             <div className={`partner-profile`}>
                 <div className={`d-flex justify-content-center`}>
+<<<<<<< HEAD
                     <div className={`title`}>
+=======
+                    <div className={`cards`}>
+>>>>>>> 9ceb10723698c40c4dd4692fe207328c9849c83d
                         <div>
                             <a href={`#`}><img src={user.img} alt={``}/></a>
                         </div>

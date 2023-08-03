@@ -13,7 +13,6 @@ const Login = () => {
 
     const initialValue = {
         username: "",
-        email: "",
         password: ""
     };
 
@@ -21,12 +20,6 @@ const Login = () => {
         username: Yup.string()
             .required("UserName is required")
             .matches(/^[a-zA-Z0-9]{3,16}$/, "username must contain only letters"),
-        email: Yup.string()
-            .required("Email is required")
-            .matches(
-                /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                "Email must contain letters and the @ symbol."
-            ),
         password: Yup.string()
             .required("Password is required")
     });
@@ -48,7 +41,9 @@ const Login = () => {
                     confirmButtonText: "OK"
                 }).then(result => {
                     if (result.isConfirmed) {
-                        navigate("/home");
+                        localStorage.setItem("loggingUser", JSON.stringify(response.data.body));
+                        navigate("/");
+                        window.location.reload();
                     }
                 });
             })
@@ -122,22 +117,6 @@ const Login = () => {
                                                 />
                                             </InputGroup>
 
-                                            <InputGroup className="mb-4">
-                                                <InputGroup.Text>Email address</InputGroup.Text>
-                                                <Field
-                                                    type="email"
-                                                    id="email"
-                                                    name="email"
-                                                    className={`form-control ${
-                                                        touched.email && errors.email ? "is-invalid" : ""
-                                                    }`}
-                                                />
-                                                <ErrorMessage
-                                                    component="div"
-                                                    name="email"
-                                                    className="invalid-feedback"
-                                                />
-                                            </InputGroup>
 
                                             <InputGroup className="mb-4">
                                                 <InputGroup.Text>Password</InputGroup.Text>
