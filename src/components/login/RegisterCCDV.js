@@ -39,13 +39,13 @@ const RegisterCCDV = () => {
     const validationSchema = Yup.object({
         username: Yup.string()
             .required("Tên đăng nhập là bắt buộc")
-            .matches(/^[a-zA-ZÀ-ỹ]+(([',. -][a-zA-ZÀ-ỹ ])?[a-zA-ZÀ-ỹ]*)*$/, "Tên đăng nhập từ a-zA-Z có dấu và không chứa chữ số").test(
+            .matches(/^[a-zA-ZÀ-ỹ0-9]+(([',. -][a-zA-ZÀ-ỹ0-9 ])?[a-zA-ZÀ-ỹ0-9]*)*$/, "Tên đăng nhập từ a-zA-Z có dấu và không chứa chữ số").test(
                 'unique-username', 'Tên đăng nhập đã tồn tại', function (value) {
                     return !checkUserNameExists(value);
                 }),
         nickname: Yup.string()
             .required("Biệt danh là bắt buộc")
-            .matches(/^[a-zA-ZÀ-ỹ]+(([',. -][a-zA-ZÀ-ỹ ])?[a-zA-ZÀ-ỹ]*)*$/, "Biệt danh từ a-zA-Z có dấu và không chứa chữ số"),
+            .matches(/^[a-zA-ZÀ-ỹ0-9]+(([',. -][a-zA-ZÀ-ỹ0-9 ])?[a-zA-ZÀ-ỹ0-9]*)*$/, "Biệt danh từ a-zA-Z có dấu và không chứa chữ số"),
         email: Yup.string()
             .required("Email là bắt buộc")
             .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Email từ a-zA-Z có chưa kí tự @ và .gmail ở phía đằng sau.").test(

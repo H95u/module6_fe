@@ -4,7 +4,7 @@
     /*position: relative;*/
     /*z-index: 2;*/
     /*padding: 35px 0 0;*/
-    background-image: linear-gradient(to right, #ccbcbe, #ccbcbe 50%, #ffffff 50%);
+    background-image: linear-gradient(to right, #04be54 0%, #ffffff 25%, #ffffff 75%, #04be54 100%);
     background-size: 200% 100%;
     background-position: left center;
     background-repeat: no-repeat;
