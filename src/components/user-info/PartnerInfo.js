@@ -3,35 +3,10 @@ import {useParams} from "react-router-dom";
 import axios from "axios";
 import "./partnerprofile.css";
 
-function Modal() {
-    return (
-        <div className={"modal fade"} id={"exampleModal"} tabIndex="-1" aria-labelledby={"exampleModalLabel"}
-             aria-hidden={"true"}>
-            <div className={"modal-dialog"}>
-                <div className={"modal-content"}>
-                    <div className={"modal-header"}>
-                        <h5 className={"modal-title"} id={"exampleModalLabel"}>Cập nhật dịch vụ cung cấp</h5>
-                        <button className={"btn-close"} data-bs-dismiss={"modal"} aria-label={"Close"}></button>
-                    </div>
-                    <div className={"modal-body"}>
-                        <div className={"form-check form-switch"}>
-                            <input className={"form-check-input"} type={"checkbox"} id={"flexSwitchCheckDefault"}/>
-                                <label className={"form-check-label"} htmlFor={"flexSwitchCheckDefault"}>Đi chơi chung</label>
-                        </div>
-                    </div>
-                    <div className={"modal-footer"}>
-                        <button className={"btn btn-secondary"} data-bs-dismiss={"modal"}>Đóng</button>
-                        <button className={"btn btn-primary"}>Cập nhật</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
-}
-
 export default function PartnerInfo() {
     const [user, setUser] = useState({});
     const [options, setOptions] = useState([]);
+    const [allOptions, setAllOptions] = useState([]);
     const [address, setAddress] = useState("");
     const {id} = useParams();
 
@@ -44,6 +19,14 @@ export default function PartnerInfo() {
             setAddress(response.data.address)
         })
     }, [])
+
+
+     useEffect(() => {
+        axios.get(`http://localhost:8080/api/options`).then((response) => {
+            setAllOptions(response.data);
+        })
+    }, [])
+
 
     return (
         <>
@@ -60,10 +43,10 @@ export default function PartnerInfo() {
                         </div>
                         <div className={"info"}>
                             <div className={`row`} id={`inner-info`}>
-                                <div className={"col-lg-7"}>
+                                <div className={"col-sm-7"}>
                                     <h2>{user.nickname}</h2>
                                 </div>
-                                <div className={"col-lg-5"}>
+                                <div className={"col-sm-5"}>
                                     <button className={`btn btn-success`} data-bs-toggle={"modal"}
                                             data-bs-target={"#exampleModal"}>Cập nhật dịch vụ cung cấp
                                     </button>
@@ -149,7 +132,32 @@ export default function PartnerInfo() {
                     </div>
                 </div>
             </div>
-            <Modal/>
+
+
+            <div className={"modal fade"} id={"exampleModal"} tabIndex="-1" aria-labelledby={"exampleModalLabel"}
+                 aria-hidden={"true"}>
+                <div className={"modal-dialog"}>
+                    <div className={"modal-content"}>
+                        <div className={"modal-header"}>
+                            <h5 className={"modal-title"} id={"exampleModalLabel"}>Cập nhật dịch vụ cung cấp</h5>
+                            <button className={"btn-close"} data-bs-dismiss={"modal"} aria-label={"Close"}></button>
+                        </div>
+                        <div className={"modal-body"}>
+                            {allOptions.map((items) =>
+                                <div className={"form-check form-switch"}>
+                                    <input className={"form-check-input"} type={"checkbox"} id={items.id}/>
+                                    <label className={"form-check-label"} htmlFor={items.id}>{items.name}</label>
+                                </div>
+                            )}
+
+                        </div>
+                        <div className={"modal-footer"}>
+                            <button className={"btn btn-secondary"} data-bs-dismiss={"modal"}>Đóng</button>
+                            <button className={"btn btn-primary"}>Cập nhật</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }
