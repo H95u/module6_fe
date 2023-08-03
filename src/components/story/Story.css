@@ -1,0 +1,44 @@
+/* Story.css */
+
+.wrapper {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px;
+    height: 100%;
+}
+
+.action_box--list {
+    flex: 0 0 auto;
+    margin-left: 20px;
+    border: 5px solid #e3e3ec;
+    border-radius: 15px;
+}
+.box-item img,
+.avt-rank img {
+    width: 130px;
+    height: 170px;
+}
+
+.avt-rank.avt-sm img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+}
+
+/* Optional: Adding some basic styles to enhance the appearance */
+.wrapper {
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.box-item {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.lover-name {
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 10px;
+}

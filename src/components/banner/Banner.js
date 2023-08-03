@@ -12,7 +12,7 @@ export default function Banner() {
                     counter = 1;
                 }
             }
-        }, 5000);
+        }, 3000);
 
         // Xóa interval khi component unmount
         return () => clearInterval(interval);
