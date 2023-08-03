@@ -24,7 +24,7 @@
     color: lightslategrey;
 }
 
-.card img {
+.cards img {
     border-radius: 10px;
     height: 350px;
     width: 300px;
@@ -53,16 +53,6 @@
     font-size: 25px;
     margin-bottom: 20px;
     font-weight: bold;
-}
-
-.info button {
-    color: white;
-    background: #fa4b2d;
-    border: solid 1px;
-    border-radius: 20px;
-    margin-top: 10px;
-    padding-bottom: 2px;
-    width: 100px;
 }
 
 hr {
@@ -126,5 +116,11 @@ hr {
 
 .profile p {
     padding-top: 2px;
-
+}
+.modal-title {
+    font-weight: bold;
+    margin-left: 125px;
+}
+.modal-footer {
+    text-align: center;
 }
