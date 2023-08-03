@@ -1,19 +1,22 @@
 #nav {
     top: 0;
     right: 0;
+    left: 70px;
     position: sticky;
     z-index: 999;
 }
-
 .content {
     padding: 50px;
 }
 
 .footer {
+
+    background-color: #fff;
     padding: 20px;
 }
 
 .banner {
+
     margin-top: 150px;
     margin-bottom: 100px;
 }

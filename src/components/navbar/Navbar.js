@@ -20,11 +20,63 @@ import {
 
 } from "@heroicons/react/24/outline";
 import {Card} from "react-bootstrap";
-import {useNavigate} from "react-router-dom";
 
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
 
+const handleProfileInfo = () => {
+    // Implement the function for "Thông tin cá nhân"
+    // e.g., redirect to the user's profile page
+};
+
+const handleEditProfile = () => {
+    // Implement the function for "Chỉnh sửa thông tin"
+    // e.g., redirect to the edit profile page
+};
+
+const handleRecharge = () => {
+    // Implement the function for "Nạp tiền"
+    // e.g., show a recharge modal or redirect to a recharge page
+};
+
+const handleHelp = () => {
+    // Implement the function for "Trợ giúp"
+    // e.g., show a help modal or redirect to a help page
+};
+
+const handleLogout = () => {
+    localStorage.removeItem("loggingUser");
+    window.location.reload();
+};
+
+// profile menu component
+const profileMenuItems = [
+    {
+        label: "Thông tin cá nhân",
+        icon: UserCircleIcon,
+        handler: handleProfileInfo, // Replace handleProfileInfo with the actual function
+    },
+    {
+        label: "Chỉnh sửa thông tin",
+        icon: Cog6ToothIcon,
+        handler: handleEditProfile, // Replace handleEditProfile with the actual function
+    },
+    {
+        label: "Nạp tiền",
+        icon: InboxArrowDownIcon,
+        handler: handleRecharge, // Replace handleRecharge with the actual function
+    },
+    {
+        label: "Trợ giúp",
+        icon: LifebuoyIcon,
+        handler: handleHelp, // Replace handleHelp with the actual function
+    },
+    {
+        label: "Đăng xuất",
+        icon: PowerIcon,
+        handler: handleLogout, // Replace handleLogout with the actual function
+    },
+];
 
 export function DialogWithForm() {
     const [open, setOpen] = React.useState(false);
@@ -55,8 +107,8 @@ export function DialogWithForm() {
                         </Typography>
                     </CardHeader>
                     <CardBody className="flex flex-col gap-4">
-                        <Input label="Tên đăng nhập" size="lg"/>
-                        <Input label="Mật khẩu" size="lg"/>
+                        <Input label="Tên đăng nhập" size="lg" />
+                        <Input label="Mật khẩu" size="lg" />
 
                     </CardBody>
                     <CardFooter className="pt-0">
@@ -67,7 +119,7 @@ export function DialogWithForm() {
                             Bạn chưa có tài khoản?
                             <Typography
                                 as="a"
-                                href="/signup"
+                                href="/login"
                                 variant="small"
                                 color="blue"
                                 className="ml-1 font-bold"
@@ -84,58 +136,6 @@ export function DialogWithForm() {
 }
 
 function ProfileMenu() {
-
-    const handleProfileInfo = () => {
-        window.location.href = "http://localhost:3000/user-info"
-    };
-
-    const handleEditProfile = () => {
-        // Implement the function for "Chỉnh sửa thông tin"
-        // e.g., redirect to the edit profile page
-    };
-
-    const handleRecharge = () => {
-        // Implement the function for "Nạp tiền"
-        // e.g., show a recharge modal or redirect to a recharge page
-    };
-
-    const handleHelp = () => {
-        // Implement the function for "Trợ giúp"
-        // e.g., show a help modal or redirect to a help page
-    };
-
-    const handleLogout = () => {
-        localStorage.removeItem("loggingUser");
-        window.location.reload();
-    };
-
-    const profileMenuItems = [
-        {
-            label: "Thông tin cá nhân",
-            icon: UserCircleIcon,
-            handler: handleProfileInfo, // Replace handleProfileInfo with the actual function
-        },
-        {
-            label: "Chỉnh sửa thông tin",
-            icon: Cog6ToothIcon,
-            handler: handleEditProfile, // Replace handleEditProfile with the actual function
-        },
-        {
-            label: "Nạp tiền",
-            icon: InboxArrowDownIcon,
-            handler: handleRecharge, // Replace handleRecharge with the actual function
-        },
-        {
-            label: "Trợ giúp",
-            icon: LifebuoyIcon,
-            handler: handleHelp, // Replace handleHelp with the actual function
-        },
-        {
-            label: "Đăng xuất",
-            icon: PowerIcon,
-            handler: handleLogout, // Replace handleLogout with the actual function
-        },
-    ];
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const closeMenu = () => setIsMenuOpen(false);
 
@@ -204,8 +204,8 @@ export function ComplexNavbar() {
 
 
     return (
-        <Navbar id={"nav"} className="mx-auto max-w-screen-xl px-4 py-3">
-            <div className="mx-auto flex text-blue-gray-900">
+        <Navbar id={"nav"}>
+            <div className=" mx-auto flex text-blue-gray-900">
                 <Typography
                     as="a"
                     href="#"
