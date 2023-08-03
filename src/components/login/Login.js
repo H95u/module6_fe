@@ -18,8 +18,7 @@ const Login = () => {
 
     const validateSchema = Yup.object({
         username: Yup.string()
-            .required("Tên là bắt buộc")
-            .matches(/^[a-zA-ZÀ-ỹ]+(([',. -][a-zA-ZÀ-ỹ ])?[a-zA-ZÀ-ỹ]*)*$/, "Nhập tên từ a-zA-Z có dấu và không chứa chữ số"),
+            .required("Tên là bắt buộc"),
         password: Yup.string()
             .required("Mật khẩu là bắt buộc")
     });

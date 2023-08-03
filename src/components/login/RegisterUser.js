@@ -39,7 +39,7 @@ const RegisterUser = () => {
     const validationSchema = Yup.object({
         username: Yup.string()
             .required("Tên đăng nhập là bắt buộc")
-            .matches(/^[a-zA-ZÀ-ỹ]+(([',. -][a-zA-ZÀ-ỹ ])?[a-zA-ZÀ-ỹ]*)*$/, "Tên đăng nhập từ a-zA-Z có dấu và không chứa chữ số").test(
+            .matches(/^[a-zA-ZÀ-ỹ0-9]+(([',. -][a-zA-ZÀ-ỹ0-9 ])?[a-zA-ZÀ-ỹ0-9]*)*$/, "Tên đăng nhập từ a-zA-Z có dấu và không chứa chữ số").test(
                 'unique-username', 'Tên đăng nhập đã tồn tại', function (value) {
                     return !checkUserNameExists(value);
                 }),
