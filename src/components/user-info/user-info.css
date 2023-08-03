@@ -1,0 +1,13 @@
+.user-info {
+    padding: 20px;
+}
+
+.user-info-img {
+    border-radius: 50%;
+    height: 250px;
+    width: 250px;
+}
+.user-info-title {
+    font-size: 50px;
+    text-align: center;
+}

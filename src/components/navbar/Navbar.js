@@ -67,7 +67,7 @@ export function DialogWithForm() {
                             Bạn chưa có tài khoản?
                             <Typography
                                 as="a"
-                                href="/login"
+                                href="/signup"
                                 variant="small"
                                 color="blue"
                                 className="ml-1 font-bold"
