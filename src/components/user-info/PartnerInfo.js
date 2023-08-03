@@ -33,14 +33,7 @@ export default function PartnerInfo() {
             optionIds: newOptions,
 
         }, config).then((response) => {
-            console.log("abc->>>>>>>>>>>", response.data)
-            setOptions(response.data)
-            const myModalEl = document.getElementById('exampleModal');
-            let modal = bootstrap.Modal.getInstance(myModalEl)
-            if (modal ==  null) {
-                return;
-            }
-            modal._hideModal();
+            window.location.reload();
         })
     }
 
