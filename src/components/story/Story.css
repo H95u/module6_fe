@@ -8,6 +8,10 @@
     height: 100%;
 }
 
+.wrapper::-webkit-scrollbar{
+    width: 0;
+}
+
 .action_box--list {
     flex: 0 0 auto;
     margin-left: 20px;
