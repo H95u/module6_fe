@@ -14,14 +14,14 @@ export default function PartnerInfo() {
     useEffect(() => {
         axios.get(`http://localhost:8080/api/users/${id}`)
             .then((response) => {
-            setUser(response.data);
-            setOptions(response.data.options);
-            setAddress(response.data.address)
-        })
+                setUser(response.data);
+                setOptions(response.data.options);
+                setAddress(response.data.address)
+            })
     }, [])
 
 
-     useEffect(() => {
+    useEffect(() => {
         axios.get(`http://localhost:8080/api/options`).then((response) => {
             setAllOptions(response.data);
         })
