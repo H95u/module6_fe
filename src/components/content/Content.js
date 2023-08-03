@@ -12,6 +12,7 @@ import {
     Button,
 } from "@material-tailwind/react";
 
+
 export default function Content() {
     const [users, setUsers] = useState([]);
     const itemsPerPage = 12;
@@ -40,6 +41,9 @@ export default function Content() {
         <div className={"content"} style={{margin: 0}}>
             <div className={"container"}>
                 <Banner/>
+                <Typography variant="h3" color="red" className="mb-8 text-center" textGradient>
+                    Danh sách hot girl, hot boy
+                </Typography>
                 <div className={"row"}>
                     {currentPageData.map((item) => (
                         <div className={"col-md-3"} key={item.id}>
