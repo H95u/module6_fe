@@ -1,13 +1,22 @@
 import "./Banner.css"
+import {useEffect} from "react";
 export default function Banner() {
-    let counter = 1;
-    setInterval(function (){
-        document.getElementById('radio' + counter).checked = true;
-        counter++;
-        if(counter > 4){
-            counter = 1;
-        }
-    }, 5000)
+    useEffect(() => {
+        let counter = 1;
+        const interval = setInterval(() => {
+            const radioBtn = document.getElementById('radio' + counter);
+            if (radioBtn) {
+                radioBtn.checked = true;
+                counter++;
+                if (counter > 4) {
+                    counter = 1;
+                }
+            }
+        }, 5000);
+
+        // Xóa interval khi component unmount
+        return () => clearInterval(interval);
+    }, []);
     return (
         <>
             <div className={"carousel"}>
