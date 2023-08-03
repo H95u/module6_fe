@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import "./Login.css";
 
-const RegisterUser = () => {
+const RegisterCCDV = () => {
     const navigate = useNavigate();
+    const [students, setStudents] = useState([]);
+
 
     const initialValues = {
         username: "",
@@ -14,19 +17,39 @@ const RegisterUser = () => {
         email: "",
         gender: "",
         dob: "",
-        password: ""
+        password: "",
+        status:1
     }
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/api/users').then((response) => {
+            setStudents(response.data);
+        });
+    }, []);
+
+    const checkEmailExists = (email) => {
+        return students.some((student) => student.email === email);
+    };
+    const checkUserNameExists = (username) => {
+        return students.some((student) => student.username === username);
+    };
 
     const validationSchema = Yup.object({
         username: Yup.string()
             .required("UserName is required")
-            .matches(/^[a-zA-Z0-9]{3,16}$/,"username must contain only letters"),
+            .matches(/^[a-zA-ZÀ-ỹ]+(([',. -][a-zA-ZÀ-ỹ ])?[a-zA-ZÀ-ỹ]*)*$/,"username must contain only letters").test(
+                'unique-username', 'UserName already exists', function (value) {
+                    return !checkUserNameExists(value);
+                }),
         nickname: Yup.string()
             .required("NickName is required")
-            .matches(/^[a-zA-Z0-9]{3,16}$/,"NickName must contain only letters"),
+            .matches(/^[a-zA-ZÀ-ỹ]+(([',. -][a-zA-ZÀ-ỹ ])?[a-zA-ZÀ-ỹ]*)*$/,"NickName must contain only letters"),
         email: Yup.string()
             .required("Email is required")
-            .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,"Email must contain letters and the @ symbol."),
+            .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,"Email must contain letters and the @ symbol.").test(
+                'unique-email', 'Email already exists', function (value) {
+                    return !checkEmailExists(value);
+                }),
         gender: Yup.string()
             .required("Gender is required"),
         dob: Yup.string()
@@ -35,6 +58,7 @@ const RegisterUser = () => {
         password: Yup.string()
             .required("Password is required")
         // .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,"Password enter letters and numbers")
+
     })
 
     const handleSubmit = (values, { setSubmitting }) => {
@@ -45,17 +69,6 @@ const RegisterUser = () => {
             }
         }
 
-        if (!values.username || !values.email || !values.password) {
-            setSubmitting(false);
-            Swal.fire({
-                title: 'Error!',
-                text: 'Please fill in all required fields',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-            return;
-        }
-
         const genderValue = values.gender === "male" ? 1 : 2;
 
         axios.post("http://localhost:8080/api/auth/register", {
@@ -64,7 +77,8 @@ const RegisterUser = () => {
             nickname: values.nickname,
             gender: genderValue,
             dob: values.dob,
-            password: values.password
+            password: values.password,
+            status: values.status
         }, config)
             .then(response => {
                 setSubmitting(false);
@@ -88,6 +102,8 @@ const RegisterUser = () => {
                 });
             });
     };
+
+
 
     return (
         <>
@@ -183,4 +199,4 @@ const RegisterUser = () => {
     );
 };
 
-export default RegisterUser;
+export default RegisterCCDV;

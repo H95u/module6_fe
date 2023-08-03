@@ -1,0 +1,7 @@
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+    background-color: black;
+}
+
