@@ -153,7 +153,7 @@ const RegisterUser = () => {
                                                                 <LockOutlinedIcon/>
                                                             </Avatar>
                                                             <Typography component="h1" variant="h5">
-                                                                Trang đăng kí
+                                                                Trang đăng ký
                                                             </Typography>
                                                         </div>
 
@@ -163,6 +163,16 @@ const RegisterUser = () => {
                                                             <Field type='text' className='form-control form-control-lg'
                                                                    id='username' name='username'/>
                                                             <ErrorMessage name='username' component='div'
+                                                                          className='text-danger'/>
+                                                        </div>
+
+                                                        <div className='mb-4'>
+                                                            <label htmlFor='password'
+                                                                   className='form-label'>Mật khẩu</label>
+                                                            <Field type='password'
+                                                                   className='form-control form-control-lg'
+                                                                   id='password' name='password'/>
+                                                            <ErrorMessage name='password' component='div'
                                                                           className='text-danger'/>
                                                         </div>
 
@@ -188,7 +198,7 @@ const RegisterUser = () => {
                                                                    className='form-label'>Giới tính</label>
                                                             <Field as='select' className='form-select form-select-lg'
                                                                    id='gender' name='gender'>
-                                                                <option value=''>Lựa chọn giới tính</option>
+                                                                <option value=''>Giới tính</option>
                                                                 <option value='male'>Nam</option>
                                                                 <option value='female'>Nữ</option>
                                                             </Field>
@@ -204,19 +214,10 @@ const RegisterUser = () => {
                                                                           className='text-danger'/>
                                                         </div>
 
-                                                        <div className='mb-4'>
-                                                            <label htmlFor='password'
-                                                                   className='form-label'>Mật khẩu</label>
-                                                            <Field type='password'
-                                                                   className='form-control form-control-lg'
-                                                                   id='password' name='password'/>
-                                                            <ErrorMessage name='password' component='div'
-                                                                          className='text-danger'/>
-                                                        </div>
 
                                                         <div className='d-grid'>
                                                             <button className='btn btn-primary btn-lg'
-                                                                    disabled={isSubmitting}>Đăng kí
+                                                                    disabled={isSubmitting}>Đăng ký
                                                             </button>
                                                         </div>
 
