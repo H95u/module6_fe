@@ -83,10 +83,10 @@ const RegisterCCDV = () => {
             password: values.password,
             status: values.status
         }, config)
-            .then(response => {
+            .then((response) => {
                 setSubmitting(false);
                 Swal.fire({
-                    title: 'Register success!',
+                    title: 'Đăng ký thành công!',
                     icon: 'success',
                     confirmButtonText: 'OK'
                 }).then((result) => {
@@ -98,8 +98,8 @@ const RegisterCCDV = () => {
             .catch(error => {
                 setSubmitting(false);
                 Swal.fire({
-                    title: 'Error!',
-                    text: 'Registration failed',
+                    title: 'Lỗi!',
+                    text: 'Đăng ký thất bại',
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });
@@ -210,7 +210,7 @@ const RegisterCCDV = () => {
                                                         </div>
 
                                                         <div className='mb-4'>
-                                                            <label htmlFor='dob' className='form-label'>Tháng ngày năm sinh</label>
+                                                            <label htmlFor='dob' className='form-label'>Ngày tháng năm sinh</label>
                                                             <Field type='date' className='form-control form-control-lg'
                                                                    id='dob' name='dob' placeholder='MM/DD/YYYY'/>
                                                             <ErrorMessage name='dob' component='div'

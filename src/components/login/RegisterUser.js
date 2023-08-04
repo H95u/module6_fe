@@ -207,7 +207,7 @@ const RegisterUser = () => {
                                                         </div>
 
                                                         <div className='mb-4'>
-                                                            <label htmlFor='dob' className='form-label'>Tháng ngày năm sinh</label>
+                                                            <label htmlFor='dob' className='form-label'>Ngày tháng năm sinh</label>
                                                             <Field type='date' className='form-control form-control-lg'
                                                                    id='dob' name='dob' placeholder='MM/DD/YYYY'/>
                                                             <ErrorMessage name='dob' component='div'
@@ -222,8 +222,8 @@ const RegisterUser = () => {
                                                         </div>
 
                                                         <div className='mt-4 text-center'>
-                                                            <p className='mb-0'>Bạn có tài khoản rồi? <Link
-                                                                to='/login' style={{color: "#393f81"}}>Qua trang đăng nhập</Link></p>
+                                                            <p className='mb-0'>Bạn có tài khoản ? <Link
+                                                                to='/login' style={{color: "#393f81"}}>Quay lại trang đăng nhập</Link></p>
                                                         </div>
 
                                                     </div>
