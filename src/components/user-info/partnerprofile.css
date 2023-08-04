@@ -117,9 +117,12 @@ hr {
     padding-top: 2px;
 }
 .modal-title {
+    margin: auto;
+    color: red;
+}
+.modal-title .service {
     font-weight: bold;
     font-family: Poppins;
-    margin: auto;
     color: red;
 }
 .modal-footer {
