@@ -210,9 +210,9 @@ export default function PartnerInfo() {
                                         </form>
                                     </div>
                                     <div className={"modal-footer"}>
-                                        <button className={"btn btn-secondary"} data-bs-dismiss={"modal"}>Đóng</button>
-                                        <button className={"btn btn-primary"} onClick={handleSubmitRent}>Xác nhận thuê
+                                        <button className={"btn btn-danger"} onClick={handleSubmitRent}>Thuê
                                         </button>
+                                        <button className={"btn btn-light"} data-bs-dismiss={"modal"}>Đóng</button>
                                     </div>
                                 </div>
                             </div>

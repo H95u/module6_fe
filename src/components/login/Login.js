@@ -178,11 +178,11 @@ const Login = () => {
 
                                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                     <Link href="#" variant="body2" style={{color: "#393f81"}}>
-                                        Bạn quên mật khẩu?
+                                        Quên mật khẩu?
                                     </Link>
                                     <p>Bạn chưa có tài khoản ?
                                     <Link to={"/signup"} style={{color: "#393f81"}}>
-                                        Đăng kí ở đây
+                                        Đăng ký tại đây
                                     </Link></p>
                                 </div>
                             </Card.Body>
