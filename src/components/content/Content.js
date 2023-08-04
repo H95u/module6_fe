@@ -12,6 +12,7 @@ import {
     Typography,
     Button,
 } from "@material-tailwind/react";
+import Swal from "sweetalert2";
 
 
 export default function Content() {
@@ -37,10 +38,18 @@ export default function Content() {
         }
     }, [nameSearch]);
     const searchStudentsByName = (nameSearch) => {
-        const filteredUsers = users.filter((user) => {
-            return user.username.toUpperCase().includes(nameSearch.toUpperCase());
+        axios.get(`http://localhost:8080/api/users/search?username=${nameSearch}`).then((response) => {
+            console.log(response.status)
+            if (response.status !== 204) {
+                setUsers(response.data);
+            } else {
+                setUsers([]);
+                Swal.fire({
+                    title: "Không tìm thấy!",
+                    icon: "error",
+                })
+            }
         });
-        setUsers(filteredUsers);
     };
 
     const handlePageClick = (selectedPage) => {
@@ -60,35 +69,37 @@ export default function Content() {
                 <Typography variant="h3" color="red" className="mb-8 text-center" textGradient>
                     Danh sách hot girl, hot boy
                 </Typography>
-                <div id={"partner-list"}>
-                    <div className={"row"}>
-                        {currentPageData.map((item) => (
-                            <div className={"col-md-3"} key={item.id}>
-                                <Link to={`/user/${item.id}`}>
-                                    <Card className={"card"}>
-                                        <CardHeader color="blue-gray" className="relative h-60">
-                                            <img
-                                                src={item.img}
-                                                alt="card-image"
-                                            />
-                                        </CardHeader>
-                                        <CardBody>
-                                            <Typography color="blue" className="font-medium" textGradient>
-                                                {item.nickname}
-                                            </Typography>
-                                            <Typography color="blue" className="font-medium" textGradient>
-                                                {item.price}
-                                            </Typography>
-                                        </CardBody>
-                                        <CardFooter className="pt-0">
-                                            <Button color="red">Thuê ngay</Button>
-                                        </CardFooter>
-                                    </Card>
-                                </Link>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                {users.length === 0 ?
+                    "" :
+                    <div id={"partner-list"}>
+                        <div className={"row"}>
+                            {currentPageData.map((item) => (
+                                <div className={"col-md-3"} key={item.id}>
+                                    <Link to={`/user/${item.id}`}>
+                                        <Card className={"card"}>
+                                            <CardHeader color="blue-gray" className="relative h-60">
+                                                <img
+                                                    src={item.img}
+                                                    alt="card-image"
+                                                />
+                                            </CardHeader>
+                                            <CardBody>
+                                                <Typography color="blue" className="font-medium" textGradient>
+                                                    {item.username}
+                                                </Typography>
+                                                <Typography color="blue" className="font-medium" textGradient>
+                                                    {item.price}
+                                                </Typography>
+                                            </CardBody>
+                                            <CardFooter className="pt-0">
+                                                <Button color="red">Thuê ngay</Button>
+                                            </CardFooter>
+                                        </Card>
+                                    </Link>
+                                </div>
+                            ))}
+                        </div>
+                    </div>}
                 <div>
                     <ReactPaginate
                         previousLabel={"Previous"}
