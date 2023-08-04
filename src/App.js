@@ -16,8 +16,8 @@ import EditUserInfo from "./components/user-info/EditUserInfo";
 export default function App() {
     return (
         <>
-            <ComplexNavbar/>
             <BrowserRouter>
+                <ComplexNavbar/>
                 <Routes>
                     <Route path={"/"} element={<Content/>}></Route>
                     <Route path={"/register-user"} element={<RegisterUser/>}></Route>
@@ -27,8 +27,8 @@ export default function App() {
                     <Route path={"/user/:id"} element={<PartnerInfo/>}></Route>
                     <Route path={"/user-info"} element={<EditUserInfo/>}></Route>
                 </Routes>
+                <FooterWithSocialLinks/>
             </BrowserRouter>
-            <FooterWithSocialLinks/>
         </>
     );
 }

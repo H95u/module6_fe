@@ -22,7 +22,7 @@
 
 .card {
     margin-bottom: 80px;
-    box-shadow: 0 10px 20px rgb(110, 115, 119);
+    box-shadow: 0 10px 8px rgb(110, 115, 119);
 }
 
 .pagination {
@@ -51,4 +51,8 @@
 #logo {
     width: 100px;
     height: 45px;
+}
+
+a:hover {
+    text-decoration: none;
 }

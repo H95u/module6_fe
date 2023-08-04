@@ -19,6 +19,7 @@ import {
     PowerIcon,
 
 } from "@heroicons/react/24/outline";
+import {Link} from "react-router-dom";
 
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
@@ -79,14 +80,14 @@ const profileMenuItems = [
 function LoginButton() {
     return (
         <div className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto">
-            <a href="/login">
-            <Button
-                variant="gradient"
-                size="sm"
-            >
-                Đăng nhập
-            </Button>
-            </a>
+            <Link to="/login">
+                <Button
+                    variant="gradient"
+                    size="sm"
+                >
+                    Đăng nhập
+                </Button>
+            </Link>
         </div>
     );
 }
@@ -162,13 +163,10 @@ export function ComplexNavbar() {
     return (
         <Navbar id={"nav"} className="mx-auto max-w-screen-xl px-4 py-3">
             <div className="mx-auto flex text-blue-gray-900">
-                <Typography
-                    as="a"
-                    href="/"
-                    className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
-                >
-                    Lover
-                </Typography>
+                <Link to={"/"}>
+                    <Avatar src={"loverLogo.png"} className={"mr-4"}>
+                    </Avatar>
+                </Link>
                 <div className="relative flex w-full gap-2 md:w-max">
                     <Input
                         type="search"

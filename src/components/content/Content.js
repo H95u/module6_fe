@@ -58,10 +58,10 @@ export default function Content() {
                                         />
                                     </CardHeader>
                                     <CardBody>
-                                        <Typography variant="h5" color="blue-gray" className="mb-2">
-                                            {item.username}
+                                        <Typography color="blue" className="font-medium" textGradient>
+                                             {item.nickname}
                                         </Typography>
-                                        <Typography>
+                                        <Typography color="blue" className="font-medium" textGradient>
                                             {item.price}
                                         </Typography>
                                     </CardBody>
