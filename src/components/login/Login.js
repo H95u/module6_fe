@@ -36,15 +36,21 @@ const Login = () => {
         axios
             .post("http://localhost:8080/api/auth/login", values, config)
             .then(response => {
-                localStorage.setItem("loggingUser", JSON.stringify(response.data.body));
                 Swal.fire({
                     title: "Đăng nhập thành công!",
                     icon: "success",
                     confirmButtonText: "OK"
                 }).then(result => {
                     if (result.isConfirmed) {
-                        navigate("/");
-                        window.location.reload();
+                        const redirectedId = localStorage.getItem("userId");
+                        if (redirectedId) {
+                            localStorage.removeItem("userId");
+                            window.location.href = `/user/${redirectedId}`
+                            localStorage.setItem("loggingUser", JSON.stringify(response.data.body));
+                        } else {
+                            window.location.href = `/`
+                            localStorage.setItem("loggingUser", JSON.stringify(response.data.body));
+                        }
                     }
                 });
             })
@@ -181,9 +187,9 @@ const Login = () => {
                                         Quên mật khẩu?
                                     </Link>
                                     <p>Bạn chưa có tài khoản ?
-                                    <Link to={"/signup"} style={{color: "#393f81"}}>
-                                        Đăng ký tại đây
-                                    </Link></p>
+                                        <Link to={"/signup"} style={{color: "#393f81"}}>
+                                            Đăng ký tại đây
+                                        </Link></p>
                                 </div>
                             </Card.Body>
                         </Col>

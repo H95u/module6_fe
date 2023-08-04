@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import "./partnerprofile.css";
 import {Typography} from "@material-tailwind/react";
 import Modal from "react-bootstrap/Modal";
 
 export default function PartnerInfo() {
+    const navigate = useNavigate();
 
     const [user, setUser] = useState({});
     const [options, setOptions] = useState([]);
@@ -14,8 +15,14 @@ export default function PartnerInfo() {
     const [address, setAddress] = useState("");
     const {id} = useParams();
     const [show, setShow] = useState(false);
+    const [showRentForm, setShowRentForm] = useState(false)
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const handleShowRentForm = () => setShowRentForm(true);
+
+    const handleCloseRentForm = () => setShowRentForm(false)
+
 
     const handleCheck = (id) => {
         setNewOptions(prev => {
@@ -44,7 +51,12 @@ export default function PartnerInfo() {
         })
     }
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
     const handleSubmitRent = () => {
+        localStorage.setItem("userId", id)
+        handleCloseRentForm()
+        navigate("/login")
     }
 
 
@@ -165,70 +177,58 @@ export default function PartnerInfo() {
                             {user.price == null &&
                                 <h1>---</h1>
                             }
-                            <div className={`booking`}><a className={"btn btn-danger"} data-bs-toggle={"modal"}
-                                                          data-bs-target={"#rentModal"}>THUÊ</a></div>
+                            <div className={`booking`}><a className={"btn btn-danger"} onClick={handleShowRentForm}>THUÊ</a></div>
                             <div><a className={"btn btn-light"}>TẶNG TIỀN</a></div>
                             <div><a className={"btn btn-light"}><i className={"bi bi-chat-square-fill"}></i> CHÁT</a>
-                            </div>
-                        </div>
-                        <div className={"modal fade"} id={"rentModal"} tabIndex="-1" aria-labelledby={"rentModalLabel"}
-                             aria-hidden={"true"}>
-                            <div className={"modal-dialog"}>
-                                <div className={"modal-content"}>
-                                    <div className={"modal-header"}>
-                                        <h5 className={"modal-title"} id={"rentModalLabel"}>Thông tin thuê</h5>
-                                        <button className={"btn-close"} data-bs-dismiss={"modal"}
-                                                aria-label={"Close"}></button>
-                                    </div>
-                                    <div className={"modal-body"}>
-                                        <form>
-                                            <div className={"mb-3"}>
-                                                <label htmlFor={"rent-name"} className={"form-label"}>Tên người cho
-                                                    thuê</label>
-                                                <Typography variant="h3" color="cyan" textGradient>
-                                                    {user.nickname}
-                                                </Typography>
-                                            </div>
-                                            <div className={"mb-3"}>
-                                                <label htmlFor={"rent-start"} className={"form-label"}>Thời gian bắt đầu
-                                                    thuê</label>
-                                                <input type={"datetime-local"} className={"form-control"}
-                                                       id={"rent-start"} name={"rent-start"} required/>
-                                            </div>
-                                            <div className={"mb-3"}>
-                                                <label htmlFor={"rent-end"} className={"form-label"}>Thời gian kết thúc
-                                                    thuê</label>
-                                                <input type={"datetime-local"} className={"form-control"}
-                                                       id={"rent-end"} name={"rent-end"} required/>
-                                            </div>
-                                            <div className={"mb-3"}>
-                                                <label htmlFor={"rent-price"} className={"form-label"}>Giá</label>
-                                                <Typography variant="h3" color="cyan" textGradient>
-                                                    {user.price} đ/h
-                                                </Typography>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div className={"modal-footer"}>
-                                        <button className={"btn btn-danger"} onClick={handleSubmitRent}>Thuê
-                                        </button>
-                                        <button className={"btn btn-light"} data-bs-dismiss={"modal"}>Đóng</button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <Modal show={showRentForm} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Thông tin thuê</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form>
+                        <div className={"mb-3"}>
+                            <label htmlFor={"rent-name"} className={"form-label"}>Tên người cho
+                                thuê</label>
+                            <Typography variant="h3" color="cyan" textGradient>
+                                {user.nickname}
+                            </Typography>
+                        </div>
+                        <div className={"mb-3"}>
+                            <label htmlFor={"rent-start"} className={"form-label"}>Thời gian bắt đầu
+                                thuê</label>
+                            <input type={"datetime-local"} className={"form-control"}
+                                   id={"rent-start"} name={"rent-start"} required/>
+                        </div>
+                        <div className={"mb-3"}>
+                            <label htmlFor={"rent-end"} className={"form-label"}>Thời gian kết thúc
+                                thuê</label>
+                            <input type={"datetime-local"} className={"form-control"}
+                                   id={"rent-end"} name={"rent-end"} required/>
+                        </div>
+                        <div className={"mb-3"}>
+                            <label htmlFor={"rent-price"} className={"form-label"}>Giá</label>
+                            <Typography variant="h3" color="cyan" textGradient>
+                                {user.price} đ/h
+                            </Typography>
+                        </div>
+                    </form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <button onClick={handleSubmitRent} className={"btn btn-danger"}>Thuê</button>
+                    <button className={"btn btn-light"} onClick={handleCloseRentForm}>Đóng</button>
+                </Modal.Footer>
+            </Modal>
+
 
             <Modal show={show} onHide={handleClose}>
-                <Modal.Header>
-                    <Modal.Title>
-                        <div className={`form-add-option`}>
-                            <p>Cập nhật dịch vụ cung cấp</p>
-                        </div>
-                    </Modal.Title>
+                <Modal.Header closeButton>
+                    <Modal.Title>Cập nhật dịch vụ cung cấp</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {allOptions.map(item =>
