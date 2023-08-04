@@ -191,7 +191,7 @@ export default function PartnerInfo() {
             </div>
 
             <Modal show={showRentForm} onHide={handleClose}>
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title>Thông tin thuê</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -232,7 +232,7 @@ export default function PartnerInfo() {
 
 
             <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title>Cập nhật dịch vụ cung cấp</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
