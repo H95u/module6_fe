@@ -2,16 +2,21 @@ import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import "./partnerprofile.css";
-import * as bootstrap from 'bootstrap';
 import {Typography} from "@material-tailwind/react";
+import Modal from "react-bootstrap/Modal";
 
 export default function PartnerInfo() {
+
     const [user, setUser] = useState({});
     const [options, setOptions] = useState([]);
     const [newOptions, setNewOptions] = useState([]);
     const [allOptions, setAllOptions] = useState([]);
     const [address, setAddress] = useState("");
     const {id} = useParams();
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     const handleCheck = (id) => {
         setNewOptions(prev => {
             const isChecked = newOptions.includes(id);
@@ -34,7 +39,8 @@ export default function PartnerInfo() {
             optionIds: newOptions,
 
         }, config).then((response) => {
-            window.location.reload();
+            setOptions(response.data);
+            handleClose();
         })
     }
 
@@ -51,7 +57,7 @@ export default function PartnerInfo() {
     }, [])
 
 
-     useEffect(() => {
+    useEffect(() => {
         axios.get(`http://localhost:8080/api/options`).then((response) => {
             setAllOptions(response.data);
         })
@@ -77,8 +83,8 @@ export default function PartnerInfo() {
                                     <h2>{user.nickname}</h2>
                                 </div>
                                 <div>
-                                    <button className={`btn btn-danger`} data-bs-toggle={"modal"}
-                                            data-bs-target={"#exampleModal"}>Cập nhật dịch vụ cung cấp
+                                    <button className={`btn btn-danger`} onClick={handleShow}>
+                                        Cập nhật dịch vụ cung cấp
                                     </button>
                                 </div>
                             </div>
@@ -159,37 +165,45 @@ export default function PartnerInfo() {
                             {user.price == null &&
                                 <h1>---</h1>
                             }
-                            <div className={`booking`}><a className={"btn btn-danger"} data-bs-toggle={"modal"} data-bs-target={"#rentModal"}>THUÊ</a></div>
+                            <div className={`booking`}><a className={"btn btn-danger"} data-bs-toggle={"modal"}
+                                                          data-bs-target={"#rentModal"}>THUÊ</a></div>
                             <div><a className={"btn btn-light"}>TẶNG TIỀN</a></div>
                             <div><a className={"btn btn-light"}><i className={"bi bi-chat-square-fill"}></i> CHÁT</a>
                             </div>
                         </div>
-                        <div className={"modal fade"} id={"rentModal"} tabIndex="-1" aria-labelledby={"rentModalLabel"} aria-hidden={"true"}>
+                        <div className={"modal fade"} id={"rentModal"} tabIndex="-1" aria-labelledby={"rentModalLabel"}
+                             aria-hidden={"true"}>
                             <div className={"modal-dialog"}>
                                 <div className={"modal-content"}>
                                     <div className={"modal-header"}>
                                         <h5 className={"modal-title"} id={"rentModalLabel"}>Thông tin thuê</h5>
-                                        <button className={"btn-close"} data-bs-dismiss={"modal"} aria-label={"Close"}></button>
+                                        <button className={"btn-close"} data-bs-dismiss={"modal"}
+                                                aria-label={"Close"}></button>
                                     </div>
                                     <div className={"modal-body"}>
                                         <form>
                                             <div className={"mb-3"}>
-                                                <label htmlFor={"rent-name"} className={"form-label"}>Tên người cho thuê</label>
-                                                <Typography variant="h3" color="cyan"  textGradient>
+                                                <label htmlFor={"rent-name"} className={"form-label"}>Tên người cho
+                                                    thuê</label>
+                                                <Typography variant="h3" color="cyan" textGradient>
                                                     {user.nickname}
                                                 </Typography>
                                             </div>
                                             <div className={"mb-3"}>
-                                                <label htmlFor={"rent-start"} className={"form-label"}>Thời gian bắt đầu thuê</label>
-                                                <input type={"datetime-local"} className={"form-control"} id={"rent-start"} name={"rent-start"} required/>
+                                                <label htmlFor={"rent-start"} className={"form-label"}>Thời gian bắt đầu
+                                                    thuê</label>
+                                                <input type={"datetime-local"} className={"form-control"}
+                                                       id={"rent-start"} name={"rent-start"} required/>
                                             </div>
                                             <div className={"mb-3"}>
-                                                <label htmlFor={"rent-end"} className={"form-label"}>Thời gian kết thúc thuê</label>
-                                                <input type={"datetime-local"} className={"form-control"} id={"rent-end"} name={"rent-end"} required/>
+                                                <label htmlFor={"rent-end"} className={"form-label"}>Thời gian kết thúc
+                                                    thuê</label>
+                                                <input type={"datetime-local"} className={"form-control"}
+                                                       id={"rent-end"} name={"rent-end"} required/>
                                             </div>
                                             <div className={"mb-3"}>
                                                 <label htmlFor={"rent-price"} className={"form-label"}>Giá</label>
-                                                <Typography variant="h3" color="cyan"  textGradient>
+                                                <Typography variant="h3" color="cyan" textGradient>
                                                     {user.price} đ/h
                                                 </Typography>
                                             </div>
@@ -197,7 +211,8 @@ export default function PartnerInfo() {
                                     </div>
                                     <div className={"modal-footer"}>
                                         <button className={"btn btn-secondary"} data-bs-dismiss={"modal"}>Đóng</button>
-                                        <button className={"btn btn-primary"} onClick={handleSubmitRent}>Xác nhận thuê</button>
+                                        <button className={"btn btn-primary"} onClick={handleSubmitRent}>Xác nhận thuê
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -207,32 +222,25 @@ export default function PartnerInfo() {
             </div>
 
 
-            <div className={"modal fade"} id={"exampleModal"} tabIndex="-1" aria-labelledby={"exampleModalLabel"}
-                 aria-hidden={"true"}>
-                <div className={"modal-dialog"}>
-                    <div className={"modal-content"}>
-                        <div className={"modal-header"}>
-                            <h5 className={"modal-title"} id={"exampleModalLabel"}>Cập nhật dịch vụ cung cấp</h5>
-                            <button className={"btn-close"} data-bs-dismiss={"modal"} aria-label={"Close"}></button>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Cập nhật dịch vụ cung cấp</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {allOptions.map(item =>
+                        <div className={"form-check form-switch"} key={item.id}>
+                            <input className={"form-check-input"} type={"checkbox"} id={item.id}
+                                   checked={newOptions.includes(item.id)}
+                                   onChange={() => handleCheck(item.id)}/>
+                            <label className={"form-check-label"} htmlFor={item.id}>{item.name}</label>
                         </div>
-                        <div className={"modal-body"}>
-                            {allOptions.map(item =>
-                                <div className={"form-check form-switch"} key={item.id}>
-                                    <input className={"form-check-input"} type={"checkbox"} id={item.id}
-                                           checked={newOptions.includes(item.id)}
-                                           onChange={() => handleCheck(item.id)}/>
-                                    <label className={"form-check-label"} htmlFor={item.id}>{item.name}</label>
-                                </div>
-                            )}
-
-                        </div>
-                        <div className={"modal-footer"}>
-                            <button onClick={handleSubmit} className={"btn btn-danger"}>Cập nhật</button>
-                            <button className={"btn btn-light"} data-bs-dismiss={"modal"}>Đóng</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    )}
+                </Modal.Body>
+                <Modal.Footer>
+                    <button onClick={handleSubmit} className={"btn btn-danger"}>Cập nhật</button>
+                    <button className={"btn btn-light"} onClick={handleClose}>Đóng</button>
+                </Modal.Footer>
+            </Modal>
         </>
     )
 }
