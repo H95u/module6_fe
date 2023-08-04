@@ -51,13 +51,17 @@ export default function PartnerInfo() {
         })
     }
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const isLoggedIn = JSON.parse(localStorage.getItem("loggingUser"));
 
     const handleSubmitRent = () => {
-        localStorage.setItem("userId", id)
-        handleCloseRentForm()
-        navigate("/login")
-    }
+        if (isLoggedIn) {
+            handleShowRentForm();
+        } else {
+            localStorage.setItem("userId", id);
+            navigate("/login");
+        }
+    };
+
 
 
     useEffect(() => {
@@ -220,6 +224,7 @@ export default function PartnerInfo() {
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
+                    {isLoggedIn !== null}
                     <button onClick={handleSubmitRent} className={"btn btn-danger"}>Thuê</button>
                     <button className={"btn btn-light"} onClick={handleCloseRentForm}>Đóng</button>
                 </Modal.Footer>
