@@ -1,9 +1,7 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {FooterWithSocialLinks} from "./components/footer/Footer";
 import Content from "./components/content/Content";
-
 import TransferForm from "./components/login/TransferForm";
-
 import {ComplexNavbar} from "./components/navbar/Navbar";
 import PartnerInfo from "./components/user-info/PartnerInfo";
 import RegisterUser from "./components/login/RegisterUser";

@@ -1,10 +1,13 @@
 import React from "react";
 import "./Story.css"
+import {Typography} from "@material-tailwind/react";
 
 export default function Story() {
     return (
         <>
-            <h1>Vip Lovers</h1>
+            <Typography variant="h3" color="red" className=" ml-4" textGradient>
+                Vip Lovers
+            </Typography>
             <div className={"wrapper"}>
                 <div className={"action_box--list"}>
                     <div className={"box-item create"}>
