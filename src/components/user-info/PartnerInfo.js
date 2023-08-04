@@ -231,7 +231,7 @@ export default function PartnerInfo() {
 
 
             <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title>Cập nhật dịch vụ cung cấp</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
