@@ -75,6 +75,7 @@ export default function PartnerInfo() {
     useEffect(() => {
         axios.get(`http://localhost:8080/api/options`).then((response) => {
             setAllOptions(response.data);
+            window.scrollTo(0, 0);
         })
     }, [])
 
