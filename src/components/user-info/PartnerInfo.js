@@ -191,7 +191,7 @@ export default function PartnerInfo() {
             </div>
 
             <Modal show={showRentForm} onHide={handleClose}>
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title>Thông tin thuê</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -224,7 +224,6 @@ export default function PartnerInfo() {
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
-                    {isLoggedIn !== null}
                     <button onClick={handleSubmitRent} className={"btn btn-danger"}>Thuê</button>
                     <button className={"btn btn-light"} onClick={handleCloseRentForm}>Đóng</button>
                 </Modal.Footer>
