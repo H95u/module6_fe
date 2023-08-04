@@ -36,13 +36,13 @@ const Login = () => {
         axios
             .post("http://localhost:8080/api/auth/login", values, config)
             .then(response => {
+                localStorage.setItem("loggingUser", JSON.stringify(response.data.body));
                 Swal.fire({
                     title: "Đăng nhập thành công!",
                     icon: "success",
                     confirmButtonText: "OK"
                 }).then(result => {
                     if (result.isConfirmed) {
-                        localStorage.setItem("loggingUser", JSON.stringify(response.data.body));
                         navigate("/");
                         window.location.reload();
                     }

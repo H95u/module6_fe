@@ -19,18 +19,17 @@ import {
     PowerIcon,
 
 } from "@heroicons/react/24/outline";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
 
 const handleProfileInfo = () => {
-    window.location.href = "http://localhost:3000/user-info"
+    window.location.href = "/user-info"
 };
 
 const handleEditProfile = () => {
-    // Implement the function for "Chỉnh sửa thông tin"
-    // e.g., redirect to the edit profile page
+    window.location.href = "/edit-info"
 };
 
 const handleRecharge = () => {
@@ -159,6 +158,11 @@ function ProfileMenu() {
 
 
 export function ComplexNavbar() {
+    const navigate = useNavigate();
+    const handleSearch = () => {
+        let searchInput = document.getElementById('search-input').value.toLowerCase();
+        navigate(`/?name=${searchInput}`)
+    }
 
     return (
         <Navbar id={"nav"} className="mx-auto max-w-screen-xl px-4 py-3">
@@ -169,6 +173,7 @@ export function ComplexNavbar() {
                 </Link>
                 <div className="relative flex w-full gap-2 md:w-max">
                     <Input
+                        id="search-input"
                         type="search"
                         label="Nhập tên..."
                         className="pr-20"
@@ -176,7 +181,7 @@ export function ComplexNavbar() {
                             className: "min-w-[288px]",
                         }}
                     />
-                    <Button size="sm" className="!absolute right-1 top-1 rounded">
+                    <Button size="sm" className="!absolute right-1 top-1 rounded" onClick={handleSearch}>
                         Tìm kiếm
                     </Button>
                 </div>
