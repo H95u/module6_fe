@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import Banner from "../banner/Banner";
 import Story from "../story/Story";
 import ReactPaginate from "react-paginate";
@@ -12,9 +12,13 @@ import {
     Typography,
     Button,
 } from "@material-tailwind/react";
+import Swal from "sweetalert2";
 
 
 export default function Content() {
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const nameSearch = searchParams.get("name");
     const [users, setUsers] = useState([]);
     const itemsPerPage = 12;
     const [currentPage, setCurrentPage] = useState(0);
@@ -26,8 +30,27 @@ export default function Content() {
     };
 
     useEffect(() => {
-        getUsers();
-    }, []);
+        if (!nameSearch) {
+            getUsers();
+        } else {
+            searchStudentsByName(nameSearch)
+            window.location.href = "#partner-list"
+        }
+    }, [nameSearch]);
+    const searchStudentsByName = (nameSearch) => {
+        axios.get(`http://localhost:8080/api/users/search?username=${nameSearch}`).then((response) => {
+            console.log(response.status)
+            if (response.status !== 204) {
+                setUsers(response.data);
+            } else {
+                setUsers([]);
+                Swal.fire({
+                    title: "Không tìm thấy!",
+                    icon: "error",
+                })
+            }
+        });
+    };
 
     const handlePageClick = (selectedPage) => {
         setCurrentPage(selectedPage.selected);
@@ -39,40 +62,44 @@ export default function Content() {
     const currentPageData = users.slice(startIndex, endIndex);
 
     return (
-        <div className={"content"} style={{margin: 0, padding:0}}>
+        <div className={"content"} style={{margin: 0, padding: 0}}>
             <div className={"container"}>
                 <Banner/>
                 <Story/>
                 <Typography variant="h3" color="red" className="mb-8 text-center" textGradient>
                     Danh sách hot girl, hot boy
                 </Typography>
-                <div className={"row"}>
-                    {currentPageData.map((item) => (
-                        <div className={"col-md-3"} key={item.id}>
-                            <Link to={`/user/${item.id}`}>
-                                <Card className={"card"}>
-                                    <CardHeader color="blue-gray" className="relative h-60">
-                                        <img
-                                            src={item.img}
-                                            alt="card-image"
-                                        />
-                                    </CardHeader>
-                                    <CardBody>
-                                        <Typography variant="h5" color="blue-gray" className="mb-2">
-                                            {item.username}
-                                        </Typography>
-                                        <Typography>
-                                            {item.price}
-                                        </Typography>
-                                    </CardBody>
-                                    <CardFooter className="pt-0">
-                                        <Button>Thuê ngay</Button>
-                                    </CardFooter>
-                                </Card>
-                            </Link>
+                {users.length === 0 ?
+                    "" :
+                    <div id={"partner-list"}>
+                        <div className={"row"}>
+                            {currentPageData.map((item) => (
+                                <div className={"col-md-3"} key={item.id}>
+                                    <Link to={`/user/${item.id}`}>
+                                        <Card className={"card"}>
+                                            <CardHeader color="blue-gray" className="relative h-60">
+                                                <img
+                                                    src={item.img}
+                                                    alt="card-image"
+                                                />
+                                            </CardHeader>
+                                            <CardBody>
+                                                <Typography color="blue" className="font-medium" textGradient>
+                                                    {item.username}
+                                                </Typography>
+                                                <Typography color="blue" className="font-medium" textGradient>
+                                                    {item.price}
+                                                </Typography>
+                                            </CardBody>
+                                            <CardFooter className="pt-0">
+                                                <Button color="red">Thuê ngay</Button>
+                                            </CardFooter>
+                                        </Card>
+                                    </Link>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
+                    </div>}
                 <div>
                     <ReactPaginate
                         previousLabel={"Previous"}

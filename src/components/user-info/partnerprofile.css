@@ -14,7 +14,6 @@
 .partner-profile {
     width: 80%;
     margin: auto;
-    padding: 200px 10px;
 }
 .cards {
     width: 25%;
@@ -30,7 +29,7 @@
 }
 
 .ready {
-    margin-top: 10px;
+    margin-top: 12px;
     text-align: center;
     font-family: initial;
     font-size: 20px;
@@ -41,6 +40,7 @@
     text-align: center;
     font-family: initial;
     font-size: 20px;
+    padding-top: 10px;
 }
 
 .info {
@@ -61,7 +61,7 @@ hr {
 .action {
     width: 25%;
     height: 320px;
-    margin-top: 20px;
+    margin-top: 10px;
     text-align: center;
     border: solid 1px #e1dede;
     border-radius: 10px;
@@ -118,11 +118,17 @@ hr {
 }
 .modal-title {
     font-weight: bold;
-    margin-left: 125px;
+    font-family: Poppins;
+    margin: auto;
+    color: red;
 }
 .modal-footer {
     text-align: center;
     font-family: Poppins;
+}
+.modal-body {
+    font-family: Poppins;
+    font-size: 20px;
 }
 .form-check-label {
     margin-bottom: 0;

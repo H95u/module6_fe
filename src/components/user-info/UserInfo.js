@@ -14,7 +14,7 @@ import {storage} from "../../config/firebase";
 import Swal from "sweetalert2";
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
-export default function EditUserInfo() {
+export default function UserInfo() {
     const id = loggingUser.id;
     const [user, setUser] = useState({});
     const [isHovered, setIsHovered] = useState(false);

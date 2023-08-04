@@ -42,9 +42,15 @@ const Login = () => {
                     confirmButtonText: "OK"
                 }).then(result => {
                     if (result.isConfirmed) {
-                        localStorage.setItem("loggingUser", JSON.stringify(response.data.body));
-                        navigate("/");
-                        window.location.reload();
+                        const redirectedId = localStorage.getItem("userId");
+                        if (redirectedId) {
+                            localStorage.removeItem("userId");
+                            window.location.href = `/user/${redirectedId}`
+                            localStorage.setItem("loggingUser", JSON.stringify(response.data.body));
+                        } else {
+                            window.location.href = `/`
+                            localStorage.setItem("loggingUser", JSON.stringify(response.data.body));
+                        }
                     }
                 });
             })
@@ -178,12 +184,12 @@ const Login = () => {
 
                                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                     <Link href="#" variant="body2" style={{color: "#393f81"}}>
-                                        Bạn quên mật khẩu?
+                                        Quên mật khẩu?
                                     </Link>
                                     <p>Bạn chưa có tài khoản ?
-                                    <Link to={"/signup"} style={{color: "#393f81"}}>
-                                        Đăng kí ở đây
-                                    </Link></p>
+                                        <Link to={"/signup"} style={{color: "#393f81"}}>
+                                            Đăng ký tại đây
+                                        </Link></p>
                                 </div>
                             </Card.Body>
                         </Col>

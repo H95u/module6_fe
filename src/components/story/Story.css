@@ -1,4 +1,3 @@
-/* Story.css */
 
 .wrapper {
     display: flex;
@@ -8,6 +7,11 @@
     height: 100%;
 }
 
+.box-item img {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
 .wrapper::-webkit-scrollbar{
     width: 0;
 }
@@ -15,8 +19,8 @@
 .action_box--list {
     flex: 0 0 auto;
     margin-left: 20px;
-    border: 5px solid #e3e3ec;
-    border-radius: 15px;
+    border: 1px solid #e3e3ec;
+    border-radius: 12px;
 }
 .box-item img,
 .avt-rank img {
@@ -30,7 +34,6 @@
     border-radius: 50%;
 }
 
-/* Optional: Adding some basic styles to enhance the appearance */
 .wrapper {
     border-radius: 5px;
     padding: 10px;
@@ -45,4 +48,19 @@
     font-size: 14px;
     font-weight: bold;
     margin-left: 10px;
+}
+.lover-name {
+    display: flex;
+    margin: 8px 5px 3px;
+    zoom: .8;
+}
+
+.action_box--list div.lover-name p {
+    align-self: center;
+    margin-left: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 115px;
+    font-weight: 600;
 }

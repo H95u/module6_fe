@@ -19,17 +19,17 @@ import {
     PowerIcon,
 
 } from "@heroicons/react/24/outline";
+import {Link, useNavigate} from "react-router-dom";
 
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
 
 const handleProfileInfo = () => {
-    window.location.href = "http://localhost:3000/user-info"
+    window.location.href = "/user-info"
 };
 
 const handleEditProfile = () => {
-    // Implement the function for "Chỉnh sửa thông tin"
-    // e.g., redirect to the edit profile page
+    window.location.href = "/edit-info"
 };
 
 const handleRecharge = () => {
@@ -79,14 +79,14 @@ const profileMenuItems = [
 function LoginButton() {
     return (
         <div className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto">
-            <a href="/login">
-            <Button
-                variant="gradient"
-                size="sm"
-            >
-                Đăng nhập
-            </Button>
-            </a>
+            <Link to="/login">
+                <Button
+                    variant="gradient"
+                    size="sm"
+                >
+                    Đăng nhập
+                </Button>
+            </Link>
         </div>
     );
 }
@@ -158,18 +158,25 @@ function ProfileMenu() {
 
 
 export function ComplexNavbar() {
+<<<<<<< HEAD
+=======
+    const navigate = useNavigate();
+    const handleSearch = () => {
+        let searchInput = document.getElementById('search-input').value.toLowerCase();
+        navigate(`/?name=${searchInput}`)
+    }
+
+>>>>>>> fe09b58052052f0392f5c0558867951228098821
     return (
         <Navbar id={"nav"} className="mx-auto max-w-screen-xl px-4 py-3">
             <div className="mx-auto flex text-blue-gray-900">
-                <Typography
-                    as="a"
-                    href="/"
-                    className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
-                >
-                    Lover
-                </Typography>
+                <Link to={"/"}>
+                    <Avatar src={"/loverLogo.png"} className={"mr-4"}>
+                    </Avatar>
+                </Link>
                 <div className="relative flex w-full gap-2 md:w-max">
                     <Input
+                        id="search-input"
                         type="search"
                         label="Nhập tên..."
                         className="pr-20"
@@ -177,7 +184,7 @@ export function ComplexNavbar() {
                             className: "min-w-[288px]",
                         }}
                     />
-                    <Button size="sm" className="!absolute right-1 top-1 rounded">
+                    <Button size="sm" className="!absolute right-1 top-1 rounded" onClick={handleSearch}>
                         Tìm kiếm
                     </Button>
                 </div>
