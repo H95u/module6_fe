@@ -158,15 +158,13 @@ function ProfileMenu() {
 
 
 export function ComplexNavbar() {
-<<<<<<< HEAD
-=======
+
     const navigate = useNavigate();
     const handleSearch = () => {
         let searchInput = document.getElementById('search-input').value.toLowerCase();
         navigate(`/?name=${searchInput}`)
     }
 
->>>>>>> fe09b58052052f0392f5c0558867951228098821
     return (
         <Navbar id={"nav"} className="mx-auto max-w-screen-xl px-4 py-3">
             <div className="mx-auto flex text-blue-gray-900">
