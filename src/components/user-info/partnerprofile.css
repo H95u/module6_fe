@@ -14,7 +14,6 @@
 .partner-profile {
     width: 80%;
     margin: auto;
-    padding: 200px 10px;
 }
 .cards {
     width: 25%;
@@ -61,7 +60,7 @@ hr {
 .action {
     width: 25%;
     height: 320px;
-    margin-top: 20px;
+    margin-top: 10px;
     text-align: center;
     border: solid 1px #e1dede;
     border-radius: 10px;
