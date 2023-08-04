@@ -49,3 +49,18 @@
     font-weight: bold;
     margin-left: 10px;
 }
+.lover-name {
+    display: flex;
+    margin: 8px 5px 3px;
+    zoom: .8;
+}
+
+.action_box--list div.lover-name p {
+    align-self: center;
+    margin-left: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 115px;
+    font-weight: 600;
+}

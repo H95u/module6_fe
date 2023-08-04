@@ -10,13 +10,6 @@ export default function Story() {
             </Typography>
             <div className={"wrapper"}>
                 <div className={"action_box--list"}>
-                    <div className={"box-item create"}>
-                        <img src="https://files.playerduo.net/production/images/avatar37.png" alt="PD"
-                             id={"avt-img-reponsiver"}/>
-                        <p className={"lover-name"}>Đăng Story</p>
-                    </div>
-                </div>
-                <div className={"action_box--list"}>
                     <div className={"box-item"}>
                         <img src="https://playerduo.net/api/upload-service/thumbs/videos/4ddba3f8-3b8c-4961-86c6-8f28356ba4db__08c83bb4-323b-4735-8f37-8ce42b847ab9__post_video.jpg" alt="PD"
                              id={"avt-img-reponsiver"}/>
