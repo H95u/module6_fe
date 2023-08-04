@@ -42,9 +42,15 @@ const Login = () => {
                     confirmButtonText: "OK"
                 }).then(result => {
                     if (result.isConfirmed) {
-                        localStorage.setItem("loggingUser", JSON.stringify(response.data.body));
-                        navigate("/");
-                        window.location.reload();
+                        const redirectedId = localStorage.getItem("userId");
+                        if (redirectedId) {
+                            localStorage.removeItem("userId");
+                            window.location.href = `/user/${redirectedId}`
+                            localStorage.setItem("loggingUser", JSON.stringify(response.data.body));
+                        } else {
+                            window.location.href = `/`
+                            localStorage.setItem("loggingUser", JSON.stringify(response.data.body));
+                        }
                     }
                 });
             })
