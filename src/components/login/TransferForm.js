@@ -12,7 +12,7 @@ export default function TransferForm () {
                             "Dành cho"
                             <em>Cộng tác viên</em>
                         </h2>
-                        <p>
+                        <p >
                             "Bạn muốn gia tăng thêm thu nhập? Hãy tham gia trở thành
                             cộng tác viên của chúng tôi."
                         </p>

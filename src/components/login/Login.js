@@ -9,6 +9,7 @@ import "./Login.css";
 import {Typography, Avatar} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
+
 const Login = () => {
     const navigate = useNavigate();
     const initialValue = {
@@ -18,7 +19,8 @@ const Login = () => {
 
     const validateSchema = Yup.object({
         username: Yup.string()
-            .required("Tên là bắt buộc"),
+            .required("Tên là bắt buộc")
+            .matches(/^[a-zA-ZÀ-ỹ0-9]+(([',. -][a-zA-ZÀ-ỹ0-9 ])?[a-zA-ZÀ-ỹ0-9]*)*$/, "Nhập tên từ a-zA-Z có dấu và số không chứa kí tự đặc biệt"),
         password: Yup.string()
             .required("Mật khẩu là bắt buộc")
     });
@@ -64,6 +66,7 @@ const Login = () => {
         <>
             <Container className="-my-75">
                 <Card>
+
                     <Row className="g-0">
                         <Col md="4">
                             <Image
@@ -150,8 +153,7 @@ const Login = () => {
                                             }}>
                                                 <Button
                                                     type="submit"
-                                                    className="mb-4 px-5"
-                                                    variant="dark"
+                                                    className="mb-4 px-5 bg-primary"
                                                     size="lg"
                                                     disabled={isSubmitting}
                                                 >
@@ -162,8 +164,7 @@ const Login = () => {
 
                                                 <Button
                                                     type="reset"
-                                                    className="mb-4 px-5"
-                                                    variant="dark"
+                                                    className="mb-4 px-5 bg-primary"
                                                     size="lg"
                                                     disabled={isSubmitting}
                                                 >
