@@ -63,7 +63,6 @@ export default function PartnerInfo() {
     };
 
 
-
     useEffect(() => {
         axios.get(`http://localhost:8080/api/users/${id}`).then((response) => {
             setUser(response.data);
@@ -181,9 +180,10 @@ export default function PartnerInfo() {
                             {user.price == null &&
                                 <h1>---</h1>
                             }
-                            <div className={`booking`}><a className={"btn btn-danger"} onClick={handleShowRentForm}>THUÊ</a></div>
+                            <div className={`booking`}><a className={"btn btn-danger"}
+                                                          onClick={handleShowRentForm}>THUÊ</a></div>
                             <div><a className={"btn btn-light"}>TẶNG TIỀN</a></div>
-                            <div><a className={"btn btn-light"}><i className={"bi bi-chat-square-fill"}></i> CHÁT</a>
+                            <div><a className={"btn btn-light"}><i className={"bi bi-chat-square-fill"}></i> CHAT</a>
                             </div>
                         </div>
                     </div>
@@ -232,7 +232,11 @@ export default function PartnerInfo() {
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header>
-                    <Modal.Title>Cập nhật dịch vụ cung cấp</Modal.Title>
+                    <Modal.Title>
+                        <div className={`service`}>
+                            Cập nhật dịch vụ cung cấp
+                        </div>
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {allOptions.map(item =>
