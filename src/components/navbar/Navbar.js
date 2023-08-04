@@ -158,7 +158,6 @@ function ProfileMenu() {
 
 
 export function ComplexNavbar() {
-
     return (
         <Navbar id={"nav"} className="mx-auto max-w-screen-xl px-4 py-3">
             <div className="mx-auto flex text-blue-gray-900">
@@ -185,7 +184,6 @@ export function ComplexNavbar() {
                 {loggingUser != null ? <ProfileMenu/> : <LoginButton/>
                 }
             </div>
-
         </Navbar>
     );
 }

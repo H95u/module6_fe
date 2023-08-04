@@ -10,9 +10,6 @@ import RegisterUser from "./components/login/RegisterUser";
 import RegisterCCDV from "./components/login/RegisterCCDV";
 import Login from "./components/login/Login";
 import EditUserInfo from "./components/user-info/EditUserInfo";
-import NavbarJs from "./components/login/NavbarJs";
-
-
 export default function App() {
     return (
         <>
