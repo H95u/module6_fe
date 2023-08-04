@@ -164,7 +164,7 @@ export function ComplexNavbar() {
         <Navbar id={"nav"} className="mx-auto max-w-screen-xl px-4 py-3">
             <div className="mx-auto flex text-blue-gray-900">
                 <Link to={"/"}>
-                    <Avatar src={"loverLogo.png"} className={"mr-4"}>
+                    <Avatar src={"/loverLogo.png"} className={"mr-4"}>
                     </Avatar>
                 </Link>
                 <div className="relative flex w-full gap-2 md:w-max">

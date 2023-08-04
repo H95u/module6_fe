@@ -66,7 +66,7 @@ export default function Content() {
                                         </Typography>
                                     </CardBody>
                                     <CardFooter className="pt-0">
-                                        <Button>Thuê ngay</Button>
+                                        <Button color="red">Thuê ngay</Button>
                                     </CardFooter>
                                 </Card>
                             </Link>
