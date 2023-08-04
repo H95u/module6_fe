@@ -117,11 +117,17 @@ hr {
 }
 .modal-title {
     font-weight: bold;
-    margin-left: 125px;
+    font-family: Poppins;
+    margin: auto;
+    color: red;
 }
 .modal-footer {
     text-align: center;
     font-family: Poppins;
+}
+.modal-body {
+    font-family: Poppins;
+    font-size: 20px;
 }
 .form-check-label {
     margin-bottom: 0;
