@@ -51,13 +51,17 @@ export default function PartnerInfo() {
         })
     }
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const isLoggedIn = JSON.parse(localStorage.getItem("loggingUser"));
 
     const handleSubmitRent = () => {
-        localStorage.setItem("userId", id)
-        handleCloseRentForm()
-        navigate("/login")
-    }
+        if (isLoggedIn) {
+            handleShowRentForm();
+        } else {
+            localStorage.setItem("userId", id);
+            navigate("/login");
+        }
+    };
+
 
 
     useEffect(() => {
@@ -187,7 +191,7 @@ export default function PartnerInfo() {
             </div>
 
             <Modal show={showRentForm} onHide={handleClose}>
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title>Thông tin thuê</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
