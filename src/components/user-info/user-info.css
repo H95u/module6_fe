@@ -1,6 +1,5 @@
 .user-info {
     padding: 20px;
-    background-color: #cccccc;
 }
 
 .user-info-img {
@@ -26,4 +25,87 @@
 
 .fixed-size-button {
    width: 130px;
+}
+
+.container-user {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.col-md-3 {
+    flex: 1;
+}
+
+.col-md-6 {
+    flex: 2;
+}
+
+/* Additional styles for the profile card */
+.profile-card {
+    position: relative;
+}
+
+.profile-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 8px;
+    text-align: center;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    display: none;
+}
+
+.profile-card:hover .image-overlay {
+    display: block;
+}
+
+.image-overlay label {
+    color: white;
+    cursor: pointer;
+}
+
+/* Additional styles for buttons */
+.follow-buttons,
+.album-buttons{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.fixed-size-button{
+    border: 1px solid #d0e6ee;
+}
+.follow-buttons button:hover,
+.album-buttons button:hover {
+    background-color: #5f8491;
+    color: white;
+    cursor: pointer;
+    /*transform: translateY(-2px);*/
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+    .container-user {
+        flex-direction: column;
+    }
+
+    .col-md-3,
+    .col-md-6 {
+        flex: initial;
+    }
 }

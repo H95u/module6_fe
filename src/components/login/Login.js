@@ -8,6 +8,7 @@ import {Formik, Form, Field, ErrorMessage} from "formik";
 import "./Login.css";
 import {Typography, Avatar} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import {FooterWithSocialLinks} from "../footer/Footer";
 
 
 const Login = () => {
@@ -196,6 +197,8 @@ const Login = () => {
                     </Row>
                 </Card>
             </Container>
+            <hr/>
+            <FooterWithSocialLinks/>
         </>
     );
 };
