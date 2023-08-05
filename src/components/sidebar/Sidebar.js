@@ -7,7 +7,7 @@ export default function Sidebar () {
             <div className={"home-flex-category"}>
                 <div className={"fixed-case"}>
                     <p>
-                        <span className={"list-name"}>Danh mục dịch vụ</span>
+                        <span className={"list-name font-bold text-danger"}>Danh mục dịch vụ</span>
                     </p>
                     <ul className={"list-group"}>
                         <li className={"list-item"}>

@@ -3,12 +3,11 @@
 .home-flex-category {
     position: fixed;
     left: 0;
-    width: 225px;
     max-height: 100vh;
     padding: 20px 0 60px;
     overflow-y: auto;
     overflow-x: hidden;
-    z-index: 9;
+    z-index: 9999;
     background: rgba(154, 150, 150, 0.22);
     border-right: 1px solid rgba(94, 92, 92, 0.07);
 }
