@@ -1,4 +1,5 @@
 import {Typography} from "@material-tailwind/react";
+import "./Footer.css"
 
 const LINKS = [
     {

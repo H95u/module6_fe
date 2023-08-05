@@ -13,6 +13,8 @@ import {
     Button,
 } from "@material-tailwind/react";
 import Swal from "sweetalert2";
+import "./Content.css"
+import Sidebar from "../sidebar/Sidebar";
 
 
 export default function Content() {
@@ -63,6 +65,7 @@ export default function Content() {
 
     return (
         <div className={"content"} style={{margin: 0, padding: 0}}>
+            <Sidebar/>
             <div className={"container"}>
                 <Banner/>
                 <Story/>
@@ -76,7 +79,7 @@ export default function Content() {
                             {currentPageData.map((item) => (
                                 <div className={"col-md-3"} key={item.id}>
                                     <Link to={`/user/${item.id}`}>
-                                        <Card className={"card"}>
+                                        <Card className={"card"} style={{marginLeft: 20}}>
                                             <CardHeader color="blue-gray" className="relative h-60">
                                                 <img
                                                     src={item.img}
