@@ -44,7 +44,7 @@ const handleHelp = () => {
 
 const handleLogout = () => {
     localStorage.removeItem("loggingUser");
-    window.location.reload();
+    window.location.href = "/";
 };
 
 // profile menu component

@@ -62,3 +62,8 @@ ul li{
 .media-body {
     display: table-cell;
 }
+
+.list-group li:hover {
+    background-color: cyan;
+    cursor: pointer;
+}

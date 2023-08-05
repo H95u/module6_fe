@@ -65,7 +65,7 @@ export default function Content() {
     const currentPageData = users.slice(startIndex, endIndex);
 
     return (
-        <div className={"content"} style={{margin: 0, padding: 0}}>
+        <div className={"content"}>
             <div className={"row"}>
                 <div className={"col-md-2"}>
                     <Sidebar/>

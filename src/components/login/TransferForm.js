@@ -1,7 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import "./TransferForm.css"
-import {FooterWithSocialLinks} from "../footer/Footer";
 export default function TransferForm () {
     return(
         <>
@@ -45,7 +44,6 @@ export default function TransferForm () {
                     </li>
                 </ul>
             </div>
-            <FooterWithSocialLinks/>
         </>
     )
 }
