@@ -59,87 +59,107 @@ export default function UserInfo() {
     };
 
     return (
-        <div className={"user-info"}>
+        <div className="user-info">
             <Typography variant="h1" color="light-blue" className="mb-2 text-center" textGradient>
                 Thông tin cá nhân
             </Typography>
-                    <Card
-                        className="w-96"
-                        onMouseEnter={() => setIsHovered(true)}
-                        onMouseLeave={() => setIsHovered(false)}
-                    >
-                        <CardHeader floated={false} className="h-60">
-                            <img
-                                className="h-60 w-60 rounded-full object-center mx-auto justify-items-center"
-                                src={user.img}
-                                alt="profile-picture"
-                            />
-                            {isHovered && (
-                                <div
-                                    className="absolute bottom-0 left-0 right-0 bg-gray-800 bg-opacity-60 p-2 text-center">
-                                    <label htmlFor="avatarInput" className="cursor-pointer text-white">
-                                        Thay ảnh đại diện
-                                    </label>
-                                    <input
-                                        type="file"
-                                        id="avatarInput"
-                                        className="hidden"
-                                        onChange={handleFileChange}
+            <div className={"container"}>
+                <div className={"row"}>
+                    <div className={"col-md-3"}>
+                        <div className=" flex items-center justify-between">
+                            <Card
+                                className="w-84"
+                                onMouseEnter={() => setIsHovered(true)}
+                                onMouseLeave={() => setIsHovered(false)}
+                            >
+                                <CardHeader floated={false} className="h-60">
+                                    <img
+                                        className="h-60 w-60 rounded-full object-center mx-auto justify-items-center"
+                                        src={user.img}
+                                        alt="profile-picture"
                                     />
+                                    {isHovered && (
+                                        <div
+                                            className="absolute bottom-0 left-0 right-0 bg-gray-800 bg-opacity-60 p-2 text-center">
+                                            <label htmlFor="avatarInput" className="cursor-pointer text-white">
+                                                Thay ảnh đại diện
+                                            </label>
+                                            <input
+                                                type="file"
+                                                id="avatarInput"
+                                                className="hidden"
+                                                onChange={handleFileChange}
+                                            />
+                                        </div>
+                                    )}
+                                </CardHeader>
+                                <CardBody>
+                                    <Typography color="blue" className="font-medium text-center" textGradient>
+                                        <p>
+                                            {user.username}
+                                        </p>
+                                        ( {user.nickname} )
+                                        <p>
+                                            Địa chỉ : {user.address != null ? user.address.name : ""}
+                                        </p>
+                                    </Typography>
+                                </CardBody>
+                                <CardFooter className="flex justify-center gap-7 pt-2">
+                                    <Tooltip content="Like">
+                                        <Typography as="a" href="#facebook" variant="lead" color="blue" textGradient>
+                                            <i className="fab fa-facebook"/>
+                                        </Typography>
+                                    </Tooltip>
+                                    <Tooltip content="Follow">
+                                        <Typography as="button" href="#" variant="lead" color="light-blue" textGradient>
+                                            <i className="fab fa-twitter"/>
+                                        </Typography>
+                                    </Tooltip>
+                                    <Tooltip content="Follow">
+                                        <Typography as="button" href="#" variant="lead" color="purple" textGradient>
+                                            <i className="fab fa-instagram"/>
+                                        </Typography>
+                                    </Tooltip>
+                                </CardFooter>
+                            </Card>
+                        </div>
+                        <div className="d-flex flex-wrap mt-2 justify-between">
+                            <div className={"row btn-group"}>
+                                <div className={"col-md-6"}>
+                                    <Button size="md" color="white" className={"mb-2"}>
+                                        Theo dõi
+                                    </Button>
+                                    <Button size="md" color="white">
+                                        Cài đặt
+                                    </Button>
                                 </div>
-                            )}
-                        </CardHeader>
-                        <CardBody>
-                            <Typography color="blue" className="font-medium text-center" textGradient>
-                                <p>
-                                    {user.username}
-                                </p>
-                                ( {user.nickname} )
-                                <p>
-                                    Địa chỉ : {user.address != null ? user.address.name : ""}
-                                </p>
-                            </Typography>
-                        </CardBody>
-                        <CardFooter className="flex justify-center gap-7 pt-2">
-                            <Tooltip content="Like">
-                                <Typography as="a" href="#facebook" variant="lead" color="blue"
-                                            textGradient>
-                                    <i className="fab fa-facebook"/>
-                                </Typography>
-                            </Tooltip>
-                            <Tooltip content="Follow">
-                                <Typography as="button" href="#" variant="lead" color="light-blue"
-                                            textGradient>
-                                    <i className="fab fa-twitter"/>
-                                </Typography>
-                            </Tooltip>
-                            <Tooltip content="Follow">
-                                <Typography as="button" href="#" variant="lead" color="purple" textGradient>
-                                    <i className="fab fa-instagram"/>
-                                </Typography>
-                            </Tooltip>
-                        </CardFooter>
-                    </Card>
-                    <div className="d-flex flex-wrap mt-2 justify-between">
-                        <div className="flex items-center gap-6 mb-2">
-                            <Button size="md" color="white" className="fixed-size-button">
-                                Theo dõi
-                            </Button>
-                            <Button size="md" color="white" className="fixed-size-button">
-                                Cài đặt
-                            </Button>
-                        </div>
-                        <div className="flex items-center gap-6 mb-2">
-                            <Button size="md" color="white" className="fixed-size-button">
-                                Chat
-                            </Button>
-                            <Button size="md" color="white" className="fixed-size-button">
-                                Album
-                            </Button>
-                        </div>
+                                <div className={"col-md-6"}>
+                                    <Button size="md" color="white" className={"mb-2"}>
+                                        Chat
+                                    </Button>
+                                    <Button size="md" color="white">
+                                        Album
+                                    </Button>
 
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
+                    <div className={"col-md-6"}>
+                        <Card className={"mid-frame"}>
+                            <Input
+                                type="text"
+                                label="Hãy viết gì đó..."
+                                className="pr-20"
+                                containerProps={{
+                                    className: "min-w-[288px]",
+                                }}
+                            />
+                        </Card>
+                    </div>
+                </div>
+            </div>
         </div>
-    )
+    );
+
 }

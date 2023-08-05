@@ -7,7 +7,6 @@ import * as Yup from "yup";
 import "./Login.css";
 import {Typography, Avatar} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import {FooterWithSocialLinks} from "../footer/Footer";
 
 const RegisterUser = () => {
     const [students, setStudents] = useState([]);
@@ -106,7 +105,7 @@ const RegisterUser = () => {
     };
 
     return (
-        <>
+        <div className={"form-register"}>
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
@@ -242,7 +241,7 @@ const RegisterUser = () => {
                     </Form>
                 )}
             </Formik>
-        </>
+        </div>
     );
 };
 

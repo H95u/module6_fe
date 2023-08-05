@@ -5,8 +5,14 @@
 
 .-my-75 {
     margin: 20px auto;
+    max-width: 1000px;
 }
 
 .container-xxl {
     margin: 30px auto;
 }
+
+.form-register {
+    height: 500px;
+}
+
