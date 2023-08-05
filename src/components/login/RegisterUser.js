@@ -242,7 +242,6 @@ const RegisterUser = () => {
                     </Form>
                 )}
             </Formik>
-            <FooterWithSocialLinks/>
         </>
     );
 };

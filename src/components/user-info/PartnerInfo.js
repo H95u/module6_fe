@@ -256,7 +256,6 @@ export default function PartnerInfo() {
                 </Modal.Footer>
             </Modal>
             <hr/>
-            <FooterWithSocialLinks/>
         </>
     )
 }

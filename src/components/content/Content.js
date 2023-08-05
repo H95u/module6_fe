@@ -15,6 +15,7 @@ import {
 import Swal from "sweetalert2";
 import "./Content.css"
 import Sidebar from "../sidebar/Sidebar";
+import Filter from "../filter/Filter";
 
 
 export default function Content() {
@@ -70,60 +71,63 @@ export default function Content() {
                     <Sidebar/>
                 </div>
                 <div className={"col-md-10"}>
-                        <Banner/>
-                        <Story/>
-                        <Typography variant="h3" color="red" className="mb-8 text-center" textGradient>
-                            Danh sách hot girl, hot boy
-                        </Typography>
-                        {users.length === 0 ?
-                            "" :
-                            <div id={"partner-list"}>
-                                <div className={"row"}>
-                                    {currentPageData.map((item) => (
-                                        <div className={"col-md-3"} key={item.id}>
-                                            <Link to={`/user/${item.id}`}>
-                                                <Card className={"card w-64"}>
-                                                    <CardHeader color="blue-gray" className="relative h-56">
-                                                        <img
-                                                            className={"object-cover w-full h-full"}
-                                                            src={item.img}
-                                                            alt="card-image"
-                                                        />
-                                                    </CardHeader>
-                                                    <CardBody>
-                                                        <Typography color="blue" className="font-medium" textGradient>
-                                                            {item.username}
-                                                        </Typography>
-                                                        <Typography color="blue" className="font-medium" textGradient>
-                                                            {item.price}
-                                                        </Typography>
-                                                    </CardBody>
-                                                    <CardFooter className="pt-0">
-                                                        <Button color="red">Thuê ngay</Button>
-                                                    </CardFooter>
-                                                </Card>
-                                            </Link>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>}
-                        <div>
-                            <ReactPaginate
-                                previousLabel={"Previous"}
-                                nextLabel={"Next"}
-                                breakLabel={"..."}
-                                pageCount={totalPages}
-                                onPageChange={handlePageClick}
-                                activeClassName={"active"}
-                                containerClassName={"pagination"}
-                                pageClassName={"page-item"}
-                                pageLinkClassName={"page-link"}
-                                previousClassName={"page-item"}
-                                previousLinkClassName={"page-link"}
-                                nextClassName={"page-item"}
-                                nextLinkClassName={"page-link"}
-                            />
-                        </div>
+                    <Banner/>
+                    <Story/>
+                    <div className={"mb-8"}>
+                        <Filter/>
+                    </div>
+                    <Typography variant="h3" color="red" className="mb-8" textGradient>
+                        Danh sách hot girl, hot boy
+                    </Typography>
+                    {users.length === 0 ?
+                        "" :
+                        <div id={"partner-list"}>
+                            <div className={"row"}>
+                                {currentPageData.map((item) => (
+                                    <div className={"col-md-3"} key={item.id}>
+                                        <Link to={`/user/${item.id}`}>
+                                            <Card className={"card w-64"}>
+                                                <CardHeader color="blue-gray" className="relative h-56">
+                                                    <img
+                                                        className={"object-cover w-full h-full"}
+                                                        src={item.img}
+                                                        alt="card-image"
+                                                    />
+                                                </CardHeader>
+                                                <CardBody>
+                                                    <Typography color="blue" className="font-medium" textGradient>
+                                                        {item.username}
+                                                    </Typography>
+                                                    <Typography color="blue" className="font-medium" textGradient>
+                                                        {item.price}
+                                                    </Typography>
+                                                </CardBody>
+                                                <CardFooter className="pt-0">
+                                                    <Button color="red">Thuê ngay</Button>
+                                                </CardFooter>
+                                            </Card>
+                                        </Link>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>}
+                    <div>
+                        <ReactPaginate
+                            previousLabel={"Previous"}
+                            nextLabel={"Next"}
+                            breakLabel={"..."}
+                            pageCount={totalPages}
+                            onPageChange={handlePageClick}
+                            activeClassName={"active"}
+                            containerClassName={"pagination"}
+                            pageClassName={"page-item"}
+                            pageLinkClassName={"page-link"}
+                            previousClassName={"page-item"}
+                            previousLinkClassName={"page-link"}
+                            nextClassName={"page-item"}
+                            nextLinkClassName={"page-link"}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

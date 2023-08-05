@@ -245,7 +245,6 @@ const RegisterCCDV = () => {
                     </Form>
                 )}
             </Formik>
-            <FooterWithSocialLinks/>
         </>
     );
 };
