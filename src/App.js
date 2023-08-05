@@ -27,7 +27,6 @@ export default function App() {
                     <Route path={"/user/:id"} element={<PartnerInfo/>}></Route>
                     <Route path={"/user-info"} element={<UserInfo/>}></Route>
                 </Routes>
-                <FooterWithSocialLinks/>
             </BrowserRouter>
         </>
     );

@@ -12,6 +12,7 @@ import axios from "axios";
 import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 import {storage} from "../../config/firebase";
 import Swal from "sweetalert2";
+import {FooterWithSocialLinks} from "../footer/Footer";
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
 export default function UserInfo() {
@@ -63,7 +64,7 @@ export default function UserInfo() {
             <Typography variant="h1" color="light-blue" className="mb-2 text-center" textGradient>
                 Thông tin cá nhân
             </Typography>
-            <div className={"container"}>
+            <div className={"container-user"}>
                 <div className={"row"}>
                     <div className={"col-md-3"}>
                         <div className=" flex items-center justify-between">
@@ -125,7 +126,7 @@ export default function UserInfo() {
                         </div>
                         <div className="d-flex flex-wrap mt-2 justify-between">
                             <div className="flex items-center gap-6 mb-2">
-                                <Button size="md" color="white" className="fixed-size-button">
+                                <Button  size="md" color="white" className="fixed-size-button">
                                     Theo dõi
                                 </Button>
                                 <Button size="md" color="white" className="fixed-size-button">
@@ -157,6 +158,8 @@ export default function UserInfo() {
                     </div>
                 </div>
             </div>
+            <hr/>
+            <FooterWithSocialLinks/>
         </div>
     );
 

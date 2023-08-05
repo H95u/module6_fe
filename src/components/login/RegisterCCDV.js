@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import "./Login.css";
 import {Typography, Avatar} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import {FooterWithSocialLinks} from "../footer/Footer";
 
 const RegisterCCDV = () => {
     const navigate = useNavigate();
@@ -244,6 +245,7 @@ const RegisterCCDV = () => {
                     </Form>
                 )}
             </Formik>
+            <FooterWithSocialLinks/>
         </>
     );
 };
