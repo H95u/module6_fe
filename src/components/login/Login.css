@@ -1,18 +1,15 @@
-/*[type='reset'],*/
-/*[type='submit'] {*/
-/*    background-color: #007bff;*/
-/*}*/
+
 
 .-my-75 {
     margin: 20px auto;
-    max-width: 1000px;
+    max-width: 70%;
 }
 
 .container-xxl {
     margin: 30px auto;
+    max-width: 80%;
 }
 
-.form-register {
-    height: 500px;
-}
+
+
 

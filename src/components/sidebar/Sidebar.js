@@ -1,78 +1,40 @@
-import React from 'react';
-import "./Sidebar.css"
+import React, {useEffect, useState} from 'react';
+import "./Sidebar.css";
+import axios from "axios";
 
-export default function Sidebar () {
-    return(
+export default function Sidebar() {
+    const [options, setOptions] = useState([]);
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/api/options`).then((response) => {
+            setOptions(response.data);
+        }).catch((error) => {
+            console.error("Error fetching data:", error);
+        });
+    }, []);
+
+    const handleSelect = (e) => {
+        const selectedId = e.target.dataset.value;
+        console.log("Selected ID:", selectedId);
+    };
+
+    return (
         <>
             <div className={"home-flex-category"}>
                 <div className={"fixed-case"}>
                     <p>
                         <span className={"list-name font-bold text-danger"}>Danh mục dịch vụ</span>
                     </p>
-                    <ul className={"list-group"}>
-                        <li className={"list-item"}>
-                            <div className={"media"}>
-                                <div className={"media-body media-middle"}>
-                                    <p>Ra mắt người nhà</p>
+                    <ul className={"list-group"} onClick={handleSelect}>
+                        {options.map(item => (
+                            <li key={item.id} data-value={item.id} className={"list-item"}>
+                                <div className={"media"}>
+                                    <div className={"media-body media-middle"}>
+                                        <p data-value={item.id} className={"text-black font-bold"}>{item.name}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li className={"list-item"}>
-                            <div className={"media"}>
-                                <div className={"media-body media-middle"}>
-                                    <p>Ra mắt bạn bè</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li className={"list-item"}>
-                            <div className={"media"}>
-                                <div className={"media-body media-middle"}>
-                                    <p>Du lịch chung cùng nhóm bạn</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li className={"list-item"}>
-                            <div className={"media"}>
-                                <div className={"media-body media-middle"}>
-                                    <p>Đi chơi chung</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li className={"list-item"}>
-                            <div className={"media"}>
-                                <div className={"media-body media-middle"}>
-                                    <p>Tham dự sinh nhật</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li className={"list-item"}>
-                            <div className={"media"}>
-                                <div className={"media-body media-middle"}>
-                                    <p>Trò chuyện offline</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li className={"list-item"}>
-                            <div className={"media"}>
-                                <div className={"media-body media-middle"}>
-                                    <p>Trò chuyện online</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li className={"list-item"}>
-                            <div className={"media"}>
-                                <div className={"media-body media-middle"}>
-                                    <p>Đi chơi tết</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li className={"list-item"}>
-                            <div className={"media"}>
-                                <div className={"media-body media-middle"}>
-                                    <p>Đi chơi ngày lễ</p>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </div>

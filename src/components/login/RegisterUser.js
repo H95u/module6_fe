@@ -122,81 +122,63 @@ const RegisterUser = () => {
 
                                             <div className='row g-0'>
 
-                                                <div className='col-md-6 d-none d-md-block'>
+                                                <div className='col-md-4'>
                                                     <img
                                                         src='https://sohanews.sohacdn.com/160588918557773824/2020/7/29/photo-5-15959936560561234324432.jpg'
                                                         alt='Sample photo' className='card-img rounded-start'/>
                                                 </div>
 
-                                                <div className='col-md-6'>
+                                                <div className='col-md-8'>
 
                                                     <div
                                                         className='card-body text-black d-flex flex-column justify-content-center'>
 
-                                                        <div className="d-flex flex-row mt-2">
-                                                            <img
-                                                                src="https://th.bing.com/th/id/OIP.RyFICoVUUUvv_AaeRt1X7QHaHa?pid=ImgDet&rs=1"
-                                                                alt="Your Image"
-                                                                className="me-3"
-                                                                style={{width: "4rem", height: "4rem"}}
-                                                            />
-                                                            <span className="h1 fw-bold mb-0">Lover</span>
-                                                        </div>
-
-                                                        <div style={{
-                                                            marginTop: 8,
-                                                            display: 'flex',
-                                                            flexDirection: 'column',
-                                                            alignItems: 'center'
-                                                        }}>
-                                                            <Avatar sx={{m: 1, bgcolor: 'rgb(225, 0, 80)'}}>
-                                                                <LockOutlinedIcon/>
-                                                            </Avatar>
+                                                        <div className={"mx-auto"}>
                                                             <Typography component="h1" variant="h5">
                                                                 Trang đăng ký
                                                             </Typography>
                                                         </div>
 
-                                                        <div className='mb-4'>
+                                                        <div>
                                                             <label htmlFor='username'
                                                                    className='form-label'>Tên đăng nhập</label>
-                                                            <Field type='text' className='form-control form-control-lg'
+                                                            <Field type='text' className='form-control form-control-sm'
                                                                    id='username' name='username'/>
                                                             <ErrorMessage name='username' component='div'
                                                                           className='text-danger'/>
                                                         </div>
 
-                                                        <div className='mb-4'>
+                                                        <div>
                                                             <label htmlFor='password'
                                                                    className='form-label'>Mật khẩu</label>
                                                             <Field type='password'
-                                                                   className='form-control form-control-lg'
+                                                                   className='form-control form-control-sm'
                                                                    id='password' name='password'/>
                                                             <ErrorMessage name='password' component='div'
                                                                           className='text-danger'/>
                                                         </div>
 
-                                                        <div className='mb-4'>
+                                                        <div>
                                                             <label htmlFor='nickname'
                                                                    className='form-label'>Biệt danh</label>
-                                                            <Field type='text' className='form-control form-control-lg'
+                                                            <Field type='text' className='form-control form-control-sm'
                                                                    id='nickname' name='nickname'/>
                                                             <ErrorMessage name='nickname' component='div'
                                                                           className='text-danger'/>
                                                         </div>
 
-                                                        <div className='mb-4'>
+                                                        <div>
                                                             <label htmlFor='email' className='form-label'>Email</label>
-                                                            <Field type='email' className='form-control form-control-lg'
+                                                            <Field type='email' className='form-control form-control-sm'
                                                                    id='email' name='email'/>
                                                             <ErrorMessage name='email' component='div'
                                                                           className='text-danger'/>
                                                         </div>
 
-                                                        <div className='mb-4'>
+                                                        <div>
                                                             <label htmlFor='gender'
                                                                    className='form-label'>Giới tính</label>
-                                                            <Field as='select' className='form-select form-select-lg'
+                                                            <Field as='select' className='form-select form-select-sm'
                                                                    id='gender' name='gender'>
                                                                 <option value=''>Giới tính</option>
                                                                 <option value='male'>Nam</option>
@@ -208,7 +190,7 @@ const RegisterUser = () => {
 
                                                         <div className='mb-4'>
                                                             <label htmlFor='dob' className='form-label'>Ngày tháng năm sinh</label>
-                                                            <Field type='date' className='form-control form-control-lg'
+                                                            <Field type='date' className='form-control form-control-sm'
                                                                    id='dob' name='dob' placeholder='MM/DD/YYYY'/>
                                                             <ErrorMessage name='dob' component='div'
                                                                           className='text-danger'/>
@@ -216,7 +198,7 @@ const RegisterUser = () => {
 
 
                                                         <div className='d-grid'>
-                                                            <button className='btn btn-primary btn-lg'
+                                                            <button className='btn btn-primary btn-sm'
                                                                     disabled={isSubmitting}>Đăng ký
                                                             </button>
                                                         </div>

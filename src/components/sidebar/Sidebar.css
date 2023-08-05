@@ -3,7 +3,6 @@
 .home-flex-category {
     position: fixed;
     left: 0;
-    max-height: 100vh;
     padding: 20px 0 60px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -64,6 +63,6 @@ ul li{
 }
 
 .list-group li:hover {
-    background-color: cyan;
+    background-color: #ecd5b5;
     cursor: pointer;
 }

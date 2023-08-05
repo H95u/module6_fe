@@ -70,7 +70,7 @@ export default function Content() {
                 <div className={"col-md-2"}>
                     <Sidebar/>
                 </div>
-                <div className={"col-md-10"}>
+                <div className={"col-md-10 col-sm-1"}>
                     <Banner/>
                     <Story/>
                     <div className={"mb-8"}>
@@ -86,8 +86,8 @@ export default function Content() {
                                 {currentPageData.map((item) => (
                                     <div className={"col-md-3"} key={item.id}>
                                         <Link to={`/user/${item.id}`}>
-                                            <Card className={"card w-64"}>
-                                                <CardHeader color="blue-gray" className="relative h-56">
+                                            <Card className={"card w-56"}>
+                                                <CardHeader color="blue-gray" className="relative h-48">
                                                     <img
                                                         className={"object-cover w-full h-full"}
                                                         src={item.img}
