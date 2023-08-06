@@ -18,7 +18,7 @@ export default function PartnerInfo() {
     const {id} = useParams();
     const [show, setShow] = useState(false);
     const [showRentForm, setShowRentForm] = useState(false)
-    const [price, setPrice] = useState(true)
+    const [showPrice, setShowPrice] = useState(true)
     const [updatePrice, setUpdatePrice] = useState(false)
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -55,6 +55,13 @@ export default function PartnerInfo() {
         })
     }
 
+    const initialValues = {
+        price: 0
+    }
+    const validation = Yup.object({
+        price: Yup.number().min(0, "Số tiền bạn nhập phải lớn hơn 0")
+    });
+
     const handleUpdatePrice = (value) => {
         const config = {
             headers: {
@@ -63,22 +70,19 @@ export default function PartnerInfo() {
             }
         }
         axios.post("http://localhost:8080/api/users/update-price", value, config).then((response) => {
-            setUser(value)
+            setUser({...user, price: value.price});
             displayPrice()
         })
 
-
-
-        // call API update price
     }
 
     function displayPrice() {
-        setPrice(true)
+        setShowPrice(true)
         setUpdatePrice(false)
     }
 
     function displayUpdatePrice() {
-        setPrice(false)
+        setShowPrice(false)
         setUpdatePrice(true)
     }
 
@@ -93,17 +97,11 @@ export default function PartnerInfo() {
         }
     };
 
-    const initialValues = {
-        price: 0
-    }
-    const validation = Yup.object({
-        price: Yup.number().min(0, "Số tiền bạn nhập phải lớn hơn 0")
-    });
-
 
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/users/${id}`).then((response) => {
+            console.log('response.data>>>', response.data)
             setUser(response.data);
             setOptions(response.data.options);
             setAddress(response.data.address)
@@ -130,7 +128,7 @@ export default function PartnerInfo() {
                                 <a href={`#`}><img src={user.img} alt={``}/></a>
                             </div>
                             <div><p className={"ready"}>Đang sẵn sàng</p></div>
-                            <div className={"dob"}><span>Ngày tham gia:</span><span><span>31/5/2019</span></span></div>
+                            <div className={"dob"}><span>Ngày tham gia:</span><span><span>{user.createdDate}</span></span></div>
                             <hr/>
                         </div>
                         <div className={"info"}>
@@ -215,7 +213,7 @@ export default function PartnerInfo() {
                             </div>
                         </div>
                         <div className={"action"}>
-                            {price && <>
+                            {showPrice && <>
                                 <div className={`row`}>
                                     <div className={`col-sm-8`}>
                                         {user.price != null &&
