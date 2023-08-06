@@ -4,6 +4,7 @@ import axios from "axios";
 import "./partnerprofile.css";
 import {Typography} from "@material-tailwind/react";
 import Modal from "react-bootstrap/Modal";
+import {FooterWithSocialLinks} from "../footer/Footer";
 
 export default function PartnerInfo() {
     const navigate = useNavigate();
@@ -254,6 +255,7 @@ export default function PartnerInfo() {
                     <button className={"btn btn-light"} onClick={handleClose}>Đóng</button>
                 </Modal.Footer>
             </Modal>
+            <hr/>
         </>
     )
 }

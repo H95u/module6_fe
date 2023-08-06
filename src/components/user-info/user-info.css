@@ -1,29 +1,7 @@
 .user-info {
-    padding: 20px;
-    background-color: #cccccc;
+    background-color: #d9d7d7;
+    min-height: 100vh;
 }
-
-.user-info-img {
-    border-radius: 50%;
-    height: 250px;
-    width: 250px;
-}
-
-.user-info-title {
-    font-size: 50px;
-    text-align: center;
-}
-
-.mid-frame {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    padding: 10px;
-    border: 2px solid lightblue;
-    border-radius: 8px;
-}
-
-.fixed-size-button {
-   width: 130px;
+.btn-group button {
+    width: 7.5rem;
 }

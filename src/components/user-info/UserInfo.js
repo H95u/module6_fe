@@ -100,7 +100,7 @@ export default function UserInfo() {
                                         </p>
                                         ( {user.nickname} )
                                         <p>
-                                            Địa chỉ : {user.address != null ? user.address.name : "" }
+                                            Địa chỉ : {user.address != null ? user.address.name : ""}
                                         </p>
                                     </Typography>
                                 </CardBody>
@@ -124,23 +124,25 @@ export default function UserInfo() {
                             </Card>
                         </div>
                         <div className="d-flex flex-wrap mt-2 justify-between">
-                            <div className="flex items-center gap-6 mb-2">
-                                <Button size="md" color="white" className="fixed-size-button">
-                                    Theo dõi
-                                </Button>
-                                <Button size="md" color="white" className="fixed-size-button">
-                                    Cài đặt
-                                </Button>
-                            </div>
-                            <div className="flex items-center gap-6 mb-2">
-                                <Button size="md" color="white" className="fixed-size-button">
-                                    Chat
-                                </Button>
-                                <Button size="md" color="white" className="fixed-size-button">
-                                    Album
-                                </Button>
-                            </div>
+                            <div className={"row btn-group"}>
+                                <div className={"col-md-6"}>
+                                    <Button size="md" color="white" className={"mb-2"}>
+                                        Theo dõi
+                                    </Button>
+                                    <Button size="md" color="white">
+                                        Cài đặt
+                                    </Button>
+                                </div>
+                                <div className={"col-md-6"}>
+                                    <Button size="md" color="white" className={"mb-2"}>
+                                        Chat
+                                    </Button>
+                                    <Button size="md" color="white">
+                                        Album
+                                    </Button>
 
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className={"col-md-6"}>
