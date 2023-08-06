@@ -39,7 +39,7 @@
     position: absolute;
     width: 800px;
     margin-top: -320px;
-    padding-left: 250px;
+    padding-left: 85px;
     display: flex;
     justify-content: center;
 }
@@ -79,7 +79,7 @@
     width: 800px;
     justify-content: center;
     margin-top: 180px;
-    padding-left: 250px;
+    padding-left: 85px;
 }
 .navigation-auto div{
     border: 2px solid #d2b9b9;

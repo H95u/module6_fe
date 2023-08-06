@@ -13,6 +13,9 @@ import {
     Button,
 } from "@material-tailwind/react";
 import Swal from "sweetalert2";
+import "./Content.css"
+import Sidebar from "../sidebar/Sidebar";
+import Filter from "../filter/Filter";
 
 
 export default function Content() {
@@ -62,60 +65,69 @@ export default function Content() {
     const currentPageData = users.slice(startIndex, endIndex);
 
     return (
-        <div className={"content"} style={{margin: 0, padding: 0}}>
-            <div className={"container"}>
-                <Banner/>
-                <Story/>
-                <Typography variant="h3" color="red" className="mb-8 text-center" textGradient>
-                    Danh sách hot girl, hot boy
-                </Typography>
-                {users.length === 0 ?
-                    "" :
-                    <div id={"partner-list"}>
-                        <div className={"row"}>
-                            {currentPageData.map((item) => (
-                                <div className={"col-md-3"} key={item.id}>
-                                    <Link to={`/user/${item.id}`}>
-                                        <Card className={"card"}>
-                                            <CardHeader color="blue-gray" className="relative h-60">
-                                                <img
-                                                    src={item.img}
-                                                    alt="card-image"
-                                                />
-                                            </CardHeader>
-                                            <CardBody>
-                                                <Typography color="blue" className="font-medium" textGradient>
-                                                    {item.username}
-                                                </Typography>
-                                                <Typography color="blue" className="font-medium" textGradient>
-                                                    {item.price}
-                                                </Typography>
-                                            </CardBody>
-                                            <CardFooter className="pt-0">
-                                                <Button color="red">Thuê ngay</Button>
-                                            </CardFooter>
-                                        </Card>
-                                    </Link>
-                                </div>
-                            ))}
-                        </div>
-                    </div>}
-                <div>
-                    <ReactPaginate
-                        previousLabel={"Previous"}
-                        nextLabel={"Next"}
-                        breakLabel={"..."}
-                        pageCount={totalPages}
-                        onPageChange={handlePageClick}
-                        activeClassName={"active"}
-                        containerClassName={"pagination"}
-                        pageClassName={"page-item"}
-                        pageLinkClassName={"page-link"}
-                        previousClassName={"page-item"}
-                        previousLinkClassName={"page-link"}
-                        nextClassName={"page-item"}
-                        nextLinkClassName={"page-link"}
-                    />
+        <div className={"container"}>
+            <div className={"row"}>
+                <div className={"col-md-2"}>
+                    <Sidebar/>
+                </div>
+                <div className={"col-md-10 col-sm-1"}>
+                    <Banner/>
+                    <Story/>
+                    <div className={"mb-8"}>
+                        <Filter/>
+                    </div>
+                    <Typography variant="h3" color="red" className="mb-8" textGradient>
+                        Danh sách hot girl, hot boy
+                    </Typography>
+                    {users.length === 0 ?
+                        "" :
+                        <div id={"partner-list"}>
+                            <div className={"row"}>
+                                {currentPageData.map((item) => (
+                                    <div className={"col-md-3"} key={item.id}>
+                                        <Link to={`/user/${item.id}`}>
+                                            <Card className={"card w-56"}>
+                                                <CardHeader color="blue-gray" className="relative h-48">
+                                                    <img
+                                                        className={"object-cover w-full h-full"}
+                                                        src={item.img}
+                                                        alt="card-image"
+                                                    />
+                                                </CardHeader>
+                                                <CardBody>
+                                                    <Typography color="blue" className="font-medium" textGradient>
+                                                        {item.username}
+                                                    </Typography>
+                                                    <Typography color="blue" className="font-medium" textGradient>
+                                                        {item.price}
+                                                    </Typography>
+                                                </CardBody>
+                                                <CardFooter className="pt-0">
+                                                    <Button color="red">Thuê ngay</Button>
+                                                </CardFooter>
+                                            </Card>
+                                        </Link>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>}
+                    <div>
+                        <ReactPaginate
+                            previousLabel={"Previous"}
+                            nextLabel={"Next"}
+                            breakLabel={"..."}
+                            pageCount={totalPages}
+                            onPageChange={handlePageClick}
+                            activeClassName={"active"}
+                            containerClassName={"pagination"}
+                            pageClassName={"page-item"}
+                            pageLinkClassName={"page-link"}
+                            previousClassName={"page-item"}
+                            previousLinkClassName={"page-link"}
+                            nextClassName={"page-item"}
+                            nextLinkClassName={"page-link"}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

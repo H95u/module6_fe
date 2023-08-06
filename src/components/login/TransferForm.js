@@ -17,7 +17,7 @@ export default function TransferForm () {
                             cộng tác viên của chúng tôi."
                         </p>
                         <p>
-                            <Link className={"btn btn-success"} to="/">Đăng nhập</Link>
+                            <Link className={"btn btn-success"} to="/login">Đăng nhập</Link>
                         </p>
                         <div className={"create_account-button"}>
                             "Bạn chưa có tài khoản"
@@ -33,7 +33,7 @@ export default function TransferForm () {
                                 "Tham gia với chúng tôi để nhận được dịch vụ tốt nhất."
                             </p>
                             <p>
-                                <Link className={"btn btn-success"} to="/">Đăng nhập</Link>
+                                <Link className={"btn btn-success"} to="/login">Đăng nhập</Link>
                             </p>
                             <div className={"create_account-button"}>
                                 "Bạn chưa có tài khoản"
