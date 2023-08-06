@@ -83,9 +83,19 @@ hr {
 .action h1 {
     margin-top: 10px;
     font-size: 25px;
-    margin-right: 150px;
     color: #fa4b2d;
     font-weight: bold;
+    word-wrap:normal;
+    text-align: left;
+    margin-left: 12px;
+}
+.action #update-price {
+    margin-top: 10px;
+}
+#price {
+    margin-top: 10px;
+    margin-left: 12px;
+    height: 31px;
 }
 
 .option {
