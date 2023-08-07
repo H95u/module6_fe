@@ -2,7 +2,6 @@
     top: 0;
     position: sticky;
     z-index: 999;
-    width: 100%;
 }
 
 
@@ -57,4 +56,16 @@
 
 a:hover {
     text-decoration: none;
+}
+
+.auto-complete {
+    position: absolute;
+    margin-top: 2.5rem;
+    z-index:999;
+    background-color: white;
+    width: 18rem;
+}
+
+.auto-complete table tr {
+    border: none;
 }

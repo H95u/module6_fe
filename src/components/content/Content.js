@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {Link, useLocation} from "react-router-dom";
+import {Link} from "react-router-dom";
 import Banner from "../banner/Banner";
 import Story from "../story/Story";
 import ReactPaginate from "react-paginate";
@@ -20,9 +20,6 @@ import Message from "../message/Message";
 
 
 export default function Content() {
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const nameSearch = searchParams.get("name");
     const [users, setUsers] = useState([]);
     const itemsPerPage = 12;
     const [currentPage, setCurrentPage] = useState(0);
@@ -32,6 +29,7 @@ export default function Content() {
             setUsers(response.data);
         });
     };
+    const [optionId, setOptionId] = useState("");
 
     const [filterForm, setFilterForm] = useState({
         gender: "",
@@ -61,15 +59,20 @@ export default function Content() {
                 console.error('Error fetching data:', error);
             });
     };
+    const searchByOption = (optionId) => {
+        console.log(optionId);
+        axios.post(`http://localhost:8080/api/filter/option/${optionId}`)
+            .then((response) => {
+                setUsers(response.data);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
+    };
 
     useEffect(() => {
-        if (!nameSearch) {
-            getUsers();
-        } else {
-            searchStudentsByName(nameSearch)
-            window.location.href = "#partner-list"
-        }
-    }, [nameSearch, filterForm]);
+        getUsers();
+    }, [filterForm, optionId]);
     const searchStudentsByName = (nameSearch) => {
         axios.get(`http://localhost:8080/api/users/search?username=${nameSearch}`).then((response) => {
             if (response.status !== 204) {
@@ -97,7 +100,7 @@ export default function Content() {
         <div className={"container"}>
             <div className={"row"}>
                 <div className={"col-md-2"}>
-                    <Sidebar/>
+                    <Sidebar optionId={optionId} onSearch={searchByOption}/>
                 </div>
                 <div className={"col-md-10 col-sm-1"}>
                     <Banner/>

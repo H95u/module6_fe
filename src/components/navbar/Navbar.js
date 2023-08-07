@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {
     Navbar,
     Typography,
@@ -8,7 +8,7 @@ import {
     MenuList,
     MenuItem,
     Avatar,
-    Input,
+    Input, PopoverHandler, PopoverContent, Popover,
 } from "@material-tailwind/react";
 import {
     UserCircleIcon,
@@ -20,65 +20,10 @@ import {
 
 } from "@heroicons/react/24/outline";
 import {Link, useNavigate} from "react-router-dom";
+import axios from "axios";
 
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
-
-const handleProfileInfo = () => {
-    window.location.href = "/user-info"
-};
-
-const handleEditProfile = () => {
-    window.location.href = "/edit-info"
-};
-
-const handleRecharge = () => {
-    // Implement the function for "Nạp tiền"
-    // e.g., show a recharge modal or redirect to a recharge page
-};
-
-const handleHelp = () => {
-    // Implement the function for "Trợ giúp"
-    // e.g., show a help modal or redirect to a help page
-};
-
-const handleLogout = () => {
-    localStorage.removeItem("loggingUser");
-    window.location.href = "/";
-};
-
-// profile menu component
-const profileMenuItems = [
-    {
-        label: "Thông tin cá nhân",
-        icon: UserCircleIcon,
-        handler: handleProfileInfo,
-    },
-    ...(loggingUser != null && loggingUser.status === 1
-        ? [
-            {
-                label: "Chỉnh sửa thông tin",
-                icon: Cog6ToothIcon,
-                handler: handleEditProfile,
-            },
-        ]
-        : []),
-    {
-        label: "Nạp tiền",
-        icon: InboxArrowDownIcon,
-        handler: handleRecharge,
-    },
-    {
-        label: "Trợ giúp",
-        icon: LifebuoyIcon,
-        handler: handleHelp,
-    },
-    {
-        label: "Đăng xuất",
-        icon: PowerIcon,
-        handler: handleLogout,
-    },
-];
 
 function LoginButton() {
     return (
@@ -97,6 +42,61 @@ function LoginButton() {
 
 
 function ProfileMenu() {
+    const navigate = useNavigate();
+    const handleProfileInfo = () => {
+        navigate("/user-info")
+    };
+
+    const handleEditProfile = () => {
+        navigate("/edit-info")
+    };
+
+    const handleRecharge = () => {
+        // Implement the function for "Nạp tiền"
+        // e.g., show a recharge modal or redirect to a recharge page
+    };
+
+    const handleHelp = () => {
+        // Implement the function for "Trợ giúp"
+        // e.g., show a help modal or redirect to a help page
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem("loggingUser");
+        window.location.href = "/";
+    };
+// profile menu component
+    const profileMenuItems = [
+        {
+            label: "Thông tin cá nhân",
+            icon: UserCircleIcon,
+            handler: handleProfileInfo,
+        },
+        ...(loggingUser != null && loggingUser.status === 1
+            ? [
+                {
+                    label: "Chỉnh sửa thông tin",
+                    icon: Cog6ToothIcon,
+                    handler: handleEditProfile,
+                },
+            ]
+            : []),
+        {
+            label: "Nạp tiền",
+            icon: InboxArrowDownIcon,
+            handler: handleRecharge,
+        },
+        {
+            label: "Trợ giúp",
+            icon: LifebuoyIcon,
+            handler: handleHelp,
+        },
+        {
+            label: "Đăng xuất",
+            icon: PowerIcon,
+            handler: handleLogout,
+        },
+    ];
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const closeMenu = () => setIsMenuOpen(false);
 
@@ -163,19 +163,53 @@ function ProfileMenu() {
 export function ComplexNavbar() {
 
     const navigate = useNavigate();
+    const [users, setUsers] = useState([]);
+    const [showPopover, setShowPopover] = useState(false);
+    const [searchInputValue, setSearchInputValue] = useState("");
+    const [autocompleteResults, setAutocompleteResults] = useState([]);
+    const maxResults = 5;
+
+    const getUsers = () => {
+        axios.get(`http://localhost:8080/api/users`).then((response) => {
+            setUsers(response.data);
+        });
+    };
+
+    useEffect(() => {
+        getUsers();
+    }, []);
+
+    const handleInputChange = (event) => {
+        const newValue = event.target.value;
+        setSearchInputValue(newValue);
+
+        const results = users.filter((user) =>
+            user.username.toLowerCase().includes(newValue.toLowerCase())
+        );
+        setAutocompleteResults(results.slice(0, maxResults));
+
+        setShowPopover(newValue !== "" && results.length > 0);
+    };
+
+    const handleLinkClick = () => {
+        setSearchInputValue(""); // Reset input value
+        setShowPopover(false); // Close popover
+    };
+
     const handleSearch = () => {
         let searchInput = document.getElementById('search-input').value.toLowerCase();
         navigate(`/?name=${searchInput}`)
     }
 
     return (
-        <Navbar id={"nav"} className="max-w-screen-4xl mx-auto px-4 py-3">
+        <Navbar id={"nav"} className="max-w-screen-4xl w-full mx-auto px-4 py-3">
             <div className="mx-auto flex text-blue-gray-900">
                 <Link to={"/"}>
-                    <Avatar src={"/loverLogo.png"} className={"mr-4"}>
+                    <Avatar src={"/loverLogo.png"} className={"mr-10"}>
                     </Avatar>
                 </Link>
                 <div className="relative flex w-full gap-2 md:w-max">
+
                     <Input
                         id="search-input"
                         type="search"
@@ -184,10 +218,35 @@ export function ComplexNavbar() {
                         containerProps={{
                             className: "min-w-[288px]",
                         }}
+                        value={searchInputValue}
+                        onChange={handleInputChange}
                     />
-                    <Button size="sm" className="!absolute right-1 top-1 rounded" onClick={handleSearch}>
-                        Tìm kiếm
-                    </Button>
+
+                    {showPopover && (
+                        <div className={"auto-complete"}>
+                            <table className="table table-hover border-none">
+                                <tbody>
+                                {autocompleteResults.map((user) => (
+                                    <tr key={user.id} className="p-2">
+                                        <Link to={`/user/${user.id}`} onClick={handleLinkClick}>
+                                            <td><img className={"h-10 w-10 rounded-full"} src={user.img}/></td>
+                                            <td colSpan={"4"}>{user.username}</td>
+                                        </Link>
+                                    </tr>
+
+                                ))}
+                                {autocompleteResults.length > 0 && (
+                                    <tr>
+                                        <td colSpan="4" className="text-center">
+                                            <Link to="/view-all">Xem tất cả</Link>
+                                        </td>
+                                    </tr>
+                                )}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+
                 </div>
                 {loggingUser != null ? <ProfileMenu/> : <LoginButton/>}
             </div>

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import "./Sidebar.css";
 import axios from "axios";
 
-export default function Sidebar() {
+export default function Sidebar(props) {
     const [options, setOptions] = useState([]);
 
     useEffect(() => {
@@ -14,8 +14,7 @@ export default function Sidebar() {
     }, []);
 
     const handleSelect = (e) => {
-        const selectedId = e.target.dataset.value;
-        console.log("Selected ID:", selectedId);
+        props.onSearch(e.target.dataset.value);
     };
 
     return (
