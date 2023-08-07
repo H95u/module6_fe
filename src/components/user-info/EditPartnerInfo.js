@@ -103,7 +103,6 @@ export default function EditPartnerInfo() {
             console.log('response.data>>>', response.data)
             setUser(response.data);
             setOptions(response.data.options);
-            setAddress(response.data.address)
             setNewOptions(response.data.options.map((item) => item.id));
         })
     }, [])
@@ -183,7 +182,7 @@ export default function EditPartnerInfo() {
                                         <span>Địa chỉ</span>
                                     </div>
                                     <div className={"item-nav-value"}>
-                                        <span>{address.name}</span>
+                                        <span>{user.address ? user.address.name : ""}</span>
                                     </div>
                                 </div>
                             </div>
