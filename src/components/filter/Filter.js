@@ -6,18 +6,11 @@ const Filter = (props) => {
 
     const [address, setAddress] = useState([]);
 
-    const [searchForm, setSearchForm] = useState({
-        gender: "",
-        address: "",
-        viewCount: "",
-        rentCount: "",
-        name: "",
-        ageRange: [18, 60],
-    });
+    const [filterForm, setFilterForm] = useState(props.filterForm);
 
     const changeSearch = (event) => {
         const {name, value} = event.target;
-        setSearchForm((prevSearchForm) => ({
+        setFilterForm((prevSearchForm) => ({
             ...prevSearchForm,
             [name]: value,
         }));
@@ -25,7 +18,7 @@ const Filter = (props) => {
 
     const handleAgeChange = (event) => {
         const {name, value} = event.target;
-        setSearchForm(prevSearchForm => ({
+        setFilterForm(prevSearchForm => ({
             ...prevSearchForm,
             ageRange: [
                 name === "minAge" ? +value : prevSearchForm.ageRange[0],
@@ -34,8 +27,8 @@ const Filter = (props) => {
         }));
     };
 
-    const handleSearch = () => {
-        console.log(searchForm)
+    const handleFilter = () => {
+        props.onFilter(filterForm)
     };
 
     useEffect(() => {
@@ -113,10 +106,10 @@ const Filter = (props) => {
                                 name="minAge"
                                 min="18"
                                 max="60"
-                                value={searchForm.ageRange[0]}
+                                value={filterForm.ageRange[0]}
                                 onChange={handleAgeChange}
                             />
-                            <span>{searchForm.ageRange[0]}</span>
+                            <span>{filterForm.ageRange[0]}</span>
 
                             <label htmlFor="maxAge" className="form-label">
                                 Đến:
@@ -128,10 +121,10 @@ const Filter = (props) => {
                                 name="maxAge"
                                 min="18"
                                 max="60"
-                                value={searchForm.ageRange[1]}
+                                value={filterForm.ageRange[1]}
                                 onChange={handleAgeChange}
                             />
-                            <span>{searchForm.ageRange[1]}</span>
+                            <span>{filterForm.ageRange[1]}</span>
                         </div>
                     </PopoverContent>
                 </Popover>
@@ -145,7 +138,7 @@ const Filter = (props) => {
                     color="red"
                     size={"sm"}
                     variant="gradient"
-                    onClick={handleSearch}
+                    onClick={handleFilter}
                 >
                     Tìm kiếm
                 </Button>

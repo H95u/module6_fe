@@ -55,36 +55,6 @@ export default function PartnerInfo() {
         })
     }
 
-    const initialValues = {
-        price: 0
-    }
-    const validation = Yup.object({
-        price: Yup.number().min(50000, "Nhỏ nhất 50.000")
-    });
-
-    const handleUpdatePrice = (value) => {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        }
-        axios.post("http://localhost:8080/api/users/update-price", value, config).then((response) => {
-            setUser({...user, price: value.price});
-            displayPrice()
-        })
-
-    }
-
-    function displayPrice() {
-        setShowPrice(true)
-        setUpdatePrice(false)
-    }
-
-    function displayUpdatePrice() {
-        setShowPrice(false)
-        setUpdatePrice(true)
-    }
 
     const isLoggedIn = JSON.parse(localStorage.getItem("loggingUser"));
 
@@ -147,11 +117,6 @@ export default function PartnerInfo() {
                             <div className={`d-flex justify-content-between`} id={`inner-info`}>
                                 <div>
                                     <h2>{user.nickname}</h2>
-                                </div>
-                                <div>
-                                    <button className={`btn btn-danger`} onClick={handleShow}>
-                                        Cập nhật dịch vụ cung cấp
-                                    </button>
                                 </div>
                             </div>
                             <div className={"row"}>
@@ -235,29 +200,7 @@ export default function PartnerInfo() {
                                             <h1>---</h1>
                                         }
                                     </div>
-                                    <div className={`col-sm-4`}>
-                                        <button onClick={displayUpdatePrice} id={`update-price`} className={`btn btn-danger btn-sm`}>Sửa</button>
-                                    </div>
                                 </div>
-                            </>}
-
-                            {updatePrice && <>
-                                <Formik initialValues={initialValues} onSubmit={handleUpdatePrice}
-                                        enableReinitialize={true}
-                                        validationSchema={validation}>
-                                    <Form>
-                                        <div className={`row`}>
-                                            <div className={`col-sm-8`}>
-                                                <Field name={'price'} type={'number'} className={'form-control'} id={'price'}
-                                                       placeholder={'Enter price'}/>
-                                                <span style={{color: "red"}}><ErrorMessage className={'error'} name={'price'}/></span>
-                                            </div>
-                                            <div className={`col-sm-4`}>
-                                                <button id={`update-price`} className={`btn btn-primary btn-sm`}>Sửa</button>
-                                            </div>
-                                        </div>
-                                    </Form>
-                                </Formik>
                             </>}
 
 

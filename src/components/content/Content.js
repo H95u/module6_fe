@@ -33,6 +33,19 @@ export default function Content() {
         });
     };
 
+    const [filterForm, setFilterForm] = useState({
+        gender: "",
+        address: "",
+        viewCount: "",
+        rentCount: "",
+        name: "",
+        ageRange: [18, 60],
+    });
+    const filterHandle = (filterForm) => {
+        console.log(filterForm)
+        setFilterForm(filterForm);
+    };
+
     useEffect(() => {
         if (!nameSearch) {
             getUsers();
@@ -74,7 +87,7 @@ export default function Content() {
                     <Banner/>
                     <Story/>
                     <div className={"mb-8"}>
-                        <Filter/>
+                        <Filter filterForm={filterForm} onFilter={filterHandle}/>
                     </div>
                     <Typography variant="h3" color="red" className="mb-8" textGradient>
                         Danh sách hot girl, hot boy
