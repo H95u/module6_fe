@@ -54,11 +54,15 @@ const profileMenuItems = [
         icon: UserCircleIcon,
         handler: handleProfileInfo,
     },
-    {
-        label: "Chỉnh sửa thông tin",
-        icon: Cog6ToothIcon,
-        handler: handleEditProfile,
-    },
+    ...(loggingUser != null && loggingUser.status === 1
+        ? [
+            {
+                label: "Chỉnh sửa thông tin",
+                icon: Cog6ToothIcon,
+                handler: handleEditProfile,
+            },
+        ]
+        : []),
     {
         label: "Nạp tiền",
         icon: InboxArrowDownIcon,
@@ -155,6 +159,7 @@ function ProfileMenu() {
         </Menu>
     );
 }
+
 export function ComplexNavbar() {
 
     const navigate = useNavigate();

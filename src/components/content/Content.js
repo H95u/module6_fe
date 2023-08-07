@@ -16,6 +16,7 @@ import Swal from "sweetalert2";
 import "./Content.css"
 import Sidebar from "../sidebar/Sidebar";
 import Filter from "../filter/Filter";
+import Message from "../message/Message";
 
 
 export default function Content() {
@@ -42,7 +43,6 @@ export default function Content() {
     }, [nameSearch]);
     const searchStudentsByName = (nameSearch) => {
         axios.get(`http://localhost:8080/api/users/search?username=${nameSearch}`).then((response) => {
-            console.log(response.status)
             if (response.status !== 204) {
                 setUsers(response.data);
             } else {
@@ -129,6 +129,9 @@ export default function Content() {
                         />
                     </div>
                 </div>
+            </div>
+            <div>
+                <Message/>
             </div>
         </div>
     );

@@ -3,6 +3,7 @@
 .home-flex-category {
     position: fixed;
     left: 0;
+    height: 100vh;
     padding: 20px 0 60px;
     overflow-y: auto;
     overflow-x: hidden;
