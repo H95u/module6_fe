@@ -4,7 +4,8 @@ import axios from "axios";
 import "./partnerprofile.css";
 import {Typography} from "@material-tailwind/react";
 import Modal from "react-bootstrap/Modal";
-import {FooterWithSocialLinks} from "../footer/Footer";
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import * as Yup from "yup";
 
 export default function PartnerInfo() {
     const navigate = useNavigate();
@@ -17,6 +18,8 @@ export default function PartnerInfo() {
     const {id} = useParams();
     const [show, setShow] = useState(false);
     const [showRentForm, setShowRentForm] = useState(false)
+    const [showPrice, setShowPrice] = useState(true)
+    const [updatePrice, setUpdatePrice] = useState(false)
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -52,6 +55,37 @@ export default function PartnerInfo() {
         })
     }
 
+    const initialValues = {
+        price: 0
+    }
+    const validation = Yup.object({
+        price: Yup.number().min(0, "Số tiền bạn nhập phải lớn hơn 0")
+    });
+
+    const handleUpdatePrice = (value) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }
+        axios.post("http://localhost:8080/api/users/update-price", value, config).then((response) => {
+            setUser({...user, price: value.price});
+            displayPrice()
+        })
+
+    }
+
+    function displayPrice() {
+        setShowPrice(true)
+        setUpdatePrice(false)
+    }
+
+    function displayUpdatePrice() {
+        setShowPrice(false)
+        setUpdatePrice(true)
+    }
+
     const isLoggedIn = JSON.parse(localStorage.getItem("loggingUser"));
 
     const handleSubmitRent = () => {
@@ -64,11 +98,14 @@ export default function PartnerInfo() {
     };
 
 
+
     useEffect(() => {
         axios.get(`http://localhost:8080/api/users/${id}`).then((response) => {
+            console.log('response.data>>>', response.data)
             setUser(response.data);
             setOptions(response.data.options);
             setAddress(response.data.address)
+            setNewOptions(response.data.options.map((item) => item.id));
         })
     }, [])
 
@@ -91,7 +128,7 @@ export default function PartnerInfo() {
                                 <a href={`#`}><img src={user.img} alt={``}/></a>
                             </div>
                             <div><p className={"ready"}>Đang sẵn sàng</p></div>
-                            <div className={"dob"}><span>Ngày tham gia:</span><span><span>31/5/2019</span></span></div>
+                            <div className={"dob"}><span>Ngày tham gia:</span><span><span>{user.createdDate}</span></span></div>
                             <hr/>
                         </div>
                         <div className={"info"}>
@@ -176,12 +213,42 @@ export default function PartnerInfo() {
                             </div>
                         </div>
                         <div className={"action"}>
-                            {user.price != null &&
-                                <h1>{user.price} đ/h</h1>
-                            }
-                            {user.price == null &&
-                                <h1>---</h1>
-                            }
+                            {showPrice && <>
+                                <div className={`row`}>
+                                    <div className={`col-sm-8`}>
+                                        {user.price != null &&
+                                            <h1>{user.price} đ/h</h1>
+                                        }
+                                        {user.price == null &&
+                                            <h1>---</h1>
+                                        }
+                                    </div>
+                                    <div className={`col-sm-4`}>
+                                        <button onClick={displayUpdatePrice} id={`update-price`} className={`btn btn-danger btn-sm`}>Sửa</button>
+                                    </div>
+                                </div>
+                            </>}
+
+                            {updatePrice && <>
+                                <Formik initialValues={initialValues} onSubmit={handleUpdatePrice}
+                                        enableReinitialize={true}
+                                        validationSchema={validation}>
+                                    <Form>
+                                        <div className={`row`}>
+                                            <div className={`col-sm-8`}>
+                                                <Field name={'price'} type={'number'} className={'form-control'} id={'price'}
+                                                       placeholder={'Enter price'}/>
+                                                <span style={{color: "red"}}><ErrorMessage className={'error'} name={'price'}/></span>
+                                            </div>
+                                            <div className={`col-sm-4`}>
+                                                <button id={`update-price`} className={`btn btn-primary btn-sm`}>Sửa</button>
+                                            </div>
+                                        </div>
+                                    </Form>
+                                </Formik>
+                            </>}
+
+
                             <div className={`booking`}><a className={"btn btn-danger"}
                                                           onClick={handleShowRentForm}>THUÊ</a></div>
                             <div><a className={"btn btn-light"}>TẶNG TIỀN</a></div>
