@@ -59,7 +59,7 @@ export default function PartnerInfo() {
         price: 0
     }
     const validation = Yup.object({
-        price: Yup.number().min(0, "Số tiền bạn nhập phải lớn hơn 0")
+        price: Yup.number().min(50000, "Nhỏ nhất 50.000")
     });
 
     const handleUpdatePrice = (value) => {
@@ -127,7 +127,19 @@ export default function PartnerInfo() {
                             <div>
                                 <a href={`#`}><img src={user.img} alt={``}/></a>
                             </div>
-                            <div><p className={"ready"}>Đang sẵn sàng</p></div>
+                            <div>
+                                {/*<Formik initialValues={initialValues} onSubmit={handleSubmit}*/}
+                                {/*        enableReinitialize={true}>*/}
+                                {/*    <Form>*/}
+                                {/*        <Field name={'status'} as="select" className={'form-control'} id={'status'}>*/}
+                                {/*            <option value="" selected>Trạng thái CCDV</option>*/}
+                                {/*            <option value={'1'}>Đang sẵn sàng</option>*/}
+                                {/*            <option value={'2'}>Đang bận</option>*/}
+                                {/*        </Field>*/}
+                                {/*    </Form>*/}
+                                {/*</Formik>*/}
+                                <p className={"ready"}>Đang sẵn sàng</p>
+                            </div>
                             <div className={"dob"}><span>Ngày tham gia:</span><span><span>{user.createdDate}</span></span></div>
                             <hr/>
                         </div>

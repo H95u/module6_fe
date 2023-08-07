@@ -36,6 +36,7 @@
     color: #04be54;
 }
 
+
 .dob {
     text-align: center;
     font-family: initial;
@@ -69,7 +70,7 @@ hr {
 
 .action a {
     border: solid 1px #e1dede;
-    margin-top: 35px;
+    margin-bottom: 20px;
     width: 90%;
     height: 55px;
     padding-top: 16px;
@@ -88,9 +89,11 @@ hr {
     word-wrap:normal;
     text-align: left;
     margin-left: 12px;
+    margin-bottom: 60px;
 }
 .action #update-price {
     margin-top: 10px;
+    margin-bottom: 60px;
 }
 #price {
     margin-top: 10px;
