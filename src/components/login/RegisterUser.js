@@ -158,6 +158,7 @@ const RegisterUser = () => {
                                                                           className='text-danger'/>
                                                         </div>
 
+
                                                         <div>
                                                             <label htmlFor='nickname'
                                                                    className='form-label'>Biệt danh</label>
