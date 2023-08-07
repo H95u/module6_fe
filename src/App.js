@@ -8,6 +8,8 @@ import RegisterUser from "./components/login/RegisterUser";
 import RegisterCCDV from "./components/login/RegisterCCDV";
 import Login from "./components/login/Login";
 import UserInfo from "./components/user-info/UserInfo";
+import SearchLogin from "./components/search/SearchLogin";
+import SearchFilter from "./components/search/SearchFilter";
 export default function App() {
     return (
         <>
@@ -21,6 +23,8 @@ export default function App() {
                     <Route path={"/login"} element={<Login/>}></Route>
                     <Route path={"/user/:id"} element={<PartnerInfo/>}></Route>
                     <Route path={"/user-info"} element={<UserInfo/>}></Route>
+                    <Route path={"/search"} element={<SearchLogin/>}></Route>
+                    <Route path={"/search_filter"} element={<SearchFilter/>}></Route>
                 </Routes>
             </BrowserRouter>
         </>

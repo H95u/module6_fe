@@ -155,8 +155,6 @@ function ProfileMenu() {
         </Menu>
     );
 }
-
-
 export function ComplexNavbar() {
 
     const navigate = useNavigate();
