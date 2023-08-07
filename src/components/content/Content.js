@@ -42,8 +42,24 @@ export default function Content() {
         ageRange: [18, 60],
     });
     const filterHandle = (filterForm) => {
-        console.log(filterForm)
-        setFilterForm(filterForm);
+        console.log(filterForm);
+
+        const filterDTO = {
+            gender: filterForm.gender,
+            addressId: filterForm.address,
+            viewCount: filterForm.viewCount,
+            rentCount: filterForm.rentCount,
+            ageRange: filterForm.ageRange,
+            username: filterForm.name,
+        };
+
+        axios.post('http://localhost:8080/api/filter', filterDTO)
+            .then((response) => {
+                setUsers(response.data);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
     };
 
     useEffect(() => {
@@ -53,7 +69,7 @@ export default function Content() {
             searchStudentsByName(nameSearch)
             window.location.href = "#partner-list"
         }
-    }, [nameSearch]);
+    }, [nameSearch, filterForm]);
     const searchStudentsByName = (nameSearch) => {
         axios.get(`http://localhost:8080/api/users/search?username=${nameSearch}`).then((response) => {
             if (response.status !== 204) {

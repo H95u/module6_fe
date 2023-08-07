@@ -1,9 +1,10 @@
 #nav {
     top: 0;
-    right: 0;
     position: sticky;
     z-index: 999;
+    width: 100%;
 }
+
 
 .content {
     padding: 50px;
@@ -46,7 +47,7 @@
 }
 
 .custom-page.active {
-    background-color: cyan;
+    background-color: black;
 }
 
 #logo {

@@ -7,6 +7,8 @@ const Filter = (props) => {
     const [address, setAddress] = useState([]);
 
     const [filterForm, setFilterForm] = useState(props.filterForm);
+    const [minAge, setMinAge] = useState(props.filterForm.ageRange[0]);
+    const [maxAge, setMaxAge] = useState(props.filterForm.ageRange[1]);
 
     const changeSearch = (event) => {
         const {name, value} = event.target;
@@ -17,14 +19,22 @@ const Filter = (props) => {
     };
 
     const handleAgeChange = (event) => {
-        const {name, value} = event.target;
-        setFilterForm(prevSearchForm => ({
-            ...prevSearchForm,
-            ageRange: [
-                name === "minAge" ? +value : prevSearchForm.ageRange[0],
-                name === "maxAge" ? +value : prevSearchForm.ageRange[1],
-            ],
-        }));
+        const { name, value } = event.target;
+        const newValue = +value;
+
+        if (name === "minAge") {
+            setMinAge(newValue);
+            setFilterForm((prevSearchForm) => ({
+                ...prevSearchForm,
+                ageRange: [newValue, prevSearchForm.ageRange[1]],
+            }));
+        } else if (name === "maxAge") {
+            setMaxAge(newValue);
+            setFilterForm((prevSearchForm) => ({
+                ...prevSearchForm,
+                ageRange: [prevSearchForm.ageRange[0], newValue],
+            }));
+        }
     };
 
     const handleFilter = () => {
@@ -39,7 +49,7 @@ const Filter = (props) => {
 
     return (
         <div className="row">
-            <div className={"col-md-4 w-36"}>
+            <div className={"col-md-2 w-32"}>
                 <select className="form-select"
                         aria-label="Default select example"
                         onChange={changeSearch}
@@ -87,14 +97,14 @@ const Filter = (props) => {
                 </select>
             </div>
 
-            <div className={"col-md-2 w-24"}>
+            <div className={"col-md-2 w-26"}>
                 <Popover placement="bottom">
                     <PopoverHandler>
                         <Button color="light-green"
                                 size={"sm"}
                                 variant="gradient"
                         >
-                            Tuổi
+                            Tuổi ({minAge} - {maxAge})
                         </Button>
                     </PopoverHandler>
                     <PopoverContent className="w-72">
@@ -106,13 +116,13 @@ const Filter = (props) => {
                                 name="minAge"
                                 min="18"
                                 max="60"
-                                value={filterForm.ageRange[0]}
+                                value={minAge}
                                 onChange={handleAgeChange}
                             />
-                            <span>{filterForm.ageRange[0]}</span>
+                            <span>{minAge}</span>
 
                             <label htmlFor="maxAge" className="form-label">
-                                Đến:
+                                Đến :
                             </label>
                             <input
                                 type="range"
@@ -121,16 +131,16 @@ const Filter = (props) => {
                                 name="maxAge"
                                 min="18"
                                 max="60"
-                                value={filterForm.ageRange[1]}
+                                value={maxAge}
                                 onChange={handleAgeChange}
                             />
-                            <span>{filterForm.ageRange[1]}</span>
+                            <span>{maxAge}</span>
                         </div>
                     </PopoverContent>
                 </Popover>
             </div>
 
-            <div className={"col-md-2"}>
+            <div className={"col-md-2 w-26"}>
                 <input type="text" className="form-control" placeholder={"Tên"} name={"name"} onChange={changeSearch}/>
             </div>
             <div className="col-md-2">
