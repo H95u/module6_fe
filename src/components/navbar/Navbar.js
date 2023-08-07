@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     Navbar,
     Typography,
@@ -20,6 +20,8 @@ import {
 
 } from "@heroicons/react/24/outline";
 import {Link, useNavigate} from "react-router-dom";
+import RentModal from "../rentModal/RentModal";
+import { FaBell } from "react-icons/fa";
 
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
@@ -161,12 +163,32 @@ function ProfileMenu() {
 }
 
 export function ComplexNavbar() {
+    const [showRentModal, setShowRentModal] = useState(false);
+    const [notificationCount, setNotificationCount] = useState(0);
 
     const navigate = useNavigate();
     const handleSearch = () => {
         let searchInput = document.getElementById('search-input').value.toLowerCase();
         navigate(`/?name=${searchInput}`)
     }
+
+    const handleOpenRentModal = () => {
+        setShowRentModal(true);
+    }
+
+    const handleCloseRentModal = () => {
+        setShowRentModal(false);
+    }
+
+    const handleAcceptRent = () => {
+        setNotificationCount(notificationCount - 1);
+    }
+
+    const handleRejectRent = () => {
+        setNotificationCount(notificationCount - 1);
+    }
+
+
 
     return (
         <Navbar id={"nav"} className="mx-auto max-w-screen-xl px-4 py-3">
@@ -189,9 +211,40 @@ export function ComplexNavbar() {
                         Tìm kiếm
                     </Button>
                 </div>
+                <div className="relative">
+                    <button
+                        variant="icon"
+                        size="sm"
+                        color="blue-gray"
+                        className="flex items-center gap-1 rounded-full p-1 md:p-2"
+                        onClick={handleOpenRentModal}
+                    >
+                        <FaBell size={20} style={{ color: "#04020d" }} />
+                        {notificationCount > 0 && (
+                            <span
+                                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center"
+                                style={{ fontSize: "10px" }}
+                            >
+                            {notificationCount}
+                            </span>
+                        )}
+                    </button>
+                    {notificationCount > 0 && (
+                        <div className="absolute z-10 right-0 mt-2 bg-white rounded-lg shadow-lg w-56">
+                            <div className="p-2">Notification 1</div>
+                            <div className="p-2">Notification 2</div>
+                        </div>
+                    )}
+                </div>
                 {loggingUser != null ? <ProfileMenu/> : <LoginButton/>
                 }
             </div>
+            <RentModal
+                show={showRentModal}
+                onClose={handleCloseRentModal}
+                onAccept={handleAcceptRent}
+                onReject={handleRejectRent}
+            />
         </Navbar>
     );
 }
