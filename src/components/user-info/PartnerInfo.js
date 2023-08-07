@@ -4,7 +4,6 @@ import axios from "axios";
 import "./partnerprofile.css";
 import {Typography} from "@material-tailwind/react";
 import Modal from "react-bootstrap/Modal";
-import {FooterWithSocialLinks} from "../footer/Footer";
 
 export default function PartnerInfo() {
     const navigate = useNavigate();
