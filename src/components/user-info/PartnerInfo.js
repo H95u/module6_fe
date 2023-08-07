@@ -4,7 +4,8 @@ import axios from "axios";
 import "./partnerprofile.css";
 import {Typography} from "@material-tailwind/react";
 import Modal from "react-bootstrap/Modal";
-import {FooterWithSocialLinks} from "../footer/Footer";
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import * as Yup from "yup";
 
 export default function PartnerInfo() {
     const navigate = useNavigate();
@@ -17,6 +18,8 @@ export default function PartnerInfo() {
     const {id} = useParams();
     const [show, setShow] = useState(false);
     const [showRentForm, setShowRentForm] = useState(false)
+    const [showPrice, setShowPrice] = useState(true)
+    const [updatePrice, setUpdatePrice] = useState(false)
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -52,6 +55,7 @@ export default function PartnerInfo() {
         })
     }
 
+
     const isLoggedIn = JSON.parse(localStorage.getItem("loggingUser"));
 
     const handleSubmitRent = () => {
@@ -64,11 +68,14 @@ export default function PartnerInfo() {
     };
 
 
+
     useEffect(() => {
         axios.get(`http://localhost:8080/api/users/${id}`).then((response) => {
+            console.log('response.data>>>', response.data)
             setUser(response.data);
             setOptions(response.data.options);
             setAddress(response.data.address)
+            setNewOptions(response.data.options.map((item) => item.id));
         })
     }, [])
 
@@ -90,19 +97,26 @@ export default function PartnerInfo() {
                             <div>
                                 <a href={`#`}><img src={user.img} alt={``}/></a>
                             </div>
-                            <div><p className={"ready"}>Đang sẵn sàng</p></div>
-                            <div className={"dob"}><span>Ngày tham gia:</span><span><span>31/5/2019</span></span></div>
+                            <div>
+                                {/*<Formik initialValues={initialValues} onSubmit={handleSubmit}*/}
+                                {/*        enableReinitialize={true}>*/}
+                                {/*    <Form>*/}
+                                {/*        <Field name={'status'} as="select" className={'form-control'} id={'status'}>*/}
+                                {/*            <option value="" selected>Trạng thái CCDV</option>*/}
+                                {/*            <option value={'1'}>Đang sẵn sàng</option>*/}
+                                {/*            <option value={'2'}>Đang bận</option>*/}
+                                {/*        </Field>*/}
+                                {/*    </Form>*/}
+                                {/*</Formik>*/}
+                                <p className={"ready"}>Đang sẵn sàng</p>
+                            </div>
+                            <div className={"dob"}><span>Ngày tham gia:</span><span><span>{user.createdDate}</span></span></div>
                             <hr/>
                         </div>
                         <div className={"info"}>
                             <div className={`d-flex justify-content-between`} id={`inner-info`}>
                                 <div>
                                     <h2>{user.nickname}</h2>
-                                </div>
-                                <div>
-                                    <button className={`btn btn-danger`} onClick={handleShow}>
-                                        Cập nhật dịch vụ cung cấp
-                                    </button>
                                 </div>
                             </div>
                             <div className={"row"}>
@@ -176,12 +190,20 @@ export default function PartnerInfo() {
                             </div>
                         </div>
                         <div className={"action"}>
-                            {user.price != null &&
-                                <h1>{user.price} đ/h</h1>
-                            }
-                            {user.price == null &&
-                                <h1>---</h1>
-                            }
+                            {showPrice && <>
+                                <div className={`row`}>
+                                    <div className={`col-sm-8`}>
+                                        {user.price != null &&
+                                            <h1>{user.price} đ/h</h1>
+                                        }
+                                        {user.price == null &&
+                                            <h1>---</h1>
+                                        }
+                                    </div>
+                                </div>
+                            </>}
+
+
                             <div className={`booking`}><a className={"btn btn-danger"}
                                                           onClick={handleShowRentForm}>THUÊ</a></div>
                             <div><a className={"btn btn-light"}>TẶNG TIỀN</a></div>

@@ -54,11 +54,15 @@ const profileMenuItems = [
         icon: UserCircleIcon,
         handler: handleProfileInfo,
     },
-    {
-        label: "Chỉnh sửa thông tin",
-        icon: Cog6ToothIcon,
-        handler: handleEditProfile,
-    },
+    ...(loggingUser != null && loggingUser.status === 1
+        ? [
+            {
+                label: "Chỉnh sửa thông tin",
+                icon: Cog6ToothIcon,
+                handler: handleEditProfile,
+            },
+        ]
+        : []),
     {
         label: "Nạp tiền",
         icon: InboxArrowDownIcon,
@@ -155,6 +159,7 @@ function ProfileMenu() {
         </Menu>
     );
 }
+
 export function ComplexNavbar() {
 
     const navigate = useNavigate();
@@ -164,7 +169,7 @@ export function ComplexNavbar() {
     }
 
     return (
-        <Navbar id={"nav"} className="mx-auto max-w-screen-xl px-4 py-3">
+        <Navbar id={"nav"} className="max-w-screen-4xl mx-auto px-4 py-3">
             <div className="mx-auto flex text-blue-gray-900">
                 <Link to={"/"}>
                     <Avatar src={"/loverLogo.png"} className={"mr-4"}>
@@ -184,8 +189,7 @@ export function ComplexNavbar() {
                         Tìm kiếm
                     </Button>
                 </div>
-                {loggingUser != null ? <ProfileMenu/> : <LoginButton/>
-                }
+                {loggingUser != null ? <ProfileMenu/> : <LoginButton/>}
             </div>
         </Navbar>
     );

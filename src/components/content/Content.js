@@ -16,6 +16,7 @@ import Swal from "sweetalert2";
 import "./Content.css"
 import Sidebar from "../sidebar/Sidebar";
 import Filter from "../filter/Filter";
+import Message from "../message/Message";
 
 
 export default function Content() {
@@ -32,6 +33,35 @@ export default function Content() {
         });
     };
 
+    const [filterForm, setFilterForm] = useState({
+        gender: "",
+        address: "",
+        viewCount: "",
+        rentCount: "",
+        name: "",
+        ageRange: [18, 60],
+    });
+    const filterHandle = (filterForm) => {
+        console.log(filterForm);
+
+        const filterDTO = {
+            gender: filterForm.gender,
+            addressId: filterForm.address,
+            viewCount: filterForm.viewCount,
+            rentCount: filterForm.rentCount,
+            ageRange: filterForm.ageRange,
+            username: filterForm.name,
+        };
+
+        axios.post('http://localhost:8080/api/filter', filterDTO)
+            .then((response) => {
+                setUsers(response.data);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
+    };
+
     useEffect(() => {
         if (!nameSearch) {
             getUsers();
@@ -39,10 +69,9 @@ export default function Content() {
             searchStudentsByName(nameSearch)
             window.location.href = "#partner-list"
         }
-    }, [nameSearch]);
+    }, [nameSearch, filterForm]);
     const searchStudentsByName = (nameSearch) => {
         axios.get(`http://localhost:8080/api/users/search?username=${nameSearch}`).then((response) => {
-            console.log(response.status)
             if (response.status !== 204) {
                 setUsers(response.data);
             } else {
@@ -74,7 +103,7 @@ export default function Content() {
                     <Banner/>
                     <Story/>
                     <div className={"mb-8"}>
-                        <Filter/>
+                        <Filter filterForm={filterForm} onFilter={filterHandle}/>
                     </div>
                     <Typography variant="h3" color="red" className="mb-8" textGradient>
                         Danh sách hot girl, hot boy
@@ -129,6 +158,9 @@ export default function Content() {
                         />
                     </div>
                 </div>
+            </div>
+            <div>
+                <Message/>
             </div>
         </div>
     );

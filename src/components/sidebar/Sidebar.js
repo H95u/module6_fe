@@ -30,7 +30,7 @@ export default function Sidebar() {
                             <li key={item.id} data-value={item.id} className={"list-item"}>
                                 <div className={"media"}>
                                     <div className={"media-body media-middle"}>
-                                        <p data-value={item.id} className={"text-black font-bold"}>{item.name}</p>
+                                        <p data-value={item.id} className={"text-black"}>{item.name}</p>
                                     </div>
                                 </div>
                             </li>
