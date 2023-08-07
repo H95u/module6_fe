@@ -12,6 +12,8 @@ import axios from "axios";
 import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 import {storage} from "../../config/firebase";
 import Swal from "sweetalert2";
+import {Link} from "react-router-dom";
+
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
 export default function UserInfo() {
@@ -129,9 +131,9 @@ export default function UserInfo() {
                                     <Button size="md" color="white" className={"mb-2"}>
                                         Theo dõi
                                     </Button>
-                                    <Button size="md" color="white">
+                                    <Link to={"/update-info"} size="md" color="white">
                                         Cài đặt
-                                    </Button>
+                                    </Link>
                                 </div>
                                 <div className={"col-md-6"}>
                                     <Button size="md" color="white" className={"mb-2"}>
