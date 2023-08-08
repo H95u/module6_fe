@@ -1,23 +1,30 @@
-import React, {useEffect, useState} from "react"
-import "./ViewRent.css"
-import {Typography} from "@material-tailwind/react";
+import React, { useEffect, useState } from "react";
+import "./ViewRent.css";
+import { Typography } from "@material-tailwind/react";
+import axios from "axios";
 
-export default function ViewRent () {
-    const [bookings, setBookings] = useState("")
+const ViewRent = () => {
+    const [bookings, setBookings] = useState([]);
     const [totalHours, setTotalHours] = useState(0);
 
-    const bookingsData = [
-        {selectedHours: 2},
-        {selectedHours: 3}
-    ]
-
     useEffect(() => {
-        const sumHours = bookingsData.reduce((total, booking) => total + booking.selectedHours, 0);
-        setTotalHours(sumHours);
+        axios.get("/api/bookings/booked/{id}")
+            .then(response => {
+                setBookings(response.data);
+            })
+            .catch(error => {
+                console.error("Error fetching bookings:", error);
+            });
     }, []);
-    return(
+
+    return (
         <>
-            <Typography variant="h3" color="red" className="mb-8 text-center" textGradient>
+            <Typography
+                variant="h3"
+                color="red"
+                className="mb-8 text-center"
+                textGradient
+            >
                 Danh sách thuê
             </Typography>
             <div className={"container-view"}>
@@ -27,40 +34,56 @@ export default function ViewRent () {
                             <div className={"table-responsive"}>
                                 <table className={"table user-list"}>
                                     <thead>
-                                        <tr>
-                                            <th><span>Ngừơi thuê</span></th>
-                                            <th><span>Địa chỉ</span></th>
-                                            <th><span>Thời gian thuê</span></th>
-                                            <th><span>Thời gian bắt đầu</span></th>
-                                            <th><span>Số giờ</span></th>
-                                            <th className={"text-center"}><span>Trạng thái</span></th>
-                                            <th><span>Thành tiền</span></th>
-                                            <th colSpan={3}></th>
-                                        </tr>
+                                    <tr>
+                                        <th>
+                                            <span>Người thuê</span>
+                                        </th>
+                                        <th>
+                                            <span>Địa chỉ</span>
+                                        </th>
+                                        <th>
+                                            <span>Thời gian thuê</span>
+                                        </th>
+                                        <th>
+                                            <span>Thời gian bắt đầu</span>
+                                        </th>
+                                        <th>
+                                            <span>Số giờ</span>
+                                        </th>
+                                        <th className={"text-center"}>
+                                            <span>Trạng thái</span>
+                                        </th>
+                                        <th>
+                                            <span>Thành tiền</span>
+                                        </th>
+                                        <th colSpan={3}></th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-                                    {bookingsData.map((booking, index) => (
+                                    {bookings.map((booking, index) => (
                                         <tr key={index}>
                                             <td>
                                                 <div className={"fill-name"}>
-                                                <img src="" alt=""/>
-                                                <a href="" className={"user-link"}></a>
+                                                    <img src={booking.bookingUser.image} alt="" />
+                                                    <a href={booking.bookingUser.link} className={"user-link"}>
+                                                        {booking.bookingUser.name}
+                                                    </a>
                                                 </div>
                                             </td>
                                             <td>
-                                                <div className={"fill-address"}></div>
+                                                <div className={"fill-address"}>{booking.option.address}</div>
                                             </td>
                                             <td>
-                                                <div className={"fill-startTime"}>{booking.selectedHours}</div>
+                                                <div className={"fill-startTime"}>{booking.startTime}</div>
                                             </td>
                                             <td>
-                                                <div className={"fill-endTime"}>{booking.selectedHours}</div>
+                                                <div className={"fill-endTime"}>{booking.endTime}</div>
                                             </td>
                                             <td>
-                                                <div className={"total_time"}>{totalHours}</div>
+                                                <div className={"total_time"}>{booking.selectedHours}</div>
                                             </td>
                                             <td className={"text-center"}>
-                                                <span className={"label label-default"}></span>
+                                                <span className={"label label-default"}>{booking.status}</span>
                                             </td>
                                             <td>
                                                 <div className={"total_cost"}></div>
@@ -84,5 +107,7 @@ export default function ViewRent () {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
+
+export default ViewRent;
