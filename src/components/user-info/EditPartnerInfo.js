@@ -19,6 +19,7 @@ export default function EditPartnerInfo() {
     const [showRentForm, setShowRentForm] = useState(false)
     const [showPrice, setShowPrice] = useState(true)
     const [updatePrice, setUpdatePrice] = useState(false)
+    const [status, setStatus] = useState("")
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -78,15 +79,10 @@ export default function EditPartnerInfo() {
 
     }
 
-    const handleStatusPartner = (value) => {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        }
-        axios.post(`http://localhost:8080/api/users/update-statusPartner/${id}`, value, config).then((response) => {
-            setUser({...user, status: value.status});
+    const handleStatus = (evt) => {
+       const status = (evt.target.value);
+        axios.post(`http://localhost:8080/api/users/update-statusPartner/${id}?status=${status}`).then((response) => {
+            setUser(response.data)
         })
     }
 
@@ -138,8 +134,14 @@ export default function EditPartnerInfo() {
                             <div>
                                 <a href={`#`}><img src={user.img} alt={``}/></a>
                             </div>
+                            <div className={`status`}>
+                                <select className={user.status === 2 ? "text-danger form-select" : "text-success form-select" } onChange={handleStatus}>
+                                    <option className={"text-success"} value={`1`} selected={user.status === 1}>Đang sẵn sàng</option>
+                                    <option className={"text-danger"} value={`2`} selected={user.status === 2}>Tạm khóa</option>
+                                </select>
+                            </div>
 
-                            <p className={"ready"}>Đang sẵn sàng</p>
+                            <p className={"ready"}>{status}</p>
                             <div className={"dob"}>
                                 <span>Ngày tham gia:</span><span><span>{user.createdDate}</span></span></div>
                             <hr/>
