@@ -29,6 +29,7 @@
     "react-scroll-progress-bar": "^1.1.13",
     "sweetalert2": "^11.7.20",
     "validator": "^13.9.0",
+    "websocket": "^1.0.34",
     "yup": "^1.2.0"
   },
   "scripts": {
