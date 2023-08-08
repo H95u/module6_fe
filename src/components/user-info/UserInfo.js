@@ -12,6 +12,7 @@ import axios from "axios";
 import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 import {storage} from "../../config/firebase";
 import Swal from "sweetalert2";
+import {Link} from "react-router-dom";
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
 export default function UserInfo() {
@@ -57,6 +58,7 @@ export default function UserInfo() {
             }
         );
     };
+
 
     return (
         <div className="user-info">
@@ -130,7 +132,7 @@ export default function UserInfo() {
                                         Theo dõi
                                     </Button>
                                     <Button size="md" color="white">
-                                        Cài đặt
+                                        <Link to={"/update-info/${id}"}>Cài đặt</Link>
                                     </Button>
                                 </div>
                                 <div className={"col-md-6"}>

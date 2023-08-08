@@ -1,5 +1,4 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {FooterWithSocialLinks} from "./components/footer/Footer";
 import Content from "./components/content/Content";
 import TransferForm from "./components/login/TransferForm";
 import {ComplexNavbar} from "./components/navbar/Navbar";
@@ -11,6 +10,7 @@ import UserInfo from "./components/user-info/UserInfo";
 import SearchLogin from "./components/search/SearchLogin";
 import SearchFilter from "./components/search/SearchFilter";
 import EditPartnerInfo from "./components/user-info/EditPartnerInfo";
+import UpdateInfo from "./components/user-info/UpdateInfo";
 
 export default function App() {
     return (
@@ -28,6 +28,7 @@ export default function App() {
                     <Route path={"/search"} element={<SearchLogin/>}></Route>
                     <Route path={"/search_filter"} element={<SearchFilter/>}></Route>
                     <Route path={"/edit-info"} element={<EditPartnerInfo/>}></Route>
+                    <Route path={"/update-info/:id"} element={<UpdateInfo/>}></Route>
                 </Routes>
 
             </BrowserRouter>
