@@ -54,7 +54,7 @@ const profileMenuItems = [
         icon: UserCircleIcon,
         handler: handleProfileInfo,
     },
-    ...(loggingUser != null && loggingUser.status === 1
+    ...((loggingUser != null && loggingUser.status === 1) || (loggingUser != null && loggingUser.status === 2 )
         ? [
             {
                 label: "Chỉnh sửa thông tin",
