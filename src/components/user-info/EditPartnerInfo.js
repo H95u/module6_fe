@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import Modal from "react-bootstrap/Modal";
 import {Typography} from "@material-tailwind/react";
+import {Dropdown} from "react-bootstrap";
 
 export default function EditPartnerInfo() {
     const navigate = useNavigate();
@@ -14,7 +15,6 @@ export default function EditPartnerInfo() {
     const [options, setOptions] = useState([]);
     const [newOptions, setNewOptions] = useState([]);
     const [allOptions, setAllOptions] = useState([]);
-    const [address, setAddress] = useState("");
     const [show, setShow] = useState(false);
     const [showRentForm, setShowRentForm] = useState(false)
     const [showPrice, setShowPrice] = useState(true)
@@ -54,8 +54,11 @@ export default function EditPartnerInfo() {
         })
     }
 
-    const initialValues = {
+    const initialPrice = {
         price: 0
+    }
+    const initialStatusPartner = {
+        status: 1
     }
     const validation = Yup.object({
         price: Yup.number().min(50000, "Nhỏ nhất 50.000")
@@ -73,6 +76,18 @@ export default function EditPartnerInfo() {
             displayPrice()
         })
 
+    }
+
+    const handleStatusPartner = (value) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }
+        axios.post(`http://localhost:8080/api/users/update-statusPartner/${id}`, value, config).then((response) => {
+            setUser({...user, status: value.status});
+        })
     }
 
     function displayPrice() {
@@ -94,9 +109,7 @@ export default function EditPartnerInfo() {
             localStorage.setItem("userId", id);
             navigate("/login");
         }
-    };
-
-
+    }
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/users/${id}`).then((response) => {
@@ -125,20 +138,10 @@ export default function EditPartnerInfo() {
                             <div>
                                 <a href={`#`}><img src={user.img} alt={``}/></a>
                             </div>
-                            <div>
-                                {/*<Formik initialValues={initialValues} onSubmit={handleSubmit}*/}
-                                {/*        enableReinitialize={true}>*/}
-                                {/*    <Form>*/}
-                                {/*        <Field name={'status'} as="select" className={'form-control'} id={'status'}>*/}
-                                {/*            <option value="" selected>Trạng thái CCDV</option>*/}
-                                {/*            <option value={'1'}>Đang sẵn sàng</option>*/}
-                                {/*            <option value={'2'}>Đang bận</option>*/}
-                                {/*        </Field>*/}
-                                {/*    </Form>*/}
-                                {/*</Formik>*/}
-                                <p className={"ready"}>Đang sẵn sàng</p>
-                            </div>
-                            <div className={"dob"}><span>Ngày tham gia:</span><span><span>{user.createdDate}</span></span></div>
+
+                            <p className={"ready"}>Đang sẵn sàng</p>
+                            <div className={"dob"}>
+                                <span>Ngày tham gia:</span><span><span>{user.createdDate}</span></span></div>
                             <hr/>
                         </div>
                         <div className={"info"}>
@@ -234,24 +237,29 @@ export default function EditPartnerInfo() {
                                         }
                                     </div>
                                     <div className={`col-sm-4`}>
-                                        <button onClick={displayUpdatePrice} id={`update-price`} className={`btn btn-danger btn-sm`}>Sửa</button>
+                                        <button onClick={displayUpdatePrice} id={`update-price`}
+                                                className={`btn btn-danger btn-sm`}>Sửa
+                                        </button>
                                     </div>
                                 </div>
                             </>}
 
                             {updatePrice && <>
-                                <Formik initialValues={initialValues} onSubmit={handleUpdatePrice}
+                                <Formik initialValues={initialPrice} onSubmit={handleUpdatePrice}
                                         enableReinitialize={true}
                                         validationSchema={validation}>
                                     <Form>
                                         <div className={`row`}>
                                             <div className={`col-sm-8`}>
-                                                <Field name={'price'} type={'number'} className={'form-control'} id={'price'}
+                                                <Field name={'price'} type={'number'} className={'form-control'}
+                                                       id={'price'}
                                                        placeholder={'Enter price'}/>
-                                                <span style={{color: "red"}}><ErrorMessage className={'error'} name={'price'}/></span>
+                                                <span style={{color: "red"}}><ErrorMessage className={'error'}
+                                                                                           name={'price'}/></span>
                                             </div>
                                             <div className={`col-sm-4`}>
-                                                <button id={`update-price`} className={`btn btn-primary btn-sm`}>Sửa</button>
+                                                <button id={`update-price`} className={`btn btn-primary btn-sm`}>Sửa
+                                                </button>
                                             </div>
                                         </div>
                                     </Form>
@@ -269,7 +277,7 @@ export default function EditPartnerInfo() {
                 </div>
             </div>
 
-            <Modal show={showRentForm} onHide={handleClose}>
+            <Modal show={showRentForm} onHide={handleCloseRentForm}>
                 <Modal.Header>
                     <Modal.Title>Thông tin thuê</Modal.Title>
                 </Modal.Header>

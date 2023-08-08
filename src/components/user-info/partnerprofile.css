@@ -30,10 +30,28 @@
 
 .ready {
     margin-top: 12px;
-    text-align: center;
     font-family: initial;
     font-size: 20px;
     color: #04be54;
+    margin-left: 90px;
+}
+.status1 {
+    display: flex;
+}
+.status2 {
+    display: flex;
+}
+.status1 a {
+    margin-left: 10px;
+    margin-top: 10px;
+    color: lightpink;
+    font-size: 20px;
+}
+.status2 a {
+    margin-left: 13px;
+    margin-top: 10px;
+    color: #0022ff;
+    font-size: 20px;
 }
 
 

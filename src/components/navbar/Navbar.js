@@ -25,6 +25,63 @@ import axios from "axios";
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
 
+
+const handleProfileInfo = () => {
+    window.location.href = "/user-info"
+};
+
+const handleEditProfile = () => {
+    window.location.href = "/edit-info"
+};
+
+const handleRecharge = () => {
+    // Implement the function for "Nạp tiền"
+    // e.g., show a recharge modal or redirect to a recharge page
+};
+
+const handleHelp = () => {
+    // Implement the function for "Trợ giúp"
+    // e.g., show a help modal or redirect to a help page
+};
+
+const handleLogout = () => {
+    localStorage.removeItem("loggingUser");
+    window.location.href = "/";
+};
+
+// profile menu component
+const profileMenuItems = [
+    {
+        label: "Thông tin cá nhân",
+        icon: UserCircleIcon,
+        handler: handleProfileInfo,
+    },
+    ...((loggingUser != null && loggingUser.status === 1) || (loggingUser != null && loggingUser.status === 2 )
+        ? [
+            {
+                label: "Chỉnh sửa thông tin",
+                icon: Cog6ToothIcon,
+                handler: handleEditProfile,
+            },
+        ]
+        : []),
+    {
+        label: "Nạp tiền",
+        icon: InboxArrowDownIcon,
+        handler: handleRecharge,
+    },
+    {
+        label: "Trợ giúp",
+        icon: LifebuoyIcon,
+        handler: handleHelp,
+    },
+    {
+        label: "Đăng xuất",
+        icon: PowerIcon,
+        handler: handleLogout,
+    },
+];
+
 function LoginButton() {
     return (
         <div className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto">
