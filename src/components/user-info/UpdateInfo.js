@@ -1,31 +1,60 @@
-import { Formik, Form, Field } from "formik";
+import {Formik, Form, Field, ErrorMessage} from "formik";
 import {useNavigate, useParams} from "react-router-dom";
-import { User } from "../model/User";
 import axios from "axios";
 import "./UpdateInfo.css";
 import {useEffect, useState} from "react";
+import MenuBar from "./MenuBar";
 
-export default function UpdateInfo (props) {
+export default function UpdateInfo () {
     const {id} = useParams()
     const navigate = useNavigate();
     const [user, setUser] = useState({});
+    const [addressList, setAddressList] = useState([])
+    const initialValues = {
+        nickname: "",
+        email: "",
+        dob: "",
+        address: "",
+        gender: "",
+    };
 
     useEffect(() => {
         axios
             .get(`http://localhost:8080/api/users/info/${id}`)
             .then((response) => {
                 setUser(response.data);
+                initialValues.nickname = response.data.nickname;
+                initialValues.email = response.data.email;
+                initialValues.dob = response.data.dob;
+                initialValues.address = response.data.address.id;
+                initialValues.gender = response.data.gender;
             })
             .catch((error) => {
                 console.error("Đã có lỗi xảy ra:", error);
             });
+
+        axios
+            .get("http://localhost:8080/api/addresses")
+            .then((response) => {
+                setAddressList(response.data);
+            })
+            .catch((error) => {
+                console.error("Đã có lỗi xảy ra khi tải danh sách địa chỉ:", error);
+            });
     }, [id]);
+
+
+
 
     if (!user) {
         return <div>Loading...</div>;
     }
 
     const handleSubmit = (values) => {
+        values.address = {
+            id: +values.address
+        }
+        console.log(values)
         axios
             .put(`http://localhost:8080/api/users/${id}`, values)
             .then((res) => {
@@ -39,19 +68,15 @@ export default function UpdateInfo (props) {
 
     return (
         <>
-            <div className={"col-md-6 col-sm-12 col-xs-12 personalinfo"}>
+            <div className={"setting_main row"}>
+                <MenuBar/>
+            <div className={"col-lg-9 col-md-9 col-sm-12 col-xs-12"} id={"personalinfo"}>
                 <h3>Cập nhật thông tin</h3>
-                <Formik initialValues={props.user}
+                <Formik initialValues={initialValues}
                         enableReinitialize={true}
                         onSubmit={(values) => handleSubmit(values)}>
 
                     <Form>
-                        <div className={"d-flex img-avatar"}>
-                            <label htmlFor="img">Chọn file ảnh:</label>
-                            <div className={"cropimg-avatar"}>
-                            <Field type={"file"} name={"img"}/>
-                            </div>
-                        </div>
                         <div className={"from-userinfo"}>
                         <div className={"fieldGroup "}>
                             <label className={"control-label"} htmlFor="nickname">Nickname:</label>
@@ -66,15 +91,21 @@ export default function UpdateInfo (props) {
                             <Field type="date" name="dob" />
                         </div>
                             <div className="fieldGroup">
-                                <label className={"control-label"} htmlFor="address">
+                                <label htmlFor="address" className={"control-label"}>
                                     Địa chỉ:
                                 </label>
-                                <Field as="select" name="address">
-                                    <option value="">-- Chọn địa chỉ --</option>
-                                    {user.address && (
-                                        <option value="address1">{user.address.name}</option>
-                                    )}
-                                </Field>
+                                <div className="col-sm-10">
+                                    <Field as="select" name="address" className="form-select"
+                                           aria-label="Default select example">
+                                        <option value="">Select address</option>
+                                        {addressList.map((item) => (
+                                            <option key={item.id} value={item.id}>
+                                                {item.name}
+                                            </option>
+                                        ))}
+                                    </Field>
+                                    <ErrorMessage name="address" component="div" className="text-danger"/>
+                                </div>
                             </div>
                             <div className="fieldGroup">
                                 <label className={"control-label"} htmlFor="gender">
@@ -94,6 +125,7 @@ export default function UpdateInfo (props) {
 
                     </Form>
                 </Formik>
+            </div>
             </div>
         </>
     )

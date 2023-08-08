@@ -14,7 +14,6 @@ import {storage} from "../../config/firebase";
 import Swal from "sweetalert2";
 import {Link} from "react-router-dom";
 
-
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
 export default function UserInfo() {
     const id = loggingUser.id;
@@ -59,6 +58,7 @@ export default function UserInfo() {
             }
         );
     };
+
 
     return (
         <div className="user-info">
@@ -131,9 +131,9 @@ export default function UserInfo() {
                                     <Button size="md" color="white" className={"mb-2"}>
                                         Theo dõi
                                     </Button>
-                                    <Link to={"/update-info"} size="md" color="white">
-                                        Cài đặt
-                                    </Link>
+                                    <Button size="md" color="white">
+                                        <Link to={"/update-info/${id}"}>Cài đặt</Link>
+                                    </Button>
                                 </div>
                                 <div className={"col-md-6"}>
                                     <Button size="md" color="white" className={"mb-2"}>
