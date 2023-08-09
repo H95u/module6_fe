@@ -1,4 +1,22 @@
-/* UpdateInfo.css */
+.user-info {
+    display: flex;
+    align-items: center;
+    min-height: 0;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.user-name {
+    margin-left: 10px;
+}
+
+
 
 .btn-update {
     background-color: orange; /* Màu cam đỏ */
@@ -24,8 +42,19 @@
 }
 
 .fieldGroup .d-flex input[type="radio"]:checked + div {
-    color: orange; /* Màu cam đỏ */
+    color: orange;
 }
 .icon-hover:hover {
-    color: red; /* Màu sắc khi hover */
+    color: red;
 }
+
+
+.container-view {
+    overflow-x: hidden;
+    padding-bottom: 20px;
+}
+
+.main-box {
+    overflow-x: auto;
+}
+

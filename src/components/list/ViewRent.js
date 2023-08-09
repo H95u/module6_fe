@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "./ViewRent.css";
-import { Typography } from "@material-tailwind/react";
+import {Tooltip, Typography} from "@material-tailwind/react";
 import axios from "axios";
 import {
     Popover,
     PopoverHandler,
     PopoverContent,
-    Button,
+    IconButton,
 } from "@material-tailwind/react";
 import {useParams} from "react-router-dom";
+import MenuBar from "../user-info/MenuBar";
+import {CheckIcon, XMarkIcon, CurrencyDollarIcon} from "@heroicons/react/20/solid";
 
 const ViewRent = () => {
     const [bookings, setBookings] = useState([]);
+    const [tooltipVisible, setTooltipVisible] = useState(false);
     const {id} = useParams();
 
 
@@ -37,11 +40,20 @@ const ViewRent = () => {
         }
     }
 
+
+    const handlePopoverClick = () => {
+        setTooltipVisible(true);
+    };
+
+    const handlePopoverMouseLeave = () => {
+        setTooltipVisible(false);
+    };
+
     return (
         <>
             <div className={"container-view"}>
                 <div className={"row"}>
-                    <div className={"col-lg-3"}></div>
+                    <MenuBar/>
                     <div className={"col-lg-9"}>
                         <Typography
                             variant="h4"
@@ -84,8 +96,11 @@ const ViewRent = () => {
                                     {bookings.map((booking, index) => (
                                         <tr key={index}>
                                             <td>
-                                                <div className={"fill-name"}>
+                                                <div className="user-info">
+                                                    <img src={booking.bookingUser.img} alt="Avatar" className="user-avatar" />
+                                                    <div className="fill-name">
                                                         {booking.bookingUser.username}
+                                                    </div>
                                                 </div>
                                             </td>
                                             <td>
@@ -136,14 +151,27 @@ const ViewRent = () => {
                                             <td>
                                             <Popover placement="left">
                                                 <PopoverHandler>
-                                                    <i className="bi bi-three-dots icon-hover"></i>
+                                                    <i className="bi bi-three-dots icon-hover" onClick={handlePopoverClick}
+                                                       onMouseLeave={handlePopoverMouseLeave}></i>
                                                 </PopoverHandler>
                                                 <PopoverContent>
-                                                        <button className={"btn btn-success"}>Xác nhận</button>
+                                                    <Tooltip content="Xác nhận" show={tooltipVisible}>
+                                                        <IconButton variant="text" color="green">
+                                                            <CheckIcon className="h-4 w-4" />
+                                                        </IconButton>
+                                                    </Tooltip>
                                                     &ensp;
-                                                        <button className={"btn btn-dark"}>Huỷ lịch</button>
+                                                    <Tooltip content="Huỷ lịch" show={tooltipVisible}>
+                                                        <IconButton variant="text" color="red">
+                                                            <XMarkIcon className="h-4 w-4" />
+                                                        </IconButton>
+                                                    </Tooltip>
                                                     &ensp;
-                                                    <button className={"btn btn-info"}>Nhận tiền</button>
+                                                    <Tooltip content="Nhận tiền" show={tooltipVisible}>
+                                                        <IconButton variant="text" color="yellow">
+                                                            <CurrencyDollarIcon className="h-4 w-4" />
+                                                        </IconButton>
+                                                    </Tooltip>
                                                 </PopoverContent>
                                             </Popover>
                                             </td>
