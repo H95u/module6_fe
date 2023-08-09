@@ -6,6 +6,7 @@ import {ThemeProvider} from "@material-tailwind/react";
 import "./index.css";
 import "./home.css";
 import App from "./App";
+import ViewRent from "./components/list/ViewRent";
 
 
 
@@ -14,6 +15,7 @@ root.render(
     <React.StrictMode>
         <ThemeProvider>
             <App/>
+            {/*<ViewRent/>*/}
         </ThemeProvider>
     </React.StrictMode>,
 );
