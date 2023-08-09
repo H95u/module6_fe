@@ -24,6 +24,15 @@ export default function UserInfo() {
     const [addressList, setAddressList] = useState([]);
     const [showUser, setShowUser] = useState(true);
     const [showUpdateUser, setShowUpdateUser] = useState(false);
+    const [isSetting, setIsSetting] = useState(false);
+
+    const [initialValues, setInitialValues] = useState({
+        nickname: "",
+        email: "",
+        dob: "",
+        addressId: "",
+        gender: "",
+    });
 
 
     useEffect(() => {
@@ -31,11 +40,6 @@ export default function UserInfo() {
             .then((response) => {
                 setUser(response.data);
                 setAddress(response.data.address)
-                initialValues.nickname = response.data.nickname;
-                initialValues.email = response.data.email;
-                initialValues.dob = response.data.dob;
-                initialValues.address = response.data.address.id;
-                initialValues.gender = response.data.gender;
             })
 
             .catch((error) => {
@@ -92,17 +96,33 @@ export default function UserInfo() {
     }
 
     function displayFormUpdate() {
-        setShowUser(false)
-        setShowUpdateUser(true)
+        setIsSetting(true);
+        setInitialValues({
+            nickname: user.nickname,
+            email: user.email,
+            dob: user.dob,
+            addressId: user.address?.id,
+            gender: user.gender + "",
+        })
+        console.log('displayFormUpdate>>>>>>>>>', initialValues);
     }
 
-    const initialValues = {
-        nickname: "",
-        email: "",
-        dob: "",
-        address: "",
-        gender: "",
-    };
+    // const initialValues = {
+    //     nickname: "",
+    //     email: "",
+    //     dob: "",
+    //     addressId: "",
+    //     gender: "",
+    // };
+
+    useEffect(() => {
+        if (isSetting) {
+            console.log('initialValues>>>>>>>>', initialValues);
+            setShowUser(false);
+            setShowUpdateUser(true);
+        }
+    }, [isSetting])
+
     // phải là 1 email hợp lệ
     const validation = Yup.object({
         nickname: Yup.string().min(3, "Độ dài tối thiệu 3 kí tự").required("Nickname là bắt buộc"),
@@ -112,9 +132,6 @@ export default function UserInfo() {
     });
 
     const handleSubmit = (values) => {
-        values.address = {
-            id: +values.address
-        }
         axios
             .put(`http://localhost:8080/api/users/${id}`, values)
             .then((res) => {
@@ -181,7 +198,7 @@ export default function UserInfo() {
                                         </p>
                                         ( {user.nickname} )
                                         <p>
-                                            Địa chỉ : {address.name ? address.name : ""}
+                                            Địa chỉ : {address?.name}
                                         </p>
                                     </Typography>
                                 </CardBody>
@@ -280,7 +297,7 @@ export default function UserInfo() {
                                         <p className={`title`}>Địa chỉ</p>
                                     </div>
                                     <div className={`col-sm-7`}>
-                                        <p className={`value`}>{address.name ? address.name: ""}</p>
+                                        <p className={`value`}>{address?.name}</p>
                                     </div>
                                 </div>
                                 <hr/>
@@ -326,7 +343,7 @@ export default function UserInfo() {
                                                     Địa chỉ
                                                 </label>
                                                 <div>
-                                                    <Field variant={`input`} as="select" name="address"
+                                                    <Field variant={`input`} as="select" name="addressId"
                                                            aria-label="Default select example" placeholder={'Địa chỉ'}>
                                                         <option value="">Địa chỉ</option>
                                                         {addressList.map((item) => (
