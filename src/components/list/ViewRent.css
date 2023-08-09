@@ -1,4 +1,4 @@
-.user-info {
+.user_info {
     display: flex;
     align-items: center;
     min-height: 0;
@@ -19,7 +19,7 @@
 
 
 .btn-update {
-    background-color: orange; /* Màu cam đỏ */
+    background-color: orange;
     color: white;
     border: none;
     padding: 10px 20px;
