@@ -4,98 +4,123 @@ import axios from "axios";
 import "./partnerprofile.css";
 import {Button, Textarea, Typography} from "@material-tailwind/react";
 import Modal from "react-bootstrap/Modal";
-import {ErrorMessage, Field, Form, Formik} from "formik";
-import * as Yup from "yup";
 import Swal from "sweetalert2";
 
 export default function PartnerInfo() {
     const navigate = useNavigate();
-
+    const isLoggedIn = JSON.parse(localStorage.getItem("loggingUser"));
     const [user, setUser] = useState({});
     const [options, setOptions] = useState([]);
-    const [newOptions, setNewOptions] = useState([]);
-    const [allOptions, setAllOptions] = useState([]);
     const [address, setAddress] = useState("");
     const {id} = useParams();
-    const [show, setShow] = useState(false);
     const [showRentForm, setShowRentForm] = useState(false)
     const [showPrice, setShowPrice] = useState(true)
-    const [updatePrice, setUpdatePrice] = useState(false)
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const [startTime, setStartTime] = useState("");
+    const [endTime, setEndTime] = useState("");
+    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedOptionId, setSelectedOptionId] = useState("");
 
     const handleShowRentForm = () => setShowRentForm(true);
-
     const handleCloseRentForm = () => setShowRentForm(false)
 
+    const handleStartChange = (e) => {
+        setStartTime(e.target.value);
+    };
 
-    const handleCheck = (id) => {
-        setNewOptions(prev => {
-            const isChecked = newOptions.includes(id);
-            if (isChecked) {
-                return newOptions.filter(item => item !== id)
-            } else {
-                return [...prev, id]
-            }
-        });
+    const handleEndChange = (e) => {
+        setEndTime(e.target.value);
+    };
+    const handleOptionChange = (e) => {
+        const selectedOptionId = e.target.value;
+        const selected = options.find(option => option.id == selectedOptionId);
+        setSelectedOption(selected);
+        setSelectedOptionId(e.target.value);
+    };
+
+    const calculateTotal = (startTime, endTime, price, optionPrice) => {
+        const startTimestamp = new Date(startTime).getTime();
+        const endTimestamp = new Date(endTime).getTime();
+        const timeDifference = endTimestamp - startTimestamp;
+        const hours = timeDifference / (1000 * 60 * 60);
+        return hours * price + (selectedOption != null ? optionPrice : 0);
     }
 
-    const handleSubmit = () => {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
+    const calculateTotalPrice = () => {
+        if (startTime != "" && endTime != "" && selectedOption !== null) {
+            return calculateTotal(startTime, endTime, user.price, selectedOption != null ? selectedOption.price : 0);
         }
-        axios.post("http://localhost:8080/api/users/add-options", {
-            optionIds: newOptions,
-
-        }, config).then((response) => {
-            setOptions(response.data);
-            handleClose();
-        })
-    }
-
-    const isLoggedIn = JSON.parse(localStorage.getItem("loggingUser"));
+        return 0;
+    };
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/users/${id}`).then((response) => {
             setUser(response.data);
             setOptions(response.data.options);
             setAddress(response.data.address)
-            setNewOptions(response.data.options.map((item) => item.id));
         })
     }, [])
 
+    function formatDate(dateTimeString) {
+        const date = new Date(dateTimeString);
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
 
-    useEffect(() => {
-        axios.get(`http://localhost:8080/api/options`).then((response) => {
-            setAllOptions(response.data);
-            window.scrollTo(0, 0);
-        })
-    }, [])
+        const formattedDay = String(day).padStart(2, '0');
+        const formattedMonth = String(month).padStart(2, '0');
 
-    const initialValues = {
-        startTime: "",
-        endTime: "",
-        bookingUser: "",
-        bookedUser: "",
-        option: "",
-    };
-    const handleSubmitRent = (values) => {
+        return `${formattedDay}/${formattedMonth}/${year}`;
+    }
+
+    const handleSubmitRent = () => {
         if (isLoggedIn) {
-            values.option = {
-                id: values.option
+            const booking = {
+                startTime: startTime,
+                endTime: endTime,
+                option: {
+                    id: selectedOptionId
+                },
+                bookingUser: {
+                    id: isLoggedIn.id
+                },
+                bookedUser: {
+                    id: +id
+                },
+                total: calculateTotalPrice(),
             }
-            values.bookingUser = {
-                id: isLoggedIn.id
-            }
-            values.bookedUser = {
-                id: id
-            }
-            axios.post(`http://localhost:8080/api/bookings/rent`, values).then((response) => {
-                handleCloseRentForm()
+            console.log(booking)
+            axios.post(`http://localhost:8080/api/bookings/rent`, booking).then((response) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Ok...',
+                    text: 'Bạn đã đặt hẹn thành công!',
+                })
+                setSelectedOption(null);
+                calculateTotalPrice();
+                handleCloseRentForm();
             })
+                .catch((error) => {
+                    if (error.response.data === 1) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Thời gian kết thúc phải sau thời gian bắt đầu!',
+                        })
+                    } else if (error.response.data === 2) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Thời gian bắt đầu không hợp lệ!',
+                        })
+                    } else if (error.response.status === 406) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: `Ôi trùng lịch rồi ! Đã có người thuê từ ${formatDate(error.response.data.startTime)} 
+            đến ${formatDate(error.response.data.endTime)}`,
+                        })
+                    }
+                });
         } else {
             localStorage.setItem("userId", id);
             Swal.fire({
@@ -109,59 +134,62 @@ export default function PartnerInfo() {
 
     return (
         <>
-
-            <Modal show={showRentForm} onHide={handleClose}>
+            <Modal backdrop={"static"} show={showRentForm} onHide={handleCloseRentForm}>
                 <Modal.Header>
                     <Modal.Title>Thông tin thuê</Modal.Title>
                 </Modal.Header>
-                <Formik initialValues={initialValues} onSubmit={handleSubmitRent}>
-                    <Form>
-                        <Modal.Body>
-                            <div>
-                                <label htmlFor={"rent-name"} className={"form-label"}>Tên người cho
-                                    thuê</label>
-                                <Typography variant="h3" color="cyan" textGradient>
-                                    {user.nickname}
-                                </Typography>
-                            </div>
-                            <div>
-                                <label htmlFor={"rent-start"} className={"form-label"}>Thời gian bắt đầu
-                                    thuê</label>
-                                <Field type={"datetime-local"} className={"form-control"}
-                                       id={"rent-start"} name={"startTime"}/>
-                            </div>
-                            <div className={"mb-6"}>
-                                <label htmlFor={"rent-end"} className={"form-label"}>Thời gian kết thúc
-                                    thuê</label>
-                                <Field type={"datetime-local"} className={"form-control"}
-                                       id={"rent-end"} name={"endTime"}/>
-                            </div>
-                            <div className="grid gap-6 mb-2">
-                                <Field as="select" name="option" className="form-select"
-                                       aria-label="Default select example">
-                                    <option className={"font-bold"} value="" selected>Chọn dịch vụ</option>
-                                    {options.map(item => (
-                                        <option value={item.id}>{item.name} - {item.price}</option>
-                                    ))}
-                                </Field>
-                            </div>
-                            <div>
-                                <label htmlFor={"rent-price"} className={"form-label"}>Giá</label>
-                                <Typography variant="h3" color="cyan" textGradient>
-                                    {user.price} đ/h
-                                </Typography>
-                            </div>
-                            <div className="grid gap-6">
-                                <Textarea label="Tin nhắn ..."/>
-                            </div>
+                <Modal.Body>
+                    <div>
+                        <label htmlFor={"rent-name"} className={"form-label"}>Tên người cho
+                            thuê</label>
+                        <Typography variant="h3" color="cyan" textGradient>
+                            {user.nickname}
+                        </Typography>
+                    </div>
+                    <div>
+                        <label htmlFor={"rent-start"} className={"form-label"}>Thời gian bắt đầu
+                            thuê</label>
+                        <input onChange={handleStartChange} type={"datetime-local"} className={"form-control"}
+                               id={"rent-start"} name={"startTime"}/>
+                    </div>
+                    <div className={"mb-6"}>
+                        <label htmlFor={"rent-end"} className={"form-label"}>Thời gian kết thúc
+                            thuê</label>
+                        <input onChange={handleEndChange} type={"datetime-local"} className={"form-control"}
+                               id={"rent-end"} name={"endTime"}/>
+                    </div>
+                    <div className="grid gap-6 mb-2">
+                        <select onChange={handleOptionChange} name="option" className="form-select"
+                                aria-label="Default select example">
+                            <option className={"font-bold"} value="" selected>Chọn dịch vụ</option>
+                            {options.map(item => (
+                                <option value={item.id}>{item.name} - {item.price}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div>
+                        <label htmlFor={"rent-price"} className={"form-label"}>Giá</label>
+                        <Typography variant="h3" color="cyan" textGradient>
+                            {user.price} đ/h
+                        </Typography>
+                    </div>
+                    <div className="grid gap-6">
+                        <Textarea label="Tin nhắn ..."/>
+                    </div>
+                    <hr/>
+                    <Typography variant="h4" color="green" textGradient>
+                        Tổng tiền :
+                        {calculateTotalPrice()} đ
+                    </Typography>
 
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button type="submit" color={"red"}>Thuê</Button>
-                            <Button color={"blue"} onClick={handleCloseRentForm}>Đóng</Button>
-                        </Modal.Footer>
-                    </Form>
-                </Formik>
+                </Modal.Body>
+                <Modal.Footer>
+
+                    <div>
+                        <Button color={"red"} onClick={handleSubmitRent}>Thuê</Button>
+                        <Button className={"ml-4"} color={"blue"} onClick={handleCloseRentForm}>Đóng</Button>
+                    </div>
+                </Modal.Footer>
             </Modal>
 
             <div className={"partner-info"}>
@@ -268,7 +296,6 @@ export default function PartnerInfo() {
                                 </div>
                             </>}
 
-
                             <div className={`booking`}><a className={"btn btn-danger"}
                                                           onClick={handleShowRentForm}>THUÊ</a></div>
                             <div><a className={"btn btn-light"}>TẶNG TIỀN</a></div>
@@ -279,30 +306,6 @@ export default function PartnerInfo() {
                 </div>
             </div>
 
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header>
-                    <Modal.Title>
-                        <div className={`service`}>
-                            Cập nhật dịch vụ cung cấp
-                        </div>
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {allOptions.map(item =>
-                        <div className={"form-check form-switch"} key={item.id}>
-                            <input className={"form-check-input"} type={"checkbox"} id={item.id}
-                                   checked={newOptions.includes(item.id)}
-                                   onChange={() => handleCheck(item.id)}/>
-                            <label className={"form-check-label"} htmlFor={item.id}>{item.name}</label>
-                        </div>
-                    )}
-                </Modal.Body>
-                <Modal.Footer>
-                    <button onClick={handleSubmit} className={"btn btn-danger"}>Cập nhật</button>
-                    <button className={"btn btn-light"} onClick={handleClose}>Đóng</button>
-                </Modal.Footer>
-            </Modal>
-            <hr/>
         </>
     )
 }

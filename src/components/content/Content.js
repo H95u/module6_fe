@@ -64,6 +64,7 @@ export default function Content() {
         axios.post(`http://localhost:8080/api/filter/option/${optionId}`)
             .then((response) => {
                 setUsers(response.data);
+                window.location.href = "#partner-list"
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
