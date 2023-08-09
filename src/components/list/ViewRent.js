@@ -2,14 +2,21 @@ import React, { useEffect, useState } from "react";
 import "./ViewRent.css";
 import { Typography } from "@material-tailwind/react";
 import axios from "axios";
+import {
+    Popover,
+    PopoverHandler,
+    PopoverContent,
+    Button,
+} from "@material-tailwind/react";
+import {useParams} from "react-router-dom";
 
 const ViewRent = () => {
     const [bookings, setBookings] = useState([]);
+    const {id} = useParams();
 
-    const bookedUserId = 4;
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/bookings/booked/${bookedUserId}`)
+        axios.get(`http://localhost:8080/api/bookings/booked/${id}`)
             .then(response => {
                 console.log(response.data);
                 setBookings(response.data);
@@ -32,20 +39,21 @@ const ViewRent = () => {
 
     return (
         <>
-            <Typography
-                variant="h3"
-                color="red"
-                className="mb-8 text-center"
-                textGradient
-            >
-                Danh sách thuê
-            </Typography>
             <div className={"container-view"}>
                 <div className={"row"}>
-                    <div className={"col-lg-12"}>
+                    <div className={"col-lg-3"}></div>
+                    <div className={"col-lg-9"}>
+                        <Typography
+                            variant="h4"
+                            color="red"
+                            className="mb-8 mt-4 text-center"
+                            textGradient
+                        >
+                            Danh sách thuê
+                        </Typography>
                         <div className={"main-box clearfix"}>
                             <div className={"table-responsive"}>
-                                <table className={"table user-list"}>
+                                <table className={"table user-list table table-hover"}>
                                     <thead>
                                     <tr>
                                         <th>
@@ -69,7 +77,7 @@ const ViewRent = () => {
                                         <th>
                                             <span>Thành tiền</span>
                                         </th>
-                                        <th colSpan={3}></th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -126,13 +134,18 @@ const ViewRent = () => {
                                                 <div className={"total_cost"}></div>
                                             </td>
                                             <td>
-                                                <button className={"btn btn-success"}>Xác nhận</button>
-                                            </td>
-                                            <td>
-                                                <button className={"btn btn-dark"}>Huỷ lịch</button>
-                                            </td>
-                                            <td>
-                                                <button className={"btn btn-info"}>Nhận tiền</button>
+                                            <Popover placement="left">
+                                                <PopoverHandler>
+                                                    <i className="bi bi-three-dots icon-hover"></i>
+                                                </PopoverHandler>
+                                                <PopoverContent>
+                                                        <button className={"btn btn-success"}>Xác nhận</button>
+                                                    &ensp;
+                                                        <button className={"btn btn-dark"}>Huỷ lịch</button>
+                                                    &ensp;
+                                                    <button className={"btn btn-info"}>Nhận tiền</button>
+                                                </PopoverContent>
+                                            </Popover>
                                             </td>
                                         </tr>
                                     ))}
