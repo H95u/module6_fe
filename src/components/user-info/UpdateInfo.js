@@ -59,7 +59,7 @@ export default function UpdateInfo () {
             .put(`http://localhost:8080/api/users/${id}`, values)
             .then((res) => {
                 console.log("Đã lưu thông tin thành công", res.data);
-                navigate("/");
+                navigate(`/user-info`);
             })
             .catch((error) => {
                 console.error("Đã có lỗi xảy ra:", error);
