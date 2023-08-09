@@ -7,12 +7,13 @@ import * as Yup from "yup";
 import "./Login.css";
 import {Typography, Avatar} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
 
 const RegisterUser = () => {
     const [students, setStudents] = useState([]);
     const navigate = useNavigate();
-
-
+    const [showPassword, setShowPassword] = React.useState(false);
     const initialValues = {
         username: "",
         nickname: "",
@@ -103,7 +104,10 @@ const RegisterUser = () => {
                 });
             });
     };
-
+    const togglePasswordVisibility = (event)=> {
+        event.preventDefault();
+        setShowPassword(!showPassword)
+    }
     return (
         <div className={"form-register"}>
             <Formik
@@ -147,18 +151,6 @@ const RegisterUser = () => {
                                                             <ErrorMessage name='username' component='div'
                                                                           className='text-danger'/>
                                                         </div>
-
-                                                        <div>
-                                                            <label htmlFor='password'
-                                                                   className='form-label'>Mật khẩu</label>
-                                                            <Field type='password'
-                                                                   className='form-control form-control-sm'
-                                                                   id='password' name='password'/>
-                                                            <ErrorMessage name='password' component='div'
-                                                                          className='text-danger'/>
-                                                        </div>
-
-
                                                         <div>
                                                             <label htmlFor='nickname'
                                                                    className='form-label'>Biệt danh</label>
@@ -197,7 +189,32 @@ const RegisterUser = () => {
                                                                           className='text-danger'/>
                                                         </div>
 
+                                                        <div>
+                                                            <button style={{
+                                                                display: `inline-block`,
+                                                                marginRight:` 4px`,
+                                                                position: `relative`,
+                                                                top: `2px`,
+                                                                float: `right`
+                                                            }}
+                                                                    onClick={togglePasswordVisibility}>
+                                                                {showPassword ?  (
+                                                                    <FontAwesomeIcon icon={faEyeSlash} />
+                                                                ) : (
+                                                                    <FontAwesomeIcon icon={faEye} />
+                                                                )}
+                                                            </button>
 
+                                                            <label htmlFor='password'
+                                                                   className='form-label'>Mật khẩu</label>
+                                                            <Field type={showPassword ? 'text' : 'password'}
+                                                                   className='form-control form-control-sm'
+                                                                   id='password' name='password'/>
+                                                            <ErrorMessage name='password' component='div'
+                                                                          className='text-danger'/>
+                                                        </div>
+                                                        &ensp;
+                                                        &ensp;
                                                         <div className='d-grid'>
                                                             <button className='btn btn-primary btn-sm'
                                                                     disabled={isSubmitting}>Đăng ký

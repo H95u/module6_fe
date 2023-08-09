@@ -8,13 +8,15 @@ import {Formik, Form, Field, ErrorMessage} from "formik";
 import "./Login.css";
 import {Typography, Avatar} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 const Login = () => {
+    const [showPassword, setShowPassword] = React.useState(false);
     const navigate = useNavigate();
     const initialValue = {
         username: "",
         password: ""
     };
-
     const validateSchema = Yup.object({
         username: Yup.string()
             .required("Tên là bắt buộc")
@@ -66,6 +68,10 @@ const Login = () => {
             });
     };
 
+    const togglePasswordVisibility = (event)=> {
+        event.preventDefault();
+        setShowPassword(!showPassword)
+    }
     return (
         <>
             <Container className="-my-75">
@@ -131,11 +137,24 @@ const Login = () => {
                                                     className="invalid-feedback"
                                                 />
                                             </InputGroup>
-
+                                            <button style={{
+                                                display: `inline-block`,
+                                                marginRight: ` 4px`,
+                                                position: `relative`,
+                                                top: `2px`,
+                                                float: `right`
+                                            }}
+                                                    onClick={togglePasswordVisibility}>
+                                                {showPassword ?  (
+                                                    <FontAwesomeIcon icon={faEyeSlash} />
+                                                ) : (
+                                                    <FontAwesomeIcon icon={faEye} />
+                                                )}
+                                            </button>
                                             <InputGroup className="mb-4">
                                                 <InputGroup.Text>Mật khẩu</InputGroup.Text>
                                                 <Field
-                                                    type="password"
+                                                    type={ showPassword ? "text" : "password"}
                                                     id="password"
                                                     name="password"
                                                     className={`form-control ${
@@ -168,7 +187,7 @@ const Login = () => {
 
                                                 <Button
                                                     type="reset"
-                                                    className="mb-4 px-5 bg-primary"
+                                                    className="mb-4 px-5 bg-yellow-600"
                                                     size="lg"
                                                     disabled={isSubmitting}
                                                 >
@@ -194,6 +213,9 @@ const Login = () => {
                     </Row>
                 </Card>
             </Container>
+            <button><Link to={"/search"}>Search</Link></button>&ensp;&ensp;
+            <button><Link to={"/search_filter"}>SearchFilter</Link></button>
+
         </>
     );
 };
