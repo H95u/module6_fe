@@ -5,17 +5,30 @@ import axios from "axios";
 
 const ViewRent = () => {
     const [bookings, setBookings] = useState([]);
-    const [totalHours, setTotalHours] = useState(0);
+
+    const bookedUserId = 4;
 
     useEffect(() => {
-        axios.get("/api/bookings/booked/{id}")
+        axios.get(`http://localhost:8080/api/bookings/booked/${bookedUserId}`)
             .then(response => {
+                console.log(response.data);
                 setBookings(response.data);
             })
             .catch(error => {
                 console.error("Error fetching bookings:", error);
             });
     }, []);
+
+    const getStatusString = (status) => {
+        switch (status) {
+            case 1:
+                return "Chờ phản hồi";
+            case 2:
+                return ""
+            default:
+                return "Trạng thái không xác định";
+        }
+    }
 
     return (
         <>
@@ -42,7 +55,7 @@ const ViewRent = () => {
                                             <span>Địa chỉ</span>
                                         </th>
                                         <th>
-                                            <span>Thời gian thuê</span>
+                                            <span>Thời gian kết thúc</span>
                                         </th>
                                         <th>
                                             <span>Thời gian bắt đầu</span>
@@ -64,26 +77,50 @@ const ViewRent = () => {
                                         <tr key={index}>
                                             <td>
                                                 <div className={"fill-name"}>
-                                                    <img src={booking.bookingUser.image} alt="" />
-                                                    <a href={booking.bookingUser.link} className={"user-link"}>
-                                                        {booking.bookingUser.name}
-                                                    </a>
+                                                        {booking.bookingUser.username}
                                                 </div>
                                             </td>
                                             <td>
-                                                <div className={"fill-address"}>{booking.option.address}</div>
+                                                <div className={"fill-address"}>{booking.bookingUser.address.name}</div>
                                             </td>
                                             <td>
-                                                <div className={"fill-startTime"}>{booking.startTime}</div>
+                                                <div className={"fill-startTime"}>{new Date(booking.startTime).toLocaleString(undefined, {
+                                                    year: 'numeric',
+                                                    month: 'numeric',
+                                                    day: 'numeric',
+                                                    hour: '2-digit',
+                                                    minute: '2-digit',
+                                                    hour24: true
+                                                })}
+                                                </div>
                                             </td>
                                             <td>
-                                                <div className={"fill-endTime"}>{booking.endTime}</div>
+                                                <div className={"fill-endTim"}>{new Date(booking.endTime).toLocaleString(undefined, {
+                                                    year: 'numeric',
+                                                    month: 'numeric',
+                                                    day: 'numeric',
+                                                    hour: '2-digit',
+                                                    minute: '2-digit',
+                                                    hour24: true + "PM"
+                                                })}
+                                                </div>
                                             </td>
                                             <td>
-                                                <div className={"total_time"}>{booking.selectedHours}</div>
+                                                <div className={"total_time"}>
+                                                    {(() => {
+                                                        const start = new Date(booking.startTime);
+                                                        const end = new Date(booking.endTime);
+                                                        const diffInMilliseconds = end - start;
+
+                                                        const hours = Math.floor(diffInMilliseconds / (1000 * 60 * 60));
+                                                        const minutes = Math.floor((diffInMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+
+                                                        return `${hours} giờ ${minutes} phút`;
+                                                    })()}
+                                                </div>
                                             </td>
                                             <td className={"text-center"}>
-                                                <span className={"label label-default"}>{booking.status}</span>
+                                                <span className={"label label-default"}>{getStatusString(booking.status)}</span>
                                             </td>
                                             <td>
                                                 <div className={"total_cost"}></div>
