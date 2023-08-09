@@ -11,7 +11,6 @@ const Top3RecentRenters = ({selectedUserId}) => {
                         params:{
                             bookedUserId:selectedUserId
                         }
-
                     })
                     .then((response) => {
                         setTop3RecentRenters(response.data);
