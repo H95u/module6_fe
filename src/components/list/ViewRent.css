@@ -26,3 +26,6 @@
 .fieldGroup .d-flex input[type="radio"]:checked + div {
     color: orange; /* Màu cam đỏ */
 }
+.icon-hover:hover {
+    color: red; /* Màu sắc khi hover */
+}
