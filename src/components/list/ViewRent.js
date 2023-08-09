@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import "./ViewRent.css";
 import {Tooltip, Typography} from "@material-tailwind/react";
 import axios from "axios";
@@ -96,8 +96,9 @@ const ViewRent = () => {
                                     {bookings.map((booking, index) => (
                                         <tr key={index}>
                                             <td>
-                                                <div className="user-info">
-                                                    <img src={booking.bookingUser.img} alt="Avatar" className="user-avatar" />
+                                                <div className="user_info">
+                                                    <img src={booking.bookingUser.img} alt="Avatar"
+                                                         className="user-avatar"/>
                                                     <div className="fill-name">
                                                         {booking.bookingUser.username}
                                                     </div>
@@ -107,7 +108,8 @@ const ViewRent = () => {
                                                 <div className={"fill-address"}>{booking.bookingUser.address.name}</div>
                                             </td>
                                             <td>
-                                                <div className={"fill-startTime"}>{new Date(booking.startTime).toLocaleString(undefined, {
+                                                <div
+                                                    className={"fill-startTime"}>{new Date(booking.startTime).toLocaleString(undefined, {
                                                     year: 'numeric',
                                                     month: 'numeric',
                                                     day: 'numeric',
@@ -118,7 +120,8 @@ const ViewRent = () => {
                                                 </div>
                                             </td>
                                             <td>
-                                                <div className={"fill-endTim"}>{new Date(booking.endTime).toLocaleString(undefined, {
+                                                <div
+                                                    className={"fill-endTim"}>{new Date(booking.endTime).toLocaleString(undefined, {
                                                     year: 'numeric',
                                                     month: 'numeric',
                                                     day: 'numeric',
@@ -143,37 +146,39 @@ const ViewRent = () => {
                                                 </div>
                                             </td>
                                             <td className={"text-center"}>
-                                                <span className={"label label-default"}>{getStatusString(booking.status)}</span>
+                                                <span
+                                                    className={"label label-default"}>{getStatusString(booking.status)}</span>
                                             </td>
                                             <td>
                                                 <div className={"total_cost"}></div>
                                             </td>
                                             <td>
-                                            <Popover placement="left">
-                                                <PopoverHandler>
-                                                    <i className="bi bi-three-dots icon-hover" onClick={handlePopoverClick}
-                                                       onMouseLeave={handlePopoverMouseLeave}></i>
-                                                </PopoverHandler>
-                                                <PopoverContent>
-                                                    <Tooltip content="Xác nhận" show={tooltipVisible}>
-                                                        <IconButton variant="text" color="green">
-                                                            <CheckIcon className="h-4 w-4" />
-                                                        </IconButton>
-                                                    </Tooltip>
-                                                    &ensp;
-                                                    <Tooltip content="Huỷ lịch" show={tooltipVisible}>
-                                                        <IconButton variant="text" color="red">
-                                                            <XMarkIcon className="h-4 w-4" />
-                                                        </IconButton>
-                                                    </Tooltip>
-                                                    &ensp;
-                                                    <Tooltip content="Nhận tiền" show={tooltipVisible}>
-                                                        <IconButton variant="text" color="yellow">
-                                                            <CurrencyDollarIcon className="h-4 w-4" />
-                                                        </IconButton>
-                                                    </Tooltip>
-                                                </PopoverContent>
-                                            </Popover>
+                                                <Popover placement="left">
+                                                    <PopoverHandler>
+                                                        <i className="bi bi-three-dots icon-hover"
+                                                           onClick={handlePopoverClick}
+                                                           onMouseLeave={handlePopoverMouseLeave}></i>
+                                                    </PopoverHandler>
+                                                    <PopoverContent>
+                                                        <Tooltip content="Xác nhận" show={tooltipVisible}>
+                                                            <IconButton variant="text" color="green">
+                                                                <CheckIcon className="h-4 w-4"/>
+                                                            </IconButton>
+                                                        </Tooltip>
+                                                        &ensp;
+                                                        <Tooltip content="Huỷ lịch" show={tooltipVisible}>
+                                                            <IconButton variant="text" color="red">
+                                                                <XMarkIcon className="h-4 w-4"/>
+                                                            </IconButton>
+                                                        </Tooltip>
+                                                        &ensp;
+                                                        <Tooltip content="Nhận tiền" show={tooltipVisible}>
+                                                            <IconButton variant="text" color="yellow">
+                                                                <CurrencyDollarIcon className="h-4 w-4"/>
+                                                            </IconButton>
+                                                        </Tooltip>
+                                                    </PopoverContent>
+                                                </Popover>
                                             </td>
                                         </tr>
                                     ))}
