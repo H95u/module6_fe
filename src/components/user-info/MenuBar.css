@@ -1,0 +1,98 @@
+.setting_main.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.fas {
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+
+.setting_main {
+    min-height: 140vh;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.setting_main .setting_main-menu {
+    background-color: #fafafa;
+}
+
+.menu_setting {
+    padding: 10px 25px 30px;
+}
+
+.panel-group {
+    margin-bottom: 20px;
+}
+
+.panel-group .panel {
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+.setting_main .setting_main-menu .panel-default .panel-heading {
+    background-color: #fafafa;
+}
+
+.panel-default>.panel-heading {
+
+    border-color: #fff;
+}
+.menu_setting-main .panel-title {
+    text-align: left;
+    padding: 15px 0;
+    cursor: pointer;
+}
+.panel-title {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.menu_setting-main .panel-title a {
+    font-family: Poppins, sans-serif;
+    color: #354052;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0;
+}
+.panel-heading a {
+    display: block;
+    width: 100%;
+}
+.menu_setting-main .panel-title i {
+    width: 25px;
+}
+.fas {
+    font-weight: 900;
+    -webkit-font-smoothing: antialiased;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+.setting_main .setting_main-menu .panel-default .panel-body {
+    color: red;
+    background-color: #fafafa;
+    border-top: 0;
+    box-shadow: none;
+}
+.menu_setting-main .panel-body {
+    padding: 0;
+}
+.panel-group {
+    margin-bottom: 20px;
+}
+.setting_main .setting_main-menu .panel-default {
+    border-bottom: 0;
+}
+.menu_setting-main .panel-title.active, .menu_setting-main .panel-title.active a {
+    color: #f0564a!important;
+}
+.panel-group .panel+.panel {
+    margin-top: 5px;
+}

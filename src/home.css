@@ -34,7 +34,9 @@
 
 .pagination li {
     padding: 20px;
-    color: black;
+}
+.page-link:active {
+    background-color: black;
 }
 
 .custom-page {

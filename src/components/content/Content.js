@@ -105,9 +105,11 @@ export default function Content() {
                 <div className={"col-md-10 col-sm-1"}>
                     <Banner/>
                     <Story/>
-                    <div className={"mb-8"}>
+                    <hr/>
+                    <div className={"mb-8 pt-10"}>
                         <Filter filterForm={filterForm} onFilter={filterHandle}/>
                     </div>
+                    <hr/>
                     <Typography variant="h3" color="red" className="mb-8" textGradient>
                         Danh sách hot girl, hot boy
                     </Typography>

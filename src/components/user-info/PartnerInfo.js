@@ -2,10 +2,11 @@ import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import "./partnerprofile.css";
-import {Typography} from "@material-tailwind/react";
+import {Button, Textarea, Typography} from "@material-tailwind/react";
 import Modal from "react-bootstrap/Modal";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
+import Swal from "sweetalert2";
 
 export default function PartnerInfo() {
     const navigate = useNavigate();
@@ -55,23 +56,10 @@ export default function PartnerInfo() {
         })
     }
 
-
     const isLoggedIn = JSON.parse(localStorage.getItem("loggingUser"));
-
-    const handleSubmitRent = () => {
-        if (isLoggedIn) {
-            handleShowRentForm();
-        } else {
-            localStorage.setItem("userId", id);
-            navigate("/login");
-        }
-    };
-
-
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/users/${id}`).then((response) => {
-            console.log('response.data>>>', response.data)
             setUser(response.data);
             setOptions(response.data.options);
             setAddress(response.data.address)
@@ -87,9 +75,95 @@ export default function PartnerInfo() {
         })
     }, [])
 
+    const initialValues = {
+        startTime: "",
+        endTime: "",
+        bookingUser: "",
+        bookedUser: "",
+        option: "",
+    };
+    const handleSubmitRent = (values) => {
+        if (isLoggedIn) {
+            values.option = {
+                id: values.option
+            }
+            values.bookingUser = {
+                id: isLoggedIn.id
+            }
+            values.bookedUser = {
+                id: id
+            }
+            axios.post(`http://localhost:8080/api/bookings/rent`, values).then((response) => {
+                handleCloseRentForm()
+            })
+        } else {
+            localStorage.setItem("userId", id);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Bạn phải đăng nhập để thuê!',
+            })
+            navigate("/login");
+        }
+    };
 
     return (
         <>
+
+            <Modal show={showRentForm} onHide={handleClose}>
+                <Modal.Header>
+                    <Modal.Title>Thông tin thuê</Modal.Title>
+                </Modal.Header>
+                <Formik initialValues={initialValues} onSubmit={handleSubmitRent}>
+                    <Form>
+                        <Modal.Body>
+                            <div>
+                                <label htmlFor={"rent-name"} className={"form-label"}>Tên người cho
+                                    thuê</label>
+                                <Typography variant="h3" color="cyan" textGradient>
+                                    {user.nickname}
+                                </Typography>
+                            </div>
+                            <div>
+                                <label htmlFor={"rent-start"} className={"form-label"}>Thời gian bắt đầu
+                                    thuê</label>
+                                <Field type={"datetime-local"} className={"form-control"}
+                                       id={"rent-start"} name={"startTime"}/>
+                            </div>
+                            <div className={"mb-6"}>
+                                <label htmlFor={"rent-end"} className={"form-label"}>Thời gian kết thúc
+                                    thuê</label>
+                                <Field type={"datetime-local"} className={"form-control"}
+                                       id={"rent-end"} name={"endTime"}/>
+                            </div>
+                            <div className="grid gap-6 mb-2">
+                                <Field as="select" name="option" className="form-select"
+                                       aria-label="Default select example">
+                                    <option className={"font-bold"} value="" selected>Chọn dịch vụ</option>
+                                    {options.map(item => (
+                                        <option value={item.id}>{item.name} - {item.price}</option>
+                                    ))}
+                                </Field>
+                            </div>
+                            <div>
+                                <label htmlFor={"rent-price"} className={"form-label"}>Giá</label>
+                                <Typography variant="h3" color="cyan" textGradient>
+                                    {user.price} đ/h
+                                </Typography>
+                            </div>
+                            <div className="grid gap-6">
+                                <Textarea label="Tin nhắn ..."/>
+                            </div>
+
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button type="submit" color={"red"}>Thuê</Button>
+                            <Button color={"blue"} onClick={handleCloseRentForm}>Đóng</Button>
+                        </Modal.Footer>
+                    </Form>
+                </Formik>
+            </Modal>
+
             <div className={"partner-info"}>
                 <div className={`partner-profile`}>
                     <div className={`d-flex justify-content-center`}>
@@ -98,19 +172,10 @@ export default function PartnerInfo() {
                                 <a href={`#`}><img src={user.img} alt={``}/></a>
                             </div>
                             <div>
-                                {/*<Formik initialValues={initialValues} onSubmit={handleSubmit}*/}
-                                {/*        enableReinitialize={true}>*/}
-                                {/*    <Form>*/}
-                                {/*        <Field name={'status'} as="select" className={'form-control'} id={'status'}>*/}
-                                {/*            <option value="" selected>Trạng thái CCDV</option>*/}
-                                {/*            <option value={'1'}>Đang sẵn sàng</option>*/}
-                                {/*            <option value={'2'}>Đang bận</option>*/}
-                                {/*        </Field>*/}
-                                {/*    </Form>*/}
-                                {/*</Formik>*/}
                                 <p className={"ready"}>Đang sẵn sàng</p>
                             </div>
-                            <div className={"dob"}><span>Ngày tham gia:</span><span><span>{user.createdDate}</span></span></div>
+                            <div className={"dob"}>
+                                <span>Ngày tham gia:</span><span><span>{user.createdDate}</span></span></div>
                             <hr/>
                         </div>
                         <div className={"info"}>
@@ -213,46 +278,6 @@ export default function PartnerInfo() {
                     </div>
                 </div>
             </div>
-
-            <Modal show={showRentForm} onHide={handleClose}>
-                <Modal.Header>
-                    <Modal.Title>Thông tin thuê</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <form>
-                        <div className={"mb-3"}>
-                            <label htmlFor={"rent-name"} className={"form-label"}>Tên người cho
-                                thuê</label>
-                            <Typography variant="h3" color="cyan" textGradient>
-                                {user.nickname}
-                            </Typography>
-                        </div>
-                        <div className={"mb-3"}>
-                            <label htmlFor={"rent-start"} className={"form-label"}>Thời gian bắt đầu
-                                thuê</label>
-                            <input type={"datetime-local"} className={"form-control"}
-                                   id={"rent-start"} name={"rent-start"} required/>
-                        </div>
-                        <div className={"mb-3"}>
-                            <label htmlFor={"rent-end"} className={"form-label"}>Thời gian kết thúc
-                                thuê</label>
-                            <input type={"datetime-local"} className={"form-control"}
-                                   id={"rent-end"} name={"rent-end"} required/>
-                        </div>
-                        <div className={"mb-3"}>
-                            <label htmlFor={"rent-price"} className={"form-label"}>Giá</label>
-                            <Typography variant="h3" color="cyan" textGradient>
-                                {user.price} đ/h
-                            </Typography>
-                        </div>
-                    </form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <button onClick={handleSubmitRent} className={"btn btn-danger"}>Thuê</button>
-                    <button className={"btn btn-light"} onClick={handleCloseRentForm}>Đóng</button>
-                </Modal.Footer>
-            </Modal>
-
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header>

@@ -17,13 +17,14 @@ import {
     InboxArrowDownIcon,
     LifebuoyIcon,
     PowerIcon,
-
+    EyeIcon,
 } from "@heroicons/react/24/outline";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
+
 
 function LoginButton() {
     return (
@@ -43,6 +44,7 @@ function LoginButton() {
 
 function ProfileMenu() {
     const navigate = useNavigate();
+    const id = loggingUser.id;
     const handleProfileInfo = () => {
         navigate("/user-info")
     };
@@ -55,6 +57,10 @@ function ProfileMenu() {
         // Implement the function for "Nạp tiền"
         // e.g., show a recharge modal or redirect to a recharge page
     };
+    const handleTransaction = () => {
+        navigate(`/view/${id}`)
+    };
+
 
     const handleHelp = () => {
         // Implement the function for "Trợ giúp"
@@ -72,7 +78,7 @@ function ProfileMenu() {
             icon: UserCircleIcon,
             handler: handleProfileInfo,
         },
-        ...(loggingUser != null && loggingUser.status === 1
+        ...((loggingUser.status === 1) || (loggingUser.status === 2)
             ? [
                 {
                     label: "Chỉnh sửa thông tin",
@@ -87,6 +93,12 @@ function ProfileMenu() {
             handler: handleRecharge,
         },
         {
+            label: "Lịch sử giao dịch",
+            icon: EyeIcon,
+            handler: handleTransaction,
+        },
+
+        {
             label: "Trợ giúp",
             icon: LifebuoyIcon,
             handler: handleHelp,
@@ -96,6 +108,7 @@ function ProfileMenu() {
             icon: PowerIcon,
             handler: handleLogout,
         },
+
     ];
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const closeMenu = () => setIsMenuOpen(false);

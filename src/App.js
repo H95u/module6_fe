@@ -1,5 +1,4 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {FooterWithSocialLinks} from "./components/footer/Footer";
 import Content from "./components/content/Content";
 import TransferForm from "./components/login/TransferForm";
 import {ComplexNavbar} from "./components/navbar/Navbar";
@@ -13,6 +12,8 @@ import SearchFilter from "./components/search/SearchFilter";
 import EditPartnerInfo from "./components/user-info/EditPartnerInfo";
 import HomePageRenter from "./components/top3BookingUser/home/HomePageRenter";
 import HomePageRecent from "./components/top3BookingUser/home/HomePageRecent";
+import UpdateInfo from "./components/user-info/UpdateInfo";
+import ViewRent from "./components/list/ViewRent";
 
 export default function App() {
     return (
@@ -32,6 +33,8 @@ export default function App() {
                     <Route path={"/edit-info"} element={<EditPartnerInfo/>}></Route>
                     <Route path={"/home-renters"} element={<HomePageRenter/>}></Route>
                     <Route path={"/home-recent"} element={<HomePageRecent/>}></Route>
+                   <Route path={"/update-info/:id"} element={<UpdateInfo/>}></Route>
+                    <Route path={"/view/:id"} element={<ViewRent/>}></Route>
                 </Routes>
             </BrowserRouter>
         </>
