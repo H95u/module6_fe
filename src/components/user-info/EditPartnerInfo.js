@@ -56,7 +56,7 @@ export default function EditPartnerInfo() {
     }
 
     const initialPrice = {
-        price: 0
+        price: user.price
     }
     const initialStatusPartner = {
         status: 1
