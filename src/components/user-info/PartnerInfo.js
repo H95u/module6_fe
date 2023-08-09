@@ -58,7 +58,7 @@ export default function PartnerInfo() {
             setOptions(response.data.options);
             setAddress(response.data.address)
         })
-    }, [])
+    }, [id])
 
     function formatDate(dateTimeString) {
         const date = new Date(dateTimeString);
@@ -242,7 +242,7 @@ export default function PartnerInfo() {
                                         <span>Địa chỉ</span>
                                     </div>
                                     <div className={"item-nav-value"}>
-                                        <span>{address.name}</span>
+                                        <span>{address?.name}</span>
                                     </div>
                                 </div>
                             </div>
