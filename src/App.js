@@ -11,6 +11,7 @@ import SearchLogin from "./components/search/SearchLogin";
 import SearchFilter from "./components/search/SearchFilter";
 import EditPartnerInfo from "./components/user-info/EditPartnerInfo";
 import UpdateInfo from "./components/user-info/UpdateInfo";
+import ViewRent from "./components/list/ViewRent";
 
 export default function App() {
     return (
@@ -29,6 +30,7 @@ export default function App() {
                     <Route path={"/search_filter"} element={<SearchFilter/>}></Route>
                     <Route path={"/edit-info"} element={<EditPartnerInfo/>}></Route>
                     <Route path={"/update-info/:id"} element={<UpdateInfo/>}></Route>
+                    <Route path={"/view/:id"} element={<ViewRent/>}></Route>
                 </Routes>
 
             </BrowserRouter>
