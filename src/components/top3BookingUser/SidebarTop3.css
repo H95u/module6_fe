@@ -1,0 +1,100 @@
+.user-info {
+    /*background-color: #d9d7d7;*/
+    min-height: 100vh;
+}
+.btn-group button {
+    width: 7.5rem;
+}
+.information {
+    border: solid 1px #e1dede;
+    background-color: white;
+    border-radius: 10px;
+    margin: 35px auto;
+}
+
+.information p {
+    font-family: initial;
+    font-size: 20px;
+}
+.information hr {
+    width: 90%;
+    margin-left: 40px;
+}
+.information .row  {
+    height: 60px;
+    padding-top: 15px;
+    margin-left: 30px;
+}
+.information .information-title {
+    font-family: initial;
+    font-size:25px;
+    margin-left: 30px;
+    height: 60px;
+    padding-top: 10px;
+}
+.form-update {
+    width: 50%;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 35px;
+    margin-left: 100px;
+}
+.form-update .input {
+    min-height: 54px;
+    text-align: left;
+    font-size: 16px;
+    color: #354052;
+    border: 1px solid #e6eaee;
+    border-radius: 5px;
+    padding: 0 17px;
+    width: 100%;
+    font-family: Poppins;
+}
+
+.form-update label {
+    text-transform: uppercase;
+    font-family: Poppins;
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: #90959c;
+}
+.form-update select {
+    min-height: 54px;
+    text-align: left;
+    font-size: 16px;
+    color: #354052;
+    border: 1px solid #e6eaee;
+    border-radius: 5px;
+    padding: 0 17px;
+    width: 100%;
+    font-family: Poppins;
+}
+.from-userinfo .gender--radio {
+    width: 50%;
+    display: flex;
+    vertical-align: middle;
+    font-size: 16px;
+    font-weight: 100;
+    text-transform: capitalize;
+    position: relative;
+    padding-left: 30px;
+    font-family: SegoeUI;
+    justify-content: center;
+    padding-top: 4px;
+    cursor: pointer;
+    color: #354052;
+}
+
+.fieldGroup .button-update {
+    height: 54px;
+    color: #fff;
+    border: 0;
+    font-family: Poppins;
+    border-radius: 5px;
+    line-height: 49px;
+    font-size: 19px;
+    background-color: #f0564a;
+    margin: 22px 0;
+    width: 100%;
+
+}

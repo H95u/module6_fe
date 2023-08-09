@@ -7,7 +7,7 @@ const Top3Renters = ({ selectedUserId }) => {
     useEffect(()=>{
             const fetchTop3Renters = () => {
                 axios
-                    .get("http://your-api-url/top3-renters", {
+                    .get(`http://localhost:8080/api/ccdv/top3-renters`, {
                         params: {
                             ccdvId: selectedUserId,
                         },

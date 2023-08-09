@@ -2,29 +2,32 @@ import React, {useState, useEffect} from "react";
 import Top3Rents from "../Top3Rents";
 
 const HomePageRenter = () => {
-    const [showTop3Renter, setShowTop3Renter] = useState(false);
-    const [currentsUser, setCurrentUser] = useState(null);
+    const [showTop3Renter, setShowTop3Renter] = useState(true);
+
+    const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
 
     const handleShowTop3Renters = () => {
 
-        setShowTop3Renter(true);
+        setShowTop3Renter(false);
     }
 
     useEffect(() => {
-        const userId = localStorage.getItem("userId");
-        if (userId) {
-            setCurrentUser({id: userId, username: ""});
+        if (loggingUser) {
+            setShowTop3Renter(false);
         }
     }, []);
 
+    if (showTop3Renter){
+        return <div>Loading...</div>
+    }
     return (
         <div>
             <h1>Home Page Renters</h1>
-            {currentsUser ? (
+            {loggingUser ? (
                 <>
-                    <p>Người cung cấp dịch vụ: {currentsUser.username}</p>
+                    <p>Người cung cấp dịch vụ: {loggingUser.username}</p>
                     <button onClick={handleShowTop3Renters}>CCDV</button>
-                    {showTop3Renter && <Top3Rents selectedUserId={currentsUser.id}/>}
+                  <Top3Rents selectedUserId={loggingUser.id}/>
                 </>
             ) : (
                 <p>vui lòng đăng nhập</p>
