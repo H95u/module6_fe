@@ -1,4 +1,7 @@
-/* UpdateInfo.css */
+.row {
+    height: 100vh;
+
+}
 
 .btn-update {
     background-color: orange; /* Màu cam đỏ */

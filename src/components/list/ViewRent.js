@@ -9,6 +9,7 @@ import {
     Button,
 } from "@material-tailwind/react";
 import {useParams} from "react-router-dom";
+import MenuBar from "../user-info/MenuBar";
 
 const ViewRent = () => {
     const [bookings, setBookings] = useState([]);
@@ -41,7 +42,7 @@ const ViewRent = () => {
         <>
             <div className={"container-view"}>
                 <div className={"row"}>
-                    <div className={"col-lg-3"}></div>
+                    <MenuBar/>
                     <div className={"col-lg-9"}>
                         <Typography
                             variant="h4"
