@@ -12,7 +12,6 @@ import axios from "axios";
 import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 import {storage} from "../../config/firebase";
 import Swal from "sweetalert2";
-import {Link} from "react-router-dom";
 import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 
@@ -20,7 +19,6 @@ const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
 export default function UserInfo() {
     const id = loggingUser.id;
     const [user, setUser] = useState({});
-    const [newUser, setNewUser] = useState({});
     const [isHovered, setIsHovered] = useState(false);
     const [address, setAddress] = useState("");
     const [addressList, setAddressList] = useState([]);
@@ -32,7 +30,6 @@ export default function UserInfo() {
         axios.get(`http://localhost:8080/api/users/info/${id}`)
             .then((response) => {
                 setUser(response.data);
-                setNewUser(response.data)
                 setAddress(response.data.address)
                 initialValues.nickname = response.data.nickname;
                 initialValues.email = response.data.email;
@@ -44,7 +41,6 @@ export default function UserInfo() {
             .catch((error) => {
                 console.error("Đã có lỗi xảy ra:", error);
             });
-
         axios
             .get("http://localhost:8080/api/addresses")
             .then((response) => {
@@ -53,7 +49,8 @@ export default function UserInfo() {
             .catch((error) => {
                 console.error("Đã có lỗi xảy ra khi tải danh sách địa chỉ:", error);
             });
-    }, [id,user]);
+
+    }, [id]);
 
 
     const handleFileChange = (event) => {
@@ -118,7 +115,6 @@ export default function UserInfo() {
         values.address = {
             id: +values.address
         }
-        console.log(values)
         axios
             .put(`http://localhost:8080/api/users/${id}`, values)
             .then((res) => {
@@ -128,6 +124,8 @@ export default function UserInfo() {
                     icon: "success",
                     confirmButtonText: "OK"
                 })
+                console.log(res.data)
+                console.log("values.nickname------->", values.nickname)
                 closeFormUpdate()
             })
             .catch((error) => {
@@ -183,7 +181,7 @@ export default function UserInfo() {
                                         </p>
                                         ( {user.nickname} )
                                         <p>
-                                            Địa chỉ : {user.address != null ? user.address.name : ""}
+                                            Địa chỉ : {address.name ? address.name : ""}
                                         </p>
                                     </Typography>
                                 </CardBody>
@@ -282,7 +280,7 @@ export default function UserInfo() {
                                         <p className={`title`}>Địa chỉ</p>
                                     </div>
                                     <div className={`col-sm-7`}>
-                                        <p className={`value`}>{address.name}</p>
+                                        <p className={`value`}>{address.name ? address.name: ""}</p>
                                     </div>
                                 </div>
                                 <hr/>
