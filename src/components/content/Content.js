@@ -36,7 +36,7 @@ export default function Content() {
     const [filterForm, setFilterForm] = useState({
         gender: "",
         address: "",
-        viewCount: "",
+        sortPrice: "",
         rentCount: "",
         name: "",
         ageRange: [18, 60],
@@ -47,15 +47,15 @@ export default function Content() {
         const filterDTO = {
             gender: filterForm.gender,
             addressId: filterForm.address,
-            viewCount: filterForm.viewCount,
-            rentCount: filterForm.rentCount,
+            sortPrice: filterForm.sortPrice,
             ageRange: filterForm.ageRange,
-            username: filterForm.name,
         };
 
         axios.post('http://localhost:8080/api/filter', filterDTO)
             .then((response) => {
+                setCurrentPage(0);
                 setUsers(response.data);
+                window.location.href = "#partner-list"
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -138,7 +138,7 @@ export default function Content() {
                                                         </Typography>
                                                         <Typography color="red" className="font-medium"
                                                                     textGradient>
-                                                            Giá :{formatPrice(item.price)} đ/h
+                                                            Giá : &#32; {formatPrice(item.price)} đ/h
                                                         </Typography>
                                                     </div>
                                                 </CardBody>

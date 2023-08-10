@@ -57,10 +57,10 @@ const Filter = (props) => {
                 >
                     <option value="" selected>Giới tính</option>
                     <option value="1">Nam</option>
-                    <option value="0">Nữ</option>
+                    <option value="2">Nữ</option>
                 </select>
             </div>
-            <div className={"col-md-2 w-32"}>
+            <div className={"col-md-2 w-56 align-items-center"}>
                 <select className="form-select"
                         aria-label="Default select example"
                         onChange={changeSearch}
@@ -77,21 +77,9 @@ const Filter = (props) => {
                 <select className="form-select"
                         aria-label="Default select example"
                         onChange={changeSearch}
-                        name={"viewCount"}
+                        name={"sortPrice"}
                 >
-                    <option value="" selected>Lượt xem</option>
-                    <option value="1">Tăng dần</option>
-                    <option value="0">Giảm dần</option>
-                </select>
-            </div>
-
-            <div className={"col-md-2 w-36"}>
-                <select className="form-select"
-                        aria-label="Default select example"
-                        onChange={changeSearch}
-                        name={"rentCount"}
-                >
-                    <option value="" selected>Lượt thuê</option>
+                    <option value="" selected>Giá tiền</option>
                     <option value="1">Tăng dần</option>
                     <option value="0">Giảm dần</option>
                 </select>
@@ -105,7 +93,7 @@ const Filter = (props) => {
                                 variant="outlined"
                                 className={"p-2.5"}
                         >
-                            Tuổi ({minAge} - {maxAge})
+                            Tuổi ( &#32;{minAge} - {maxAge} &#32;)
                         </Button>
                     </PopoverHandler>
                     <PopoverContent className="w-72">
