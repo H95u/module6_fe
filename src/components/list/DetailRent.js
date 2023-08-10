@@ -23,14 +23,6 @@ export default function DetailRent() {
         navigate(`/view/${booking.bookedUser.id}`);
     };
 
-    const totalPrice = () => {
-        const startTimestamp = new Date(booking.startTime)
-        const endTimestamp = new Date(booking.endTime)
-        const timeDifference = endTimestamp - startTimestamp;
-        const price = booking.bookedUser?.price
-        const hours = Math.floor(timeDifference / (1000 * 60 * 60))
-        return (hours * price) + booking.option?.price;
-    }
     const getStatus = (status) => {
         switch (status) {
             case 1:
@@ -149,7 +141,7 @@ export default function DetailRent() {
                                     <h5>Thành tiền</h5>
                                 </div>
                                 <div className={`col-md-6 user-time`}>
-                                    <p>{totalPrice()}</p>
+                                    <p>{booking.total}</p>
                                 </div>
                             </div>
                             <hr className={`hr1`}/>
