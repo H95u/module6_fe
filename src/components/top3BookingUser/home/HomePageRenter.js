@@ -22,11 +22,8 @@ const HomePageRenter = () => {
     }
     return (
         <div>
-            <h1>Home Page Renters</h1>
             {loggingUser ? (
                 <>
-                    <p>Người cung cấp dịch vụ: {loggingUser.username}</p>
-                    <button onClick={handleShowTop3Renters}>CCDV</button>
                   <Top3Rents selectedUserId={loggingUser.id}/>
                 </>
             ) : (

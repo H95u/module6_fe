@@ -20,6 +20,7 @@ import {
     InboxIcon,
     PowerIcon,
 } from "@heroicons/react/24/solid";
+import {Link} from "react-router-dom";
 
 export default function MenuBar() {
     const [open, setOpen] = React.useState(0);
@@ -74,10 +75,10 @@ export default function MenuBar() {
                                 {historyDropdownOpen && (
                                     <List>
                                         <ListItem>
-                                            <i className="bi bi-eye icon-hover">  Người thuê nhiều nhất</i>
+                                            <i className="bi bi-eye icon-hover"><Link to={"/home-renters"}>Người thuê nhiều nhất</Link></i>
                                         </ListItem>
                                         <ListItem>
-                                            <i className="bi bi-eye icon-hover">  Người thuê gần đây</i>
+                                            <i className="bi bi-eye icon-hover"><Link to={"/home-recent"}>Người thuê gần đây</Link></i>
                                         </ListItem>
                                     </List>
                                 )}

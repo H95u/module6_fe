@@ -22,11 +22,8 @@ const HomePageRecent = () => {
 
     return (
         <div>
-            <h1>Home Page Recent</h1>
             {loggingUser ? (
                 <>
-                    <p>Người cung cấp dịch vụ: {loggingUser.username}</p>
-                    <button onClick={handleShowTop3Recent}>CCDV</button>
                     <Top3RecentRenters selectedUserId={loggingUser.id}/>
                 </>
             ) : (
