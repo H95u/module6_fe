@@ -14,7 +14,7 @@ import {CheckIcon, XMarkIcon, CurrencyDollarIcon} from "@heroicons/react/20/soli
 import {Link} from "react-router-dom";
 
 
-const ViewRent = () => {
+const ViewRent = ({totalPrice}) => {
     const [bookings, setBookings] = useState([]);
     const [tooltipVisible, setTooltipVisible] = useState(false);
     const {id} = useParams();
@@ -77,10 +77,10 @@ const ViewRent = () => {
                                             <span>Địa chỉ</span>
                                         </th>
                                         <th>
-                                            <span>Thời gian kết thúc</span>
+                                            <span>Thời gian bắt đầu</span>
                                         </th>
                                         <th>
-                                            <span>Thời gian bắt đầu</span>
+                                            <span>Thời gian kết thúc</span>
                                         </th>
                                         <th>
                                             <span>Số giờ</span>
@@ -154,7 +154,7 @@ const ViewRent = () => {
                                                     className={"label label-default"}>{getStatusString(booking.status)}</span>
                                             </td>
                                             <td>
-                                                <div className={"total_cost"}></div>
+                                                <div className="total_cost">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(booking.total)}</div>
                                             </td>
                                             <td>
                                                 <Popover placement="left">

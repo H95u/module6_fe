@@ -58,7 +58,8 @@ export default function PartnerInfo() {
         axios.get(`http://localhost:8080/api/users/${id}`).then((response) => {
             setUser(response.data);
             setOptions(response.data.options);
-            setAddress(response.data.address)
+            setAddress(response.data.address);
+            window.scrollTo(0, 0);
         })
     }, [id])
 
@@ -175,7 +176,12 @@ export default function PartnerInfo() {
                     <div>
                         <label htmlFor={"rent-price"} className={"form-label"}>Giá</label>
                         <Typography variant="h3" color="cyan" textGradient>
-                            {user.price} đ/h
+                            {user.price != null &&
+                                <h1>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(user.price)}/h</h1>
+                            }
+                            {user.price == null &&
+                                <h1>---</h1>
+                            }
                         </Typography>
                     </div>
                     <div className="grid gap-6">
@@ -184,7 +190,7 @@ export default function PartnerInfo() {
                     <hr/>
                     <Typography variant="h4" color="green" textGradient>
                         Tổng tiền : &nbsp;
-                        {calculateTotalPrice()} đ
+                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(calculateTotalPrice())}
                     </Typography>
 
                 </Modal.Body>
