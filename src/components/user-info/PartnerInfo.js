@@ -90,7 +90,8 @@ export default function PartnerInfo() {
                 total: calculateTotalPrice(),
             }
             console.log(booking)
-            axios.post(`http://localhost:8080/api/bookings/rent`, booking).then((response) => {
+            axios.post(`http://localhost:8080/api/bookings/rent`, booking)
+                .then((response) => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Ok...',

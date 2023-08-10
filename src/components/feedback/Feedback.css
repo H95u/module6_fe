@@ -1,20 +1,9 @@
-/* Feedback.css */
-hr {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: 0;
-    border-top: 1px solid #eee;
-}
 
 .title-player-profile {
     margin-top: 30px;
     font-size: 24px;
     font-weight: 700;
     color: #354052;
-}
-
-.col-xs-6 {
-    width: 50%;
 }
 
 .review-duo-player {
