@@ -11,6 +11,8 @@ import {
 import {useParams} from "react-router-dom";
 import MenuBar from "../user-info/MenuBar";
 import {CheckIcon, XMarkIcon, CurrencyDollarIcon} from "@heroicons/react/20/solid";
+import {Link} from "react-router-dom";
+
 
 const ViewRent = () => {
     const [bookings, setBookings] = useState([]);
@@ -97,8 +99,10 @@ const ViewRent = () => {
                                         <tr key={index}>
                                             <td>
                                                 <div className="user_info">
-                                                    <img src={booking.bookingUser.img} alt="Avatar"
-                                                         className="user-avatar"/>
+                                                    <Link to={`/detail-rent/${booking.id}`}>
+                                                        <img src={booking.bookingUser.img} alt="Avatar"
+                                                             className="user-avatar"/>
+                                                    </Link>
                                                     <div className="fill-name">
                                                         {booking.bookingUser.username}
                                                     </div>
