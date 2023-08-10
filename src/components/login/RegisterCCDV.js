@@ -8,11 +8,13 @@ import "./Login.css";
 import {Typography, Avatar} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {FooterWithSocialLinks} from "../footer/Footer"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
+
 const RegisterCCDV = () => {
     const navigate = useNavigate();
     const [students, setStudents] = useState([]);
-
-
+    const [showPassword, setShowPassword] = React.useState(false);
     const initialValues = {
         username: "",
         nickname: "",
@@ -105,7 +107,10 @@ const RegisterCCDV = () => {
                 });
             });
     };
-
+    const togglePasswordVisibility = (event) => {
+        event.preventDefault();
+        setShowPassword(!showPassword)
+    }
 
     return (
         <>
@@ -139,7 +144,7 @@ const RegisterCCDV = () => {
 
                                                         <div className={"text-center mb-2"}>
                                                             <Typography component="h1" variant="h5">
-                                                               Đăng ký cung cấp dịch vụ
+                                                                Đăng ký cung cấp dịch vụ
                                                             </Typography>
                                                         </div>
 
@@ -151,17 +156,6 @@ const RegisterCCDV = () => {
                                                             <ErrorMessage name='username' component='div'
                                                                           className='text-danger'/>
                                                         </div>
-
-                                                        <div>
-                                                            <label htmlFor='password'
-                                                                   className='form-label'>Mật khẩu</label>
-                                                            <Field type='password'
-                                                                   className='form-control form-control-sm'
-                                                                   id='password' name='password'/>
-                                                            <ErrorMessage name='password' component='div'
-                                                                          className='text-danger'/>
-                                                        </div>
-
                                                         <div>
                                                             <label htmlFor='nickname'
                                                                    className='form-label'>Biệt danh</label>
@@ -193,23 +187,49 @@ const RegisterCCDV = () => {
                                                         </div>
 
                                                         <div className={"mb-2"}>
-                                                            <label htmlFor='dob' className='form-label'>Ngày tháng năm sinh</label>
+                                                            <label htmlFor='dob' className='form-label'>Ngày tháng năm
+                                                                sinh</label>
                                                             <Field type='date' className='form-control form-control-sm'
                                                                    id='dob' name='dob' placeholder='MM/DD/YYYY'/>
                                                             <ErrorMessage name='dob' component='div'
                                                                           className='text-danger'/>
                                                         </div>
+                                                        <div>
+                                                            <button style={{
+                                                                display: `inline-block`,
+                                                                marginRight: ` 4px`,
+                                                                position: `relative`,
+                                                                top: `2px`,
+                                                                float: `right`
+                                                            }}
+                                                                    onClick={togglePasswordVisibility}>
+                                                                {showPassword ? (
+                                                                    <FontAwesomeIcon icon={faEyeSlash}/>
+                                                                ) : (
+                                                                    <FontAwesomeIcon icon={faEye}/>
+                                                                )}
+                                                            </button>
 
-
+                                                            <label htmlFor='password'
+                                                                   className='form-label'>Mật khẩu</label>
+                                                            <Field type={showPassword ? 'text' : 'password'}
+                                                                   className='form-control form-control-sm'
+                                                                   id='password' name='password'/>
+                                                            <ErrorMessage name='password' component='div'
+                                                                          className='text-danger'/>
+                                                        </div>
+                                                        &ensp;
+                                                        &ensp;
                                                         <div className='d-grid'>
-                                                            <button  className='btn btn-primary btn-sm'
+                                                            <button className='btn btn-primary btn-sm'
                                                                     disabled={isSubmitting}>Đăng ký
                                                             </button>
                                                         </div>
 
                                                         <div className='mt-4 text-center'>
                                                             <p className='mb-0'>Bạn đã có tài khoản ? <Link
-                                                                to='/login' style={{color: "#393f81"}}>Quay lại trang đăng nhập</Link></p>
+                                                                to='/login' style={{color: "#393f81"}}>Quay lại trang
+                                                                đăng nhập</Link></p>
                                                         </div>
 
                                                     </div>

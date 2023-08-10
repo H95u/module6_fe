@@ -18,6 +18,7 @@ import {
     LifebuoyIcon,
     PowerIcon,
     EyeIcon,
+    HomeIcon
 } from "@heroicons/react/24/outline";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
@@ -71,6 +72,14 @@ function ProfileMenu() {
         localStorage.removeItem("loggingUser");
         window.location.href = "/";
     };
+
+    // const handelHone = () => {
+    //     // navigate("/home-renters")
+    //     navigate("/home-recent")
+    //     // navigate("/sidebar")
+    //
+    // }
+
 // profile menu component
     const profileMenuItems = [
         {
