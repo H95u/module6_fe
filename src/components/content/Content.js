@@ -23,9 +23,11 @@ export default function Content() {
     const [users, setUsers] = useState([]);
     const itemsPerPage = 12;
     const [currentPage, setCurrentPage] = useState(0);
+    const [optionName, setOptionName] = useState("");
 
     const getUsers = () => {
         axios.get(`http://localhost:8080/api/users`).then((response) => {
+            console.log(response.data)
             setUsers(response.data);
         });
     };
@@ -63,6 +65,11 @@ export default function Content() {
         console.log(optionId);
         axios.post(`http://localhost:8080/api/filter/option/${optionId}`)
             .then((response) => {
+                const option = response.data[0].options.find(opt => opt.id == optionId);
+                const optionName = option.name;
+                console.log(optionName)
+                setOptionName(optionName);
+
                 setUsers(response.data);
                 window.location.href = "#partner-list"
             })
@@ -74,23 +81,16 @@ export default function Content() {
     useEffect(() => {
         getUsers();
     }, [filterForm, optionId]);
-    const searchStudentsByName = (nameSearch) => {
-        axios.get(`http://localhost:8080/api/users/search?username=${nameSearch}`).then((response) => {
-            if (response.status !== 204) {
-                setUsers(response.data);
-            } else {
-                setUsers([]);
-                Swal.fire({
-                    title: "Không tìm thấy!",
-                    icon: "error",
-                })
-            }
-        });
-    };
 
     const handlePageClick = (selectedPage) => {
         setCurrentPage(selectedPage.selected);
     };
+
+    function formatPrice(price) {
+        // Chuyển giá thành chuỗi và thêm dấu phẩy sau mỗi 3 chữ số từ bên phải
+        return price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
 
     const totalPages = Math.ceil(users.length / itemsPerPage);
     const startIndex = currentPage * itemsPerPage;
@@ -111,9 +111,11 @@ export default function Content() {
                         <Filter filterForm={filterForm} onFilter={filterHandle}/>
                     </div>
                     <hr/>
-                    <Typography variant="h3" color="red" className="mb-8" textGradient>
+                    {optionName != "" ? <Typography variant="h3" color="red" className="mb-10 mt-8" textGradient>
+                        {optionName}
+                    </Typography> : <Typography variant="h3" color="red" className="mb-10 mt-8" textGradient>
                         Danh sách hot girl, hot boy
-                    </Typography>
+                    </Typography>}
                     {users.length === 0 ?
                         "" :
                         <div id={"partner-list"}>
@@ -130,12 +132,15 @@ export default function Content() {
                                                     />
                                                 </CardHeader>
                                                 <CardBody>
-                                                    <Typography color="blue" className="font-medium" textGradient>
-                                                        {item.username}
-                                                    </Typography>
-                                                    <Typography color="blue" className="font-medium" textGradient>
-                                                        {item.price}
-                                                    </Typography>
+                                                    <div className={"mb-2"}>
+                                                        <Typography color="blue" className="font-medium" textGradient>
+                                                           Tên :  {item.username}
+                                                        </Typography>
+                                                        <Typography color="red" className="font-medium"
+                                                                    textGradient>
+                                                            Giá :{formatPrice(item.price)} đ/h
+                                                        </Typography>
+                                                    </div>
                                                 </CardBody>
                                                 <CardFooter className="pt-0">
                                                     <Button color="red">Thuê ngay</Button>

@@ -19,7 +19,7 @@ const Filter = (props) => {
     };
 
     const handleAgeChange = (event) => {
-        const { name, value } = event.target;
+        const {name, value} = event.target;
         const newValue = +value;
 
         if (name === "minAge") {
@@ -49,7 +49,7 @@ const Filter = (props) => {
 
     return (
         <div className="row">
-            <div className={"col-md-2 w-32"}>
+            <div className={"col-md-2 w-36"}>
                 <select className="form-select"
                         aria-label="Default select example"
                         onChange={changeSearch}
@@ -100,9 +100,10 @@ const Filter = (props) => {
             <div className={"col-md-2 w-26"}>
                 <Popover placement="bottom">
                     <PopoverHandler>
-                        <Button color="light-green"
+                        <Button color="green"
                                 size={"sm"}
-                                variant="gradient"
+                                variant="outlined"
+                                className={"p-2.5"}
                         >
                             Tuổi ({minAge} - {maxAge})
                         </Button>
@@ -115,12 +116,12 @@ const Filter = (props) => {
                                 id="minAge"
                                 name="minAge"
                                 min="18"
-                                max="60"
+                                max="59"
                                 value={minAge}
                                 onChange={handleAgeChange}
                             />
                             <span>{minAge}</span>
-
+                            &ensp;
                             <label htmlFor="maxAge" className="form-label">
                                 Đến :
                             </label>
@@ -129,7 +130,7 @@ const Filter = (props) => {
                                 className="form-range"
                                 id="maxAge"
                                 name="maxAge"
-                                min="18"
+                                min="19"
                                 max="60"
                                 value={maxAge}
                                 onChange={handleAgeChange}
@@ -140,17 +141,14 @@ const Filter = (props) => {
                 </Popover>
             </div>
 
-            <div className={"col-md-2 w-26"}>
-                <input type="text" className="form-control" placeholder={"Tên"} name={"name"} onChange={changeSearch}/>
-            </div>
             <div className="col-md-2">
-                <Button
-                    color="red"
-                    size={"sm"}
-                    variant="gradient"
-                    onClick={handleFilter}
+                <Button color="red"
+                        size={"sm"}
+                        variant="gradient"
+                        className={"p-2.5"}
+                        onClick={handleFilter}
                 >
-                    Tìm kiếm
+                   Tìm kiếm
                 </Button>
             </div>
         </div>

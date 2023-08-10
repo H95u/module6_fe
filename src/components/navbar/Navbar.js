@@ -237,20 +237,20 @@ export function ComplexNavbar() {
 
                     {showPopover && (
                         <div className={"auto-complete"}>
-                            <table className="table table-hover border-none">
+                            <table className="table table-hover">
                                 <tbody>
                                 {autocompleteResults.map((user) => (
                                     <tr key={user.id} className="p-2">
                                         <Link to={`/user/${user.id}`} onClick={handleLinkClick}>
                                             <td><img className={"h-10 w-10 rounded-full"} src={user.img}/></td>
-                                            <td colSpan={"4"}>{user.username}</td>
+                                            <td>{user.username}</td>
                                         </Link>
                                     </tr>
 
                                 ))}
                                 {autocompleteResults.length > 0 && (
                                     <tr>
-                                        <td colSpan="4" className="text-center">
+                                        <td className="text-center">
                                             <Link to="/view-all">Xem tất cả</Link>
                                         </td>
                                     </tr>

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import "./partnerprofile.css";
 import {Button, Textarea, Typography} from "@material-tailwind/react";
@@ -42,7 +42,8 @@ export default function PartnerInfo() {
         const endTimestamp = new Date(endTime).getTime();
         const timeDifference = endTimestamp - startTimestamp;
         const hours = timeDifference / (1000 * 60 * 60);
-        return hours * price + (selectedOption != null ? optionPrice : 0);
+        const total = hours * price + (selectedOption != null ? optionPrice : 0);
+        return total.toFixed(0);
     }
 
     const calculateTotalPrice = () => {
@@ -88,13 +89,16 @@ export default function PartnerInfo() {
                 },
                 total: calculateTotalPrice(),
             }
-            console.log(booking)
             axios.post(`http://localhost:8080/api/bookings/rent`, booking).then((response) => {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Ok...',
-                    text: 'Bạn đã đặt hẹn thành công!',
+                    title: 'OK...',
+                    text: 'Bạn đã đặt lịch hẹn thành công!',
+                    footer: '<a href="#" id="viewOrderLink">Đến trang xem thông tin đơn ?</a>'
                 })
+                document.getElementById('viewOrderLink').addEventListener('click', () => {
+                    navigate("/");
+                });
                 setSelectedOption(null);
                 calculateTotalPrice();
                 handleCloseRentForm();
@@ -178,7 +182,7 @@ export default function PartnerInfo() {
                     </div>
                     <hr/>
                     <Typography variant="h4" color="green" textGradient>
-                        Tổng tiền :
+                        Tổng tiền : &nbsp;
                         {calculateTotalPrice()} đ
                     </Typography>
 
