@@ -73,12 +73,12 @@ function ProfileMenu() {
         window.location.href = "/";
     };
 
-    const handelHone = () => {
-        // navigate("/home-renters")
-        navigate("/home-recent")
-        // navigate("/sidebar")
-
-    }
+    // const handelHone = () => {
+    //     // navigate("/home-renters")
+    //     navigate("/home-recent")
+    //     // navigate("/sidebar")
+    //
+    // }
 
 // profile menu component
     const profileMenuItems = [
@@ -111,11 +111,6 @@ function ProfileMenu() {
             label: "Trợ giúp",
             icon: LifebuoyIcon,
             handler: handleHelp,
-        },
-        {
-            label: "Trang cá nhân",
-            icon: HomeIcon,
-            handler: handelHone,
         },
         {
             label: "Đăng xuất",
