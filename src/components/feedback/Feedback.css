@@ -1,0 +1,131 @@
+/* Feedback.css */
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+.title-player-profile {
+    margin-top: 30px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #354052;
+}
+
+.col-xs-6 {
+    width: 50%;
+}
+
+.review-duo-player {
+    text-align: left!important;
+    margin-top: 13px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.col-md-12 {
+    width: 100%;
+}
+
+.review-duo-player .full-size {
+    margin-top: 23px;
+    width: 100%;
+    float: left;
+}
+
+.review-duo-player .full-size .review-image-small {
+    float: left;
+    width: 10%;
+}
+
+.avt-rank {
+    width: 52px;
+    height: 55px;
+}
+
+.avt-md.avt-rank .avt-1-15 {
+    padding: 3px;
+}
+
+.avt-md.avt-rank .avt-img {
+    max-height: 54px;
+}
+
+.avt-rank .avt-img {
+    border-radius: 50%;
+    width: 100%;
+}
+
+.avt-img {
+    border-radius: 50%;
+    width: 100%;
+    max-height: 54px;
+}
+
+.review-duo-player .full-size .wrapper-content-rating {
+    width: 90%;
+    float: left;
+    border-bottom: 1px solid #e2e6ea;
+    padding-left: 10px;
+}
+
+.review-duo-player .full-size .wrapper-content-rating .review-content {
+    float: left;
+    width: 80%;
+    margin-right: 10px;
+}
+
+.review-duo-player .full-size .wrapper-content-rating .review-content .name-player-review {
+    margin-bottom: 5px!important;
+    font-size: 15px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.13;
+    letter-spacing: -.2px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.name-player-review {
+    cursor: pointer;
+}
+
+.review-duo-player .full-size .wrapper-content-rating .review-content .time-player-review {
+    font-size: 12px;
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    color: #616770;
+}
+
+.review-duo-player .full-size .wrapper-content-rating .review-rating {
+    text-align: right;
+    width: 20%;
+    height: 100%;
+}
+
+.rating-style {
+    color: #ff9948;
+    margin-bottom: 5px;
+    white-space: nowrap;
+}
+
+.rating-style i {
+    margin: 0 1px;
+}
+
+.review-duo-player .full-size .wrapper-content-rating .content-player-review {
+    word-break: break-word;
+    text-align: justify;
+    display: inline-block;
+    width: 100%;
+}
+
+.review-duo-player .full-size .wrapper-content-rating {
+    width: 90%;
+    float: left;
+    border-bottom: 1px solid #e2e6ea;
+}

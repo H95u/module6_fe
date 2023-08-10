@@ -5,6 +5,7 @@ import "./partnerprofile.css";
 import {Button, Textarea, Typography} from "@material-tailwind/react";
 import Modal from "react-bootstrap/Modal";
 import Swal from "sweetalert2";
+import Feedback from "../feedback/Feedback";
 
 export default function PartnerInfo() {
     const navigate = useNavigate();
@@ -281,6 +282,8 @@ export default function PartnerInfo() {
                                 <p></p>
                                 <p>🤍 ... game gì cũng chơi</p>
                             </div>
+                            <hr/>
+                            <Feedback/>
                         </div>
                         <div className={"action"}>
                             {showPrice && <>
