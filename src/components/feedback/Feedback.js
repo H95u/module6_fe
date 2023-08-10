@@ -22,25 +22,39 @@ export default function Feedback() {
             });
     }, []);
 
-    // const handleSubmitFeedback = () => {
-    //     if (isLoggedIn) {
-    //         const feedback = {
-    //             message: message,
-    //             rating: rating,
-    //             sender: {
-    //                 id: isLoggedIn.id
-    //             },
-    //             receiver: {
-    //                 id: +id
-    //             }
-    //         }
-    //         console.log(feedback)
-    //         axios.post(`http://localhost:8080/api/feedbacks/create`, feedback)
-    //             .then((response) => {
-    //
-    //             })
-    //     }
-    // }
+
+
+    const handleSubmitFeedback = () => {
+        if (isLoggedIn) {
+            const feedback = {
+                message: message,
+                rating: rating,
+                sender: {
+                    id: isLoggedIn.id
+                },
+                receiver: {
+                    id: +id
+                }
+            }
+            console.log(feedback)
+            axios.post(`http://localhost:8080/api/feedbacks/create`, feedback)
+                .then((response) => {
+                    setFeedbacks((prevFeedbacks) => [response.data, ...prevFeedbacks]);
+                    setMessage("");
+                    setRating(0);
+                })
+                .catch((error) => {
+                    console.error("Lỗi khi gửi phản hồi:", error);
+                });
+        }
+    }
+
+    const handleTextareaKeyDown = (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            handleSubmitFeedback();
+        }
+    };
     return (
         <>
             <div className={"title-player-profile row"}>
@@ -48,6 +62,19 @@ export default function Feedback() {
                     <span>Đánh giá</span>
                 </div>
             </div>
+            <div className="feedback-form">
+                <div className="rating-input">
+                    <Rating value={rating} onChange={(value) => setRating(value)}/>
+                </div>
+                <textarea
+                    rows="4"
+                    placeholder="Feedback..."
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    onKeyDown={handleTextareaKeyDown}
+                />
+            </div>
+
             {feedbacks.map((feedback, index) =>
                 <div key={index} className={"text-center review-duo-player row"}>
                     <div className={"col-md-12"}>
