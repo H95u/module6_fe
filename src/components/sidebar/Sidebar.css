@@ -67,3 +67,7 @@ ul li{
     background-color: #ecd5b5;
     cursor: pointer;
 }
+
+.sidebar-image{
+    width: 35px;
+}

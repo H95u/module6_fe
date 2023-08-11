@@ -28,6 +28,9 @@ export default function Sidebar(props) {
                         {options.map(item => (
                             <li key={item.id} data-value={item.id} className={"list-item"}>
                                 <div className={"media"}>
+                                    <div className={"media-left"}>
+                                        <img className={"sidebar-image"} src={`banner/${item.image}`} alt=""/>
+                                    </div>
                                     <div className={"media-body media-middle"}>
                                         <p data-value={item.id} className={"text-black"}>{item.name}</p>
                                     </div>
