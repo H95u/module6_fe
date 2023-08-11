@@ -38,18 +38,17 @@ export default function PartnerInfo() {
         setSelectedOptionId(e.target.value);
     };
 
-    const calculateTotal = (startTime, endTime, price, optionPrice) => {
-        const startTimestamp = new Date(startTime).getTime();
-        const endTimestamp = new Date(endTime).getTime();
-        const timeDifference = endTimestamp - startTimestamp;
-        const hours = timeDifference / (1000 * 60 * 60);
-        const total = hours * price + (selectedOption != null ? optionPrice : 0);
-        return total.toFixed(0);
-    }
-
     const calculateTotalPrice = () => {
         if (startTime != "" && endTime != "" && selectedOption !== null) {
-            return calculateTotal(startTime, endTime, user.price, selectedOption != null ? selectedOption.price : 0);
+            const startTimestamp = new Date(startTime).getTime();
+            const endTimestamp = new Date(endTime).getTime();
+            const timeDifference = endTimestamp - startTimestamp;
+            const hours = timeDifference / (1000 * 60 * 60);
+            const total = hours * user.price + (selectedOption != null ? selectedOption.price : 0);
+            if (hours < 0) {
+                return 0;
+            }
+            return total.toFixed(0);
         }
         return 0;
     };
@@ -177,7 +176,10 @@ export default function PartnerInfo() {
                         <label htmlFor={"rent-price"} className={"form-label"}>Giá</label>
                         <Typography variant="h3" color="cyan" textGradient>
                             {user.price != null &&
-                                <h1>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(user.price)}/h</h1>
+                                <h1>{new Intl.NumberFormat('vi-VN', {
+                                    style: 'currency',
+                                    currency: 'VND'
+                                }).format(user.price)}/h</h1>
                             }
                             {user.price == null &&
                                 <h1>---</h1>
@@ -190,7 +192,10 @@ export default function PartnerInfo() {
                     <hr/>
                     <Typography variant="h4" color="green" textGradient>
                         Tổng tiền : &nbsp;
-                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(calculateTotalPrice())}
+                        {new Intl.NumberFormat('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND'
+                        }).format(calculateTotalPrice())}
                     </Typography>
 
                 </Modal.Body>
