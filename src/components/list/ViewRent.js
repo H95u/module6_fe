@@ -9,7 +9,7 @@ import {
     IconButton,
 } from "@material-tailwind/react";
 import {useParams} from "react-router-dom";
-import {CheckIcon, XMarkIcon, CurrencyDollarIcon} from "@heroicons/react/20/solid";
+import {CheckIcon, XMarkIcon, CurrencyDollarIcon, BugAntIcon} from "@heroicons/react/20/solid";
 import {Link} from "react-router-dom";
 
 
@@ -28,17 +28,54 @@ const ViewRent = () => {
             .catch(error => {
                 console.error("Error fetching bookings:", error);
             });
-    }, []);
+    }, [id]);
 
     const getStatusString = (status) => {
         switch (status) {
             case 1:
-                return "Chờ phản hồi";
+                return `<p class="text-secondary">Chờ phản hồi</p>`;
             case 2:
-                return ""
+                return `<p class="text-success">Đã xác nhận</p>`;
+            case 3:
+                return `<p class="text-danger">Đã hủy</p>`;
             default:
                 return "Trạng thái không xác định";
         }
+    }
+
+    const handleClickAccept = (bookingId) => {
+        axios.put(`http://localhost:8080/api/bookings/accept/${bookingId}`).then((response) => {
+            const updatedBooking = response.data;
+
+            const index = bookings.findIndex(booking => booking.id === bookingId);
+
+            if (index !== -1) {
+
+                const updatedBookings = [...bookings];
+                updatedBookings[index] = updatedBooking;
+
+                setBookings(updatedBookings);
+
+                alert("Xác nhận thành công");
+            }
+        })
+    }
+    const handleClickReject = (bookingId) => {
+        axios.put(`http://localhost:8080/api/bookings/reject/${bookingId}`).then((response) => {
+            const updatedBooking = response.data;
+
+            const index = bookings.findIndex(booking => booking.id === bookingId);
+
+            if (index !== -1) {
+
+                const updatedBookings = [...bookings];
+                updatedBookings[index] = updatedBooking;
+
+                setBookings(updatedBookings);
+
+                alert("Hủy bỏ thành công");
+            }
+        })
     }
 
 
@@ -145,8 +182,7 @@ const ViewRent = () => {
                                     </div>
                                 </td>
                                 <td className={"text-center"}>
-                                                <span
-                                                    className={"label label-default"}>{getStatusString(booking.status)}</span>
+                                    <span dangerouslySetInnerHTML={{__html: getStatusString(booking.status)}}/>
                                 </td>
                                 <td>
                                     <div className="total_cost">{new Intl.NumberFormat('vi-VN', {
@@ -155,28 +191,37 @@ const ViewRent = () => {
                                     }).format(booking.total)}</div>
                                 </td>
                                 <td>
-                                    <Popover placement="left">
+                                    <Popover placement="bottom">
                                         <PopoverHandler>
                                             <i className="bi bi-three-dots icon-hover"
                                                onClick={handlePopoverClick}
                                                onMouseLeave={handlePopoverMouseLeave}></i>
                                         </PopoverHandler>
                                         <PopoverContent>
-                                            <Tooltip content="Xác nhận" show={tooltipVisible}>
-                                                <IconButton variant="text" color="green">
-                                                    <CheckIcon className="h-4 w-4"/>
-                                                </IconButton>
-                                            </Tooltip>
-                                            &ensp;
-                                            <Tooltip content="Huỷ lịch" show={tooltipVisible}>
-                                                <IconButton variant="text" color="red">
-                                                    <XMarkIcon className="h-4 w-4"/>
-                                                </IconButton>
-                                            </Tooltip>
-                                            &ensp;
-                                            <Tooltip content="Nhận tiền" show={tooltipVisible}>
-                                                <IconButton variant="text" color="yellow">
-                                                    <CurrencyDollarIcon className="h-4 w-4"/>
+                                            {booking.status !== 2 && booking.status !== 3 ?
+                                                <Tooltip content="Xác nhận" show={tooltipVisible}>
+                                                    <IconButton
+                                                        variant="text" color="green"
+                                                        onClick={() => handleClickAccept(booking.id)}
+                                                    >
+                                                        <CheckIcon className="h-4 w-4"/>
+                                                    </IconButton>
+                                                </Tooltip>
+                                                : ""
+                                            }
+                                            {booking.status !== 3 ?
+                                                <Tooltip content="Huỷ lịch" show={tooltipVisible}>
+                                                    <IconButton variant="text" color="red"
+                                                                onClick={() => handleClickReject(booking.id)}
+                                                    >
+                                                        <XMarkIcon className="h-4 w-4"/>
+                                                    </IconButton>
+                                                </Tooltip>
+                                                : ""
+                                            }
+                                            <Tooltip content="Báo cáo" show={tooltipVisible}>
+                                                <IconButton variant="text" color="blue-gray">
+                                                    <BugAntIcon className="h-4 w-4"/>
                                                 </IconButton>
                                             </Tooltip>
                                         </PopoverContent>

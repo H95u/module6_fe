@@ -30,7 +30,7 @@ export default function DetailRent() {
             case 2:
                 return "Xác nhận"
             case 3:
-                return "Đã hoàn thành"
+                return "Đã hủy"
             default:
                 return "Trạng thái không xác định";
         }
@@ -40,7 +40,7 @@ export default function DetailRent() {
         <>
             <div className={"rent-detail-container"}>
                 <div className={"row"}>
-                    <MenuBar/>
+                    <div className={"col-lg-3"}></div>
                     <div className={"col-lg-9 bill-container"}>
                         <div className={`bill-detail`}>
                             <div className={`row`}>
