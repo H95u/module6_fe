@@ -17,6 +17,7 @@ import ViewRent from "./components/list/ViewRent";
 import DetailRent from "./components/list/DetailRent";
 import SidebarTop3 from "./components/top3BookingUser/SidebarTop3";
 import MenuBar from "./components/user-info/MenuBar";
+import UserRent from "./components/list/UserRent";
 
 export default function App() {
     return (
@@ -38,6 +39,7 @@ export default function App() {
                     <Route path={"/home-recent"} element={<HomePageRecent/>}></Route>
                    <Route path={"/update-info/:id"} element={<UpdateInfo/>}></Route>
                     <Route path={"/detail-rent/:id"} element={<DetailRent/>}></Route>
+                    <Route path={"/user-rent/:id"} element={<UserRent/>}></Route>
                     <Route path={"/view-transaction/:id"} element={<MenuBar/>}></Route>
                     <Route path={"/sidebar"} element={<SidebarTop3/>}></Route>
                 </Routes>
