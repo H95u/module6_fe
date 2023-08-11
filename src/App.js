@@ -37,7 +37,6 @@ export default function App() {
                     <Route path={"/home-renters"} element={<HomePageRenter/>}></Route>
                     <Route path={"/home-recent"} element={<HomePageRecent/>}></Route>
                    <Route path={"/update-info/:id"} element={<UpdateInfo/>}></Route>
-                    {/*<Route path={"/view/:id"} element={<ViewRent/>}></Route>*/}
                     <Route path={"/detail-rent/:id"} element={<DetailRent/>}></Route>
                     <Route path={"/view-transaction/:id"} element={<MenuBar/>}></Route>
                     <Route path={"/sidebar"} element={<SidebarTop3/>}></Route>

@@ -213,9 +213,6 @@ const Login = () => {
                     </Row>
                 </Card>
             </Container>
-            <button><Link to={"/search"}>Search</Link></button>&ensp;&ensp;
-            <button><Link to={"/search_filter"}>SearchFilter</Link></button>
-
         </>
     );
 };

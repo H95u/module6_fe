@@ -59,7 +59,7 @@ function ProfileMenu() {
         // e.g., show a recharge modal or redirect to a recharge page
     };
     const handleTransaction = () => {
-        navigate(`/view/${id}`)
+        navigate(`/view-transaction/${id}`)
     };
 
 
