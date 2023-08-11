@@ -3,24 +3,27 @@ import "./Feedback.css"
 import axios from "axios";
 import {Rating} from "@material-tailwind/react";
 import {useParams} from "react-router-dom";
+import FeedbackService from "../../services/feedback.service";
 
 
 export default function Feedback() {
     const isLoggedIn = JSON.parse(localStorage.getItem("loggingUser"));
     const [feedbacks, setFeedbacks] = useState([]);
     const [message, setMessage] = useState("");
-    const [rating, setRating] = useState(0)
+    const [rating, setRating] = useState(0);
+    const [reload, setReload] = useState(false);
+
     const {id} = useParams();
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/feedbacks/receiver/${id}`)
+        FeedbackService.getFeedbackByReceiverId(id)
             .then(response => {
                 setFeedbacks(response.data);
             })
             .catch(error => {
                 console.error('Lỗi khi tìm nạp phản hồi:', error);
             });
-    }, []);
+    }, [reload]);
 
 
 
@@ -36,12 +39,12 @@ export default function Feedback() {
                     id: +id
                 }
             }
-            console.log(feedback)
-            axios.post(`http://localhost:8080/api/feedbacks/create`, feedback)
+            FeedbackService.createFeedBack(feedback)
                 .then((response) => {
-                    setFeedbacks((prevFeedbacks) => [response.data, ...prevFeedbacks]);
+                    //setFeedbacks(response.data);
                     setMessage("");
                     setRating(0);
+                    setReload(!reload)
                 })
                 .catch((error) => {
                     console.error("Lỗi khi gửi phản hồi:", error);
