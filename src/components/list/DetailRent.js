@@ -141,7 +141,9 @@ export default function DetailRent() {
                                     <h5>Thành tiền</h5>
                                 </div>
                                 <div className={`col-md-6 user-time`}>
-                                    <p>{booking.total}</p>
+                                    <p>{new Intl.NumberFormat('vi-VN',
+                                        { style: 'currency', currency: 'VND' })
+                                        .format(booking.total)}</p>
                                 </div>
                             </div>
                             <hr className={`hr1`}/>

@@ -305,7 +305,9 @@ export default function PartnerInfo() {
                                 <div className={`row`}>
                                     <div className={`col-sm-8`}>
                                         {user.price != null &&
-                                            <h1>{user.price} đ/h</h1>
+                                            <h1>{new Intl.NumberFormat('vi-VN',
+                                                { style: 'currency', currency: 'VND' })
+                                                .format(user.price)}/h</h1>
                                         }
                                         {user.price == null &&
                                             <h1>---</h1>
