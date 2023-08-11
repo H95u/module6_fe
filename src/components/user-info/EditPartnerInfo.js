@@ -234,7 +234,7 @@ export default function EditPartnerInfo() {
                                         {user.price != null &&
                                             <h1>{new Intl.NumberFormat('vi-VN',
                                                 { style: 'currency', currency: 'VND' })
-                                                .format(user.price)/h}</h1>
+                                                .format(user.price)}/h</h1>
                                         }
                                         {user.price == null &&
                                             <h1>---</h1>
