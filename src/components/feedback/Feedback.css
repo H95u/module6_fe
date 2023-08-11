@@ -97,6 +97,7 @@
     text-align: right;
     width: 20%;
     height: 100%;
+    float: left;
 }
 
 .rating-style {
@@ -107,6 +108,11 @@
 
 .rating-style i {
     margin: 0 1px;
+}
+.review-duo-player .full-size {
+    margin-top: 23px;
+    width: 100%;
+    display: flex;
 }
 
 .review-duo-player .full-size .wrapper-content-rating .content-player-review {
@@ -120,6 +126,7 @@
     width: 90%;
     float: left;
     border-bottom: 1px solid #e2e6ea;
+    display: flex;
 }
 .feedback-form {
     margin-top: 20px;
@@ -140,4 +147,9 @@
 
 .rating-input {
     margin-top: 10px;
+}
+.paging-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
