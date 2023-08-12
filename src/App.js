@@ -15,6 +15,7 @@ import HomePageRecent from "./components/top3BookingUser/home/HomePageRecent";
 import DetailRent from "./components/list/DetailRent";
 import SidebarTop3 from "./components/top3BookingUser/SidebarTop3";
 import MenuBar from "./components/user-info/MenuBar";
+import DetailUserRent from "./components/list/DetailUserRent";
 export default function App() {
     return (
         <>
@@ -34,6 +35,7 @@ export default function App() {
                     <Route path={"/home-renters"} element={<HomePageRenter/>}></Route>
                     <Route path={"/home-recent"} element={<HomePageRecent/>}></Route>
                     <Route path={"/detail-rent/:id"} element={<DetailRent/>}></Route>
+                    <Route path={"/detail-user-rent/:id"} element={<DetailUserRent/>}></Route>
                     <Route path={"/view-transaction/:id"} element={<MenuBar/>}></Route>
                     <Route path={"/sidebar"} element={<SidebarTop3/>}></Route>
                 </Routes>

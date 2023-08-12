@@ -1,6 +1,29 @@
-.information {
+.my-profile {
     --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-shadow);
+    border: solid 1px #e1dede;
+    border-radius: 10px;
+    margin: 35px auto;
+    font-family: initial;
+    min-height: auto;
+}
+
+.my-profile .row {
+    height: 60px;
+    padding-top: 25px;
+    margin-left: 30px;
+}
+.my-profile hr {
+    width: 90%;
+    margin: auto;
+}
+.my-profile .title {
+    color: black;
+    font-size: 20px;
+}
+.my-profile .value {
+    color: #848486;
+    font-size: 18px;
 }
 
 .form-update-user {

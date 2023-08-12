@@ -205,7 +205,7 @@ export default function UserInfo() {
                                         Theo dõi
                                     </Button>
                                     <Button size="md" color="white" onClick={displayFormUpdate}>
-                                        Cài đặt
+                                        Chỉnh sửa
                                     </Button>
                                 </div>
                                 <div className={"col-md-6"}>
@@ -223,10 +223,10 @@ export default function UserInfo() {
 
                     {showUser && <>
                         <div className={"col-md-9"}>
-                            <div className={`information`}>
+                            <div className={`my-profile`}>
                                 <div className={`row`}>
                                     <div className={`col-sm-5`}>
-                                        <p className={`title`}>Họ và Tên</p>
+                                        <p className={`title`}><i className="bi bi-person"></i> Họ và Tên</p>
                                     </div>
                                     <div className={`col-sm-7`}>
                                         <p className={`value`}>{user.username}</p>
@@ -235,7 +235,7 @@ export default function UserInfo() {
                                 <hr/>
                                 <div className={`row`}>
                                     <div className={`col-sm-5`}>
-                                        <p className={`title`}>Biệt danh</p>
+                                        <p className={`title`}><i className="bi bi-person"></i> Biệt danh</p>
                                     </div>
                                     <div className={`col-sm-7`}>
                                         <p className={`value`}>{user.nickname}</p>
@@ -244,7 +244,7 @@ export default function UserInfo() {
                                 <hr/>
                                 <div className={`row`}>
                                     <div className={`col-sm-5`}>
-                                        <p className={`title`}>Email</p>
+                                        <p className={`title`}><i className="bi bi-envelope"></i> Email</p>
                                     </div>
                                     <div className={`col-sm-7`}>
                                         <p className={`value`}>{user.email}</p>
@@ -253,7 +253,7 @@ export default function UserInfo() {
                                 <hr/>
                                 <div className={`row`}>
                                     <div className={`col-sm-5`}>
-                                        <p className={`title`}>Giới tính</p>
+                                        <p className={`title`}><i className="bi bi-gender-trans"></i> Giới tính</p>
                                     </div>
                                     <div className={`col-sm-7`}>
                                         <p className={`value`} >{user.gender === 1 ? "Nam" : "Nữ" }</p>
@@ -262,7 +262,7 @@ export default function UserInfo() {
                                 <hr/>
                                 <div className={`row`}>
                                     <div className={`col-sm-5`}>
-                                        <p className={`title`}>Ngày sinh</p>
+                                        <p className={`title`}><i className="bi bi-calendar-check"></i> Ngày sinh</p>
                                     </div>
                                     <div className={`col-sm-7`}>
                                         <p className={`value`}>{user.dob}</p>
@@ -271,7 +271,7 @@ export default function UserInfo() {
                                 <hr/>
                                 <div className={`row`}>
                                     <div className={`col-sm-5`}>
-                                        <p className={`title`}>Địa chỉ</p>
+                                        <p className={`title`}><i className="bi bi-geo-alt"></i> Địa chỉ</p>
                                     </div>
                                     <div className={`col-sm-7`}>
                                         <p className={`value`}>{user.address?.name}</p>
@@ -280,10 +280,12 @@ export default function UserInfo() {
                                 <hr/>
                                 <div className={`row`}>
                                     <div className={`col-sm-5`}>
-                                        <p className={`title`}>Tài khoản</p>
+                                        <p className={`title`}><i className="bi bi-piggy-bank"></i> Tài khoản</p>
                                     </div>
                                     <div className={`col-sm-7`}>
-                                        <p className={`value`}>{user.money} VND</p>
+                                        <p className={`value`}>{new Intl.NumberFormat('vi-VN',
+                                            { style: 'currency', currency: 'VND' })
+                                            .format(user.money)}</p>
                                     </div>
                                 </div>
                             </div>

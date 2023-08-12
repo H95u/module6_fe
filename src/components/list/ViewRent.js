@@ -56,6 +56,19 @@ const ViewRent = () => {
         }
     }
 
+    const getUserStatusString = (status) => {
+        switch (status) {
+            case 1:
+                return `<p class="text-secondary">Chờ phản hồi</p>`;
+            case 2:
+                return `<button title="Trạng thái: Xác nhận" class="btn btn-info">Hoàn thành</button>`;
+            case 3:
+                return `<p class="text-success">Đã hoàn thành</p>`;
+            default:
+                return "Trạng thái không xác định";
+        }
+    }
+
     const handleClickAccept = (bookingId) => {
         axios.put(`http://localhost:8080/api/bookings/accept/${bookingId}`).then((response) => {
             const updatedBooking = response.data;
@@ -264,11 +277,11 @@ const ViewRent = () => {
                         <table className={`table table-hover`}>
                             <thead>
                             <tr>
-                                <th>Tên người bạn thuê</th>
+                                <th>Người bạn thuê</th>
                                 <th>Ngày thuê</th>
                                 <th>Thời gian thuê</th>
-                                <th>Trạng thái</th>
-                                <th>Thao tác</th>
+                                <th>Tổng đơn</th>
+                                <th className={`text-center`}>Trạng thái</th>
                             </tr>
                             </thead>
 
@@ -278,11 +291,11 @@ const ViewRent = () => {
                                     <td>
                                         <div className="partner_info">
                                             <Link to={`/detail-user-rent/${userBookingRent.id}`}>
-                                                <img src={userBookingRent.bookedUser.img} alt="Avatar"
+                                                <img src={userBookingRent.bookedUser?.img} alt="Avatar"
                                                      className="user-avatar"/>
                                             </Link>
                                             <div className="fill-name">
-                                                {userBookingRent.bookedUser.username}
+                                                {userBookingRent.bookedUser?.username}
                                             </div>
                                         </div>
                                     </td>
@@ -307,16 +320,14 @@ const ViewRent = () => {
                                                 return `${hours} giờ ${minutes} phút`;
                                             })()}</span>
                                     </td>
-                                    <td className={"text-center"}>
-                                        <span dangerouslySetInnerHTML={{__html: getStatusString(userBookingRent.status)}}/>
+                                    <td>
+                                        <span>{new Intl.NumberFormat('vi-VN',
+                                            { style: 'currency', currency: 'VND' })
+                                            .format(userBookingRent.total)}</span>
                                     </td>
-                                    {userBookingRent.status === 2 &&
-                                        <>
-                                            <td>
-                                                <button className={`btn btn-info`}>Hoàn thành</button>
-                                            </td>
-                                        </>
-                                    }
+                                    <td className={"text-center"}>
+                                        <span dangerouslySetInnerHTML={{__html: getUserStatusString(userBookingRent.status)}}/>
+                                    </td>
                                 </tr>
                             )}
 

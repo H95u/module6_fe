@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
-import MenuBar from "../user-info/MenuBar";
 import "./DetailRent.css";
+import SidebarRent from "./SidebarRent";
 
 export default function DetailRent() {
     const [booking, setBooking] = useState({});
@@ -20,17 +20,17 @@ export default function DetailRent() {
     }, [id]);
 
     const handleViewRent = () => {
-        navigate(`/view-transaction/${booking.bookedUser.id}`);
+        navigate(`/view-transaction/${booking.bookedUser?.id}`);
     };
 
-    const getStatus = (status) => {
+    const getStatusString = (status) => {
         switch (status) {
             case 1:
-                return "Chờ phản hồi";
+                return `<p class="text-warning">Chờ phản hồi</p>`;
             case 2:
-                return "Xác nhận"
+                return `<p class="text-success">Đã xác nhận</p>`;
             case 3:
-                return "Đã hủy"
+                return `<p class="text-info">Hoàn thành</p>`;
             default:
                 return "Trạng thái không xác định";
         }
@@ -40,10 +40,7 @@ export default function DetailRent() {
         <>
             <div className={"rent-detail-container"}>
                 <div className={"row"}>
-                    <div className={"col-lg-3"}>
-
-                    </div>
-
+                    <SidebarRent/>
                     <div className={"col-lg-9 bill-container"}>
                         <div className={`bill-detail`}>
                             <div className={`row`}>
@@ -135,7 +132,7 @@ export default function DetailRent() {
                                     <h5>Trạng thái</h5>
                                 </div>
                                 <div className={`col-md-6 user-time`}>
-                                    <p>{getStatus(booking.status)}</p>
+                                    <span dangerouslySetInnerHTML={{__html: getStatusString(booking.status)}}/>
                                 </div>
                             </div>
                             <hr className={`hr1`}/>
