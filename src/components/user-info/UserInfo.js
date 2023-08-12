@@ -20,12 +20,9 @@ export default function UserInfo() {
     const id = loggingUser.id;
     const [user, setUser] = useState({});
     const [isHovered, setIsHovered] = useState(false);
-    const [address, setAddress] = useState("");
     const [addressList, setAddressList] = useState([]);
     const [showUser, setShowUser] = useState(true);
     const [showUpdateUser, setShowUpdateUser] = useState(false);
-    const [isSetting, setIsSetting] = useState(false);
-
     const [initialValues, setInitialValues] = useState({
         nickname: "",
         email: "",
@@ -39,7 +36,6 @@ export default function UserInfo() {
         axios.get(`http://localhost:8080/api/users/info/${id}`)
             .then((response) => {
                 setUser(response.data);
-                setAddress(response.data.address)
             })
 
             .catch((error) => {
@@ -96,7 +92,8 @@ export default function UserInfo() {
     }
 
     function displayFormUpdate() {
-        setIsSetting(true);
+        setShowUser(false);
+        setShowUpdateUser(true);
         setInitialValues({
             nickname: user.nickname,
             email: user.email,
@@ -104,26 +101,8 @@ export default function UserInfo() {
             addressId: user.address?.id,
             gender: user.gender + "",
         })
-        console.log('displayFormUpdate>>>>>>>>>', initialValues);
     }
 
-    // const initialValues = {
-    //     nickname: "",
-    //     email: "",
-    //     dob: "",
-    //     addressId: "",
-    //     gender: "",
-    // };
-
-    useEffect(() => {
-        if (isSetting) {
-            console.log('initialValues>>>>>>>>', initialValues);
-            setShowUser(false);
-            setShowUpdateUser(true);
-        }
-    }, [isSetting])
-
-    // phải là 1 email hợp lệ
     const validation = Yup.object({
         nickname: Yup.string().min(3, "Độ dài tối thiệu 3 kí tự").required("Nickname là bắt buộc"),
         email: Yup.string()
@@ -141,8 +120,6 @@ export default function UserInfo() {
                     icon: "success",
                     confirmButtonText: "OK"
                 })
-                console.log(res.data)
-                console.log("values.nickname------->", values.nickname)
                 closeFormUpdate()
             })
             .catch((error) => {
@@ -198,7 +175,7 @@ export default function UserInfo() {
                                         </p>
                                         ( {user.nickname} )
                                         <p>
-                                            Địa chỉ : {address?.name}
+                                            Địa chỉ : {user.address?.name}
                                         </p>
                                     </Typography>
                                 </CardBody>
@@ -297,7 +274,7 @@ export default function UserInfo() {
                                         <p className={`title`}>Địa chỉ</p>
                                     </div>
                                     <div className={`col-sm-7`}>
-                                        <p className={`value`}>{address?.name}</p>
+                                        <p className={`value`}>{user.address?.name}</p>
                                     </div>
                                 </div>
                                 <hr/>
@@ -316,7 +293,7 @@ export default function UserInfo() {
                     {showUpdateUser && <>
 
                         <div className={"col-md-9"}>
-                            <div className={`form-update`}>
+                            <div className={`form-update-user`}>
                                 <Formik initialValues={initialValues}
                                         enableReinitialize={true}
                                         validationSchema={validation}
@@ -324,26 +301,26 @@ export default function UserInfo() {
 
                                     <Form>
                                         <div className={"from-userinfo"}>
-                                            <div className={"fieldGroup "}>
+                                            <div className={"user-input"}>
                                                 <label className={"control-label"} htmlFor="nickname">Nickname</label>
                                                 <Field variant={`input`} type={"text"} name={"nickname"} placeholder={'NickName'} />
                                                 <ErrorMessage name="nickname" component="div" className="text-danger"/>
                                             </div>
-                                            <div className="fieldGroup">
+                                            <div className="user-input">
                                                 <label className={"control-label"} htmlFor="email">Email</label>
-                                                <Field variant={`input`} type="email" name="email" placeholder={'Email'} />
+                                                <Field type="email" name="email" placeholder={'Email'} />
                                                 <ErrorMessage name="email" component="div" className="text-danger"/>
                                             </div>
-                                            <div className="fieldGroup">
+                                            <div className="user-input">
                                                 <label className={"control-label"}  htmlFor="dob">Ngày sinh</label>
                                                 <Field variant={`input`} type="date" name="dob" placeholder={'Ngày sinh'}/>
                                             </div>
-                                            <div className="fieldGroup">
+                                            <div className="user-input">
                                                 <label htmlFor="address" className={"control-label"}>
                                                     Địa chỉ
                                                 </label>
                                                 <div>
-                                                    <Field variant={`input`} as="select" name="addressId"
+                                                    <Field className={`user-select-address`} as="select" name="addressId"
                                                            aria-label="Default select example" placeholder={'Địa chỉ'}>
                                                         <option value="">Địa chỉ</option>
                                                         {addressList.map((item) => (
@@ -359,15 +336,20 @@ export default function UserInfo() {
                                                 <label className={"control-label"} htmlFor="gender">
                                                     Giới tính
                                                 </label>
-                                                <div className={"d-flex"}>
-                                                    <Field type="radio" name="gender" value="1"></Field>
-                                                    <label htmlFor="gender" className={`gender--radio`}>Nam</label>
-                                                    <Field type="radio" name="gender" value="2"/>
-                                                    <label htmlFor="gender" className={`gender--radio`}>Nữ</label>
+                                                <div className={"user-gender"}>
+                                                    <label htmlFor="gender" className={`gender-radio`}>
+                                                        <Field type="radio" name="gender" value="1"/>
+                                                        Nam
+                                                    </label>
+                                                    <label htmlFor="gender" className={`gender-radio`}>
+                                                        <Field type="radio" name="gender" value="2"/>
+                                                        Nữ
+                                                    </label>
                                                 </div>
                                             </div>
-                                            <div className="fieldGroup">
-                                                <button type="submit" className={"button-update"}>Cập nhật</button>
+                                            <hr/>
+                                            <div className="user-input">
+                                                <button className={"btn-danger"}>Cập nhật</button>
                                             </div>
                                         </div>
                                     </Form>
