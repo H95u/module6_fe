@@ -20,7 +20,7 @@ export default function DetailRent() {
     }, [id]);
 
     const handleViewRent = () => {
-        navigate(`/view/${booking.bookedUser.id}`);
+        navigate(`/view-transaction/${booking.bookedUser.id}`);
     };
 
     const getStatus = (status) => {
@@ -40,7 +40,10 @@ export default function DetailRent() {
         <>
             <div className={"rent-detail-container"}>
                 <div className={"row"}>
-                    <div className={"col-lg-3"}></div>
+                    <div className={"col-lg-3"}>
+
+                    </div>
+
                     <div className={"col-lg-9 bill-container"}>
                         <div className={`bill-detail`}>
                             <div className={`row`}>
