@@ -8,7 +8,7 @@ import {
     MenuList,
     MenuItem,
     Avatar,
-    Input, PopoverHandler, PopoverContent, Popover,
+    Input
 } from "@material-tailwind/react";
 import {
     UserCircleIcon,
@@ -18,10 +18,11 @@ import {
     LifebuoyIcon,
     PowerIcon,
     EyeIcon,
-    HomeIcon
+    BellIcon
 } from "@heroicons/react/24/outline";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
+import RechargeModal from "../recharge-modal/RechargeModal";
 
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
@@ -42,8 +43,27 @@ function LoginButton() {
     );
 }
 
+function Icon({id, open}) {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className={`${id === open ? "rotate-180" : ""} h-5 w-5 transition-transform`}
+        >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+        </svg>
+    );
+}
+
 
 function ProfileMenu() {
+    const [showRecharge, setShowRecharge] = useState(false);
+    const handleCloseRecharge = () => setShowRecharge(false);
+    const handleShowRecharge = () => setShowRecharge(true);
+
     const navigate = useNavigate();
     const id = loggingUser.id;
     const handleProfileInfo = () => {
@@ -55,8 +75,7 @@ function ProfileMenu() {
     };
 
     const handleRecharge = () => {
-        // Implement the function for "Nạp tiền"
-        // e.g., show a recharge modal or redirect to a recharge page
+        handleShowRecharge();
     };
     const handleTransaction = () => {
         navigate(`/view-transaction/${id}`)
@@ -73,12 +92,6 @@ function ProfileMenu() {
         window.location.href = "/";
     };
 
-    // const handelHone = () => {
-    //     // navigate("/home-renters")
-    //     navigate("/home-recent")
-    //     // navigate("/sidebar")
-    //
-    // }
 
 // profile menu component
     const profileMenuItems = [
@@ -119,6 +132,8 @@ function ProfileMenu() {
         },
 
     ];
+
+
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const closeMenu = () => setIsMenuOpen(false);
 
@@ -178,6 +193,7 @@ function ProfileMenu() {
                     );
                 })}
             </MenuList>
+            <RechargeModal showRecharge={showRecharge} handleCloseRecharge={handleCloseRecharge}/>
         </Menu>
     );
 }
@@ -218,19 +234,15 @@ export function ComplexNavbar() {
         setShowPopover(false); // Close popover
     };
 
-    const handleSearch = () => {
-        let searchInput = document.getElementById('search-input').value.toLowerCase();
-        navigate(`/?name=${searchInput}`)
-    }
 
     return (
         <Navbar id={"nav"} className="max-w-screen-4xl w-full mx-auto px-4 py-3">
             <div className="mx-auto flex text-blue-gray-900">
-                <Link to={"/"}>
+                <a href={"/"}>
                     <Avatar src={"/loverLogo.png"} className={"mr-10"}>
                     </Avatar>
-                </Link>
-                <div className="relative flex w-full gap-2 md:w-max">
+                </a>
+                <div className="relative flex w-full gap-96 md:w-max">
 
                     <Input
                         id="search-input"
@@ -268,7 +280,14 @@ export function ComplexNavbar() {
                             </table>
                         </div>
                     )}
-
+                </div>
+                <div className="absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 lg:block">
+                    <Link to={"/"}>
+                        <i style={{fontSize: "50px"}} className="bi bi-house-heart icon-hover cursor-pointer"></i>
+                    </Link>
+                </div>
+                <div className="absolute top-2/4 right-0 -translate-y-2/4 mr-24">
+                    <i style={{fontSize: "45px"}} className="bi bi-bell icon-hover cursor-pointer"></i>
                 </div>
                 {loggingUser != null ? <ProfileMenu/> : <LoginButton/>}
             </div>

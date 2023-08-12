@@ -23,7 +23,7 @@ export default function Content() {
     const [users, setUsers] = useState([]);
     const itemsPerPage = 12;
     const [currentPage, setCurrentPage] = useState(0);
-    const [optionName, setOptionName] = useState("");
+    const [optionChoose, setOptionChoose] = useState("");
 
     const getUsers = () => {
         axios.get(`http://localhost:8080/api/users`).then((response) => {
@@ -66,10 +66,7 @@ export default function Content() {
         axios.post(`http://localhost:8080/api/filter/option/${optionId}`)
             .then((response) => {
                 const option = response.data[0].options.find(opt => opt.id == optionId);
-                const optionName = option.name;
-                console.log(optionName)
-                setOptionName(optionName);
-
+                setOptionChoose(option);
                 setUsers(response.data);
                 window.location.href = "#partner-list"
             })
@@ -97,6 +94,19 @@ export default function Content() {
     const endIndex = startIndex + itemsPerPage;
     const currentPageData = users.slice(startIndex, endIndex);
 
+    function generateSearchTitle() {
+        return <div className={"row"}>
+            <div className={"col-lg-1"}>
+                <img className={"h-10 w-10 rounded-full mx-auto mt-8"} src={`/banner/${optionChoose.image}`}/>
+            </div>
+            <div className={"col-lg-11"}>
+                <Typography variant="h3" color="pink" className="mb-10 mt-8" textGradient>
+                    {optionChoose.name}
+                </Typography>
+            </div>
+        </div>;
+    }
+
     return (
         <div className={"container"}>
             <div className={"row"}>
@@ -111,11 +121,12 @@ export default function Content() {
                         <Filter filterForm={filterForm} onFilter={filterHandle}/>
                     </div>
                     <hr/>
-                    {optionName != "" ? <Typography variant="h3" color="red" className="mb-10 mt-8" textGradient>
-                        {optionName}
-                    </Typography> : <Typography variant="h3" color="red" className="mb-10 mt-8" textGradient>
-                        Danh sách hot girl, hot boy
-                    </Typography>}
+                    {optionChoose != "" ?
+                        generateSearchTitle()
+                        :
+                        <Typography variant="h3" color="red" className="mb-10 mt-8" textGradient>
+                            Danh sách hot girl, hot boy
+                        </Typography>}
                     {users.length === 0 ?
                         "" :
                         <div id={"partner-list"}>
@@ -134,7 +145,7 @@ export default function Content() {
                                                 <CardBody>
                                                     <div className={"mb-2"}>
                                                         <Typography color="blue" className="font-medium" textGradient>
-                                                           Tên :  {item.username}
+                                                            Tên : {item.username}
                                                         </Typography>
                                                         <Typography color="red" className="font-medium"
                                                                     textGradient>

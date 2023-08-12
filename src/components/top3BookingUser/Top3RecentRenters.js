@@ -41,12 +41,11 @@ const Top3RecentRenters = ({selectedUserId}) => {
                 variant="h4"
                 color="red"
                 className="mb-8 mt-4 text-center"
-                id={"top3_recent"}
                 textGradient
             >
                 Top 3 người thuê gần nhất
             </Typography>
-            {top3RecentRenters.map((renter) => {
+            {top3RecentRenters.length > 0 ? top3RecentRenters.map((renter) => {
                 const endTimes = new Date(renter.endTime);
                 const currentTime = new Date();
                 const duration = Math.floor(
@@ -112,7 +111,8 @@ const Top3RecentRenters = ({selectedUserId}) => {
                         </div>
                     </div>
                 );
-            })}
+            }) : ""
+            }
         </>
     );
 };

@@ -6,6 +6,7 @@ import {Button, Textarea, Typography} from "@material-tailwind/react";
 import Modal from "react-bootstrap/Modal";
 import Swal from "sweetalert2";
 import Feedback from "../feedback/Feedback";
+import RechargeModal from "../recharge-modal/RechargeModal";
 
 export default function PartnerInfo() {
     const navigate = useNavigate();
@@ -31,6 +32,10 @@ export default function PartnerInfo() {
     const handleEndChange = (e) => {
         setEndTime(e.target.value);
     };
+
+    const [showRecharge, setShowRecharge] = useState(false);
+    const handleCloseRecharge = () => setShowRecharge(false);
+    const handleShowRecharge = () => setShowRecharge(true);
     const handleOptionChange = (e) => {
         const selectedOptionId = e.target.value;
         const selected = options.find(option => option.id == selectedOptionId);
@@ -74,58 +79,92 @@ export default function PartnerInfo() {
         return `${formattedDay}/${formattedMonth}/${year}`;
     }
 
+    function createBooking() {
+        const booking = {
+            startTime: startTime,
+            endTime: endTime,
+            option: {
+                id: selectedOptionId
+            },
+            bookingUser: {
+                id: isLoggedIn.id
+            },
+            bookedUser: {
+                id: +id
+            },
+            total: calculateTotalPrice(),
+        }
+        return booking;
+    }
+
+    function checkBookingError(error) {
+        if (error.response.data === 1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Thời gian kết thúc phải sau thời gian bắt đầu!',
+            })
+        } else if (error.response.data === 2) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Thời gian bắt đầu không hợp lệ!',
+            })
+        } else if (error.response.status === 406) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `Ôi trùng lịch rồi ! Đã có người thuê từ ${formatDate(error.response.data.startTime)} 
+                                       đến ${formatDate(error.response.data.endTime)}`,
+            })
+        }
+    }
+
+    function rechargeNow() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Úi giời !!...',
+            text: 'Có đủ tiền đâu mà ham ? Nạp tiền ngay !!',
+        })
+        handleShowRecharge();
+        handleCloseRentForm();
+        setStartTime("");
+    }
+
+    function successRent() {
+        const booking = createBooking();
+        axios.post(`http://localhost:8080/api/bookings/rent`, booking).then((response) => {
+            Swal.fire({
+                icon: 'success',
+                title: 'OK...',
+                text: 'Bạn đã đặt lịch hẹn thành công!',
+                footer: '<a href="#" id="viewOrderLink">Đến trang xem thông tin đơn ?</a>'
+            })
+            document.getElementById('viewOrderLink').addEventListener('click', () => {
+                navigate(`/view-transaction/${isLoggedIn.id}`);
+            });
+            setSelectedOption(null);
+            calculateTotalPrice();
+            handleCloseRentForm();
+        })
+            .catch((error) => {
+                checkBookingError(error);
+            });
+    }
+
     const handleSubmitRent = () => {
         if (isLoggedIn) {
-            const booking = {
-                startTime: startTime,
-                endTime: endTime,
-                option: {
-                    id: selectedOptionId
-                },
-                bookingUser: {
-                    id: isLoggedIn.id
-                },
-                bookedUser: {
-                    id: +id
-                },
-                total: calculateTotalPrice(),
-            }
-            axios.post(`http://localhost:8080/api/bookings/rent`, booking).then((response) => {
+            if (calculateTotalPrice() > isLoggedIn.money) {
+                rechargeNow();
+            } else if (startTime == "" || endTime == "" || selectedOption == null) {
                 Swal.fire({
-                    icon: 'success',
-                    title: 'OK...',
-                    text: 'Bạn đã đặt lịch hẹn thành công!',
-                    footer: '<a href="#" id="viewOrderLink">Đến trang xem thông tin đơn ?</a>'
+                    icon: 'error',
+                    title: 'Úi giời !!...',
+                    text: 'Chưa chọn thời gian mà đã đòi thuê !!',
                 })
-                document.getElementById('viewOrderLink').addEventListener('click', () => {
-                    navigate("/");
-                });
-                setSelectedOption(null);
-                calculateTotalPrice();
-                handleCloseRentForm();
-            })
-                .catch((error) => {
-                    if (error.response.data === 1) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Thời gian kết thúc phải sau thời gian bắt đầu!',
-                        })
-                    } else if (error.response.data === 2) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Thời gian bắt đầu không hợp lệ!',
-                        })
-                    } else if (error.response.status === 406) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: `Ôi trùng lịch rồi ! Đã có người thuê từ ${formatDate(error.response.data.startTime)} 
-            đến ${formatDate(error.response.data.endTime)}`,
-                        })
-                    }
-                });
+            } else {
+                successRent();
+            }
         } else {
             localStorage.setItem("userId", id);
             Swal.fire({
@@ -139,6 +178,7 @@ export default function PartnerInfo() {
 
     return (
         <>
+            <RechargeModal showRecharge={showRecharge} handleCloseRecharge={handleCloseRecharge}/>
             <Modal backdrop={"static"} show={showRentForm} onHide={handleCloseRentForm}>
                 <Modal.Header>
                     <Modal.Title>Thông tin thuê</Modal.Title>
@@ -306,7 +346,7 @@ export default function PartnerInfo() {
                                     <div className={`col-sm-8`}>
                                         {user.price != null &&
                                             <h1>{new Intl.NumberFormat('vi-VN',
-                                                { style: 'currency', currency: 'VND' })
+                                                {style: 'currency', currency: 'VND'})
                                                 .format(user.price)}/h</h1>
                                         }
                                         {user.price == null &&
