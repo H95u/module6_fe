@@ -106,7 +106,7 @@ export default function Feedback() {
                 />
             </div>
 
-            {visibleFeedbacks.map((feedback, index) =>
+            {visibleFeedbacks.reverse().map((feedback, index) =>
                 <div key={index} className={"text-center review-duo-player row"}>
                     <div className={"col-md-12"}>
                         <div className={"full-size"}>
