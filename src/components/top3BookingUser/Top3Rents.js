@@ -18,7 +18,6 @@ const Top3Renters = ({selectedUserId}) => {
                         },
                     })
                     .then((response) => {
-                        console.log(response.data)
                         setTop3Renters(response.data);
                     })
                     .catch((error) => {
@@ -38,7 +37,7 @@ const Top3Renters = ({selectedUserId}) => {
     };
 
     return (
-        <>
+        <div className={"leaderboard-container"}>
             <div className="mx-auto">
                 <Typography
                     variant="h4"
@@ -47,7 +46,7 @@ const Top3Renters = ({selectedUserId}) => {
                     textGradient
                 >Top 3 người thuê nhiều nhất
                 </Typography>
-                {top3Renters.length > 0 ? top3Renters.map((renter) => {
+                {top3Renters.length > 0 ? top3Renters.map((renter,index) => {
                     const endTime = new Date(renter.endTime);
                     const currentTime = new Date();
                     const duration = Math.floor(
@@ -63,6 +62,11 @@ const Top3Renters = ({selectedUserId}) => {
                             >
                                 <div className="user__action--introduce">
                                     <div className="container-fluid user__player false">
+                                       <span className="ranking-position">
+                                           {index === 0 ? <i className="bi bi-1-square"></i> : null}
+                                           {index === 1 ? <i className="bi bi-2-square"></i> : null}
+                                           {index === 2 ? <i className="bi bi-3-square"></i> : null}
+                                      </span>
                                         <div className="user__page--info media">
                                             <div className="media-left">
                                                 <img
@@ -103,7 +107,7 @@ const Top3Renters = ({selectedUserId}) => {
                 }) : ""
                 }
             </div>
-        </>
+        </div>
     );
 }
 

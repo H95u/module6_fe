@@ -1,198 +1,71 @@
 .user__player {
-    padding: 10px!important;
+    padding: 10px !important;
     border-radius: 10px;
     background: #fff;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1), 5px 10px 15px rgba(0, 128, 128, 0.5);
     width: 100%;
     height: 100%;
 }
+
 .container-fluid {
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
 }
+
 #root {
-    background-color:transparent;
+    background-color: transparent;
 }
 
 .user__player .media-body .media-last-time a .status-stop {
     color: #f0564a;
 }
-.media-left, .media>.pull-left {
+
+.media-left, .media > .pull-left {
     padding-right: 10px;
 }
+
 .user__player img.media-object.user__follow--btn {
     display: block;
     width: 50px;
     height: 50px;
     border-radius: 50%;
 }
-.user__follow .user__follow--main {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 40px;
-    border-radius: 100%;
+
+.user__action--introduce{
+    margin-left: 15rem;
 }
+
 a, button, div, p, span {
     font-family: Poppins, serif;
 }
-/*.user__follow .user__follow--main .user__follow--btn div {*/
-/*    background-color: #fff;*/
-/*    align-items: center;*/
-/*    text-align: center;*/
-/*    border-radius: 4px;*/
-/*    padding: 10px 0;*/
-/*    text-transform: capitalize;*/
-/*    cursor: pointer;*/
-/*    border: 1px solid #d1d1d1;*/
-/*    font-family: Poppins, serif;*/
-/*}*/
-/*.user__follow .user__follow--main .user__follow--btn {*/
-/*    display: grid;*/
-/*    grid-template-columns: 1fr 1fr 1fr;*/
-/*    grid-template-rows: 40px;*/
-/*    grid-gap: 0 2px;*/
-/*    text-align: center;*/
-/*}*/
-#top3_recent{
+
+
+#top3_recent {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 30px;
     grid-gap: 0 2px;
     text-align: center;
 }
-#top3_renter{
-    display: grid;
+
+#top3_renter {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 30px;
     grid-gap: 0 2px;
-    text-align: center;
 }
-.user__albums {
-    padding: 10px;
-    border-radius: 8px;
-    background: #fff;
-    max-height: 400px;
-    overflow-y: auto
-}
+
+
+
 .user__albums .user__item--seemore {
     color: #337ab7;
     cursor: pointer
 }
+
 .user__action--introduce {
     margin-top: 15px;
     width: 100%;
     height: auto;
     clear: both
 }
-@media screen and (max-width: 425px) {
-    .user__action--introduce .user__action--intro {
-        display:inline-block;
-        width: 100%;
-        position: relative
-    }
-
-    .user__action--introduce .user__action--intro .user__action--avatar .user--avatar {
-        width: 35%;
-        float: left;
-        margin-bottom: 0
-    }
-
-    .user__action--introduce .user__action--intro .user__action--mb {
-        display: inline-flex;
-        flex-direction: column-reverse;
-        width: 65%
-    }
-}
-.user__action--introduce .user__action--content {
-    text-align: center
-}
-
-@media screen and (max-width: 425px) {
-    .user__action--introduce .user__action--content {
-        float:left;
-        text-align: left;
-        padding: 0
-    }
-
-    .user__action--introduce .user__action--content h4,.user__action--introduce .user__action--content h5 {
-        margin: 0 0 0 12px
-    }
-
-    .user__action--introduce .user__action--content .ml-22 {
-        margin-left: 0
-    }
-
-    .user__action--introduce .user__action--content h4 {
-        font-size: 16px
-    }
-
-    .user__action--introduce .user__action--content h5 {
-        font-size: 15px;
-        margin-bottom: 5px
-    }
-
-    .user__action--introduce .user__action--content h6 {
-        margin-left: 10px;
-        font-size: 12px
-    }
-
-    .user__action--introduce .user__action--content .fa-pencil-alt {
-        font-size: 1rem;
-        margin-left: 5px
-    }
-}
-.user__action--introduce .user__action--media {
-    padding-top: 7px;
-    text-align: center;
-    margin: 5px 0 10px
-}
-@media screen and (max-width: 425px) {
-    .user__action--introduce .user__action--media {
-        padding:0;
-        margin: 0;
-        position: absolute;
-        bottom: 8px;
-        right: 4px
-    }
-
-    .user__action--introduce .user__action--media .icon-wrap a i {
-        font-size: 12px;
-        line-height: 21px;
-        width: 21px;
-        height: 21px
-    }
-
-    .user__action--introduce .user__action--media .icon-wrap a img {
-        width: 21px;
-        height: 21px;
-        margin-top: -1px
-    }
-}
-.user__action--introduce .user__action--info {
-    text-align: center;
-    margin: 15px 0 5px
-}
-@media screen and (max-width: 425px) {
-    .user__action--introduce .user__action--info {
-        margin:0 0 0 12px;
-        text-align: left
-    }
-
-    .user__action--introduce .user__action--info p {
-        margin: 0;
-        font-size: 11px
-    }
-}
-.user__link {
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #f0f0f0;
-    color: #333;
-    font-weight: bold;
-    text-decoration: none;
-    display: inline-block;
-}
-
-

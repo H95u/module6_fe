@@ -8,7 +8,7 @@ import {
     MenuList,
     MenuItem,
     Avatar,
-    Input
+    Input, IconButton
 } from "@material-tailwind/react";
 import {
     UserCircleIcon,
@@ -23,6 +23,7 @@ import {
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import RechargeModal from "../recharge-modal/RechargeModal";
+import {HomeIcon} from "@heroicons/react/24/solid";
 
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
@@ -283,12 +284,21 @@ export function ComplexNavbar() {
                 </div>
                 <div className="absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 lg:block">
                     <Link to={"/"}>
-                        <i style={{fontSize: "50px"}} className="bi bi-house-heart icon-hover cursor-pointer"></i>
+                        <IconButton color="pink">
+                            <HomeIcon className="h-10 w-10"/>
+                        </IconButton>
                     </Link>
                 </div>
-                <div className="absolute top-2/4 right-0 -translate-y-2/4 mr-24">
-                    <i style={{fontSize: "45px"}} className="bi bi-bell icon-hover cursor-pointer"></i>
+                <div className="absolute top-2/4 right-28 -translate-y-2/4 mr-24">
+                    <Typography variant={"h4"} color={"pink"}>
+                       Cupid - Kết nối yêu thương
+                    </Typography>
                 </div>
+                {loggingUser != null ? <div className="absolute top-2/4 right-0 -translate-y-2/4 mr-24">
+                    <IconButton color="blue">
+                        <BellIcon className="h-10 w-10"/>
+                    </IconButton>
+                </div> : ""}
                 {loggingUser != null ? <ProfileMenu/> : <LoginButton/>}
             </div>
         </Navbar>

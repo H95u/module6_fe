@@ -97,7 +97,7 @@ export default function Content() {
     function generateSearchTitle() {
         return <div className={"row"}>
             <div className={"col-lg-1"}>
-                <img className={"h-10 w-10 rounded-full mx-auto mt-8"} src={`/banner/${optionChoose.image}`}/>
+                <img className={"h-10 w-10 mx-auto mt-8"} src={`/banner/${optionChoose.image}`}/>
             </div>
             <div className={"col-lg-11"}>
                 <Typography variant="h3" color="pink" className="mb-10 mt-8" textGradient>

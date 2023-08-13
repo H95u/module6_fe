@@ -4,6 +4,7 @@ import "./SidebarTop3.css";
 import MenuBar from "../user-info/MenuBar";
 import {Typography, Spinner} from "@material-tailwind/react";
 import "./Top3.css"
+import {Link} from "react-router-dom";
 
 const Top3RecentRenters = ({selectedUserId}) => {
     const [top3RecentRenters, setTop3RecentRenters] = useState([]);
@@ -45,7 +46,7 @@ const Top3RecentRenters = ({selectedUserId}) => {
             >
                 Top 3 người thuê gần nhất
             </Typography>
-            {top3RecentRenters.length > 0 ? top3RecentRenters.map((renter) => {
+            {top3RecentRenters.length > 0 ? top3RecentRenters.map((renter, index) => {
                 const endTimes = new Date(renter.endTime);
                 const currentTime = new Date();
                 const duration = Math.floor(
@@ -60,57 +61,64 @@ const Top3RecentRenters = ({selectedUserId}) => {
                 }
 
                 return (
-                    <div
-                        className="group-main-wrap col-md-6"
-                        key={renter.id}
-                    >
-                        <div className="user__action--introduce">
-                            <div className="container-fluid user__player false">
-                                <div className="user__page--info media">
-                                    <div className="media-left">
-                                        <img
-                                            src={renter.bookingUser.img}
-                                            className="h-10 w-10 mt-2 rounded-full"
-                                            alt="PD"
-                                        />
+                    <Link to={`/user/${renter.bookingUser.id}`}>
+                        <div
+                            className="group-main-wrap col-md-6"
+                            key={renter.id}
+                        >
+                            <div className="user__action--introduce">
+                                <div className="container-fluid user__player false">
+                                <span className="ranking-position">
+                                           {index === 0 ? <i className="bi bi-1-square"></i> : null}
+                                    {index === 1 ? <i className="bi bi-2-square"></i> : null}
+                                    {index === 2 ? <i className="bi bi-3-square"></i> : null}
+                                      </span>
+                                    <div className="user__page--info media">
+                                        <div className="media-left">
+                                            <img
+                                                src={renter.bookingUser.img}
+                                                className="h-10 w-10 mt-2 rounded-full"
+                                                alt="PD"
+                                            />
 
-                                    </div>
-                                    <div className="media-body">
-                                        <h5 className="media-heading">
-                                            {renter.bookingUser.username}
-                                            <span> · {renter.bookingUser.nickname}</span>
-                                            <span> · {getGenderString(renter.bookingUser.gender)}</span>
-                                        </h5>
-                                        <p className="media-last-time">
-                                            <span className={`status-stop ${statusColor}`}></span>
-                                        </p>
-                                        <p className="media-rentals">
-                                            Người thuê gần
-                                            nhất: {new Date(renter.endTime).toLocaleString(undefined, {
-                                            year: 'numeric',
-                                            month: 'numeric',
-                                            day: 'numeric',
-                                            hour: '2-digit',
-                                            minute: '2-digit',
-                                            hour24: true + "PM"
-                                        })}
-                                        </p>
-                                        <span>{duration} giờ trước</span>
-                                    </div>
-                                    <div className="media-right">
-                                        <button
-                                            className="btn btn-default"
-                                            fdprocessedid={""}
-                                        >
-                                            <i className="fas fa-minus-circle"></i>{" "}
-                                            <span>Hủy theo dõi</span>
-                                        </button>
+                                        </div>
+                                        <div className="media-body">
+                                            <h5 className="media-heading">
+                                                {renter.bookingUser.username}
+                                                <span> · {renter.bookingUser.nickname}</span>
+                                                <span> · {getGenderString(renter.bookingUser.gender)}</span>
+                                            </h5>
+                                            <p className="media-last-time">
+                                                <span className={`status-stop ${statusColor}`}></span>
+                                            </p>
+                                            <p className="media-rentals">
+                                                Người thuê gần
+                                                nhất: {new Date(renter.endTime).toLocaleString(undefined, {
+                                                year: 'numeric',
+                                                month: 'numeric',
+                                                day: 'numeric',
+                                                hour: '2-digit',
+                                                minute: '2-digit',
+                                                hour24: true + "PM"
+                                            })}
+                                            </p>
+                                            <p>{duration} giờ trước</p>
+                                        </div>
+                                        <div className="media-right">
+                                            <button
+                                                className="btn btn-default"
+                                                fdprocessedid={""}
+                                            >
+                                                <i className="fas fa-minus-circle"></i>{" "}
+                                                <span>Hủy theo dõi</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                );
+                    </Link>
+                        );
             }) : ""
             }
         </>
