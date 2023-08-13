@@ -50,24 +50,14 @@ const ViewRent = () => {
             case 2:
                 return `<p class="text-success">Đã xác nhận</p>`;
             case 3:
+                return `<p class="text-info">Đã hoàn thành</p>`;
+            case 4:
                 return `<p class="text-danger">Đã hủy</p>`;
             default:
                 return "Trạng thái không xác định";
         }
     }
 
-    const getUserStatusString = (status) => {
-        switch (status) {
-            case 1:
-                return `<p class="text-secondary">Chờ phản hồi</p>`;
-            case 2:
-                return `<button title="Trạng thái: Xác nhận" class="btn btn-info">Hoàn thành</button>`;
-            case 3:
-                return `<p class="text-success">Đã hoàn thành</p>`;
-            default:
-                return "Trạng thái không xác định";
-        }
-    }
 
     const handleClickAccept = (bookingId) => {
         axios.put(`http://localhost:8080/api/bookings/accept/${bookingId}`).then((response) => {
@@ -83,6 +73,24 @@ const ViewRent = () => {
                 setBookings(updatedBookings);
 
                 alert("Xác nhận thành công");
+            }
+        })
+    }
+
+    const handleClickFinish = (bookingId) => {
+        axios.put(`http://localhost:8080/api/bookings/${bookingId}/finish`).then((response) => {
+            const updatedBooking = response.data;
+
+            const index = userBookingRents.findIndex(booking => booking.id === bookingId);
+
+            if (index !== -1) {
+
+                const updatedBookings = [...userBookingRents];
+                updatedBookings[index] = updatedBooking;
+
+                setUserBookingRents(updatedBookings);
+
+                alert("Hoàn thành thành công");
             }
         })
     }
@@ -282,6 +290,7 @@ const ViewRent = () => {
                                 <th>Thời gian thuê</th>
                                 <th>Tổng đơn</th>
                                 <th className={`text-center`}>Trạng thái</th>
+                                <th className={`text-center`}>Hành động</th>
                             </tr>
                             </thead>
 
@@ -326,8 +335,19 @@ const ViewRent = () => {
                                             .format(userBookingRent.total)}</span>
                                     </td>
                                     <td className={"text-center"}>
-                                        <span dangerouslySetInnerHTML={{__html: getUserStatusString(userBookingRent.status)}}/>
+                                        <span dangerouslySetInnerHTML={{__html: getStatusString(userBookingRent.status)}}/>
                                     </td>
+                                    {userBookingRent.status === 2 &&
+                                        <td className={"text-center"}>
+                                            <button onClick={() => handleClickFinish(userBookingRent.id)}
+                                                    className={`btn-info`}>Hoàn thành</button>
+                                        </td>
+                                    }
+
+                                    {userBookingRent.status !== 2 &&
+                                        <td></td>
+                                    }
+
                                 </tr>
                             )}
 

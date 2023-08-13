@@ -3,6 +3,8 @@ import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import "./DetailUserRent.css";
 import SidebarRent from "./SidebarRent";
+import {IconButton, Tooltip} from "@material-tailwind/react";
+import {CheckIcon} from "@heroicons/react/20/solid";
 
 export default function DetailUserRent() {
     const [userBookingRent, setUserBookingRent] = useState({});
@@ -18,6 +20,13 @@ export default function DetailUserRent() {
             });
     }, [id]);
 
+    const handleClickFinish = (bookingId) => {
+        axios.put(`http://localhost:8080/api/bookings/${bookingId}/finish`).then((response) => {
+            setUserBookingRent(response.data)
+            alert("Hoàn thành thành công");
+        })
+    }
+
     const handleViewRent = () => {
         navigate(`/view-transaction/${userBookingRent.bookingUser?.id}`);
     };
@@ -27,9 +36,11 @@ export default function DetailUserRent() {
             case 1:
                 return `<p class="text-secondary">Chờ phản hồi</p>`;
             case 2:
-                return `<button class="btn-info">Hoàn thành</button>`;
+                return `<p class="text-success">Xác nhận</p>`;
             case 3:
-                return `<p class="text-success">Đã hoàn thành</p>`;
+                return `<p class="text-info">Đã hoàn thành</p>`;
+            case 3:
+                return `<p class="text-danger">Bị hủy</p>`;
             default:
                 return "Trạng thái không xác định";
         }
@@ -61,7 +72,8 @@ export default function DetailUserRent() {
                                              className="partner-avatar"/>
                                     </div>
                                     <div className={`partner-name`}>
-                                        <p><i className="bi bi-person"></i>&ensp;{userBookingRent.bookedUser?.username}</p>
+                                        <p><i className="bi bi-person"></i>&ensp;{userBookingRent.bookedUser?.username}
+                                        </p>
                                     </div>
                                 </div>
 
@@ -125,8 +137,19 @@ export default function DetailUserRent() {
                                         <div className={`col-md-6 user-time`}>
                                             <h5>Trạng thái</h5>
                                         </div>
-                                        <div className={`col-md-6 user-time`}>
-                                                <span dangerouslySetInnerHTML={{__html: getStatus(userBookingRent.status)}}/>
+                                        <div className={`col-md-6 user-time d-flex`}>
+                                            <span
+                                                dangerouslySetInnerHTML={{__html: getStatus(userBookingRent.status)}}/>
+                                            {userBookingRent.status === 2 &&
+                                                <Tooltip content="Hoàn thành" className={`icon-accept`}>
+                                                    <IconButton className={`icon-accept`}
+                                                        variant="text" color="green"
+                                                        onClick={() => handleClickFinish(userBookingRent.id)}
+                                                    >
+                                                        <CheckIcon className="h-4 w-4"/>
+                                                    </IconButton>
+                                                </Tooltip>
+                                            }
                                         </div>
                                     </div>
                                     <hr className={`hr1`}/>

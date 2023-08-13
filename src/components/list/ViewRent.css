@@ -80,4 +80,10 @@
     padding-top: 7px;
     padding-left: 5px;
 }
-
+.rent-user .list-rent .btn-info {
+    height: 30px;
+    width: 90px;
+    border-radius: 5px;
+    background: #03bdc2;
+    color: black;
+}
