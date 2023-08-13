@@ -12,15 +12,18 @@ export default function Feedback() {
     const [feedbacks, setFeedbacks] = useState([]);
     const [message, setMessage] = useState("");
     const [rating, setRating] = useState(0);
-    const [reload, setReload] = useState(false);
     const [active, setActive] = React.useState(1);
+    const [reload, setReload] = useState(false);
 
     const {id} = useParams();
 
     useEffect(() => {
         FeedbackService.getFeedbackByReceiverId(id)
             .then(response => {
-                setFeedbacks(response.data);
+                const sortedFeedbacks = response.data.sort((a, b) => {
+                    return new Date(b.presentTime) - new Date(a.presentTime);
+                });
+                setFeedbacks(sortedFeedbacks);
             })
             .catch(error => {
                 console.error('Lỗi khi tìm nạp phản hồi:', error);
@@ -46,7 +49,7 @@ export default function Feedback() {
                     setFeedbacks([...feedbacks, response.data]);
                     setMessage("");
                     setRating(0);
-                    setReload(!reload)
+                    setReload(!reload);
                 })
                 .catch((error) => {
                     console.error("Lỗi khi gửi phản hồi:", error);
