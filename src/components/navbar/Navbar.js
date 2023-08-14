@@ -20,10 +20,12 @@ import {
     EyeIcon,
     BellIcon
 } from "@heroicons/react/24/outline";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, BrowserRouter as Router, Route, useNavigate, Routes} from 'react-router-dom';
 import axios from "axios";
 import RechargeModal from "../recharge-modal/RechargeModal";
 import {HomeIcon} from "@heroicons/react/24/solid";
+import SearchLogin from "../search/SearchLogin";
+import ViewAllLink from "../search/ViewAllLink";
 
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
@@ -203,6 +205,7 @@ export function ComplexNavbar() {
 
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
+    const [suggestions, setSuggestions] = useState([]);
     const [showPopover, setShowPopover] = useState(false);
     const [searchInputValue, setSearchInputValue] = useState("");
     const [autocompleteResults, setAutocompleteResults] = useState([]);
@@ -225,6 +228,7 @@ export function ComplexNavbar() {
         const results = users.filter((user) =>
             user.username.toLowerCase().includes(newValue.toLowerCase())
         );
+        setSuggestions(results);
         setAutocompleteResults(results.slice(0, maxResults));
 
         setShowPopover(newValue !== "" && results.length > 0);
@@ -264,7 +268,8 @@ export function ComplexNavbar() {
                                 {autocompleteResults.map((user) => (
                                     <tr key={user.id} className="p-2">
                                         <Link to={`/user/${user.id}`} onClick={handleLinkClick}>
-                                            <td><img className={"h-10 w-10 rounded-full"} src={user.img}/></td>
+                                            <td><img alt={"..."} className={"h-10 w-10 rounded-full"} src={user.img}/>
+                                            </td>
                                             <td>{user.username}</td>
                                         </Link>
                                     </tr>
@@ -273,7 +278,7 @@ export function ComplexNavbar() {
                                 {autocompleteResults.length > 0 && (
                                     <tr>
                                         <td className="text-center">
-                                            <Link to="/view-all">Xem tất cả</Link>
+                                            <Link to={`/view-all?name=${searchInputValue}`}>Xem tất cả</Link>
                                         </td>
                                     </tr>
                                 )}
@@ -291,7 +296,7 @@ export function ComplexNavbar() {
                 </div>
                 <div className="absolute top-2/4 right-28 -translate-y-2/4 mr-24">
                     <Typography variant={"h4"} color={"pink"}>
-                       Cupid - Kết nối yêu thương
+                        Cupid - Kết nối yêu thương
                     </Typography>
                 </div>
                 {loggingUser != null ? <div className="absolute top-2/4 right-0 -translate-y-2/4 mr-24">

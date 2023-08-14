@@ -1,6 +1,6 @@
 /* Phần styling cho thông tin người dùng */
 .user__page {
-    padding: 10px!important;
+    padding: 10px !important;
     border-radius: 4px;
     background: #fff;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1), 5px 10px 15px rgba(0, 128, 128, 0.5);

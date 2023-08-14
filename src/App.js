@@ -17,6 +17,7 @@ import SidebarTop3 from "./components/top3BookingUser/SidebarTop3";
 import MenuBar from "./components/user-info/MenuBar";
 import DetailUserRent from "./components/list/DetailUserRent";
 import SendMessageModal from "./components/messageForUser/SendMessageModal";
+
 export default function App() {
     return (
         <>
@@ -30,16 +31,13 @@ export default function App() {
                     <Route path={"/login"} element={<Login/>}></Route>
                     <Route path={"/user/:id"} element={<PartnerInfo/>}></Route>
                     <Route path={"/user-info"} element={<UserInfo/>}></Route>
-                    <Route path={"/search"} element={<SearchLogin/>}></Route>
-                    <Route path={"/search_filter"} element={<SearchFilter/>}></Route>
                     <Route path={"/edit-info"} element={<EditPartnerInfo/>}></Route>
-                    <Route path={"/home-renters"} element={<HomePageRenter/>}></Route>
-                    <Route path={"/home-recent"} element={<HomePageRecent/>}></Route>
                     <Route path={"/detail-rent/:id"} element={<DetailRent/>}></Route>
                     <Route path={"/detail-user-rent/:id"} element={<DetailUserRent/>}></Route>
                     <Route path={"/view-transaction/:id"} element={<MenuBar/>}></Route>
                     <Route path={"/sidebar"} element={<SidebarTop3/>}></Route>
                     <Route path={"/message"} element={<SendMessageModal/>}></Route>
+                    <Route path={"/view-all"} element={<SearchLogin/>}></Route>
                 </Routes>
             </BrowserRouter>
         </>
