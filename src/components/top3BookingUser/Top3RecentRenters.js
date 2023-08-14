@@ -62,6 +62,7 @@ const Top3RecentRenters = ({selectedUserId}) => {
 
                 return (
                     <Link to={`/user/${renter.bookingUser.id}`}>
+<<<<<<< HEAD
                         <div
                             className="group-main-wrap col-md-6"
                             key={renter.id}
@@ -80,6 +81,21 @@ const Top3RecentRenters = ({selectedUserId}) => {
                                                 className="h-10 w-10 mt-2 rounded-full"
                                                 alt="PD"
                                             />
+=======
+                    <div
+                        className="group-main-wrap col-md-6"
+                        key={renter.id}
+                    >
+                        <div className="user__action--introduce">
+                            <div className="container-fluid user__player false">
+                                <div className="user__page--info media">
+                                    <div className="media-left">
+                                        <img
+                                            src={renter.bookingUser.img}
+                                            className="h-10 w-10 mt-2 rounded-full"
+                                            alt="PD"
+                                        />
+>>>>>>> tung1196
 
                                         </div>
                                         <div className="media-body">
@@ -117,8 +133,14 @@ const Top3RecentRenters = ({selectedUserId}) => {
                                 </div>
                             </div>
                         </div>
+<<<<<<< HEAD
                     </Link>
                         );
+=======
+                    </div>
+                    </Link>
+                );
+>>>>>>> tung1196
             }) : ""
             }
         </>
