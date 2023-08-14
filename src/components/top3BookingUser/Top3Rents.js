@@ -95,15 +95,15 @@ const Top3Renters = ({selectedUserId}) => {
                                                     Số lần thuê: {renter.bookingCount}
                                                 </p>
                                             </div>
-                                            <div className="media-right">
-                                                {/*<button*/}
-                                                {/*    className="btn btn-default"*/}
-                                                {/*    fdprocessedid={""}*/}
-                                                {/*>*/}
-                                                {/*    <i className="fas fa-minus-circle"></i>{" "}*/}
-                                                {/*    <span>Hủy theo dõi</span>*/}
-                                                {/*</button>*/}
-                                            </div>
+                                            {/*<div className="media-right">*/}
+                                            {/*    /!*<button*!/*/}
+                                            {/*    /!*    className="btn btn-default"*!/*/}
+                                            {/*    /!*    fdprocessedid={""}*!/*/}
+                                            {/*    /!*>*!/*/}
+                                            {/*    /!*    <i className="fas fa-minus-circle"></i>{" "}*!/*/}
+                                            {/*    /!*    <span>Hủy theo dõi</span>*!/*/}
+                                            {/*    /!*</button>*!/*/}
+                                            {/*</div>*/}
                                         </div>
                                     </div>
                                 </div>

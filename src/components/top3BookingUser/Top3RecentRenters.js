@@ -106,15 +106,15 @@ const Top3RecentRenters = ({selectedUserId}) => {
                                         </p>
                                         <span>{duration} giờ trước</span>
                                     </div>
-                                    <div className="media-right">
-                                        <button
-                                            className="btn btn-default"
-                                            fdprocessedid={""}
-                                        >
-                                            <i className="fas fa-minus-circle"></i>{" "}
-                                            <span>Hủy theo dõi</span>
-                                        </button>
-                                    </div>
+                                    {/*<div className="media-right">*/}
+                                    {/*    <button*/}
+                                    {/*        className="btn btn-default"*/}
+                                    {/*        fdprocessedid={""}*/}
+                                    {/*    >*/}
+                                    {/*        <i className="fas fa-minus-circle"></i>{" "}*/}
+                                    {/*        <span>Hủy theo dõi</span>*/}
+                                    {/*    </button>*/}
+                                    {/*</div>*/}
                                 </div>
                             </div>
                         </div>
