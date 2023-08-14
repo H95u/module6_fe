@@ -17,14 +17,54 @@ import {
     CurrencyDollarIcon
 } from "@heroicons/react/20/solid";
 import {Link} from "react-router-dom";
+import Modal from "react-bootstrap/Modal";
+import * as Yup from "yup";
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import Swal from "sweetalert2";
 
 
 const ViewRent = () => {
     const [bookings, setBookings] = useState([]);
+    const [report, setReport] = useState({});
     const [userBookingRents, setUserBookingRents] = useState([]);
     const [tooltipVisible, setTooltipVisible] = useState(false);
     const {id} = useParams();
     const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
+    const [show, setShow] = useState(false);
+
+    const [initialValueReport, setInitialValueReport] = useState({
+        description: "",
+        bookedUserId: null,
+        bookingUserId: null,
+        bookingUserName: ""
+    })
+    const handleClose = () => setShow(false);
+    const handleShow = (booking) => {
+        setShow(true);
+        setInitialValueReport({
+            description: "",
+            bookedUserId: loggingUser.id,
+            bookingUserId: booking.bookingUser.id,
+            bookingUserName: booking.bookingUser.username
+        });
+    }
+    const validationOfReport = Yup.object({
+        description: Yup.string().min(3, "Tối thiệu 3 kí tự").required("Nội dung là bắt buộc")
+    });
+
+    const handleSubmit = (value) => {
+        console.log('handleSubmit', value)
+        axios.post("http://localhost:8080/api/reports", value).then((res) => {
+            console.log("report--------->", res.data)
+            setReport(res.data)
+            Swal.fire({
+                title: "Cảm ơn bạn đã phản hồi, ý kiến của bạn đang chờ duyệt!",
+                icon: "success",
+                confirmButtonText: "OK"
+            })
+            handleClose();
+        })
+    };
 
 
     useEffect(() => {
@@ -278,8 +318,7 @@ const ViewRent = () => {
                                                     {booking.status === 3 ?
                                                         <Tooltip content="Báo cáo" show={tooltipVisible}>
                                                             <IconButton variant="text" color="blue-gray"
-                                                                // onClick={() => handleClickReject(booking.id)}
-                                                            >
+                                                                        onClick={() => handleShow(booking)}>
                                                                 <BugAntIcon className="h-4 w-4"/>
                                                             </IconButton>
                                                         </Tooltip>
@@ -386,6 +425,38 @@ const ViewRent = () => {
                     </div>
                 </>
             }
+
+            <Modal show={show} onHide={handleClose} className={`report-container`}>
+                <Modal.Header>
+                    <Modal.Title>Báo cáo người thuê</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Formik initialValues={initialValueReport} onSubmit={handleSubmit}
+                            enableReinitialize={true}
+                            validationSchema={validationOfReport}>
+                        <Form>
+                            <div className="mb-3 d-flex report">
+                                <label htmlFor={'bookingUser'} className={'form-label'}>Người thuê:</label>
+                                <Field name={'bookingUserName'} className={'form-control bookingUserName'}
+                                       id={'bookingUserName'} disabled />
+                            </div>
+                            <div className="mb-3 report">
+                                <label htmlFor={'description'} className={'form-label'}>
+                                    <span style={{color: "red"}}>*</span> Nội dung</label>
+                                <Field as={`textarea`} name={'description'} className={'form-control'}
+                                       id={'description'}
+                                       placeholder={'Nội dung báo cáo'}/>
+                                <span style={{color: "red"}}><ErrorMessage className={'error'}
+                                                                           name={'description'}/></span>
+                            </div>
+                            <div className={`report-button`}>
+                                <button className={"btn btn-danger"}>Báo cáo</button>&ensp;
+                                <button className={"btn btn-secondary"} onClick={handleClose}>Quay lại</button>
+                            </div>
+                        </Form>
+                    </Formik>
+                </Modal.Body>
+            </Modal>
 
         </>
     );
