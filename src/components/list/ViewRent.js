@@ -9,7 +9,7 @@ import {
     IconButton,
 } from "@material-tailwind/react";
 import {useParams} from "react-router-dom";
-import {CheckIcon, XMarkIcon, CurrencyDollarIcon, BugAntIcon} from "@heroicons/react/20/solid";
+import {CheckIcon, XMarkIcon, ChatBubbleBottomCenterIcon, BugAntIcon} from "@heroicons/react/20/solid";
 import {Link} from "react-router-dom";
 
 
@@ -262,6 +262,12 @@ const ViewRent = () => {
                                                             <BugAntIcon className="h-4 w-4"/>
                                                         </IconButton>
                                                     </Tooltip>
+                                                    <Tooltip content="Chat" show={tooltipVisible}>
+                                                        <IconButton variant="text" color="blue-gray">
+                                                            <ChatBubbleBottomCenterIcon className="h-4 w-4"/>
+                                                        </IconButton>
+                                                    </Tooltip>
+
                                                 </PopoverContent>
                                             </Popover>
                                         </td>
@@ -276,39 +282,39 @@ const ViewRent = () => {
 
 
             {loggingUser.status === 0 &&
-            <>
-                <div className={"col-lg-9 rent-user"}>
-                    <div className={`title`}>
-                        <p>Danh sách đơn</p>
-                    </div>
-                    <div className={`list-rent`}>
-                        <table className={`table table-hover`}>
-                            <thead>
-                            <tr>
-                                <th>Người bạn thuê</th>
-                                <th>Ngày thuê</th>
-                                <th>Thời gian thuê</th>
-                                <th>Tổng đơn</th>
-                                <th className={`text-center`}>Trạng thái</th>
-                                <th className={`text-center`}>Hành động</th>
-                            </tr>
-                            </thead>
+                <>
+                    <div className={"col-lg-9 rent-user"}>
+                        <div className={`title`}>
+                            <p>Danh sách đơn</p>
+                        </div>
+                        <div className={`list-rent`}>
+                            <table className={`table table-hover`}>
+                                <thead>
+                                <tr>
+                                    <th>Người bạn thuê</th>
+                                    <th>Ngày thuê</th>
+                                    <th>Thời gian thuê</th>
+                                    <th>Tổng đơn</th>
+                                    <th className={`text-center`}>Trạng thái</th>
+                                    <th className={`text-center`}>Hành động</th>
+                                </tr>
+                                </thead>
 
-                            <tbody>
-                            {userBookingRents.map(userBookingRent =>
-                                <tr key={userBookingRent.id} className={`row-rent`}>
-                                    <td>
-                                        <div className="partner_info">
-                                            <Link to={`/detail-user-rent/${userBookingRent.id}`}>
-                                                <img src={userBookingRent.bookedUser?.img} alt="Avatar"
-                                                     className="user-avatar"/>
-                                            </Link>
-                                            <div className="fill-name">
-                                                {userBookingRent.bookedUser?.username}
+                                <tbody>
+                                {userBookingRents.map(userBookingRent =>
+                                    <tr key={userBookingRent.id} className={`row-rent`}>
+                                        <td>
+                                            <div className="partner_info">
+                                                <Link to={`/detail-user-rent/${userBookingRent.id}`}>
+                                                    <img src={userBookingRent.bookedUser?.img} alt="Avatar"
+                                                         className="user-avatar"/>
+                                                </Link>
+                                                <div className="fill-name">
+                                                    {userBookingRent.bookedUser?.username}
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
+                                        </td>
+                                        <td>
                                             <span>
                                                 {new Date(userBookingRent.startTime).toLocaleString(undefined, {
                                                     year: 'numeric',
@@ -316,8 +322,8 @@ const ViewRent = () => {
                                                     day: 'numeric',
                                                 })}
                                             </span>
-                                    </td>
-                                    <td>
+                                        </td>
+                                        <td>
                                             <span>{(() => {
                                                 const start = new Date(userBookingRent.startTime);
                                                 const end = new Date(userBookingRent.endTime);
@@ -328,34 +334,36 @@ const ViewRent = () => {
 
                                                 return `${hours} giờ ${minutes} phút`;
                                             })()}</span>
-                                    </td>
-                                    <td>
-                                        <span>{new Intl.NumberFormat('vi-VN',
-                                            { style: 'currency', currency: 'VND' })
-                                            .format(userBookingRent.total)}</span>
-                                    </td>
-                                    <td className={"text-center"}>
-                                        <span dangerouslySetInnerHTML={{__html: getStatusString(userBookingRent.status)}}/>
-                                    </td>
-                                    {userBookingRent.status === 2 &&
-                                        <td className={"text-center"}>
-                                            <button onClick={() => handleClickFinish(userBookingRent.id)}
-                                                    className={`btn-info`}>Hoàn thành</button>
                                         </td>
-                                    }
+                                        <td>
+                                        <span>{new Intl.NumberFormat('vi-VN',
+                                            {style: 'currency', currency: 'VND'})
+                                            .format(userBookingRent.total)}</span>
+                                        </td>
+                                        <td className={"text-center"}>
+                                            <span
+                                                dangerouslySetInnerHTML={{__html: getStatusString(userBookingRent.status)}}/>
+                                        </td>
+                                        {userBookingRent.status === 2 &&
+                                            <td className={"text-center"}>
+                                                <button onClick={() => handleClickFinish(userBookingRent.id)}
+                                                        className={`btn-info`}>Hoàn thành
+                                                </button>
+                                            </td>
+                                        }
 
-                                    {userBookingRent.status !== 2 &&
-                                        <td></td>
-                                    }
+                                        {userBookingRent.status !== 2 &&
+                                            <td></td>
+                                        }
 
-                                </tr>
-                            )}
+                                    </tr>
+                                )}
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-            </>
+                </>
             }
 
         </>
