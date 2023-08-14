@@ -203,7 +203,6 @@ export function ComplexNavbar() {
 
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
-    const [suggestions, setSuggestions] = useState([]);
     const [showPopover, setShowPopover] = useState(false);
     const [searchInputValue, setSearchInputValue] = useState("");
     const [autocompleteResults, setAutocompleteResults] = useState([]);
@@ -226,7 +225,6 @@ export function ComplexNavbar() {
         const results = users.filter((user) =>
             user.username.toLowerCase().includes(newValue.toLowerCase())
         );
-        setSuggestions(results);
         setAutocompleteResults(results.slice(0, maxResults));
 
         setShowPopover(newValue !== "" && results.length > 0);
@@ -276,7 +274,9 @@ export function ComplexNavbar() {
                                 {autocompleteResults.length > 0 && (
                                     <tr>
                                         <td className="text-center">
-                                            <Link to={`/view-all?name=${searchInputValue}`}>Xem tất cả</Link>
+                                            <Link onClick={handleLinkClick} to={`/view-all?name=${searchInputValue}`}>
+                                                Xem tất cả
+                                            </Link>
                                         </td>
                                     </tr>
                                 )}
@@ -293,7 +293,7 @@ export function ComplexNavbar() {
                     </Link>
                 </div>
                 <div className="absolute top-2/4 right-28 -translate-y-2/4 mr-24">
-                    <Typography variant={"h4"} color={"pink"}>
+                    <Typography variant={"h4"} color={"pink"} className={"italic font-light"}>
                         Cupid - Kết nối yêu thương
                     </Typography>
                 </div>

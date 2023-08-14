@@ -63,3 +63,10 @@
     max-width: 115px;
     font-weight: 600;
 }
+
+.view-detail {
+    position: absolute;
+    margin-left: 5.5rem;
+    margin-top: 9rem;
+    color: white;
+}

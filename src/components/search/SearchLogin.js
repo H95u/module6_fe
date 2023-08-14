@@ -1,14 +1,24 @@
 import React, {useEffect, useState} from "react";
 import "./Search.css";
+import axios from "axios";
+import {Link, useLocation} from "react-router-dom";
 
-const SearchLogin = (props) => {
+const SearchLogin = () => {
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const name = searchParams.get("name");
+
     const [allUsers, setAllUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
-    console.log(props.suggestions)
+    const getUsers = () => {
+        axios.get(`http://localhost:8080/api/users/search?username=${name}`).then((response) => {
+            setAllUsers(response.data);
+        });
+    };
     useEffect(() => {
-        setAllUsers(props.suggestions);
-    }, [props.suggestions]);
+        getUsers();
+    }, [name]);
 
     const getCurrentPageItems = () => {
         const startIndex = (currentPage - 1) * itemsPerPage;
@@ -17,12 +27,26 @@ const SearchLogin = (props) => {
     };
 
     return (
-        <div className={"see-all-container"}>
+        <div>
             {allUsers.length > 0 && (
                 <>
                     {getCurrentPageItems().map((user) => (
-                        <div key={user.id}>
-                            {/* JSX của mỗi user */}
+                        <div key={user.id} className={"mt-2"}>
+                            <div className="container-fluid user__page false">
+                                <div className="user__page--info media" id={"page_info"}>
+                                    <Link to={`/user/${user.id}`}>
+                                        <div className="media-left">
+                                            {user.img && <img src={user.img} className="media-object" alt="PD"/>}
+
+                                        </div>
+                                        <div className="media-body">
+                                            <h5 className="media-heading">
+                                                <a href="">{user.username}</a>
+                                            </h5>
+                                        </div>
+                                    </Link>
+                                </div>
+                            </div>
                         </div>
                     ))}
                     <div className="page_account">

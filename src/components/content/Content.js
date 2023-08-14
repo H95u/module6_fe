@@ -10,7 +10,7 @@ import {
     CardBody,
     CardFooter,
     Typography,
-    Button,
+    Button, Tooltip, Avatar,
 } from "@material-tailwind/react";
 import Swal from "sweetalert2";
 import "./Content.css"
@@ -27,7 +27,6 @@ export default function Content() {
 
     const getUsers = () => {
         axios.get(`http://localhost:8080/api/users`).then((response) => {
-            console.log(response.data)
             setUsers(response.data);
         });
     };
@@ -42,7 +41,6 @@ export default function Content() {
         ageRange: [18, 60],
     });
     const filterHandle = (filterForm) => {
-        console.log(filterForm);
 
         const filterDTO = {
             gender: filterForm.gender,
@@ -62,7 +60,6 @@ export default function Content() {
             });
     };
     const searchByOption = (optionId) => {
-        console.log(optionId);
         axios.post(`http://localhost:8080/api/filter/option/${optionId}`)
             .then((response) => {
                 const option = response.data[0].options.find(opt => opt.id == optionId);

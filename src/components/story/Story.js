@@ -8,7 +8,7 @@ export default function Story() {
     const [vipLovers, setVipLovers] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/users/all').then((response) => {
+        axios.get('http://localhost:8080/api/users/sort-by-view-count-desc').then((response) => {
             setVipLovers(response.data);
         });
     }, []);
@@ -16,12 +16,16 @@ export default function Story() {
     return (
         <>
             <Typography variant="h3" color="red" className="ml-4" textGradient>
-                Vip Lovers
+               Được quan tâm nhiều nhất
             </Typography>
             <div className="wrapper">
                 {vipLovers.map((item, index) => (
                     <div key={index} className="action_box--list">
                         <Link to={`/user/${item.id}`}>
+                            <div className={"view-detail"}>
+                                <i className="bi bi-eye"></i> &nbsp;
+                                <span>{item.viewCount}</span>
+                            </div>
                             <div className="box-item">
                                 <img src={item.img} alt="PD" id="avt-img-reponsiver"/>
                             </div>
@@ -29,7 +33,9 @@ export default function Story() {
                                 <div className="avt-rank avt-sm">
                                     <img src={item.img} alt="PD" className="avt-1-15 avt-img"/>
                                 </div>
-                                <p>{item.nickname}</p>
+                                <Typography variant={"h5"} className={"ml-4 mt-2 font-medium"}>
+                                    {item.username}
+                                </Typography>
                             </div>
                         </Link>
                     </div>
