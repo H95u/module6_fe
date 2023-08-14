@@ -34,7 +34,7 @@ export default function DetailUserRent() {
     const getStatus = (status) => {
         switch (status) {
             case 1:
-                return `<p class="text-secondary">Chờ phản hồi</p>`;
+                return `<p class="text-warning">Chờ phản hồi</p>`;
             case 2:
                 return `<p class="text-success">Xác nhận</p>`;
             case 3:
@@ -42,7 +42,7 @@ export default function DetailUserRent() {
             case 4:
                 return `<p class="text-danger">Bị hủy</p>`;
             default:
-                return "Trạng thái không xác định";
+                return `<p class="text-danger">Trạng thái không xác nhận</p>`;
         }
     }
 
