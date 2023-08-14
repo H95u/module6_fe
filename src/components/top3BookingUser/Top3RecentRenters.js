@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import "./SidebarTop3.css";
-import MenuBar from "../user-info/MenuBar";
-import {Typography, Spinner} from "@material-tailwind/react";
+import {Typography} from "@material-tailwind/react";
 import "./Top3.css"
 
 const Top3RecentRenters = ({selectedUserId}) => {
@@ -45,7 +44,7 @@ const Top3RecentRenters = ({selectedUserId}) => {
             >
                 Top 3 người thuê gần nhất
             </Typography>
-            {top3RecentRenters.length > 0 ? top3RecentRenters.map((renter) => {
+            {top3RecentRenters.length > 0 ? top3RecentRenters.map((renter,index) => {
                 const endTimes = new Date(renter.endTime);
                 const currentTime = new Date();
                 const duration = Math.floor(
@@ -77,9 +76,19 @@ const Top3RecentRenters = ({selectedUserId}) => {
                                     </div>
                                     <div className="media-body">
                                         <h5 className="media-heading">
-                                            {renter.bookingUser.username}
-                                            <span> · {renter.bookingUser.nickname}</span>
-                                            <span> · {getGenderString(renter.bookingUser.gender)}</span>
+                                            <span style={{color: 'red'}}><h3>Top{++index}</h3></span>
+                                            <span>
+                                                        <a
+                                                            href={""}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                        >
+                                                            Tên: {renter.bookingUser.username} &ensp;
+                                                            Biệt danh: {renter.bookingUser.nickname} &ensp;
+                                                            Giới tính: {getGenderString(renter.bookingUser.gender)} &ensp;
+                                                            Địa chỉ: {renter.bookingUser.address.name}
+                                                        </a>
+                                                        </span>
                                         </h5>
                                         <p className="media-last-time">
                                             <span className={`status-stop ${statusColor}`}></span>
