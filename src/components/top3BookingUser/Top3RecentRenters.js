@@ -3,6 +3,7 @@ import axios from "axios";
 import "./SidebarTop3.css";
 import {Typography} from "@material-tailwind/react";
 import "./Top3.css"
+import {Link} from "react-router-dom";
 
 const Top3RecentRenters = ({selectedUserId}) => {
     const [top3RecentRenters, setTop3RecentRenters] = useState([]);
@@ -59,6 +60,7 @@ const Top3RecentRenters = ({selectedUserId}) => {
                 }
 
                 return (
+                    <Link to={`/user/${renter.bookingUser.id}`}>
                     <div
                         className="group-main-wrap col-md-6"
                         key={renter.id}
@@ -119,6 +121,7 @@ const Top3RecentRenters = ({selectedUserId}) => {
                             </div>
                         </div>
                     </div>
+                    </Link>
                 );
             }) : ""
             }
