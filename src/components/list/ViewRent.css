@@ -85,3 +85,24 @@
     background: #03bdc2;
     color: black;
 }
+
+.report-container .report label {
+    color: dimgray;
+    font-family: initial;
+}
+
+.report-container .report input {
+    height: 40px;
+}
+.report-container .report-button {
+    float: right;
+}
+.report .bookingUserName {
+    width: 40%;
+    font-size: 20px;
+    background: white;
+    border: solid white;
+}
+.report .form-label {
+    padding-top: 5px;
+}
