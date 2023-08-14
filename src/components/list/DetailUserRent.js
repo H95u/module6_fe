@@ -42,7 +42,7 @@ export default function DetailUserRent() {
             case 4:
                 return `<p class="text-danger">Bị hủy</p>`;
             default:
-                return `<p class="text-danger">Trạng thái không xác nhận</p>`;
+                return `<p class="text-secondary">Trạng thái không xác nhận</p>`;
         }
     }
 
@@ -143,8 +143,8 @@ export default function DetailUserRent() {
                                             {userBookingRent.status === 2 &&
                                                 <Tooltip content="Hoàn thành" className={`icon-accept`}>
                                                     <IconButton className={`icon-accept`}
-                                                        variant="text" color="green"
-                                                        onClick={() => handleClickFinish(userBookingRent.id)}
+                                                                variant="text" color="green"
+                                                                onClick={() => handleClickFinish(userBookingRent.id)}
                                                     >
                                                         <CheckIcon className="h-4 w-4"/>
                                                     </IconButton>

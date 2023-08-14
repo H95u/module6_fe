@@ -34,7 +34,7 @@ export default function DetailRent() {
             case 4:
                 return `<p class="text-danger">Đã hủy</p>`;
             default:
-                return `<p class="text-danger">Trạng thái không xác nhận</p>`;
+                return `<p class="text-secondary">Trạng thái không xác nhận</p>`;
         }
     }
 
