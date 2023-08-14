@@ -1,12 +1,16 @@
-import {Popover, PopoverContent, PopoverHandler, Typography} from "@material-tailwind/react";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
+import stompClient from "../../config/socket";
 import axios from "axios";
+import {Popover, PopoverContent, PopoverHandler} from "@material-tailwind/react";
+import {Typography} from "@mui/material";
 
 export default function Message() {
     const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
 
     const [message, setMessage] = useState([]);
     const [selectedSender, setSelectedSender] = useState(null);
+    const [messageInput, setMessageInput] = useState("");
+
     const handleSenderClick = (senderId) => {
         setSelectedSender(senderId);
     };
@@ -16,32 +20,66 @@ export default function Message() {
             return <div>Chọn một người gửi để xem tin nhắn</div>;
         }
 
-        const selectedMessage = message.find((item) => item.sender.id === selectedSender);
+        const selectedMessages = message.filter((item) => item.sender.id === selectedSender);
 
-        if (!selectedMessage) {
+        if (selectedMessages.length === 0) {
             return <div>Không tìm thấy tin nhắn của người gửi này</div>;
         }
 
         return (
             <div>
-                <p>{selectedMessage.timestamp}</p>
-                <p>{selectedMessage.content}</p>
-                {/* Hiển thị các tin nhắn khác của người gửi nếu cần */}
+                {selectedMessages.map((msg) => (
+                    <div key={msg.id}>
+                        <p>{msg.timestamp}</p>
+                        <p>{msg.content}</p>
+                    </div>
+                ))}
             </div>
         );
     };
+
     const getMessage = () => {
         if (loggingUser != null) {
             const id = loggingUser.id;
             axios.get(`http://localhost:8080/api/messages/user/${id}`).then((response) => {
-                console.log(response.data)
                 setMessage(response.data);
             });
         }
     };
+
+    const handleSubmitChat = () => {
+        if (messageInput.trim() !== "") {
+            const data = {
+                message: messageInput,
+                sender: {
+                    id: loggingUser.id,
+                },
+                receiver: {
+                    id: selectedSender,
+                },
+            };
+
+            sendMessage(JSON.stringify(data));
+            setMessageInput("");
+        }
+    };
+
     useEffect(() => {
-        getMessage()
-    }, [])
+        getMessage();
+
+        stompClient.connect({}, () => {
+            stompClient.subscribe('/topic/messages', (data) => {
+                const receivedMessage = JSON.parse(data.body);
+                setMessage(prevMessages => [...prevMessages, receivedMessage]);
+            }, {});
+        }, () => {
+        });
+
+    }, []);
+
+    const sendMessage = (data) => {
+        stompClient.send("/app/chat", {}, data);
+    };
 
     return (
         <>
@@ -75,8 +113,9 @@ export default function Message() {
                                 {renderChatContent()}
                             </div>
                             <div className={"mt-80 flex items-center"}>
-                                <input className={"w-50"} placeholder="Nhập tin nhắn..." type="text"/>
-                                <button className={"send-btn ml-4"}>
+                                <input className={"w-50"} placeholder="Nhập tin nhắn..." type="text" value={messageInput}
+                                       onChange={(e) => setMessageInput(e.target.value)}/>
+                                <button className={"send-btn ml-4"} onClick={handleSubmitChat}>
                                     <div className="svg-wrapper-1">
                                         <div className="svg-wrapper">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
