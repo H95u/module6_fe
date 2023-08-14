@@ -20,7 +20,10 @@ export default function Feedback() {
     useEffect(() => {
         FeedbackService.getFeedbackByReceiverId(id)
             .then(response => {
-                setFeedbacks(response.data);
+                const sortedFeedbacks = response.data.sort((a, b) => {
+                    return new Date(b.presentTime) - new Date(a.presentTime);
+                });
+                setFeedbacks(sortedFeedbacks);
             })
             .catch(error => {
                 console.error('Lỗi khi tìm nạp phản hồi:', error);
@@ -106,7 +109,7 @@ export default function Feedback() {
                 />
             </div>
 
-            {visibleFeedbacks.reverse().map((feedback, index) =>
+            {visibleFeedbacks.map((feedback, index) =>
                 <div key={index} className={"text-center review-duo-player row"}>
                     <div className={"col-md-12"}>
                         <div className={"full-size"}>

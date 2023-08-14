@@ -7,6 +7,8 @@ import Modal from "react-bootstrap/Modal";
 import Swal from "sweetalert2";
 import Feedback from "../feedback/Feedback";
 import RechargeModal from "../recharge-modal/RechargeModal";
+import stompClient, {demo, sendMessage} from "../../services/socket.service";
+
 
 export default function PartnerInfo() {
     const navigate = useNavigate();
@@ -22,8 +24,19 @@ export default function PartnerInfo() {
     const [selectedOption, setSelectedOption] = useState(null);
     const [selectedOptionId, setSelectedOptionId] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [messageInput, setMessageInput] = useState("");
+
+    useEffect(() => {
+        stompClient.connect({}, () => {
+                stompClient.subscribe('/topic/messages', (data) => {
+                    console.log(data.body)
+                }, {})
+        }, () => {
+        })
+    },[])
 
     const openModal = () => {
+        // goi socket join
         setIsModalOpen(true);
     };
 
@@ -32,8 +45,19 @@ export default function PartnerInfo() {
     };
 
     const handleSubmitChat = () => {
-        //sẽ xử lý websocket tại đây
-        closeModal();
+        let data = {
+            message: messageInput,
+            sender: {
+                id: isLoggedIn.id,
+            },
+            receiver: {
+                id: +id
+            }
+
+        }
+        sendMessage(messageInput)
+        setMessageInput("");
+       // closeModal();
     };
 
     const handleShowRentForm = () => setShowRentForm(true);
@@ -56,6 +80,10 @@ export default function PartnerInfo() {
         setSelectedOption(selected);
         setSelectedOptionId(e.target.value);
     };
+
+    const handleChat = (e) => {
+        setMessageInput(e.target.value)
+    }
 
     const calculateTotalPrice = () => {
         if (startTime != "" && endTime != "" && selectedOption !== null) {
@@ -189,6 +217,7 @@ export default function PartnerInfo() {
             navigate("/login");
         }
     };
+
 
     return (
         <>
@@ -378,7 +407,7 @@ export default function PartnerInfo() {
                                 <Modal show={isModalOpen} onHide={closeModal}>
                                     <Modal.Header closeButton>
                                         <Modal.Title
-                                            style={{color: "deep-orange", fontWeight: "bold"}}>Chat</Modal.Title>
+                                            style={{color: "deep-orange", fontWeight: "bold"}} >Chat</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
                                         <div
@@ -425,6 +454,7 @@ export default function PartnerInfo() {
                                                 containerProps={{
                                                     className: "grid h-full",
                                                 }}
+                                                onChange={handleChat}
                                                 labelProps={{
                                                     className: "before:content-none after:content-none",
                                                 }}

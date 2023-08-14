@@ -20,31 +20,12 @@ import SendMessageModal from "./components/messageForUser/SendMessageModal";
 import {useEffect} from "react";
 import {Stomp} from "@stomp/stompjs";
 import SockJS from "sockjs-client";
+import SampleComponent from "./components/SampleComponent";
 
 export default function App() {
-
-    function onConnected() {
-        console.log('oke')
-    }
-
-    function onDisconnect() {
-
-    }
-
-    function onError(err) {
-        console.log('err')
-    }
-
-    useEffect(() => {
-        var sock = new SockJS('http://localhost:8080/api/ws');
-        let stompClient = Stomp.over(sock);
-
-        stompClient.connect({}, onConnected, onError);
-
-
-    }, [])
     return (
         <>
+
             <BrowserRouter>
                 <ComplexNavbar/>
                 <Routes>
