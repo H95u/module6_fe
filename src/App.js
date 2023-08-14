@@ -17,8 +17,32 @@ import SidebarTop3 from "./components/top3BookingUser/SidebarTop3";
 import MenuBar from "./components/user-info/MenuBar";
 import DetailUserRent from "./components/list/DetailUserRent";
 import SendMessageModal from "./components/messageForUser/SendMessageModal";
+import {useEffect} from "react";
+import {Stomp} from "@stomp/stompjs";
+import SockJS from "sockjs-client";
 
 export default function App() {
+
+    function onConnected() {
+        console.log('oke')
+    }
+
+    function onDisconnect() {
+
+    }
+
+    function onError(err) {
+        console.log('err')
+    }
+
+    useEffect(() => {
+        var sock = new SockJS('http://localhost:8080/api/ws');
+        let stompClient = Stomp.over(sock);
+
+        stompClient.connect({}, onConnected, onError);
+
+
+    }, [])
     return (
         <>
             <BrowserRouter>
