@@ -33,6 +33,7 @@
     "react-router-dom": "^6.15.0",
     "react-scripts": "5.0.1",
     "react-scroll-progress-bar": "^1.1.13",
+    "react-stomp": "^5.1.0",
     "sockjs-client": "^1.6.1",
     "sweetalert2": "^11.7.20",
     "validator": "^13.9.0",

@@ -1,7 +1,8 @@
+import SockJS from "sockjs-client";
+import {Stomp} from "@stomp/stompjs";
 
-import { Client } from '@stomp/stompjs';
+let sock = new SockJS('http://localhost:8080/api/ws');
+let stompClient = Stomp.over(sock);
+stompClient.activate();
 
-const stompClient = new Client({
-    brokerURL: 'ws://localhost:8080/ws',
-});
 export default stompClient;
