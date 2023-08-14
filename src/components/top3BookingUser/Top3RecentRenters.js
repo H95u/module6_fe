@@ -62,7 +62,6 @@ const Top3RecentRenters = ({selectedUserId}) => {
 
                 return (
                     <Link to={`/user/${renter.bookingUser.id}`}>
-<<<<<<< HEAD
                         <div
                             className="group-main-wrap col-md-6"
                             key={renter.id}
@@ -81,28 +80,23 @@ const Top3RecentRenters = ({selectedUserId}) => {
                                                 className="h-10 w-10 mt-2 rounded-full"
                                                 alt="PD"
                                             />
-=======
-                    <div
-                        className="group-main-wrap col-md-6"
-                        key={renter.id}
-                    >
-                        <div className="user__action--introduce">
-                            <div className="container-fluid user__player false">
-                                <div className="user__page--info media">
-                                    <div className="media-left">
-                                        <img
-                                            src={renter.bookingUser.img}
-                                            className="h-10 w-10 mt-2 rounded-full"
-                                            alt="PD"
-                                        />
->>>>>>> tung1196
 
                                         </div>
                                         <div className="media-body">
                                             <h5 className="media-heading">
-                                                {renter.bookingUser.username}
-                                                <span> · {renter.bookingUser.nickname}</span>
-                                                <span> · {getGenderString(renter.bookingUser.gender)}</span>
+                                                <span style={{ color: 'red' }}><h3>Top{++index}</h3></span>
+                                                <span>
+                                                        <a
+                                                            href={""}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                        >
+                                                            Tên:  {renter.bookingUser.username} &ensp;
+                                                            Biệt danh: {renter.bookingUser.nickname} &ensp;
+                                                            Giới tính: {getGenderString(renter.bookingUser.gender)} &ensp;
+                                                            Địa chỉ: {renter.bookingUser.address.name}
+                                                        </a>
+                                                        </span>
                                             </h5>
                                             <p className="media-last-time">
                                                 <span className={`status-stop ${statusColor}`}></span>
@@ -120,27 +114,21 @@ const Top3RecentRenters = ({selectedUserId}) => {
                                             </p>
                                             <p>{duration} giờ trước</p>
                                         </div>
-                                        <div className="media-right">
-                                            <button
-                                                className="btn btn-default"
-                                                fdprocessedid={""}
-                                            >
-                                                <i className="fas fa-minus-circle"></i>{" "}
-                                                <span>Hủy theo dõi</span>
-                                            </button>
-                                        </div>
+                                        {/*<div className="media-right">*/}
+                                        {/*    <button*/}
+                                        {/*        className="btn btn-default"*/}
+                                        {/*        fdprocessedid={""}*/}
+                                        {/*    >*/}
+                                        {/*        <i className="fas fa-minus-circle"></i>{" "}*/}
+                                        {/*        <span>Hủy theo dõi</span>*/}
+                                        {/*    </button>*/}
+                                        {/*</div>*/}
                                     </div>
                                 </div>
                             </div>
                         </div>
-<<<<<<< HEAD
                     </Link>
                         );
-=======
-                    </div>
-                    </Link>
-                );
->>>>>>> tung1196
             }) : ""
             }
         </>
