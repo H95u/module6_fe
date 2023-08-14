@@ -20,12 +20,10 @@ import {
     EyeIcon,
     BellIcon
 } from "@heroicons/react/24/outline";
-import {Link, BrowserRouter as Router, Route, useNavigate, Routes} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import axios from "axios";
 import RechargeModal from "../recharge-modal/RechargeModal";
 import {HomeIcon} from "@heroicons/react/24/solid";
-import SearchLogin from "../search/SearchLogin";
-import ViewAllLink from "../search/ViewAllLink";
 
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
