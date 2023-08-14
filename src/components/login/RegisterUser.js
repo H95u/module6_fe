@@ -206,7 +206,8 @@ const RegisterUser = () => {
                                                             </button>
 
                                                             <label htmlFor='password'
-                                                                   className='form-label'>Mật khẩu</label>
+                                                                   className='form-label'>Mật khẩu
+                                                            </label>
                                                             <Field type={showPassword ? 'text' : 'password'}
                                                                    className='form-control form-control-sm'
                                                                    id='password' name='password'/>

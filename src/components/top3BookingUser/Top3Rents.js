@@ -77,9 +77,19 @@ const Top3Renters = ({selectedUserId}) => {
                                             </div>
                                             <div className="media-body">
                                                 <h5 className="media-heading">
-                                                    {renter.bookingUser.username}
-                                                    <span> · {renter.bookingUser.nickname}</span>
-                                                    <span> · {getGenderString(renter.bookingUser.gender)}</span>
+                                                    <span style={{ color: 'red' }}><h3>Top{++index}</h3></span>
+                                                    <span>
+                                                        <a
+                                                            href={""}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                        >
+                                                            Tên:  {renter.bookingUser.username} &ensp;
+                                                            Biệt danh: {renter.bookingUser.nickname} &ensp;
+                                                            Giới tính: {getGenderString(renter.bookingUser.gender)} &ensp;
+                                                            Địa chỉ: {renter.bookingUser.address.name}
+                                                        </a>
+                                                        </span>
                                                 </h5>
                                                 <p className="media-last-time">
 
@@ -89,15 +99,15 @@ const Top3Renters = ({selectedUserId}) => {
                                                     Số lần thuê: {renter.bookingCount}
                                                 </p>
                                             </div>
-                                            <div className="media-right">
-                                                <button
-                                                    className="btn btn-default"
-                                                    fdprocessedid={""}
-                                                >
-                                                    <i className="fas fa-minus-circle"></i>{" "}
-                                                    <span>Hủy theo dõi</span>
-                                                </button>
-                                            </div>
+                                            {/*<div className="media-right">*/}
+                                            {/*    /!*<button*!/*/}
+                                            {/*    /!*    className="btn btn-default"*!/*/}
+                                            {/*    /!*    fdprocessedid={""}*!/*/}
+                                            {/*    /!*>*!/*/}
+                                            {/*    /!*    <i className="fas fa-minus-circle"></i>{" "}*!/*/}
+                                            {/*    /!*    <span>Hủy theo dõi</span>*!/*/}
+                                            {/*    /!*</button>*!/*/}
+                                            {/*</div>*/}
                                         </div>
                                     </div>
                                 </div>

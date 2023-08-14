@@ -231,8 +231,8 @@ export function ComplexNavbar() {
     };
 
     const handleLinkClick = () => {
-        setSearchInputValue(""); // Reset input value
-        setShowPopover(false); // Close popover
+        setSearchInputValue("");
+        setShowPopover(false);
     };
 
 

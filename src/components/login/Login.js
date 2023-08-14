@@ -137,20 +137,6 @@ const Login = () => {
                                                     className="invalid-feedback"
                                                 />
                                             </InputGroup>
-                                            <button style={{
-                                                display: `inline-block`,
-                                                marginRight: ` 4px`,
-                                                position: `relative`,
-                                                top: `2px`,
-                                                float: `right`
-                                            }}
-                                                    onClick={togglePasswordVisibility}>
-                                                {showPassword ?  (
-                                                    <FontAwesomeIcon icon={faEyeSlash} />
-                                                ) : (
-                                                    <FontAwesomeIcon icon={faEye} />
-                                                )}
-                                            </button>
                                             <InputGroup className="mb-4">
                                                 <InputGroup.Text>Mật khẩu</InputGroup.Text>
                                                 <Field
@@ -163,6 +149,26 @@ const Login = () => {
                                                             : ""
                                                     }`}
                                                 />
+                                                <button
+                                                    type="button"
+                                                    style={{
+                                                        position: "absolute",
+                                                        right: "10px",
+                                                        top: "50%",
+                                                        transform: "translateY(-50%)",
+                                                        background: "none",
+                                                        border: "none",
+                                                        cursor: "pointer",
+                                                        zIndex: "9"
+                                                    }}
+                                                    onClick={togglePasswordVisibility}
+                                                >
+                                                    {showPassword ? (
+                                                        <FontAwesomeIcon icon={faEyeSlash} />
+                                                    ) : (
+                                                        <FontAwesomeIcon icon={faEye} />
+                                                    )}
+                                                </button>
                                                 <ErrorMessage
                                                     component="div"
                                                     name="password"
