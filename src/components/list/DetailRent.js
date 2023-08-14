@@ -33,9 +33,8 @@ export default function DetailRent() {
                 return `<p class="text-info">Hoàn thành</p>`;
             case 4:
                 return `<p class="text-danger">Đã hủy</p>`;
-
             default:
-                return "Trạng thái không xác định";
+                return `<p class="text-secondary">Trạng thái không xác nhận</p>`;
         }
     }
 

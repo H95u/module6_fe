@@ -9,7 +9,13 @@ import {
     IconButton,
 } from "@material-tailwind/react";
 import {useParams} from "react-router-dom";
-import {CheckIcon, XMarkIcon, ChatBubbleBottomCenterIcon, BugAntIcon} from "@heroicons/react/20/solid";
+import {
+    CheckIcon,
+    XMarkIcon,
+    ChatBubbleBottomCenterIcon,
+    BugAntIcon,
+    CurrencyDollarIcon
+} from "@heroicons/react/20/solid";
 import {Link} from "react-router-dom";
 
 
@@ -46,7 +52,7 @@ const ViewRent = () => {
     const getStatusString = (status) => {
         switch (status) {
             case 1:
-                return `<p class="text-secondary">Chờ phản hồi</p>`;
+                return `<p class="text-warning">Chờ phản hồi</p>`;
             case 2:
                 return `<p class="text-success">Đã xác nhận</p>`;
             case 3:
@@ -54,7 +60,7 @@ const ViewRent = () => {
             case 4:
                 return `<p class="text-danger">Đã hủy</p>`;
             default:
-                return "Trạng thái không xác định";
+                return `<p class="text-secondary">Trạng thái không xác nhận</p>`;
         }
     }
 
@@ -126,7 +132,6 @@ const ViewRent = () => {
         <>
             {((loggingUser.status === 1) || (loggingUser.status === 2)) &&
                 <>
-
                     <Typography
                         variant="h4"
                         color="red"
@@ -161,7 +166,9 @@ const ViewRent = () => {
                                     <th>
                                         <span>Thành tiền</span>
                                     </th>
-                                    <th></th>
+                                    <th className={"text-center"}>
+                                        <span>Hành động</span>
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -228,7 +235,7 @@ const ViewRent = () => {
                                                 currency: 'VND'
                                             }).format(booking.total)}</div>
                                         </td>
-                                        <td>
+                                        <td className={"text-center"}>
                                             <Popover placement="bottom">
                                                 <PopoverHandler>
                                                     <i className="bi bi-three-dots icon-hover"
@@ -236,38 +243,53 @@ const ViewRent = () => {
                                                        onMouseLeave={handlePopoverMouseLeave}></i>
                                                 </PopoverHandler>
                                                 <PopoverContent>
-                                                    {booking.status !== 2 && booking.status !== 3 ?
-                                                        <Tooltip content="Xác nhận" show={tooltipVisible}>
-                                                            <IconButton
-                                                                variant="text" color="green"
-                                                                onClick={() => handleClickAccept(booking.id)}
+                                                    {booking.status === 1 ?
+                                                        <>
+                                                            <Tooltip content="Xác nhận" show={tooltipVisible}>
+                                                                <IconButton
+                                                                    variant="text" color="green"
+                                                                    onClick={() => handleClickAccept(booking.id)}
+                                                                >
+                                                                    <CheckIcon className="h-4 w-4"/>
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                            <Tooltip content="Từ chối" show={tooltipVisible}>
+                                                                <IconButton variant="text" color="red"
+                                                                            onClick={() => handleClickReject(booking.id)}
+                                                                >
+                                                                    <XMarkIcon className="h-4 w-4"/>
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                        </>
+                                                        : ""
+                                                    }
+
+                                                    {booking.status === 2 ?
+                                                        <Tooltip content="Rút tiền" show={tooltipVisible}>
+                                                            <IconButton variant="text" color="yellow"
+                                                                // onClick={() => handleClickReject(booking.id)}
                                                             >
-                                                                <CheckIcon className="h-4 w-4"/>
+                                                                <CurrencyDollarIcon className="h-4 w-4"/>
                                                             </IconButton>
                                                         </Tooltip>
                                                         : ""
                                                     }
-                                                    {booking.status !== 3 ?
-                                                        <Tooltip content="Huỷ lịch" show={tooltipVisible}>
-                                                            <IconButton variant="text" color="red"
-                                                                        onClick={() => handleClickReject(booking.id)}
+
+                                                    {booking.status === 3 ?
+                                                        <Tooltip content="Báo cáo" show={tooltipVisible}>
+                                                            <IconButton variant="text" color="blue-gray"
+                                                                // onClick={() => handleClickReject(booking.id)}
                                                             >
-                                                                <XMarkIcon className="h-4 w-4"/>
+                                                                <BugAntIcon className="h-4 w-4"/>
                                                             </IconButton>
                                                         </Tooltip>
                                                         : ""
                                                     }
-                                                    <Tooltip content="Báo cáo" show={tooltipVisible}>
-                                                        <IconButton variant="text" color="blue-gray">
-                                                            <BugAntIcon className="h-4 w-4"/>
-                                                        </IconButton>
-                                                    </Tooltip>
                                                     <Tooltip content="Chat" show={tooltipVisible}>
                                                         <IconButton variant="text" color="blue-gray">
                                                             <ChatBubbleBottomCenterIcon className="h-4 w-4"/>
                                                         </IconButton>
                                                     </Tooltip>
-
                                                 </PopoverContent>
                                             </Popover>
                                         </td>
@@ -279,7 +301,6 @@ const ViewRent = () => {
                     </div>
                 </>
             }
-
 
             {loggingUser.status === 0 &&
                 <>
