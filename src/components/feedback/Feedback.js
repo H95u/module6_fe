@@ -72,7 +72,7 @@ export default function Feedback() {
     const getItemProps = (index) =>
         ({
             variant: active === index ? "filled" : "text",
-            color: "gema",
+            color: "pink",
             onClick: () => setActive(index),
             className: "rounded-full",
         });
