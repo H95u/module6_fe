@@ -55,7 +55,6 @@ const ViewRent = () => {
     const handleSubmit = (value) => {
         console.log('handleSubmit', value)
         axios.post("http://localhost:8080/api/reports", value).then((res) => {
-            console.log("report--------->", res.data)
             setReport(res.data)
             Swal.fire({
                 title: "Cảm ơn bạn đã phản hồi, ý kiến của bạn đang chờ duyệt!",
@@ -70,7 +69,6 @@ const ViewRent = () => {
     useEffect(() => {
         axios.get(`http://localhost:8080/api/bookings/booked/${id}`)
             .then(response => {
-                console.log(response.data);
                 setBookings(response.data);
             })
             .catch(error => {
@@ -81,7 +79,6 @@ const ViewRent = () => {
     useEffect(() => {
         axios.get(`http://localhost:8080/api/bookings/booking-users/${id}`)
             .then(response => {
-                console.log(response.data);
                 setUserBookingRents(response.data);
             })
             .catch(error => {
@@ -89,13 +86,32 @@ const ViewRent = () => {
             });
     }, [id]);
 
-    const getStatusString = (status) => {
+    const getStatusBookedUser = (status) => {
+        switch (status) {
+            case 1:
+                return `<p class="text-warning">Chờ phản hồi</p>`;
+            case 2:
+                return `<p class="text-danger">Đang hẹ hò</p>`;
+            case 3:
+                return `<p class="text-success">Đã xác nhận</p>`;
+            case 0:
+                return `<p class="text-info">Đã hoàn thành</p>`;
+            case 4:
+                return `<p class="text-danger">Đã hủy</p>`;
+            default:
+                return `<p class="text-secondary">Trạng thái không xác nhận</p>`;
+        }
+    }
+
+    const getStatusBookingUser = (status) => {
         switch (status) {
             case 1:
                 return `<p class="text-warning">Chờ phản hồi</p>`;
             case 2:
                 return `<p class="text-success">Đã xác nhận</p>`;
             case 3:
+                return `<p class="text-info">Đã hoàn thành</p>`;
+            case 0:
                 return `<p class="text-info">Đã hoàn thành</p>`;
             case 4:
                 return `<p class="text-danger">Đã hủy</p>`;
@@ -123,8 +139,8 @@ const ViewRent = () => {
         })
     }
 
-    const handleClickFinish = (bookingId) => {
-        axios.put(`http://localhost:8080/api/bookings/${bookingId}/finish`).then((response) => {
+    const handleClickFinishUser = (bookingId) => {
+        axios.put(`http://localhost:8080/api/bookings/${bookingId}/finish-user`).then((response) => {
             const updatedBooking = response.data;
 
             const index = userBookingRents.findIndex(booking => booking.id === bookingId);
@@ -135,6 +151,24 @@ const ViewRent = () => {
                 updatedBookings[index] = updatedBooking;
 
                 setUserBookingRents(updatedBookings);
+
+                alert("Hoàn thành thành công");
+            }
+        })
+    }
+
+    const handleClickFinishPartner = (bookingId) => {
+        axios.put(`http://localhost:8080/api/bookings/${bookingId}/finish-partner`).then((response) => {
+            const updatedBooking = response.data;
+
+            const index = bookings.findIndex(booking => booking.id === bookingId);
+
+            if (index !== -1) {
+
+                const updatedBookings = [...bookings];
+                updatedBookings[index] = updatedBooking;
+
+                setBookings(updatedBookings);
 
                 alert("Hoàn thành thành công");
             }
@@ -267,7 +301,7 @@ const ViewRent = () => {
                                             </div>
                                         </td>
                                         <td className={"text-center"}>
-                                            <span dangerouslySetInnerHTML={{__html: getStatusString(booking.status)}}/>
+                                            <span dangerouslySetInnerHTML={{__html: getStatusBookedUser(booking.status)}}/>
                                         </td>
                                         <td>
                                             <div className="total_cost">{new Intl.NumberFormat('vi-VN', {
@@ -304,10 +338,10 @@ const ViewRent = () => {
                                                         : ""
                                                     }
 
-                                                    {booking.status === 2 ?
+                                                    {booking.status === 3 ?
                                                         <Tooltip content="Rút tiền" show={tooltipVisible}>
                                                             <IconButton variant="text" color="yellow"
-                                                                // onClick={() => handleClickReject(booking.id)}
+                                                                onClick={() => handleClickFinishPartner(booking.id)}
                                                             >
                                                                 <CurrencyDollarIcon className="h-4 w-4"/>
                                                             </IconButton>
@@ -315,7 +349,7 @@ const ViewRent = () => {
                                                         : ""
                                                     }
 
-                                                    {booking.status === 3 ?
+                                                    {booking.status === 0 ?
                                                         <Tooltip content="Báo cáo" show={tooltipVisible}>
                                                             <IconButton variant="text" color="blue-gray"
                                                                         onClick={() => handleShow(booking)}>
@@ -402,20 +436,16 @@ const ViewRent = () => {
                                         </td>
                                         <td className={"text-center"}>
                                             <span
-                                                dangerouslySetInnerHTML={{__html: getStatusString(userBookingRent.status)}}/>
+                                                dangerouslySetInnerHTML={{__html: getStatusBookingUser(userBookingRent.status)}}/>
                                         </td>
-                                        {userBookingRent.status === 2 &&
+                                        {userBookingRent.status === 2 ?
                                             <td className={"text-center"}>
-                                                <button onClick={() => handleClickFinish(userBookingRent.id)}
+                                                <button onClick={() => handleClickFinishUser(userBookingRent.id)}
                                                         className={`btn-info`}>Hoàn thành
                                                 </button>
                                             </td>
+                                            : <td></td>
                                         }
-
-                                        {userBookingRent.status !== 2 &&
-                                            <td></td>
-                                        }
-
                                     </tr>
                                 )}
 
@@ -438,7 +468,7 @@ const ViewRent = () => {
                             <div className="mb-3 d-flex report">
                                 <label htmlFor={'bookingUser'} className={'form-label'}>Người thuê:</label>
                                 <Field name={'bookingUserName'} className={'form-control bookingUserName'}
-                                       id={'bookingUserName'} disabled />
+                                       id={'bookingUserName'} disabled/>
                             </div>
                             <div className="mb-3 report">
                                 <label htmlFor={'description'} className={'form-label'}>
@@ -450,7 +480,8 @@ const ViewRent = () => {
                                                                            name={'description'}/></span>
                             </div>
                             <div className={`report-button`}>
-                                <button className={"btn btn-danger"}>Báo cáo</button>&ensp;
+                                <button className={"btn btn-danger"}>Báo cáo</button>
+                                &ensp;
                                 <button className={"btn btn-secondary"} onClick={handleClose}>Quay lại</button>
                             </div>
                         </Form>
