@@ -80,7 +80,7 @@ export default function EditPartnerInfo() {
     }
 
     const handleStatus = (evt) => {
-       const status = (evt.target.value);
+        const status = (evt.target.value);
         axios.post(`http://localhost:8080/api/users/update-statusPartner/${id}?status=${status}`).then((response) => {
             setUser(response.data)
         })
@@ -135,9 +135,15 @@ export default function EditPartnerInfo() {
                                 <a href={`#`}><img src={user.img} alt={``}/></a>
                             </div>
                             <div className={`status`}>
-                                <select className={user.status === 2 ? "text-danger form-select" : "text-success form-select" } onChange={handleStatus}>
-                                    <option className={"text-success"} value={`1`} selected={user.status === 1}>Đang sẵn sàng</option>
-                                    <option className={"text-danger"} value={`2`} selected={user.status === 2}>Tạm khóa</option>
+                                <select
+                                    className={user.status === 2 ? "text-danger form-select" : "text-success form-select"}
+                                    onChange={handleStatus}>
+                                    <option className={"text-success"} value={`1`} selected={user.status === 1}>Đang sẵn
+                                        sàng
+                                    </option>
+                                    <option className={"text-danger"} value={`2`} selected={user.status === 2}>Tạm
+                                        khóa
+                                    </option>
                                 </select>
                             </div>
 
@@ -206,11 +212,9 @@ export default function EditPartnerInfo() {
                             <div className={"profile"}>
                                 <h2>Thông tin</h2>
                                 <div className={"album-of-player"}>
-                                    <a>
-                                        <img
-                                            src="https://playerduo.net/api/upload-service/thumbs/medium/66f8b716-ee52-4590-aa0a-73bd28590f5f__2c6a5460-2cb6-11ee-a657-a54d6be1d46a__player_album.jpg"
-                                            alt=""/>
-                                    </a>
+                                    <img
+                                        src="https://playerduo.net/api/upload-service/thumbs/medium/66f8b716-ee52-4590-aa0a-73bd28590f5f__2c6a5460-2cb6-11ee-a657-a54d6be1d46a__player_album.jpg"
+                                        alt=""/>
                                 </div>
                                 <p></p>
                                 <p>- Giọng bắc</p>
@@ -233,7 +237,7 @@ export default function EditPartnerInfo() {
                                     <div className={`col-sm-8`}>
                                         {user.price != null &&
                                             <h1>{new Intl.NumberFormat('vi-VN',
-                                                { style: 'currency', currency: 'VND' })
+                                                {style: 'currency', currency: 'VND'})
                                                 .format(user.price)}/h</h1>
                                         }
                                         {user.price == null &&

@@ -53,7 +53,8 @@
             const id = loggingUser.id;
             axios.post(`http://localhost:8080/api/paypal/deposit/${id}?amount=1150000000`)
                 .then(response => {
-                    console.log('Axios success:', response.data);
+                    localStorage.setItem("loggingUser", JSON.stringify(response.data));
+                    window.location.href = "/"
                 })
                 .catch(error => {
                     console.error('Axios error:', error);

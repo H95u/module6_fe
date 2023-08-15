@@ -16,16 +16,12 @@ export default function Story() {
     return (
         <>
             <Typography variant="h3" color="red" className="ml-4" textGradient>
-               Được quan tâm nhiều nhất
+                Được quan tâm nhiều nhất
             </Typography>
             <div className="wrapper">
                 {vipLovers.map((item, index) => (
                     <div key={index} className="action_box--list">
                         <Link to={`/user/${item.id}`}>
-                            <div className={"view-detail"}>
-                                <i className="bi bi-eye"></i> &nbsp;
-                                <span>{item.viewCount}</span>
-                            </div>
                             <div className="box-item">
                                 <img src={item.img} alt="PD" id="avt-img-reponsiver"/>
                             </div>

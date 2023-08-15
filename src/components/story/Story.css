@@ -11,7 +11,7 @@
     border-top-right-radius: 10px;
 }
 
-.wrapper::-webkit-scrollbar{
+.wrapper::-webkit-scrollbar {
     width: 0;
 }
 
@@ -21,6 +21,7 @@
     border: 1px solid #e3e3ec;
     border-radius: 12px;
 }
+
 .box-item img,
 .avt-rank img {
     width: 130px;
@@ -48,6 +49,7 @@
     font-weight: bold;
     margin-left: 10px;
 }
+
 .lover-name {
     display: flex;
     margin: 8px 5px 3px;
@@ -64,9 +66,3 @@
     font-weight: 600;
 }
 
-.view-detail {
-    position: absolute;
-    margin-left: 5.5rem;
-    margin-top: 9rem;
-    color: white;
-}

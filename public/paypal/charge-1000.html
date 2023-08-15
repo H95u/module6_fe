@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Nạp 10000$</title>
-
+    <title>Nạp 1000$</title>
 </head>
 <style>
     .modal {
@@ -24,12 +23,11 @@
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
 <body>
 <div class="modal">
-    <h1 style="text-align: center;padding: 10px">Nạp 10000$</h1>
+    <h1 style="text-align: center;padding: 10px">Nạp 1000$</h1>
     <form class="form">
-        <div id="paypal-button-container-P-9C424137TJ645553RMTLUNNA"></div>
+        <div id="paypal-button-container-P-1LW702247A579593LMTNN2DY"></div>
     </form>
 </div>
 
@@ -47,14 +45,14 @@
         createSubscription: function (data, actions) {
             return actions.subscription.create({
                 /* Creates the subscription */
-                plan_id: 'P-9C424137TJ645553RMTLUNNA'
+                plan_id: 'P-1LW702247A579593LMTNN2DY'
             });
         },
         onApprove: function (data, actions) {
             alert("Nạp tiền thành công"); // You can add optional success message for the subscriber here
             const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
             const id = loggingUser.id;
-            axios.post(`http://localhost:8080/api/paypal/deposit/${id}?amount=230000000`)
+            axios.post(`http://localhost:8080/api/paypal/deposit/${id}?amount=23000000`)
                 .then(response => {
                     localStorage.setItem("loggingUser", JSON.stringify(response.data));
                     window.location.href = "/"
@@ -63,7 +61,7 @@
                     console.error('Axios error:', error);
                 });
         }
-    }).render('#paypal-button-container-P-9C424137TJ645553RMTLUNNA'); // Renders the PayPal button
+    }).render('#paypal-button-container-P-1LW702247A579593LMTNN2DY'); // Renders the PayPal button
 </script>
 </body>
 </html>

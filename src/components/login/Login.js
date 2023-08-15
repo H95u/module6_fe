@@ -17,13 +17,7 @@ const Login = () => {
         username: "",
         password: ""
     };
-    const validateSchema = Yup.object({
-        username: Yup.string()
-            .required("Tên là bắt buộc")
-            .matches(/^[a-zA-ZÀ-ỹ0-9]+(([',. -][a-zA-ZÀ-ỹ0-9 ])?[a-zA-ZÀ-ỹ0-9]*)*$/, "Nhập tên từ a-zA-Z có dấu và số không chứa kí tự đặc biệt"),
-        password: Yup.string()
-            .required("Mật khẩu là bắt buộc")
-    });
+
 
     const handleSubmit = (values, {setSubmitting, setErrors}) => {
         const config = {
@@ -114,7 +108,6 @@ const Login = () => {
 
                                 <Formik
                                     initialValues={initialValue}
-                                    validationSchema={validateSchema}
                                     onSubmit={handleSubmit}
                                 >
                                     {({isSubmitting, errors, touched}) => (

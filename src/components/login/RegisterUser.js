@@ -45,8 +45,7 @@ const RegisterUser = () => {
                     return !checkUserNameExists(value);
                 }),
         nickname: Yup.string()
-            .required("Biệt danh là bắt buộc")
-            .matches(/^[a-zA-ZÀ-ỹ]+(([',. -][a-zA-ZÀ-ỹ ])?[a-zA-ZÀ-ỹ]*)*$/, "Biệt danh từ a-zA-Z có dấu và không chứa chữ số"),
+            .required("Biệt danh là bắt buộc"),
         gender: Yup.string()
             .required("Giới tính là bắt buộc")
             .matches(/^[a-zA-ZÀ-ỹ]+(([',. -][a-zA-ZÀ-ỹ ])?[a-zA-ZÀ-ỹ]*)*$/, "Giới tính từ a-zA-Z có dấu và không chứa chữ số"),
@@ -152,6 +151,16 @@ const RegisterUser = () => {
                                                                           className='text-danger'/>
                                                         </div>
                                                         <div>
+                                                            <label htmlFor='password'
+                                                                   className='form-label'>Mật khẩu
+                                                            </label>
+                                                            <Field type={showPassword ? 'text' : 'password'}
+                                                                   className='form-control form-control-sm'
+                                                                   id='password' name='password'/>
+                                                            <ErrorMessage name='password' component='div'
+                                                                          className='text-danger'/>
+                                                        </div>
+                                                        <div>
                                                             <label htmlFor='nickname'
                                                                    className='form-label'>Biệt danh</label>
                                                             <Field type='text' className='form-control form-control-sm'
@@ -186,32 +195,6 @@ const RegisterUser = () => {
                                                             <Field type='date' className='form-control form-control-sm'
                                                                    id='dob' name='dob' placeholder='MM/DD/YYYY'/>
                                                             <ErrorMessage name='dob' component='div'
-                                                                          className='text-danger'/>
-                                                        </div>
-
-                                                        <div>
-                                                            <button style={{
-                                                                display: `inline-block`,
-                                                                marginRight:` 4px`,
-                                                                position: `relative`,
-                                                                top: `2px`,
-                                                                float: `right`
-                                                            }}
-                                                                    onClick={togglePasswordVisibility}>
-                                                                {showPassword ?  (
-                                                                    <FontAwesomeIcon icon={faEyeSlash} />
-                                                                ) : (
-                                                                    <FontAwesomeIcon icon={faEye} />
-                                                                )}
-                                                            </button>
-
-                                                            <label htmlFor='password'
-                                                                   className='form-label'>Mật khẩu
-                                                            </label>
-                                                            <Field type={showPassword ? 'text' : 'password'}
-                                                                   className='form-control form-control-sm'
-                                                                   id='password' name='password'/>
-                                                            <ErrorMessage name='password' component='div'
                                                                           className='text-danger'/>
                                                         </div>
                                                         &ensp;

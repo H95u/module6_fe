@@ -24,13 +24,18 @@ function RechargeModal({ showRecharge, handleCloseRecharge}) {
                         Nạp tiền ngay với paypal?
                     </AccordionHeader>
                     <AccordionBody className="pt-0 text-base font-normal">
+                        <Typography className={'ml-2 mb-10'} variant={'h2'} color={'black'}>
+                            <a href={'/paypal/charge-1000.html'}>
+                                Nạp 1000$
+                            </a>
+                        </Typography>
                         <Typography className={'ml-2 mb-10'} variant={'h2'} color={'light-green'}>
-                            <a href={'/paypal/charge-10000.html'} target={'_blank'}>
+                            <a href={'/paypal/charge-10000.html'}>
                                 Nạp 10000$
                             </a>
                         </Typography>
                         <Typography className={'ml-2'} variant={'h2'} color={'red'}>
-                            <a href={'/paypal/charge-50000.html'} target={'_blank'}>
+                            <a href={'/paypal/charge-50000.html'}>
                                 Nạp 50000$
                             </a>
                         </Typography>
