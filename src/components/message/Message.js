@@ -68,13 +68,17 @@ export default function Message() {
         getMessage();
 
         stompClient.connect({}, () => {
-            stompClient.subscribe('/topic/messages', (data) => {
+            console.log("STOMP Connected");
+            stompClient.subscribe(`/topic/messages/${loggingUser.id}/${selectedSender}`, (data) => {
                 const receivedMessage = JSON.parse(data.body);
                 setMessage(prevMessages => [...prevMessages, receivedMessage]);
             }, {});
-        }, () => {
+        }, (error) => {
+            console.error("STOMP Connection Error:", error);
         });
-
+        return () => {
+            stompClient.disconnect();
+        };
     }, []);
 
     const sendMessage = (data) => {

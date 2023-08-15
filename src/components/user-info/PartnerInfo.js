@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import "./partnerprofile.css";
 import {Button, Textarea, Typography, IconButton} from "@material-tailwind/react";
@@ -7,7 +7,7 @@ import Modal from "react-bootstrap/Modal";
 import Swal from "sweetalert2";
 import Feedback from "../feedback/Feedback";
 import RechargeModal from "../recharge-modal/RechargeModal";
-import stompClient, {demo, sendMessage} from "../../services/socket.service";
+import stompClient, {sendMessage} from "../../services/socket.service";
 
 
 export default function PartnerInfo() {
@@ -28,11 +28,16 @@ export default function PartnerInfo() {
 
     useEffect(() => {
         stompClient.connect({}, () => {
+            console.log("STOMP Connected");
                 stompClient.subscribe('/topic/messages', (data) => {
                     console.log(data.body)
                 }, {})
-        }, () => {
-        })
+        }, (error) => {
+            console.error("STOMP Connection Error:", error);
+        });
+        return () => {
+            stompClient.disconnect();
+        };
     },[])
 
     const openModal = () => {
@@ -55,9 +60,9 @@ export default function PartnerInfo() {
             }
 
         }
-        sendMessage(messageInput)
+        sendMessage(JSON.stringify(data))
         setMessageInput("");
-       // closeModal();
+        // closeModal();
     };
 
     const handleShowRentForm = () => setShowRentForm(true);
