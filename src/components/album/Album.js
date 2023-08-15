@@ -8,7 +8,6 @@ import {PlusIcon} from "@heroicons/react/24/outline";
 import "./Album.css"
 import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 import {storage} from "../../config/firebase";
-import Swal from "sweetalert2";
 
 export default function Album() {
     const {id} = useParams();
