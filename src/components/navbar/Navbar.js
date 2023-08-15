@@ -24,11 +24,8 @@ import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import RechargeModal from "../recharge-modal/RechargeModal";
 import {HomeIcon} from "@heroicons/react/24/solid";
-
-
+import FormNavBar from "../messageForUser/FormNavBar";
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
-
-
 function LoginButton() {
     return (
         <div className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto">
@@ -199,7 +196,7 @@ function ProfileMenu() {
     );
 }
 
-export function ComplexNavbar() {
+export function ComplexNavbar({ sentMessageCount }) {
 
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
@@ -234,8 +231,19 @@ export function ComplexNavbar() {
         setSearchInputValue("");
         setShowPopover(false);
     };
+    const [showMyComponent, setShowMyComponent] = useState(false);
+    const [showNotification, setShowNotification] = useState(false);
+    const [showFormNavBar, setShowFormNavBar] = useState(false);
+    const handleIconButtonClick = () => {
+        setShowNotification(false);
+        setShowFormNavBar(!showFormNavBar);
+        setShowMyComponent(prevShow => !prevShow)
+    };
 
-
+    const handleNotificationClick = () => {
+        setShowFormNavBar(false);
+        setShowNotification(!showNotification);
+    };
     return (
         <Navbar id={"nav"} className="max-w-screen-4xl w-full mx-auto px-4 py-3">
             <div className="mx-auto flex text-blue-gray-900">
@@ -293,11 +301,16 @@ export function ComplexNavbar() {
                     <Typography variant={"h4"} color={"pink"}>
                        Cupid - Kết nối yêu thương
                     </Typography>
+
                 </div>
                 {loggingUser != null ? <div className="absolute top-2/4 right-0 -translate-y-2/4 mr-24">
-                    <IconButton color="blue">
+                    <IconButton color="blue" onClick={handleIconButtonClick}>
                         <BellIcon className="h-10 w-10"/>
+                        {sentMessageCount > 0 && (
+                            <div className="notification-badge">{sentMessageCount}</div>
+                        )}
                     </IconButton>
+                    {showMyComponent && <FormNavBar onClose={() => setShowMyComponent(false)} />}
                 </div> : ""}
                 {loggingUser != null ? <ProfileMenu/> : <LoginButton/>}
             </div>

@@ -16,7 +16,6 @@ import DetailRent from "./components/list/DetailRent";
 import SidebarTop3 from "./components/top3BookingUser/SidebarTop3";
 import MenuBar from "./components/user-info/MenuBar";
 import DetailUserRent from "./components/list/DetailUserRent";
-import SendMessageModal from "./components/messageForUser/SendMessageModal";
 export default function App() {
     return (
         <>
@@ -39,7 +38,6 @@ export default function App() {
                     <Route path={"/detail-user-rent/:id"} element={<DetailUserRent/>}></Route>
                     <Route path={"/view-transaction/:id"} element={<MenuBar/>}></Route>
                     <Route path={"/sidebar"} element={<SidebarTop3/>}></Route>
-                    <Route path={"/message"} element={<SendMessageModal/>}></Route>
                 </Routes>
             </BrowserRouter>
         </>

@@ -11,6 +11,7 @@ import {
 import {useParams} from "react-router-dom";
 import {CheckIcon, XMarkIcon, ChatBubbleBottomCenterIcon, BugAntIcon} from "@heroicons/react/20/solid";
 import {Link} from "react-router-dom";
+import MessageForm from "../messageForUser/MessageForm";
 
 
 const ViewRent = () => {
@@ -112,7 +113,6 @@ const ViewRent = () => {
         })
     }
 
-
     const handlePopoverClick = () => {
         setTooltipVisible(true);
     };
@@ -121,200 +121,242 @@ const ViewRent = () => {
         setTooltipVisible(false);
     };
 
+    const [showModal, setShowModal] = useState(false);
+    const [senderId, setSenderId] = useState('');
+    const [receiverId, setReceiverId] = useState('');
+
+    const handleOpenChat = (receiverId) => {
+        if (loggingUser) {
+            setSenderId(loggingUser.id);
+            setReceiverId(receiverId);
+            setShowModal(true);
+        }
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+    };
+
+
+
+    const handleTooltipVisibility = (visible) => {
+        setTooltipVisible(visible);
+    };
     return (
 
-        <>
-            {((loggingUser.status === 1) || (loggingUser.status === 2)) &&
-                <>
+            <>
+                {((loggingUser.status === 1) || (loggingUser.status === 2)) &&
+                    <>
 
-                    <Typography
-                        variant="h4"
-                        color="red"
-                        className="mb-8 mt-4 text-center"
-                        textGradient
-                    >
-                        Danh sách thuê
-                    </Typography>
-                    <div className={"main-box clearfix"}>
-                        <div className={"table-responsive"}>
-                            <table className={"table user-list table table-hover"}>
-                                <thead>
-                                <tr>
-                                    <th>
-                                        <span>Người thuê</span>
-                                    </th>
-                                    <th>
-                                        <span>Địa chỉ</span>
-                                    </th>
-                                    <th>
-                                        <span>Thời gian bắt đầu</span>
-                                    </th>
-                                    <th>
-                                        <span>Thời gian kết thúc</span>
-                                    </th>
-                                    <th>
-                                        <span>Số giờ</span>
-                                    </th>
-                                    <th className={"text-center"}>
-                                        <span>Trạng thái</span>
-                                    </th>
-                                    <th>
-                                        <span>Thành tiền</span>
-                                    </th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {bookings.map((booking, index) => (
-                                    <tr key={index}>
-                                        <td>
-                                            <div className="user_info">
-                                                <Link to={`/detail-rent/${booking.id}`}>
-                                                    <img src={booking.bookingUser.img} alt="Avatar"
-                                                         className="user-avatar"/>
-                                                </Link>
-                                                <div className="fill-name">
-                                                    {booking.bookingUser.username}
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className={"fill-address"}>{booking.bookingUser?.address.name}</div>
-                                        </td>
-                                        <td>
-                                            <div
-                                                className={"fill-startTime"}>{new Date(booking.startTime).toLocaleString(undefined, {
-                                                year: 'numeric',
-                                                month: 'numeric',
-                                                day: 'numeric',
-                                                hour: '2-digit',
-                                                minute: '2-digit',
-                                                hour24: true
-                                            })}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div
-                                                className={"fill-endTim"}>{new Date(booking.endTime).toLocaleString(undefined, {
-                                                year: 'numeric',
-                                                month: 'numeric',
-                                                day: 'numeric',
-                                                hour: '2-digit',
-                                                minute: '2-digit',
-                                                hour24: true + "PM"
-                                            })}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className={"total_time"}>
-                                                {(() => {
-                                                    const start = new Date(booking.startTime);
-                                                    const end = new Date(booking.endTime);
-                                                    const diffInMilliseconds = end - start;
-
-                                                    const hours = Math.floor(diffInMilliseconds / (1000 * 60 * 60));
-                                                    const minutes = Math.floor((diffInMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
-
-                                                    return `${hours} giờ ${minutes} phút`;
-                                                })()}
-                                            </div>
-                                        </td>
-                                        <td className={"text-center"}>
-                                            <span dangerouslySetInnerHTML={{__html: getStatusString(booking.status)}}/>
-                                        </td>
-                                        <td>
-                                            <div className="total_cost">{new Intl.NumberFormat('vi-VN', {
-                                                style: 'currency',
-                                                currency: 'VND'
-                                            }).format(booking.total)}</div>
-                                        </td>
-                                        <td>
-                                            <Popover placement="bottom">
-                                                <PopoverHandler>
-                                                    <i className="bi bi-three-dots icon-hover"
-                                                       onClick={handlePopoverClick}
-                                                       onMouseLeave={handlePopoverMouseLeave}></i>
-                                                </PopoverHandler>
-                                                <PopoverContent>
-                                                    {booking.status !== 2 && booking.status !== 3 ?
-                                                        <Tooltip content="Xác nhận" show={tooltipVisible}>
-                                                            <IconButton
-                                                                variant="text" color="green"
-                                                                onClick={() => handleClickAccept(booking.id)}
-                                                            >
-                                                                <CheckIcon className="h-4 w-4"/>
-                                                            </IconButton>
-                                                        </Tooltip>
-                                                        : ""
-                                                    }
-                                                    {booking.status !== 3 ?
-                                                        <Tooltip content="Huỷ lịch" show={tooltipVisible}>
-                                                            <IconButton variant="text" color="red"
-                                                                        onClick={() => handleClickReject(booking.id)}
-                                                            >
-                                                                <XMarkIcon className="h-4 w-4"/>
-                                                            </IconButton>
-                                                        </Tooltip>
-                                                        : ""
-                                                    }
-                                                    <Tooltip content="Báo cáo" show={tooltipVisible}>
-                                                        <IconButton variant="text" color="blue-gray">
-                                                            <BugAntIcon className="h-4 w-4"/>
-                                                        </IconButton>
-                                                    </Tooltip>
-                                                    <Tooltip content="Chat" show={tooltipVisible}>
-                                                        <IconButton variant="text" color="blue-gray">
-                                                            <ChatBubbleBottomCenterIcon className="h-4 w-4"/>
-                                                        </IconButton>
-                                                    </Tooltip>
-
-                                                </PopoverContent>
-                                            </Popover>
-                                        </td>
+                        <Typography
+                            variant="h4"
+                            color="red"
+                            className="mb-8 mt-4 text-center"
+                            textGradient
+                        >
+                            Danh sách thuê
+                        </Typography>
+                        <div className={"main-box clearfix"}>
+                            <div className={"table-responsive"}>
+                                <table className={"table user-list table table-hover"}>
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <span>Người thuê</span>
+                                        </th>
+                                        <th>
+                                            <span>Địa chỉ</span>
+                                        </th>
+                                        <th>
+                                            <span>Thời gian bắt đầu</span>
+                                        </th>
+                                        <th>
+                                            <span>Thời gian kết thúc</span>
+                                        </th>
+                                        <th>
+                                            <span>Số giờ</span>
+                                        </th>
+                                        <th className={"text-center"}>
+                                            <span>Trạng thái</span>
+                                        </th>
+                                        <th>
+                                            <span>Thành tiền</span>
+                                        </th>
+                                        <th></th>
                                     </tr>
-                                ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </>
-            }
-
-
-            {loggingUser.status === 0 &&
-                <>
-                    <div className={"col-lg-9 rent-user"}>
-                        <div className={`title`}>
-                            <p>Danh sách đơn</p>
-                        </div>
-                        <div className={`list-rent`}>
-                            <table className={`table table-hover`}>
-                                <thead>
-                                <tr>
-                                    <th>Người bạn thuê</th>
-                                    <th>Ngày thuê</th>
-                                    <th>Thời gian thuê</th>
-                                    <th>Tổng đơn</th>
-                                    <th className={`text-center`}>Trạng thái</th>
-                                    <th className={`text-center`}>Hành động</th>
-                                </tr>
-                                </thead>
-
-                                <tbody>
-                                {userBookingRents.map(userBookingRent =>
-                                    <tr key={userBookingRent.id} className={`row-rent`}>
-                                        <td>
-                                            <div className="partner_info">
-                                                <Link to={`/detail-user-rent/${userBookingRent.id}`}>
-                                                    <img src={userBookingRent.bookedUser?.img} alt="Avatar"
-                                                         className="user-avatar"/>
-                                                </Link>
-                                                <div className="fill-name">
-                                                    {userBookingRent.bookedUser?.username}
+                                    </thead>
+                                    <tbody>
+                                    {bookings.map((booking, index) => (
+                                        <tr key={index}>
+                                            <td>
+                                                <div className="user_info">
+                                                    <Link to={`/detail-rent/${booking.id}`}>
+                                                        <img src={booking.bookingUser.img} alt="Avatar"
+                                                             className="user-avatar"/>
+                                                    </Link>
+                                                    <div className="fill-name">
+                                                        {booking.bookingUser.username}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td>
+                                            </td>
+                                            <td>
+                                                <div
+                                                    className={"fill-address"}>{booking.bookingUser?.address.name}</div>
+                                            </td>
+                                            <td>
+                                                <div
+                                                    className={"fill-startTime"}>{new Date(booking.startTime).toLocaleString(undefined, {
+                                                    year: 'numeric',
+                                                    month: 'numeric',
+                                                    day: 'numeric',
+                                                    hour: '2-digit',
+                                                    minute: '2-digit',
+                                                    hour24: true
+                                                })}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div
+                                                    className={"fill-endTim"}>{new Date(booking.endTime).toLocaleString(undefined, {
+                                                    year: 'numeric',
+                                                    month: 'numeric',
+                                                    day: 'numeric',
+                                                    hour: '2-digit',
+                                                    minute: '2-digit',
+                                                    hour24: true + "PM"
+                                                })}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div className={"total_time"}>
+                                                    {(() => {
+                                                        const start = new Date(booking.startTime);
+                                                        const end = new Date(booking.endTime);
+                                                        const diffInMilliseconds = end - start;
+
+                                                        const hours = Math.floor(diffInMilliseconds / (1000 * 60 * 60));
+                                                        const minutes = Math.floor((diffInMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+
+                                                        return `${hours} giờ ${minutes} phút`;
+                                                    })()}
+                                                </div>
+                                            </td>
+                                            <td className={"text-center"}>
+                                                <span
+                                                    dangerouslySetInnerHTML={{__html: getStatusString(booking.status)}}/>
+                                            </td>
+                                            <td>
+                                                <div className="total_cost">{new Intl.NumberFormat('vi-VN', {
+                                                    style: 'currency',
+                                                    currency: 'VND'
+                                                }).format(booking.total)}</div>
+                                            </td>
+                                            <td>
+                                                <Popover placement="bottom">
+                                                    <PopoverHandler>
+                                                        <i className="bi bi-three-dots icon-hover"
+                                                           onClick={handlePopoverClick}
+                                                           onMouseLeave={handlePopoverMouseLeave}></i>
+                                                    </PopoverHandler>
+                                                    <PopoverContent>
+                                                        {booking.status !== 2 && booking.status !== 3 ?
+                                                            <Tooltip content="Xác nhận" show={tooltipVisible}>
+                                                                <IconButton
+                                                                    variant="text" color="green"
+                                                                    onClick={() => handleClickAccept(booking.id)}
+                                                                >
+                                                                    <CheckIcon className="h-4 w-4"/>
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                            : ""
+                                                        }
+                                                        {booking.status !== 3 ?
+                                                            <Tooltip content="Huỷ lịch" show={tooltipVisible}>
+                                                                <IconButton variant="text" color="red"
+                                                                            onClick={() => handleClickReject(booking.id)}
+                                                                >
+                                                                    <XMarkIcon className="h-4 w-4"/>
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                            : ""
+                                                        }
+                                                        <Tooltip content="Báo cáo" show={tooltipVisible}>
+                                                            <IconButton variant="text" color="blue-gray">
+                                                                <BugAntIcon className="h-4 w-4"/>
+                                                            </IconButton>
+                                                        </Tooltip>
+                                                        {/*<Tooltip content="Chat" show={tooltipVisible}>*/}
+                                                        {/*    <IconButton variant="text" color="blue-gray">*/}
+                                                        {/*        <ChatBubbleBottomCenterIcon className="h-4 w-4"/>*/}
+                                                        {/*    </IconButton>*/}
+                                                        {/*</Tooltip>*/}
+
+                                                        <div>
+                                                            <Tooltip content="Chat" show={tooltipVisible}>
+                                                                <IconButton
+                                                                    variant="text"
+                                                                    color="blue-gray"
+                                                                    onClick={() => handleOpenChat(booking.bookingUser?.id)}
+                                                                    onMouseEnter={() => handleTooltipVisibility(true)}
+                                                                    onMouseLeave={() => handleTooltipVisibility(false)}
+                                                                >
+                                                                    <ChatBubbleBottomCenterIcon className="h-4 w-4" />
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                            {showModal && (
+                                                                <MessageForm
+                                                                    senderId={senderId}
+                                                                    receiverId={receiverId}
+                                                                    closeModal={closeModal}
+                                                                />
+                                                            )}
+                                                        </div>
+
+                                                    </PopoverContent>
+                                                </Popover>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </>
+                }
+                {loggingUser.status === 0 &&
+                    <>
+                        <div className={"col-lg-9 rent-user"}>
+                            <div className={`title`}>
+                                <p>Danh sách đơn</p>
+                            </div>
+                            <div className={`list-rent`}>
+                                <table className={`table table-hover`}>
+                                    <thead>
+                                    <tr>
+                                        <th>Người bạn thuê</th>
+                                        <th>Ngày thuê</th>
+                                        <th>Thời gian thuê</th>
+                                        <th>Tổng đơn</th>
+                                        <th className={`text-center`}>Trạng thái</th>
+                                        <th className={`text-center`}>Hành động</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    {userBookingRents.map(userBookingRent =>
+                                        <tr key={userBookingRent.id} className={`row-rent`}>
+                                            <td>
+                                                <div className="partner_info">
+                                                    <Link to={`/detail-user-rent/${userBookingRent.id}`}>
+                                                        <img src={userBookingRent.bookedUser?.img} alt="Avatar"
+                                                             className="user-avatar"/>
+                                                    </Link>
+                                                    <div className="fill-name">
+                                                        {userBookingRent.bookedUser?.username}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
                                             <span>
                                                 {new Date(userBookingRent.startTime).toLocaleString(undefined, {
                                                     year: 'numeric',
@@ -322,8 +364,8 @@ const ViewRent = () => {
                                                     day: 'numeric',
                                                 })}
                                             </span>
-                                        </td>
-                                        <td>
+                                            </td>
+                                            <td>
                                             <span>{(() => {
                                                 const start = new Date(userBookingRent.startTime);
                                                 const end = new Date(userBookingRent.endTime);
@@ -334,40 +376,39 @@ const ViewRent = () => {
 
                                                 return `${hours} giờ ${minutes} phút`;
                                             })()}</span>
-                                        </td>
-                                        <td>
+                                            </td>
+                                            <td>
                                         <span>{new Intl.NumberFormat('vi-VN',
                                             {style: 'currency', currency: 'VND'})
                                             .format(userBookingRent.total)}</span>
-                                        </td>
-                                        <td className={"text-center"}>
+                                            </td>
+                                            <td className={"text-center"}>
                                             <span
                                                 dangerouslySetInnerHTML={{__html: getStatusString(userBookingRent.status)}}/>
-                                        </td>
-                                        {userBookingRent.status === 2 &&
-                                            <td className={"text-center"}>
-                                                <button onClick={() => handleClickFinish(userBookingRent.id)}
-                                                        className={`btn-info`}>Hoàn thành
-                                                </button>
                                             </td>
-                                        }
+                                            {userBookingRent.status === 2 &&
+                                                <td className={"text-center"}>
+                                                    <button onClick={() => handleClickFinish(userBookingRent.id)}
+                                                            className={`btn-info`}>Hoàn thành
+                                                    </button>
+                                                </td>
+                                            }
 
-                                        {userBookingRent.status !== 2 &&
-                                            <td></td>
-                                        }
+                                            {userBookingRent.status !== 2 &&
+                                                <td></td>
+                                            }
 
-                                    </tr>
-                                )}
+                                        </tr>
+                                    )}
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                </>
-            }
+                    </>
+                }
 
-        </>
-    );
-};
-
+            </>
+        );
+    };
 export default ViewRent;
