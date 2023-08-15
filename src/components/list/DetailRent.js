@@ -31,7 +31,7 @@ export default function DetailRent() {
                 return `<p class="text-danger">Đang hẹ hò</p>`;
             case 3:
                 return `<p class="text-success">Đã xác nhận</p>`;
-            case 0:
+            case 5:
                 return `<p class="text-info">Đã hoàn thành</p>`;
             case 4:
                 return `<p class="text-danger">Đã hủy</p>`;
