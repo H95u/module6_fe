@@ -24,6 +24,11 @@ export default function Story() {
                         <Link to={`/user/${item.id}`}>
                             <div className="box-item">
                                 <img src={item.img} alt="PD" id="avt-img-reponsiver"/>
+                                <div className={"box-item-label"}>
+                                    <span style={{marginBlock: "auto"}}>
+                                    <i style={{margin: 0}} className="bi bi-eye" color={"white"}></i>  {item.viewCount}
+                                    </span>
+                                </div>
                             </div>
                             <div className="lover-name">
                                 <div className="avt-rank avt-sm">

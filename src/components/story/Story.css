@@ -5,6 +5,22 @@
     scroll-behavior: smooth;
     padding: 10px;
 }
+.box-item {
+    position: relative;
+}
+
+.box-item-label{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    justify-content: end;
+    padding: 5px 8px;
+    color: #FFFFFF;
+    background-image: linear-gradient(transparent,rgba(0,0,0,.1),rgba(0,0,0,.3),rgba(0,0,0,.5),rgba(0,0,0,.7),rgba(0,0,0,.9));
+    min-height: 50px;
+}
 
 .box-item img {
     border-top-left-radius: 10px;
