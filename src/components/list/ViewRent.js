@@ -94,7 +94,7 @@ const ViewRent = () => {
                 return `<p class="text-danger">Đang hẹ hò</p>`;
             case 3:
                 return `<p class="text-success">Đã xác nhận</p>`;
-            case 0:
+            case 5:
                 return `<p class="text-info">Đã hoàn thành</p>`;
             case 4:
                 return `<p class="text-danger">Đã hủy</p>`;
@@ -111,7 +111,7 @@ const ViewRent = () => {
                 return `<p class="text-success">Đã xác nhận</p>`;
             case 3:
                 return `<p class="text-info">Đã hoàn thành</p>`;
-            case 0:
+            case 5:
                 return `<p class="text-info">Đã hoàn thành</p>`;
             case 4:
                 return `<p class="text-danger">Đã hủy</p>`;
@@ -325,7 +325,7 @@ const ViewRent = () => {
                                                                     onClick={() => handleClickAccept(booking.id)}
                                                                 >
                                                                     <CheckIcon className="h-4 w-4"/>
-                                                                </IconButton>
+                                                                </IconButton>&ensp;
                                                             </Tooltip>
                                                             <Tooltip content="Từ chối" show={tooltipVisible}>
                                                                 <IconButton variant="text" color="red"
@@ -349,7 +349,7 @@ const ViewRent = () => {
                                                         : ""
                                                     }
 
-                                                    {booking.status === 0 ?
+                                                    {booking.status === 5 ?
                                                         <Tooltip content="Báo cáo" show={tooltipVisible}>
                                                             <IconButton variant="text" color="blue-gray"
                                                                         onClick={() => handleShow(booking)}>
