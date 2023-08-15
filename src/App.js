@@ -21,6 +21,7 @@ import {useEffect} from "react";
 import {Stomp} from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import SampleComponent from "./components/SampleComponent";
+import Album from "./components/album/Album";
 
 export default function App() {
     return (
@@ -43,6 +44,7 @@ export default function App() {
                     <Route path={"/sidebar"} element={<SidebarTop3/>}></Route>
                     <Route path={"/message"} element={<SendMessageModal/>}></Route>
                     <Route path={"/view-all"} element={<SearchLogin/>}></Route>
+                    <Route path={"/album/:id"} element={<Album/>}></Route>
                 </Routes>
             </BrowserRouter>
         </>

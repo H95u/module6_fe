@@ -14,10 +14,12 @@ import {storage} from "../../config/firebase";
 import Swal from "sweetalert2";
 import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
+import {useNavigate} from "react-router-dom";
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
 export default function UserInfo() {
     const id = loggingUser.id;
+    const navigate = useNavigate();
     const [user, setUser] = useState({});
     const [isHovered, setIsHovered] = useState(false);
     const [addressList, setAddressList] = useState([]);
@@ -132,6 +134,10 @@ export default function UserInfo() {
             });
     };
 
+    const showAlbum = () => {
+        navigate(`/album/${id}`)
+    }
+
 
     return (
         <div className="user-info">
@@ -212,7 +218,7 @@ export default function UserInfo() {
                                     <Button size="md" color="white" className={"mb-2"}>
                                         Chat
                                     </Button>
-                                    <Button size="md" color="white">
+                                    <Button size="md" color="white" onClick={showAlbum}>
                                         Album
                                     </Button>
 
@@ -256,7 +262,7 @@ export default function UserInfo() {
                                         <p className={`title`}><i className="bi bi-gender-trans"></i> Giới tính</p>
                                     </div>
                                     <div className={`col-sm-7`}>
-                                        <p className={`value`} >{user.gender === 1 ? "Nam" : "Nữ" }</p>
+                                        <p className={`value`}>{user.gender === 1 ? "Nam" : "Nữ"}</p>
                                     </div>
                                 </div>
                                 <hr/>
@@ -284,7 +290,7 @@ export default function UserInfo() {
                                     </div>
                                     <div className={`col-sm-7`}>
                                         <p className={`value`}>{new Intl.NumberFormat('vi-VN',
-                                            { style: 'currency', currency: 'VND' })
+                                            {style: 'currency', currency: 'VND'})
                                             .format(user.money)}</p>
                                     </div>
                                 </div>
@@ -305,24 +311,27 @@ export default function UserInfo() {
                                         <div className={"from-userinfo"}>
                                             <div className={"user-input"}>
                                                 <label className={"control-label"} htmlFor="nickname">Nickname</label>
-                                                <Field variant={`input`} type={"text"} name={"nickname"} placeholder={'NickName'} />
+                                                <Field variant={`input`} type={"text"} name={"nickname"}
+                                                       placeholder={'NickName'}/>
                                                 <ErrorMessage name="nickname" component="div" className="text-danger"/>
                                             </div>
                                             <div className="user-input">
                                                 <label className={"control-label"} htmlFor="email">Email</label>
-                                                <Field type="email" name="email" placeholder={'Email'} />
+                                                <Field type="email" name="email" placeholder={'Email'}/>
                                                 <ErrorMessage name="email" component="div" className="text-danger"/>
                                             </div>
                                             <div className="user-input">
-                                                <label className={"control-label"}  htmlFor="dob">Ngày sinh</label>
-                                                <Field variant={`input`} type="date" name="dob" placeholder={'Ngày sinh'}/>
+                                                <label className={"control-label"} htmlFor="dob">Ngày sinh</label>
+                                                <Field variant={`input`} type="date" name="dob"
+                                                       placeholder={'Ngày sinh'}/>
                                             </div>
                                             <div className="user-input">
                                                 <label htmlFor="address" className={"control-label"}>
                                                     Địa chỉ
                                                 </label>
                                                 <div>
-                                                    <Field className={`user-select-address`} as="select" name="addressId"
+                                                    <Field className={`user-select-address`} as="select"
+                                                           name="addressId"
                                                            aria-label="Default select example" placeholder={'Địa chỉ'}>
                                                         <option value="">Địa chỉ</option>
                                                         {addressList.map((item) => (
@@ -331,7 +340,8 @@ export default function UserInfo() {
                                                             </option>
                                                         ))}
                                                     </Field>
-                                                    <ErrorMessage name="address" component="div" className="text-danger"/>
+                                                    <ErrorMessage name="address" component="div"
+                                                                  className="text-danger"/>
                                                 </div>
                                             </div>
                                             <div className="form-userinfo">
