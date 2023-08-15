@@ -6,6 +6,9 @@ import "react-image-lightbox/style.css"; // Import the styles for the lightbox
 import {IconButton, Tooltip, Typography} from "@material-tailwind/react";
 import {PlusIcon} from "@heroicons/react/24/outline";
 import "./Album.css"
+import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
+import {storage} from "../../config/firebase";
+import Swal from "sweetalert2";
 
 export default function Album() {
     const {id} = useParams();
@@ -23,10 +26,42 @@ export default function Album() {
         setPhotoIndex(index);
         setIsOpen(true);
     };
-    const handleImageUpload = () => {
-        const file = document.getElementById("image-upload").files;
-        console.log(file)
+    const handleImageUpload = async () => {
+        const fileInput = document.getElementById("image-upload");
+        const files = fileInput.files;
+        const listImg = [];
+
+        for (let i = 0; i < files.length; i++) {
+            const storageRef = ref(storage, `albums/${files[i].name}`);
+            const uploadTask = uploadBytesResumable(storageRef, files[i]);
+
+            await new Promise((resolve, reject) => {
+                uploadTask.on(
+                    "state_changed",
+                    () => {},
+                    (error) => {
+                        alert(error);
+                        reject(error);
+                    },
+                    () => {
+                        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                            listImg.push(downloadURL);
+                            resolve();
+                        });
+                    }
+                );
+            });
+        }
+        console.log(listImg)
+        const uploadAlbumDTO = { albumImg: listImg };
+        try {
+            const response = await axios.post(`http://localhost:8080/api/albums/user/${id}`, uploadAlbumDTO);
+            setAlbum(response.data);
+        } catch (error) {
+            console.error(error);
+        }
     };
+
 
     return (
         <div className={"container"}>

@@ -34,7 +34,7 @@ export default function Story() {
                                 <div className="avt-rank avt-sm">
                                     <img src={item.img} alt="PD" className="avt-1-15 avt-img"/>
                                 </div>
-                                <Typography variant={"h5"} className={"ml-4 mt-2 font-medium"}>
+                                <Typography variant={"h5"} className={"mt-2 font-medium"}>
                                     {item.username}
                                 </Typography>
                             </div>
