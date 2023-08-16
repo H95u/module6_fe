@@ -8,20 +8,14 @@ import RegisterCCDV from "./components/login/RegisterCCDV";
 import Login from "./components/login/Login";
 import UserInfo from "./components/user-info/UserInfo";
 import SearchLogin from "./components/search/SearchLogin";
-import SearchFilter from "./components/search/SearchFilter";
 import EditPartnerInfo from "./components/user-info/EditPartnerInfo";
-import HomePageRenter from "./components/top3BookingUser/home/HomePageRenter";
-import HomePageRecent from "./components/top3BookingUser/home/HomePageRecent";
 import DetailRent from "./components/list/DetailRent";
 import SidebarTop3 from "./components/top3BookingUser/SidebarTop3";
 import MenuBar from "./components/user-info/MenuBar";
 import DetailUserRent from "./components/list/DetailUserRent";
 import SendMessageModal from "./components/messageForUser/SendMessageModal";
-import {useEffect} from "react";
-import {Stomp} from "@stomp/stompjs";
-import SockJS from "sockjs-client";
-import SampleComponent from "./components/SampleComponent";
 import Album from "./components/album/Album";
+import RevenueChart from "./components/chart/RevenueChart";
 
 export default function App() {
     return (
@@ -45,6 +39,7 @@ export default function App() {
                     <Route path={"/message"} element={<SendMessageModal/>}></Route>
                     <Route path={"/view-all"} element={<SearchLogin/>}></Route>
                     <Route path={"/album/:id"} element={<Album/>}></Route>
+                    <Route path={"/revenue/:id"} element={<RevenueChart/>}></Route>
                 </Routes>
             </BrowserRouter>
         </>

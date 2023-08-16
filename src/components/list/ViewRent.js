@@ -317,7 +317,7 @@ const ViewRent = () => {
                                                        onMouseLeave={handlePopoverMouseLeave}></i>
                                                 </PopoverHandler>
                                                 <PopoverContent>
-                                                    {booking.status === 1 ?
+                                                    {booking.status === 1 &&
                                                         <>
                                                             <Tooltip content="Xác nhận" show={tooltipVisible}>
                                                                 <IconButton
@@ -325,8 +325,8 @@ const ViewRent = () => {
                                                                     onClick={() => handleClickAccept(booking.id)}
                                                                 >
                                                                     <CheckIcon className="h-4 w-4"/>
-                                                                </IconButton>&ensp;
-                                                            </Tooltip>
+                                                                </IconButton>
+                                                            </Tooltip>&ensp;
                                                             <Tooltip content="Từ chối" show={tooltipVisible}>
                                                                 <IconButton variant="text" color="red"
                                                                             onClick={() => handleClickReject(booking.id)}
@@ -335,10 +335,9 @@ const ViewRent = () => {
                                                                 </IconButton>
                                                             </Tooltip>
                                                         </>
-                                                        : ""
                                                     }
 
-                                                    {booking.status === 3 ?
+                                                    {booking.status === 3 &&
                                                         <Tooltip content="Rút tiền" show={tooltipVisible}>
                                                             <IconButton variant="text" color="yellow"
                                                                 onClick={() => handleClickFinishPartner(booking.id)}
@@ -346,17 +345,15 @@ const ViewRent = () => {
                                                                 <CurrencyDollarIcon className="h-4 w-4"/>
                                                             </IconButton>
                                                         </Tooltip>
-                                                        : ""
                                                     }
 
-                                                    {booking.status === 5 ?
+                                                    {booking.status === 5 &&
                                                         <Tooltip content="Báo cáo" show={tooltipVisible}>
                                                             <IconButton variant="text" color="blue-gray"
                                                                         onClick={() => handleShow(booking)}>
                                                                 <BugAntIcon className="h-4 w-4"/>
                                                             </IconButton>
                                                         </Tooltip>
-                                                        : ""
                                                     }
                                                     <Tooltip content="Chat" show={tooltipVisible}>
                                                         <IconButton variant="text" color="blue-gray">
