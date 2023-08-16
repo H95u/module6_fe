@@ -25,6 +25,7 @@ export default function PartnerInfo() {
     const [selectedOptionId, setSelectedOptionId] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [messageInput, setMessageInput] = useState("");
+    const [topRank, setTopRank] = useState([]);
 
     useEffect(() => {
         stompClient.connect({}, () => {
@@ -222,6 +223,13 @@ export default function PartnerInfo() {
             navigate("/login");
         }
     };
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/api/users/sort-by-rent-count-desc')
+            .then((response) => {
+                setTopRank(response.data);
+            });
+    },[])
 
 
     return (
