@@ -37,7 +37,8 @@ export default function Album() {
             await new Promise((resolve, reject) => {
                 uploadTask.on(
                     "state_changed",
-                    () => {},
+                    () => {
+                    },
                     (error) => {
                         alert(error);
                         reject(error);
@@ -52,7 +53,7 @@ export default function Album() {
             });
         }
         console.log(listImg)
-        const uploadAlbumDTO = { albumImg: listImg };
+        const uploadAlbumDTO = {albumImg: listImg};
         try {
             const response = await axios.post(`http://localhost:8080/api/albums/user/${id}`, uploadAlbumDTO);
             setAlbum(response.data);
@@ -63,13 +64,13 @@ export default function Album() {
 
 
     return (
-        <div className={"container"}>
-            <Typography className={"text-center mt-10 mb-10"} variant={"h3"} color={"cyan"}>
-                Danh sách ảnh
-            </Typography>
-            <div className={"row"}>
+        <div className={"container-album"}>
+            <div className={"heading-album"}>
+                <h3>Danh Sách<span>Ảnh</span></h3>
+            </div>
+            <div className={"box-album"}>
                 {album.map((item, index) => (
-                    <div key={index} className={"col-md-3"}>
+                    <div key={index} className={"dream-album"}>
                         <img
                             className={"h-60 w-60 mb-20 cursor-pointer"}
                             alt={"..."}

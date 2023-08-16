@@ -30,8 +30,8 @@ export default function PartnerInfo() {
     useEffect(() => {
         stompClient.connect({}, () => {
             console.log("STOMP Connected");
-                stompClient.subscribe('/topic/messages', (data) => {
-                    console.log(data.body)
+                stompClient.subscribe('/topic/messages/chat', (data) => {
+                    console.log(data)
                 }, {})
         }, (error) => {
             console.error("STOMP Connection Error:", error);
@@ -52,7 +52,7 @@ export default function PartnerInfo() {
 
     const handleSubmitChat = () => {
         let data = {
-            message: messageInput,
+            content: messageInput,
             sender: {
                 id: isLoggedIn.id,
             },
