@@ -2,3 +2,24 @@
     margin-left: 5rem;
     margin-top: 5rem;
 }
+
+.delete-button {
+    position: absolute;
+    top: 0;
+    right: 2.4rem;
+    opacity: 0;
+    z-index: 1;
+}
+
+.img-container:hover .delete-button,
+.delete-button:hover {
+    opacity: 1;
+}
+
+.album-container img:hover {
+    box-shadow: 5px 10px 10px rgb(41, 42, 44);
+    transform: scale(1.2);
+}
+.img-container {
+    position: relative;
+}

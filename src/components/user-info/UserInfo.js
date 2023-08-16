@@ -144,15 +144,15 @@ export default function UserInfo() {
 
     return (
         <div className="user-info">
-            <Typography variant="h1" color="light-blue" className="mb-2 text-center" textGradient>
+            <Typography variant="h2" color="light-blue" className="mb-2 mt-2 text-center" textGradient>
                 Thông tin cá nhân
             </Typography>
             <div className={"container"}>
                 <div className={"row"}>
-                    <div className={"col-md-3"}>
-                        <div className=" flex items-center justify-between">
+                    <div className={"col-md-3 pt-4"}>
+                        <div className="flex items-center justify-between">
                             <Card
-                                className="w-84"
+                                className="w-84 img-frame"
                                 onMouseEnter={() => setIsHovered(true)}
                                 onMouseLeave={() => setIsHovered(false)}
                             >

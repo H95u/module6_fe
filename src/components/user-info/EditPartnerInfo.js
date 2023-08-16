@@ -1,4 +1,4 @@
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import * as Yup from "yup";
@@ -15,11 +15,17 @@ export default function EditPartnerInfo() {
     const [options, setOptions] = useState([]);
     const [newOptions, setNewOptions] = useState([]);
     const [allOptions, setAllOptions] = useState([]);
+    const [album, setAlbum] = useState([]);
     const [show, setShow] = useState(false);
     const [showRentForm, setShowRentForm] = useState(false)
     const [showPrice, setShowPrice] = useState(true)
     const [updatePrice, setUpdatePrice] = useState(false)
     const [status, setStatus] = useState("")
+    const [visibleImages, setVisibleImages] = useState(3);
+    const [albumLength, setAlbumLength] = useState(0);
+    const handleLoadMore = () => {
+        setVisibleImages(visibleImages + albumLength - 3);
+    };
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -113,7 +119,12 @@ export default function EditPartnerInfo() {
             setUser(response.data);
             setOptions(response.data.options);
             setNewOptions(response.data.options.map((item) => item.id));
+        });
+        axios.get(`http://localhost:8080/api/albums/user/${id}`).then((response) => {
+            setAlbum(response.data)
+            setAlbumLength(response.data.length);
         })
+
     }, [])
 
 
@@ -210,25 +221,27 @@ export default function EditPartnerInfo() {
                             </div>
                             <hr/>
                             <div className={"profile"}>
-                                <h2>Thông tin</h2>
-                                <div className={"album-of-player"}>
-                                    <img
-                                        src="https://playerduo.net/api/upload-service/thumbs/medium/66f8b716-ee52-4590-aa0a-73bd28590f5f__2c6a5460-2cb6-11ee-a657-a54d6be1d46a__player_album.jpg"
-                                        alt=""/>
+                                <div className={"flex"}>
+                                    <h2>Thông tin</h2>
+                                    <Link className={"ml-10"} to={`/album/${id}`}><Typography variant={"h4"} color={"blue"}>Album</Typography></Link>
+                                </div>
+                                <div className={"row album-of-player"}>
+                                    {album.slice(0, visibleImages).map((item, index) => (
+                                        <div className={"col-md-3"} key={index}>
+                                            <img
+                                                src={item.img}
+                                                alt=""/>
+                                        </div>
+                                    ))}
+                                    {visibleImages < album.length && (
+                                        <div className={"col-md-3"}>
+                                            <button onClick={handleLoadMore}>Xem tất cả</button>
+                                        </div>
+                                    )}
                                 </div>
                                 <p></p>
                                 <p>- Giọng bắc</p>
-                                <p>- Mng thuê ủng hộ tui đóng tiền đi học nha ^^</p>
-                                <p></p>
-                                <p>🤍 Liên minh huyền thoại ( Ad, Sp, Mid lo được )</p>
-                                <p></p>
-                                <p>🤍 Valorant ,CS GO ( chơi được từ bkim đổ xuống )</p>
-                                <p></p>
-                                <p>🤍 Naraka ( top 1 ez )</p>
-                                <p></p>
-                                <p>🤍 Onl Camx5</p>
-                                <p></p>
-                                <p>🤍 ... game gì cũng chơi</p>
+                                <p>🤍 ... </p>
                             </div>
                         </div>
                         <div className={"action"}>
