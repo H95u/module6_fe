@@ -3,6 +3,7 @@ import stompClient from "../../config/socket";
 import axios from "axios";
 import {Popover, PopoverContent, PopoverHandler} from "@material-tailwind/react";
 import {Typography} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 export default function Message() {
     const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
@@ -10,6 +11,11 @@ export default function Message() {
     const [message, setMessage] = useState([]);
     const [selectedSender, setSelectedSender] = useState(null);
     const [messageInput, setMessageInput] = useState("");
+    const navigate = useNavigate();
+
+    const getChat = () => {
+      navigate("/chat")
+    }
 
     const handleSenderClick = (senderId) => {
         setSelectedSender(senderId);
@@ -50,7 +56,7 @@ export default function Message() {
     const handleSubmitChat = () => {
         if (messageInput.trim() !== "") {
             const data = {
-                message: messageInput,
+                content: messageInput,
                 sender: {
                     id: loggingUser.id,
                 },
@@ -87,10 +93,8 @@ export default function Message() {
 
     return (
         <>
+            <img onClick={getChat} id="chat-icon" src="/chat.png" alt="chat"/>
             <Popover placement="left">
-                <PopoverHandler>
-                    <img onClick={getMessage} id="chat-icon" src="/chat.png" alt="chat"/>
-                </PopoverHandler>
                 <PopoverContent id="chat-frame">
                     <div className="gray-background">
                         <Typography color={"blue"} variant={"h3"} textGradient>

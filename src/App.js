@@ -15,6 +15,7 @@ import MenuBar from "./components/user-info/MenuBar";
 import DetailUserRent from "./components/list/DetailUserRent";
 import Album from "./components/album/Album";
 import RevenueChart from "./components/chart/RevenueChart";
+import ChatComponent from "./components/chat/ChatComponent";
 
 export default function App() {
     return (
@@ -38,6 +39,7 @@ export default function App() {
                     <Route path={"/view-all"} element={<SearchLogin/>}></Route>
                     <Route path={"/album/:id"} element={<Album/>}></Route>
                     <Route path={"/revenue/:id"} element={<RevenueChart/>}></Route>
+                    <Route path={"/chat"} element={<ChatComponent/>}></Route>
                 </Routes>
             </BrowserRouter>
         </>
