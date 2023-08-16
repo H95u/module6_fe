@@ -31,7 +31,7 @@ export default function SidebarRent() {
     return (
 
         <div className={"setting_main-menu col-lg-3 col-md-3 col-sm-12 col-xs-12"}>
-            <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+            <Card className="h-[calc(100vh-7rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
                 <div className="mb-2 p-4">
                     <Typography variant="h5" color="blue-gray">
                         Menu
