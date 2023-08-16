@@ -3,14 +3,18 @@ import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 import "./Message.css"
 
-const MessageForm = ({senderId, receiverId}) => {
+const MessageForm = ({senderId, receiverId,closeModal,isOpen  }) => {
     const [content, setContent] = useState('');
     const [notification, setNotification] = useState('');
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [modalIsOpen, setModalIsOpen] = useState(isOpen);
     const [sentMessageCount, setSentMessageCount] = useState(0);
+
     useEffect(() => {
-        fetchSentMessages().then();
-    }, []);
+        if (modalIsOpen) {
+            fetchSentMessages().then();
+        }
+    }, [modalIsOpen]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -41,12 +45,12 @@ const MessageForm = ({senderId, receiverId}) => {
         setModalIsOpen(false);
         setContent('');
         setNotification('');
+        closeModal();
     };
 
     return (
         <>
             {notification && <div>{notification}</div>}
-            <button onClick={() => setModalIsOpen(true)}>Mở</button>
             <Modal
                 show={modalIsOpen}
                 onHide={()=>handleModalClose}>
