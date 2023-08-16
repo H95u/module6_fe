@@ -2,11 +2,11 @@ import React, {useState} from 'react';
 import "./FormNavBar.css"
 import MessageReceiver from "./MessageReceiver";
 
-const FormNavBar = () => {
+const FormNavBar = ({ showForm, onClose }) => {
     const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
     const receiverId = loggingUser.id;
     const [showMessages, setShowMessages] = useState(false);
-    const [showForm, setShowForm] = useState(true);
+    // const [showForm, setShowForm] = useState(true);
 
     const handleViewMessagesClick = () => {
         setShowMessages(true);
@@ -14,7 +14,8 @@ const FormNavBar = () => {
 
     const handleCloseMessagesClick = (event) => {
         event.preventDefault();
-        setShowForm(false);
+        // setShowForm(false);
+        onClose();
     };
 
     return (

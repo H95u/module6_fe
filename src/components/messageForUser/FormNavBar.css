@@ -1,11 +1,13 @@
 /* Định dạng khung bọc ngoài */
 .notification-form {
-    display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    z-index: 101;
-    margin-top: 620px;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 100;
 }
 .content_form {
     display: flex;
