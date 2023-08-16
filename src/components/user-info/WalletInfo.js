@@ -43,6 +43,11 @@ export default function WalletInfo() {
                         icon: 'error',
                         title: 'Số tiền quá lớn !!',
                     })
+                } else if (amount < 500000) {
+                    await Swal.fire({
+                        icon: 'error',
+                        title: 'Bạn phải rút trên 500k !!',
+                    })
                 } else {
                     setLoading(true)
                     axios.post(`http://localhost:8080/api/paypal/withdraw/${id}?amount=${amount}&email=${email}`).then((response) => {
