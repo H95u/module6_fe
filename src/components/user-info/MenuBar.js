@@ -24,12 +24,14 @@ import {Link, useParams} from "react-router-dom";
 import Top3Rents from "../top3BookingUser/Top3Rents";
 import Top3RecentRenters from "../top3BookingUser/Top3RecentRenters";
 import ViewRent from "../list/ViewRent";
+import WalletInfo from "./WalletInfo";
 
 export default function MenuBar() {
     const [open, setOpen] = React.useState(0);
     const [showTop3Renters, setShowTop3Renters] = React.useState(false);
     const [showTop3RecentRenters, setShowTop3RecentRenters] = React.useState(false);
     const [showRentHistory, setShowRentHistory] = React.useState(true);
+    const [showWithdraw, setShowWithdraw] = React.useState(false);
     const [historyDropdownOpen, setHistoryDropdownOpen] = React.useState(false);
     const {id} = useParams();
     const handleOpen = (value) => {
@@ -43,17 +45,27 @@ export default function MenuBar() {
         setShowRentHistory(true);
         setShowTop3Renters(false);
         setShowTop3RecentRenters(false);
+        setShowWithdraw(false);
     }
 
     const handleOpenTop3Renters = () => {
         setShowRentHistory(false);
         setShowTop3Renters(true);
         setShowTop3RecentRenters(false);
+        setShowWithdraw(false);
     }
     const handleOpenTop3RecentRenters = () => {
         setShowRentHistory(false);
         setShowTop3Renters(false);
         setShowTop3RecentRenters(true);
+        setShowWithdraw(false);
+    }
+
+    const handleOpenWithdraw = () => {
+        setShowRentHistory(false);
+        setShowTop3Renters(false);
+        setShowTop3RecentRenters(false);
+        setShowWithdraw(true);
     }
 
 
@@ -150,7 +162,7 @@ export default function MenuBar() {
                                             <ListItemPrefix>
                                                 <ChevronRightIcon strokeWidth={3} className="h-3 w-5"/>
                                             </ListItemPrefix>
-                                            <i className="bi bi-credit-card-2-back icon-hover"> Cài đăt</i>
+                                            <i className="bi bi-credit-card-2-back icon-hover" onClick={handleOpenWithdraw}> Rút tiền</i>
                                         </ListItem>
                                         <ListItem>
                                             <ListItemPrefix>
@@ -180,6 +192,7 @@ export default function MenuBar() {
                     {showRentHistory && <ViewRent/>}
                     {showTop3Renters && <Top3Rents selectedUserId={id}/>}
                     {showTop3RecentRenters && <Top3RecentRenters selectedUserId={id}/>}
+                    {showWithdraw && <WalletInfo/>}
                 </div>
             </div>
         </div>

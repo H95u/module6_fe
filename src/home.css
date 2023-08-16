@@ -75,3 +75,13 @@ a:hover {
     border-radius: 10px;
 }
 
+.wallet-info{
+    height: 30rem;
+}
+
+.pig-img {
+    height: 100%;
+    width: 90%;
+    border-radius: 20px;
+}
+

@@ -15,7 +15,7 @@ import {
     ChevronDownIcon,
     Cog6ToothIcon,
     InboxArrowDownIcon,
-    LifebuoyIcon,
+    CurrencyDollarIcon,
     PowerIcon,
     EyeIcon,
     BellIcon
@@ -84,9 +84,8 @@ function ProfileMenu() {
     };
 
 
-    const handleHelp = () => {
-        // Implement the function for "Trợ giúp"
-        // e.g., show a help modal or redirect to a help page
+    const handleWithdraw = () => {
+
     };
 
     const handleLogout = () => {
@@ -105,7 +104,7 @@ function ProfileMenu() {
         ...((loggingUser.status === 1) || (loggingUser.status === 2)
             ? [
                 {
-                    label: "Chỉnh sửa thông tin",
+                    label: "Sửa t.tin CCDV",
                     icon: Cog6ToothIcon,
                     handler: handleEditProfile,
                 },
@@ -117,15 +116,14 @@ function ProfileMenu() {
             handler: handleRecharge,
         },
         {
+            label: "Rút tiền",
+            icon: CurrencyDollarIcon,
+            handler: handleWithdraw,
+        },
+        {
             label: "Lịch sử giao dịch",
             icon: EyeIcon,
             handler: handleTransaction,
-        },
-
-        {
-            label: "Trợ giúp",
-            icon: LifebuoyIcon,
-            handler: handleHelp,
         },
         {
             label: "Đăng xuất",
@@ -277,15 +275,17 @@ export function ComplexNavbar() {
                                 {autocompleteResults.map((user) => (
                                     <Link to={`/user/${user.id}`} onClick={handleLinkClick} key={user.id}>
                                         <li className="flex">
-                                            <img alt={"..."} className={"h-6 w-6 rounded-full"} src={user.img}/>
+                                            <img alt={"..."} className={"h-14 w-14 p-2 rounded-full"} src={user.img}/>
                                             <p className="ml-4">{user.username}</p>
                                         </li>
+                                        <hr/>
                                     </Link>
                                 ))}
                                 {autocompleteResults.length > 0 && (
                                     <li>
                                         <Link onClick={handleLinkClick} to={`/view-all?name=${searchInputValue}`}>
-                                            <Typography color={"blue"}> Xem tất cả</Typography>
+                                            <Typography className={"ml-2 p-2"} color={"blue"} variant={"h5"}> Xem tất
+                                                cả</Typography>
                                         </Link>
                                     </li>
                                 )}
@@ -311,9 +311,9 @@ export function ComplexNavbar() {
                     {/*</IconButton>*/}
                     <IconButton color="blue" onClick={handleIconButtonClick}>
                         <BellIcon className="h-10 w-10"/>
-                            <div className="notification-badge"></div>
+                        <div className="notification-badge"></div>
                     </IconButton>
-                    {showMyComponent && <FormNavBar onClose={() => setShowMyComponent(false)} />}
+                    {showMyComponent && <FormNavBar onClose={() => setShowMyComponent(false)}/>}
                 </div> : ""}
                 {loggingUser != null ? <ProfileMenu/> : <LoginButton/>}
             </div>
