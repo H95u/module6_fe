@@ -149,7 +149,7 @@ export default function UserInfo() {
             </Typography>
             <div className={"container"}>
                 <div className={"row"}>
-                    <div className={"col-md-3 pt-8"}>
+                    <div className={"col-md-3"}>
                         <div className=" flex items-center justify-between">
                             <Card
                                 className="w-84"
