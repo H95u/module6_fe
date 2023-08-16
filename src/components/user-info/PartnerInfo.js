@@ -307,7 +307,7 @@ export default function PartnerInfo() {
                                 <p className={"ready"}>Đang sẵn sàng</p>
                             </div>
                             <div className={"dob"}>
-                                <span>Ngày tham gia:</span><span><span>{user.createdDate}</span></span></div>
+                                <span>Ngày tham gia :</span><span><span> {user.createdDate} </span></span></div>
                             <hr/>
                         </div>
                         <div className={"info"}>

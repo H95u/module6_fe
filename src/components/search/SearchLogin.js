@@ -47,7 +47,7 @@ const SearchLogin = () => {
                 {allUsers.length > 0 && (
                     <div className={"list-item-username"}>
                         {visibleSearchAll.map((user) => (
-                            <Card key={user.id} className="w-96 hover:bg-gray-100 transition duration-300 ease-in-out transform hover:scale-105">
+                            <Card key={user.id} className="mb-2 w-96 hover:bg-gray-100 transition duration-300 ease-in-out transform hover:scale-105">
                                 <List>
                                     <ListItem>
                                         <ListItemPrefix>

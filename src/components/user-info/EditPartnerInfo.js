@@ -149,7 +149,7 @@ export default function EditPartnerInfo() {
 
                             <p className={"ready"}>{status}</p>
                             <div className={"dob"}>
-                                <span>Ngày tham gia:</span><span><span>{user.createdDate}</span></span></div>
+                                <span>Ngày tham gia : </span><span><span>{user.createdDate}</span></span></div>
                             <hr/>
                         </div>
                         <div className={"info"}>

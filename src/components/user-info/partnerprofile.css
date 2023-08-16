@@ -24,8 +24,8 @@
 
 .cards img {
     border-radius: 10px;
-    height: 350px;
-    width: 300px;
+    height: 20rem;
+    width: 20rem;
 }
 
 .ready {
@@ -33,7 +33,7 @@
     font-family: initial;
     font-size: 20px;
     color: #04be54;
-    margin-left: 90px;
+    text-align: center;
 }
 
 .status select {
