@@ -21,6 +21,7 @@ import Modal from "react-bootstrap/Modal";
 import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import Swal from "sweetalert2";
+import MessageForm from "../messageForUser/MessageForm";
 
 
 const ViewRent = () => {
@@ -201,6 +202,29 @@ const ViewRent = () => {
         setTooltipVisible(false);
     };
 
+
+    const [showModal, setShowModal] = useState(false);
+    const [senderId, setSenderId] = useState('');
+    const [receiverId, setReceiverId] = useState('');
+
+    const handleOpenChat = (receiverId) => {
+        if (loggingUser) {
+            setSenderId(loggingUser.id);
+            setReceiverId(receiverId);
+            setShowModal(true);
+        }
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+    };
+
+
+
+    const handleTooltipVisibility = (visible) => {
+        setTooltipVisible(visible);
+    };
+
     return (
 
         <>
@@ -355,11 +379,34 @@ const ViewRent = () => {
                                                             </IconButton>
                                                         </Tooltip>
                                                     }
-                                                    <Tooltip content="Chat" show={tooltipVisible}>
-                                                        <IconButton variant="text" color="blue-gray">
-                                                            <ChatBubbleBottomCenterIcon className="h-4 w-4"/>
-                                                        </IconButton>
-                                                    </Tooltip>
+
+                                                    {/*<Tooltip content="Chat" show={tooltipVisible}>*/}
+                                                    {/*    <IconButton variant="text" color="blue-gray">*/}
+                                                    {/*        <ChatBubbleBottomCenterIcon className="h-4 w-4"/>*/}
+                                                    {/*    </IconButton>*/}
+                                                    {/*</Tooltip>*/}
+
+                                                    <div>
+                                                        <Tooltip content="Chat" show={tooltipVisible}>
+                                                            <IconButton
+                                                                variant="text"
+                                                                color="blue-gray"
+                                                                onClick={() => handleOpenChat(booking.bookingUser?.id)}
+                                                                onMouseEnter={() => handleTooltipVisibility(true)}
+                                                                onMouseLeave={() => handleTooltipVisibility(false)}
+                                                            >
+                                                                <ChatBubbleBottomCenterIcon className="h-4 w-4" />
+                                                            </IconButton>
+                                                        </Tooltip>
+                                                        {showModal && (
+                                                            <MessageForm
+                                                                senderId={senderId}
+                                                                receiverId={receiverId}
+                                                                closeModal={closeModal}
+                                                            />
+                                                        )}
+                                                    </div>
+
                                                 </PopoverContent>
                                             </Popover>
                                         </td>
