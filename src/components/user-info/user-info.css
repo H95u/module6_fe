@@ -130,3 +130,8 @@
     width: 60rem;
     margin-top: 50px;
 }
+
+.btn-group button {
+    width: 7.5rem;
+    box-shadow: 5px 10px 10px rgb(41, 42, 44);
+}
