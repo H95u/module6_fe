@@ -63,8 +63,15 @@ a:hover {
 .auto-complete {
     position: absolute;
     margin-top: 2.5rem;
+    border-radius: 10px;
+    font-family: Poppins, serif;
     z-index:999;
     background-color: white;
     width: 18rem;
+    border: 1px groove gray;
+}
+.auto-complete li:hover {
+    background-color: lightcyan;
+    border-radius: 10px;
 }
 

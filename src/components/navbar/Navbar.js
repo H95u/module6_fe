@@ -273,29 +273,23 @@ export function ComplexNavbar() {
 
                     {showPopover && (
                         <div className={"auto-complete"}>
-                            <table className="table table-hover">
-                                <tbody>
+                            <ul>
                                 {autocompleteResults.map((user) => (
-                                    <tr key={user.id} className="p-2">
-                                        <Link to={`/user/${user.id}`} onClick={handleLinkClick}>
-                                            <td><img alt={"..."} className={"h-10 w-10 rounded-full"} src={user.img}/>
-                                            </td>
-                                            <td>{user.username}</td>
-                                        </Link>
-                                    </tr>
-
+                                    <Link to={`/user/${user.id}`} onClick={handleLinkClick} key={user.id}>
+                                        <li className="flex">
+                                            <img alt={"..."} className={"h-6 w-6 rounded-full"} src={user.img}/>
+                                            <p className="ml-4">{user.username}</p>
+                                        </li>
+                                    </Link>
                                 ))}
                                 {autocompleteResults.length > 0 && (
-                                    <tr>
-                                        <td className="text-center">
-                                            <Link onClick={handleLinkClick} to={`/view-all?name=${searchInputValue}`}>
-                                                Xem tất cả
-                                            </Link>
-                                        </td>
-                                    </tr>
+                                    <li>
+                                        <Link onClick={handleLinkClick} to={`/view-all?name=${searchInputValue}`}>
+                                            <Typography color={"blue"}> Xem tất cả</Typography>
+                                        </Link>
+                                    </li>
                                 )}
-                                </tbody>
-                            </table>
+                            </ul>
                         </div>
                     )}
                 </div>
