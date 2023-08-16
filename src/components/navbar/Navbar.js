@@ -15,7 +15,7 @@ import {
     ChevronDownIcon,
     Cog6ToothIcon,
     InboxArrowDownIcon,
-    CurrencyDollarIcon,
+    LifebuoyIcon,
     PowerIcon,
     EyeIcon,
     BellIcon
@@ -25,6 +25,7 @@ import axios from "axios";
 import RechargeModal from "../recharge-modal/RechargeModal";
 import {HomeIcon} from "@heroicons/react/24/solid";
 import FormNavBar from "../messageForUser/FormNavBar";
+import "./Navbar.css"
 
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
@@ -84,8 +85,9 @@ function ProfileMenu() {
     };
 
 
-    const handleWithdraw = () => {
-
+    const handleHelp = () => {
+        // Implement the function for "Trợ giúp"
+        // e.g., show a help modal or redirect to a help page
     };
 
     const handleLogout = () => {
@@ -104,7 +106,7 @@ function ProfileMenu() {
         ...((loggingUser.status === 1) || (loggingUser.status === 2)
             ? [
                 {
-                    label: "Sửa t.tin CCDV",
+                    label: "Chỉnh sửa thông tin",
                     icon: Cog6ToothIcon,
                     handler: handleEditProfile,
                 },
@@ -116,14 +118,15 @@ function ProfileMenu() {
             handler: handleRecharge,
         },
         {
-            label: "Rút tiền",
-            icon: CurrencyDollarIcon,
-            handler: handleWithdraw,
-        },
-        {
             label: "Lịch sử giao dịch",
             icon: EyeIcon,
             handler: handleTransaction,
+        },
+
+        {
+            label: "Trợ giúp",
+            icon: LifebuoyIcon,
+            handler: handleHelp,
         },
         {
             label: "Đăng xuất",
@@ -233,19 +236,10 @@ export function ComplexNavbar() {
         setSearchInputValue("");
         setShowPopover(false);
     };
-
-    const [showMyComponent, setShowMyComponent] = useState(false);
-    const [showNotification, setShowNotification] = useState(false);
     const [showFormNavBar, setShowFormNavBar] = useState(false);
-    const handleIconButtonClick = () => {
-        setShowNotification(false);
-        setShowFormNavBar(!showFormNavBar);
-        setShowMyComponent(prevShow => !prevShow)
-    };
 
-    const handleNotificationClick = () => {
-        setShowFormNavBar(false);
-        setShowNotification(!showNotification);
+    const handleIconButtonClick = () => {
+        setShowFormNavBar(!showFormNavBar);
     };
 
     return (
@@ -275,17 +269,15 @@ export function ComplexNavbar() {
                                 {autocompleteResults.map((user) => (
                                     <Link to={`/user/${user.id}`} onClick={handleLinkClick} key={user.id}>
                                         <li className="flex">
-                                            <img alt={"..."} className={"h-14 w-14 p-2 rounded-full"} src={user.img}/>
+                                            <img alt={"..."} className={"h-6 w-6 rounded-full"} src={user.img}/>
                                             <p className="ml-4">{user.username}</p>
                                         </li>
-                                        <hr/>
                                     </Link>
                                 ))}
                                 {autocompleteResults.length > 0 && (
                                     <li>
                                         <Link onClick={handleLinkClick} to={`/view-all?name=${searchInputValue}`}>
-                                            <Typography className={"ml-2 p-2"} color={"blue"} variant={"h5"}> Xem tất
-                                                cả</Typography>
+                                            <Typography color={"blue"}> Xem tất cả</Typography>
                                         </Link>
                                     </li>
                                 )}
@@ -306,14 +298,15 @@ export function ComplexNavbar() {
                     </Typography>
                 </div>
                 {loggingUser != null ? <div className="absolute top-2/4 right-0 -translate-y-2/4 mr-24">
-                    {/*<IconButton color="blue">*/}
-                    {/*    <BellIcon className="h-10 w-10"/>*/}
-                    {/*</IconButton>*/}
-                    <IconButton color="blue" onClick={handleIconButtonClick}>
-                        <BellIcon className="h-10 w-10"/>
-                        <div className="notification-badge"></div>
-                    </IconButton>
-                    {showMyComponent && <FormNavBar onClose={() => setShowMyComponent(false)}/>}
+                    <div>
+                        <div className="dropdown-container">
+                            <IconButton color="blue" onClick={handleIconButtonClick}>
+                                <BellIcon className="h-10 w-10" />
+                                <div className="notification-badge"></div>
+                            </IconButton>
+                            <FormNavBar showForm={showFormNavBar} onClose={() => setShowFormNavBar(false)} />
+                        </div>
+                    </div>
                 </div> : ""}
                 {loggingUser != null ? <ProfileMenu/> : <LoginButton/>}
             </div>

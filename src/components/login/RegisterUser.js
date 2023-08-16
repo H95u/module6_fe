@@ -5,11 +5,7 @@ import Swal from "sweetalert2";
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from "yup";
 import "./Login.css";
-import {Typography, Avatar} from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
-
+import {Typography} from '@mui/material';
 const RegisterUser = () => {
     const [students, setStudents] = useState([]);
     const navigate = useNavigate();
@@ -125,9 +121,9 @@ const RegisterUser = () => {
 
                                             <div className='row g-0'>
 
-                                                <div className='col-md-4'>
+                                                <div className='col-md-4 d-none d-md-block'>
                                                     <img
-                                                        src='https://sohanews.sohacdn.com/160588918557773824/2020/7/29/photo-5-15959936560561234324432.jpg'
+                                                        src='https://static1.dienanh.net/upload/202106/1fb5d39e-d154-44ee-ad74-acb9e9aca7f4.jpg'
                                                         alt='Sample photo' className='card-img rounded-start'/>
                                                 </div>
 
