@@ -131,7 +131,24 @@
     margin-top: 50px;
 }
 
+
 .btn-group button {
     width: 7.5rem;
     box-shadow: 5px 10px 10px rgb(41, 42, 44);
+}
+.revenue-container .revenue-title p {
+    font-size: 25px;
+    padding-left: 50px;
+}
+.revenue-container .revenue-title .select-year {
+    width: 10rem;
+    padding-left: 15px;
+}
+.revenue-title .year-title {
+    display: flex;
+}
+.revenue-title .year-title span {
+    font-size: 20px;
+    padding-top: 5px;
+
 }
