@@ -88,6 +88,7 @@ export default function UserInfo() {
             }
         );
     };
+
     // Revenue-Chart
 
     function displayRevenue() {
@@ -101,11 +102,13 @@ export default function UserInfo() {
     function closeFormUpdate() {
         setShowUser(true)
         setShowUpdateUser(false)
+        setShowRevenue(false)
     }
 
 
     function displayFormUpdate() {
         setShowUser(false);
+        setShowRevenue(false)
         setShowUpdateUser(true);
         setInitialValues({
             nickname: user.nickname,
@@ -379,7 +382,8 @@ export default function UserInfo() {
                                                     <button className={"btn-danger"}>Cập nhật</button>
                                                 </div>
                                                 <div className={`col-sm-6`}>
-                                                    <a onClick={closeFormUpdate} className={"btn btn-secondary"} href={`#`}>Quay lại</a>
+                                                    <a onClick={closeFormUpdate} className={"btn btn-secondary"}
+                                                       href={`#`}>Quay lại</a>
                                                 </div>
 
                                             </div>
@@ -391,11 +395,9 @@ export default function UserInfo() {
                     </>}
 
                     {showRevenue &&
-                       <>
-                           <div className={`col-md-9 revenue-container`}>
-                               <RevenueChart/>
-                           </div>
-                       </>
+                        <>
+                            <RevenueChart/>
+                        </>
                     }
 
                 </div>
