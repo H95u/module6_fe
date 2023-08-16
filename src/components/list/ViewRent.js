@@ -403,6 +403,7 @@ const ViewRent = () => {
                                                                 senderId={senderId}
                                                                 receiverId={receiverId}
                                                                 closeModal={closeModal}
+                                                                isOpen={true}
                                                             />
                                                         )}
                                                     </div>
