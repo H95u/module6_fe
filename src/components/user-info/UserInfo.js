@@ -14,7 +14,7 @@ import {storage} from "../../config/firebase";
 import Swal from "sweetalert2";
 import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
 export default function UserInfo() {
@@ -137,6 +137,9 @@ export default function UserInfo() {
     const showAlbum = () => {
         navigate(`/album/${id}`)
     }
+    const showChart = () => {
+        navigate(`/revenue/${id}`)
+    }
 
 
     return (
@@ -207,8 +210,8 @@ export default function UserInfo() {
                         <div className="d-flex flex-wrap mt-2 justify-between">
                             <div className={"row btn-group"}>
                                 <div className={"col-md-6"}>
-                                    <Button size="md" color="white" className={"mb-2"}>
-                                        Theo dõi
+                                    <Button size="md" color="white" className={"mb-2"} onClick={showChart}>
+                                        Doanh thu
                                     </Button>
                                     <Button size="md" color="white" onClick={displayFormUpdate}>
                                         Chỉnh sửa

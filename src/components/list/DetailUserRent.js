@@ -21,7 +21,7 @@ export default function DetailUserRent() {
     }, [id]);
 
     const handleClickFinish = (bookingId) => {
-        axios.put(`http://localhost:8080/api/bookings/${bookingId}/finish`).then((response) => {
+        axios.put(`http://localhost:8080/api/bookings/${bookingId}/finish-user`).then((response) => {
             setUserBookingRent(response.data)
             alert("Hoàn thành thành công");
         })
