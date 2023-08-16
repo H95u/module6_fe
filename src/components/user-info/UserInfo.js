@@ -363,8 +363,14 @@ export default function UserInfo() {
                                                 </div>
                                             </div>
                                             <hr/>
-                                            <div className="user-input">
-                                                <button className={"btn-danger"}>Cập nhật</button>
+                                            <div className="row user-input">
+                                                <div className={`col-sm-6`}>
+                                                    <button className={"btn-danger"}>Cập nhật</button>
+                                                </div>
+                                                <div className={`col-sm-6`}>
+                                                    <a onClick={closeFormUpdate} className={"btn btn-secondary"} href={`#`}>Quay lại</a>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </Form>
