@@ -236,20 +236,6 @@ export function ComplexNavbar() {
         setSearchInputValue("");
         setShowPopover(false);
     };
-
-    // const [showMyComponent, setShowMyComponent] = useState(false);
-    // const [showNotification, setShowNotification] = useState(false);
-    // const [showFormNavBar, setShowFormNavBar] = useState(false);
-    // const handleIconButtonClick = () => {
-    //     setShowNotification(false);
-    //     setShowFormNavBar(!showFormNavBar);
-    //     setShowMyComponent(prevShow => !prevShow)
-    // };
-    //
-    // const handleNotificationClick = () => {
-    //     setShowFormNavBar(false);
-    //     setShowNotification(!showNotification);
-    // };
     const [showFormNavBar, setShowFormNavBar] = useState(false);
 
     const handleIconButtonClick = () => {
@@ -312,14 +298,6 @@ export function ComplexNavbar() {
                     </Typography>
                 </div>
                 {loggingUser != null ? <div className="absolute top-2/4 right-0 -translate-y-2/4 mr-24">
-                    {/*<IconButton color="blue">*/}
-                    {/*    <BellIcon className="h-10 w-10"/>*/}
-                    {/*</IconButton>*/}
-                    {/*<IconButton color="blue" onClick={handleIconButtonClick}>*/}
-                    {/*    <BellIcon className="h-10 w-10"/>*/}
-                    {/*        <div className="notification-badge"></div>*/}
-                    {/*</IconButton>*/}
-                    {/*{showMyComponent && <FormNavBar onClose={() => setShowMyComponent(false)} />}*/}
                     <div>
                         <div className="dropdown-container">
                             <IconButton color="blue" onClick={handleIconButtonClick}>

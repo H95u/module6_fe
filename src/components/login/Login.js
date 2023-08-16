@@ -1,15 +1,15 @@
 import React, {useState} from "react";
 import axios from "axios";
-import * as Yup from "yup";
 import {Link, useNavigate} from "react-router-dom";
 import Swal from "sweetalert2";
-import {Container, Row, Col, Card, Image, InputGroup, Button} from 'react-bootstrap';
+import {Container, Row, Col, Card, Image, InputGroup} from 'react-bootstrap';
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import "./Login.css";
 import {Typography, Avatar} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { Button } from "@material-tailwind/react";
 const Login = () => {
     const [showPassword, setShowPassword] = React.useState(false);
     const navigate = useNavigate();
@@ -131,7 +131,7 @@ const Login = () => {
                                                 />
                                             </InputGroup>
                                             <InputGroup className="mb-4">
-                                                <InputGroup.Text>Mật khẩu</InputGroup.Text>
+                                                <InputGroup.Text>Nhập mật khẩu</InputGroup.Text>
                                                 <Field
                                                     type={ showPassword ? "text" : "password"}
                                                     id="password"
@@ -186,7 +186,7 @@ const Login = () => {
 
                                                 <Button
                                                     type="reset"
-                                                    className="mb-4 px-5 bg-yellow-600"
+                                                    className="mb-4 px-5 bg-yellow-700"
                                                     size="lg"
                                                     disabled={isSubmitting}
                                                 >
@@ -200,9 +200,9 @@ const Login = () => {
 
                                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                     <Link href="#" variant="body2" style={{color: "#393f81"}}>
-                                        Quên mật khẩu?
+                                        Quên mật khẩu ?
                                     </Link>
-                                    <p>Bạn chưa có tài khoản ?
+                                    <p>Bạn chưa có tài khoản ?  &ensp;
                                         <Link to={"/signup"} style={{color: "#393f81"}}>
                                             Đăng ký tại đây
                                         </Link></p>

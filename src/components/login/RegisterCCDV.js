@@ -5,12 +5,7 @@ import Swal from "sweetalert2";
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from "yup";
 import "./Login.css";
-import {Typography, Avatar} from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import {FooterWithSocialLinks} from "../footer/Footer"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
-
+import {Typography} from '@mui/material';
 const RegisterCCDV = () => {
     const navigate = useNavigate();
     const [students, setStudents] = useState([]);
@@ -131,7 +126,7 @@ const RegisterCCDV = () => {
 
                                                 <div className='col-md-4 d-none d-md-block'>
                                                     <img
-                                                        src='https://nguoinoitieng.net/wp-content/uploads/2022/12/Ngo-Nha-Linh-1-e1670894623449-1013x1536.jpg'
+                                                        src='https://i.pinimg.com/474x/4c/f7/ee/4cf7eeecefabcfe4119c4a24920fb787.jpg'
                                                         alt='Sample photo' className='card-img rounded-start h-auto'/>
                                                 </div>
 
