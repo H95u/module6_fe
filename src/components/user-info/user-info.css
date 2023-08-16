@@ -35,7 +35,7 @@
     font-family: Poppins;
 }
 .form-update-user .user-select-address {
-    min-height: 54px;
+    min-height: 50px;
     text-align: left;
     font-size: 16px;
     color: #354052;
@@ -46,7 +46,7 @@
 }
 
 .user-input {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .user-input .control-label {
@@ -66,7 +66,7 @@
 
 .user-input input {
     width: 100%;
-    min-height: 54px;
+    min-height: 50px;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -108,14 +108,14 @@
 .user-input .btn-danger {
     margin-top: 20px;
     width: 100%;
-    height: 54px;
+    height: 50px;
     border-radius: 5px;
 }
 .user-input .btn-secondary {
     margin-top: 20px;
-    padding-top: 15px;
+    padding-top: 12px;
     width: 100%;
-    height: 54px;
+    height: 50px;
     border-radius: 5px;
     color: white;
 }
