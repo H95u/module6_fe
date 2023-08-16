@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import MenuBar from "../user-info/MenuBar";
 import {Typography} from "@material-tailwind/react";
 import "./Top3.css";
 import {Link} from "react-router-dom";

@@ -1,14 +1,11 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import "./SidebarTop3.css";
-import MenuBar from "../user-info/MenuBar";
 import {Typography, Spinner} from "@material-tailwind/react";
 import "./Top3.css"
 import {Link} from "react-router-dom";
 
 const Top3RecentRenters = ({selectedUserId}) => {
     const [top3RecentRenters, setTop3RecentRenters] = useState([]);
-    const [loading, setLoading] = useState(true);
     useEffect(() => {
         const fetchRecentRenters = () => {
             try {

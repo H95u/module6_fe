@@ -121,6 +121,12 @@
     color: white;
 }
 
+
 .img-frame {
     box-shadow: 5px 10px 10px rgb(41, 42, 44);
+}
+
+.revenue-container {
+    width: 60rem;
+    margin-top: 50px;
 }
