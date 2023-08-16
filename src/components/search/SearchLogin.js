@@ -5,6 +5,7 @@ import {Link, useLocation} from "react-router-dom";
 import {Button, IconButton, Card, List, ListItem, ListItemPrefix, Avatar, Typography} from "@material-tailwind/react";
 import {ArrowLeftIcon, ArrowRightIcon} from "@heroicons/react/24/outline";
 import MenuBar from "../user-info/MenuBar";
+import HotListBock from "./HotListBock";
 
 
 
@@ -42,8 +43,9 @@ const SearchLogin = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center">
-            <div className={"col-md-6 container-fluid user__page false"}>
+        <div className="flex">
+            <HotListBock/>
+            <div className={"col-md-6 container-fluids user__page false"}>
                 {allUsers.length > 0 && (
                     <div className={"list-item-username"}>
                         {visibleSearchAll.map((user) => (
@@ -96,6 +98,22 @@ const SearchLogin = () => {
                         Next <ArrowRightIcon strokeWidth={2} className="h-4 w-4"/>
                     </Button>
                 </div>
+            </div>
+            <div className={"col-md-3 right-rank hidden-sm hidden-xs"}>
+                <section className={"player__newfeed"}>
+                    <div className={"player__newfeed--rent"}>
+                        <div className={"wrapper__image"}>
+                            <Link to={"/"}>
+                                <img src="/banner/illustration-love-hand_617585-90.png" alt="rent-player"/>
+                            </Link>
+                        </div>
+                        <div className={"rent__player--text"}>
+                            <Link to={"/"}>
+                                <span>Thuê người yêu</span>
+                            </Link>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     );
