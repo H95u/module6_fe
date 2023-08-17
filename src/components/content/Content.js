@@ -110,7 +110,7 @@ export default function Content() {
                 <div className={"col-md-2"}>
                     <Sidebar optionId={optionId} onSearch={searchByOption}/>
                 </div>
-                <div className={"col-md-10 col-sm-1"}>
+                <div className={"col-md-10 col-sm-1 pl-10"}>
                     <Banner/>
                     <Story/>
                     <hr/>
@@ -121,7 +121,7 @@ export default function Content() {
                     {optionChoose != "" ?
                         generateSearchTitle()
                         :
-                        <Typography variant="h3" color="red" className="mb-10 mt-8" textGradient>
+                        <Typography variant="h3" color="red" className="mb-10 mt-8 ml-4" textGradient>
                             Danh sách hot girl, hot boy
                         </Typography>}
                     {users.length === 0 ?
