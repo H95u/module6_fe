@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import "./Chat.css";
-import {useNavigate} from "react-router-dom";
-import axios from "axios";
 import stompClient from "../../config/socket";
 
 const ChatForm = () => {
     const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
+    const [conversations, setConversations] = useState([]);
+    const [selectedConversation, setSelectedConversation] = useState(null);
     const [message, setMessage] = useState([]);
     const [selectedSender, setSelectedSender] = useState(null);
     const [messageInput, setMessageInput] = useState("");
@@ -14,16 +14,15 @@ const ChatForm = () => {
         setSelectedSender(senderId);
     };
 
-    const getMessage = () => {
-        if (loggingUser != null) {
-            const id = loggingUser.id;
-            axios.get(`http://localhost:8080/api/messages/user/${id}`).then((response) => {
-                setMessage(response.data);
-                console.log(response.data);
-                console.log(message.sender);
-            });
-        }
-    };
+    // const getMessage = () => {
+    //     if (loggingUser != null) {
+    //         const id = loggingUser.id;
+    //         axios.get(`http://localhost:8080/api/messages/user/${id}`).then((response) => {
+    //             console.log(response.data);
+    //             setMessage(response.data);
+    //         });
+    //     }
+    // };
 
     const handleSubmitChat = () => {
         if (messageInput.trim() !== "") {
@@ -43,11 +42,11 @@ const ChatForm = () => {
     };
 
     useEffect(() => {
-        getMessage();
+        // getMessage();
 
-        stompClient.connect({}, () => {
-            console.log("STOMP Connected");
-            stompClient.subscribe(`/topic/messages/chat`, (data) => {
+        stompClient.connect({}, (f) => {
+            console.log("STOMP Connected " + f);
+            stompClient.subscribe(`/topic/${loggingUser.id}`, (data) => {
                 const receivedMessage = JSON.parse(data.body);
                 setMessage(prevMessages => [...prevMessages, receivedMessage]);
             }, {});
@@ -70,26 +69,18 @@ const ChatForm = () => {
                 <h3>
                     Chat
                 </h3>
-                {/*<div className={"distance"}>*/}
-                {/*    {message.length !== 0 && message.map(item => (*/}
-                {/*        <div className={"content-chat"}>*/}
-                {/*            <img className={"avt-img-chat"} src={item.sender.img} alt=""/>*/}
-                {/*            <p onClick={() => handleSenderClick(item.sender.id)}>{item.sender.username}</p>*/}
-                {/*        </div>*/}
-                {/*    ))}*/}
-                {/*</div>*/}
                 <div className={"distance"}>
-                    {message.length !== 0 &&
+                    {message.length !== 0 && conversations.map(item => (
                         <div className={"content-chat"}>
-                            <img className={"avt-img-chat"} src={message.sender?.img} alt=""/>
-                            <p onClick={() => handleSenderClick(message.sender?.id)}>{message.sender?.username}</p>
+                            <img className={"avt-img-chat"} src={item.sender.img} alt=""/>
+                            <p onClick={() => handleSenderClick(item.sender.id)}>{item.sender.username}</p>
                         </div>
-                    }
+                    ))}
                 </div>
             </div>
             <div className="chat-form-container">
                 <div className="chat-messages">
-                    {message.map(item => (
+                    {message.length !== 0 && message.map(item => (
                         <div
                             key={item.id}
                             className={`chat-message ${item.sender.id === loggingUser.id ? 'user-message' : 'other-message'}`}
@@ -118,8 +109,8 @@ const ChatForm = () => {
                                 }
                             }}
                         />
-                        <button className={"button-chat"} onClick={handleSubmitChat}>
-                            Gửi
+                        <button type="button" className={"button-chat"} onClick={handleSubmitChat}>
+                            Send
                         </button>
                     </div>
                     <div className="receiver-avatar">
