@@ -154,12 +154,9 @@ export default function UserInfo() {
 
     return (
         <div className="user-info">
-            <Typography variant="h2" color="light-blue" className="mb-2 mt-5 text-center" textGradient>
-                Thông tin cá nhân
-            </Typography>
             <div className={"container"}>
                 <div className={"row"}>
-                    <div className={"col-md-3 pt-4"}>
+                    <div className={"col-md-3 pt-14"}>
                         <div className="flex items-center justify-between">
                             <Card
                                 className="w-84 img-frame"
@@ -242,6 +239,9 @@ export default function UserInfo() {
 
                     {showUser && <>
                         <div className={"col-md-9"}>
+                            <Typography variant="h2" color="light-blue" className="mb-2 mt-4 text-center" textGradient>
+                                Thông tin cá nhân
+                            </Typography>
                             <div className={`my-profile`}>
                                 <div className={`row`}>
                                     <div className={`col-sm-5`}>

@@ -26,7 +26,7 @@ export default function Sidebar(props) {
                     </p>
                     <ul className={"list-group"} onClick={handleSelect}>
                         {options.map(item => (
-                            <li key={item.id} data-value={item.id} className={"list-item"}>
+                            <li key={item.id} data-value={item.id} className={"list-item ml-2.5"}>
                                 <div className={"media"}>
                                     <div className={"media-left"}>
                                         <img className={"sidebar-image mt-2"} src={`banner/${item.image}`} alt=""/>

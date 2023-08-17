@@ -63,12 +63,6 @@
     font-family: initial;
 }
 
-.rent-user .title p {
-    margin-left: 333px;
-    height: 50px;
-    font-size: 30px;
-    color: #fa2d7c;
-}
 
 .partner_info {
     display: flex;
@@ -113,10 +107,4 @@
 }
 .report .form-label {
     padding-top: 5px;
-}
-.view-rent {
-    margin-left: 333px;
-    height: 50px;
-    font-size: 30px;
-    color: #fa2d7c;
 }

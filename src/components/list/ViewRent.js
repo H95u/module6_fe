@@ -224,20 +224,20 @@ const ViewRent = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 try {
-        axios.put(`http://localhost:8080/api/bookings/reject/${bookingId}`).then((response) => {
-            const updatedBooking = response.data;
+                    axios.put(`http://localhost:8080/api/bookings/reject/${bookingId}`).then((response) => {
+                        const updatedBooking = response.data;
 
-            const index = bookings.findIndex(booking => booking.id === bookingId);
+                        const index = bookings.findIndex(booking => booking.id === bookingId);
 
-            if (index !== -1) {
+                        if (index !== -1) {
 
-                const updatedBookings = [...bookings];
-                updatedBookings[index] = updatedBooking;
+                            const updatedBookings = [...bookings];
+                            updatedBookings[index] = updatedBooking;
 
-                setBookings(updatedBookings);
-            }
-        })
-    } catch (error) {
+                            setBookings(updatedBookings);
+                        }
+                    })
+                } catch (error) {
                     console.error(error);
                 }
                 Swal.fire({
@@ -250,7 +250,6 @@ const ViewRent = () => {
             }
         });
     }
-
 
 
     const handlePopoverClick = () => {
@@ -289,14 +288,12 @@ const ViewRent = () => {
             {((loggingUser.status === 1) || (loggingUser.status === 2)) &&
                 <>
                     <Typography
-                        variant="h4"
-                        color="red"
-                        className="mb-8 mt-5"
+                        variant="h3"
+                        color="pink"
+                        className="mb-8 mt-5 text-center"
                         textGradient
                     >
-                        <p className={`view-rent`}>
-                            Danh sách thuê
-                        </p>
+                        Danh sách thuê
                     </Typography>
                     <div className={"main-box clearfix"}>
                         <div className={"table-responsive"}>
@@ -506,10 +503,15 @@ const ViewRent = () => {
 
             {loggingUser.status === 0 &&
                 <>
-                    <div className={"col-lg-9 rent-user"}>
-                        <div className={`title`}>
-                            <p>Danh sách đơn</p>
-                        </div>
+                    <div className={"rent-user"}>
+                        <Typography
+                            color={"pink"}
+                            variant={"h3"}
+                            className={"text-center"}
+                        >
+                            Danh sách đơn
+                        </Typography>
+
                         <div className={`list-rent`}>
                             <table className={`table table-hover`}>
                                 <thead>
