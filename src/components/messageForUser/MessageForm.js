@@ -3,7 +3,7 @@ import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 import "./Message.css"
 
-const MessageForm = ({senderId, receiverId,closeModal,isOpen  }) => {
+const MessageForm = ({senderId, receiverId,closeModal,isOpen}) => {
     const [content, setContent] = useState('');
     const [notification, setNotification] = useState('');
     const [modalIsOpen, setModalIsOpen] = useState(isOpen);

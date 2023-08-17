@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
 import axios from 'axios';
 import "./FormNavBar.css"
-import {IconButton, Textarea} from "@material-tailwind/react";
+import { IconButton, Textarea} from "@material-tailwind/react";
 
 const MessageReceiver = ({receiverId}) => {
     const [messages, setMessages] = useState([]);
     const [replyContent, setReplyContent] = useState("");
+
     useEffect(() => {
         const fetchReceivedMessages = async () => {
             try {
@@ -18,23 +19,29 @@ const MessageReceiver = ({receiverId}) => {
         };
         fetchReceivedMessages().then();
     }, [receiverId]);
-    const handleReplySubmit = async (e, messageId, senderId) => {
+
+    const handleReplySubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await
-                axios.post("http://localhost:8080/api/sends/sender", {
+            if (messages.length > 0) {
+                const latestMessage = messages[messages.length - 1];
+                const response = await axios.post("http://localhost:8080/api/sends/sender", {
                     content: replyContent,
                     senderId: receiverId,
-                    receiverId: senderId,
+                    receiverId: latestMessage.sender.id,
                 });
-            alert("Gửi tin thành công");
-            setReplyContent('');
+                alert("Gửi tin thành công");
+                setReplyContent('');
+            } else {
+                alert("Không có tin nhắn nào để gửi lại.");
+            }
         } catch (error) {
             alert('Error sending message:' + error);
         }
     }
     return (
         <>
+
             <div className={"my-message"}>
                 <h1 className={"head-message"}>Nội dung tin nhắn</h1>
                 <hr/>
@@ -55,18 +62,9 @@ const MessageReceiver = ({receiverId}) => {
                     </ul>
                 )}
                 <hr/>
-                {/*<form onSubmit={(e) => handleReplySubmit(e,receiverId,messages[0].sender.id)}>*/}
-                {/*    <h1>Phản hồi tin nhắn</h1>*/}
-                {/*    <textarea*/}
-                {/*        value={replyContent}*/}
-                {/*        onChange={(e) => setReplyContent(e.target.value)}*/}
-                {/*        placeholder={"Nhập nội dung tin nhắn"}*/}
-                {/*        required*/}
-                {/*        />*/}
-                {/*    <button type={"submit"}>Gửi</button>*/}
-                {/*</form>*/}
             </div>
-            <form onSubmit={(e) => handleReplySubmit(e, receiverId, messages[0].sender.id)}>
+
+            <form onSubmit={handleReplySubmit}>
                 <div
                     className="flex w-full flex-row items-center gap-2 rounded-[99px] border border-gray-900/10 bg-gray-900/5 p-2">
                     <div className="flex">
@@ -118,9 +116,8 @@ const MessageReceiver = ({receiverId}) => {
                         onChange={(e) => setReplyContent(e.target.value)}
                         required
                     />
-
                     <div>
-                        <button type={"submit"}>
+                        <button type="submit">
                             <IconButton variant="text" className="rounded-full">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
