@@ -9,7 +9,6 @@ const FormNavBar = ({ showForm, onClose }) => {
     const handleViewMessagesClick = () => {
         setShowMessages(true);
     };
-
     const handleCloseMessagesClick = (event) => {
         event.preventDefault();
         onClose();
