@@ -54,7 +54,13 @@
             axios.post(`http://localhost:8080/api/paypal/deposit/${id}?amount=1150000000`)
                 .then(response => {
                     localStorage.setItem("loggingUser", JSON.stringify(response.data));
-                    window.location.href = "/"
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Nạp tiền thành công !!',
+                        showConfirmButton: false,
+                        timer: 2000 // Thời gian độ trễ 2 giây
+                    }).then(() => window.location.href = "/")
                 })
                 .catch(error => {
                     console.error('Axios error:', error);
