@@ -3,7 +3,7 @@ import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 import "./Message.css"
 
-const MessageForm = ({senderId, receiverId,closeModal,isOpen  }) => {
+const MessageForm = ({senderId, receiverId,closeModal,isOpen}) => {
     const [content, setContent] = useState('');
     const [notification, setNotification] = useState('');
     const [modalIsOpen, setModalIsOpen] = useState(isOpen);
@@ -24,8 +24,12 @@ const MessageForm = ({senderId, receiverId,closeModal,isOpen  }) => {
                 receiverId: receiverId
             };
             const response = await axios.post("http://localhost:8080/api/sends/sender", message);
-            alert("Gửi tin thành công")
             setContent('');
+            alert("Gửi tin thành công")
+            setTimeout(() => {
+                setNotification('');
+                handleModalClose();
+            }, 0);
         } catch (error) {
             console.error(error);
             setNotification('Có lỗi xảy ra khi gửi tin nhắn.');
@@ -41,7 +45,9 @@ const MessageForm = ({senderId, receiverId,closeModal,isOpen  }) => {
         }
     };
     const handleModalClose = (event) => {
-        event.preventDefault();
+        if (event) {
+            event.preventDefault();
+        }
         setModalIsOpen(false);
         setContent('');
         setNotification('');

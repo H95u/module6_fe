@@ -23,6 +23,7 @@
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <body>
 <div class="modal">
     <h1 style="text-align: center;padding: 10px">Nạp 1000$</h1>
@@ -49,13 +50,18 @@
             });
         },
         onApprove: function (data, actions) {
-            alert("Nạp tiền thành công"); // You can add optional success message for the subscriber here
             const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
             const id = loggingUser.id;
             axios.post(`http://localhost:8080/api/paypal/deposit/${id}?amount=23000000`)
                 .then(response => {
                     localStorage.setItem("loggingUser", JSON.stringify(response.data));
-                    window.location.href = "/"
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Nạp tiền thành công !!',
+                        showConfirmButton: false,
+                        timer: 2000 // Thời gian độ trễ 2 giây
+                    }).then(() => window.location.href = "/")
                 })
                 .catch(error => {
                     console.error('Axios error:', error);
