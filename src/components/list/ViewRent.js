@@ -54,7 +54,6 @@ const ViewRent = () => {
     });
 
     const handleSubmit = (value) => {
-        console.log('handleSubmit', value)
         axios.post("http://localhost:8080/api/reports", value).then((res) => {
             setReport(res.data)
             Swal.fire({
@@ -92,7 +91,7 @@ const ViewRent = () => {
             case 1:
                 return `<p class="text-warning">Chờ phản hồi</p>`;
             case 2:
-                return `<p class="text-danger">Đang hẹ hò</p>`;
+                return `<p class="text-danger">Đang hẹn hò</p>`;
             case 3:
                 return `<p class="text-success">Đã xác nhận</p>`;
             case 5:
@@ -135,7 +134,13 @@ const ViewRent = () => {
 
                 setBookings(updatedBookings);
 
-                alert("Xác nhận thành công");
+                Swal.fire({
+                        title: 'Xác nhận thành công !',
+                        text: 'Chúc bạn có buổi hẹn hò vui vẻ !',
+                        icon: 'success',
+                        timer: 1000
+                    }
+                )
             }
         })
     }
@@ -153,29 +158,72 @@ const ViewRent = () => {
 
                 setUserBookingRents(updatedBookings);
 
-                alert("Hoàn thành thành công");
+                Swal.fire({
+                        title: 'Xác nhận thành công !',
+                        text: 'Cảm ơn bạn đã sử dụng dịch vụ,Hẹn gặp lại !',
+                        icon: 'success',
+                        timer: 1000
+                    }
+                )
             }
         })
     }
 
     const handleClickFinishPartner = (bookingId) => {
-        axios.put(`http://localhost:8080/api/bookings/${bookingId}/finish-partner`).then((response) => {
-            const updatedBooking = response.data;
+        Swal.fire({
+            title: 'Bạn muốn nhận tiền ?',
+            text: "Sau khi nhận,đơn của bạn sẽ chuyển sang trạng thái hoàn thành!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Thôi ! suy nghĩ lại rồi :D !',
+            confirmButtonText: 'OK !'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                try {
+                    axios.put(`http://localhost:8080/api/bookings/${bookingId}/finish-partner`)
+                        .then((response) => {
+                            const updatedBooking = response.data;
 
-            const index = bookings.findIndex(booking => booking.id === bookingId);
+                            const index = bookings.findIndex(booking => booking.id === bookingId);
 
-            if (index !== -1) {
+                            if (index !== -1) {
 
-                const updatedBookings = [...bookings];
-                updatedBookings[index] = updatedBooking;
+                                const updatedBookings = [...bookings];
+                                updatedBookings[index] = updatedBooking;
 
-                setBookings(updatedBookings);
-
-                alert("Hoàn thành thành công");
+                                setBookings(updatedBookings);
+                            }
+                        })
+                } catch (error) {
+                    console.error(error);
+                }
+                Swal.fire({
+                        title: 'Rút tiền thành công !',
+                        text: 'Tiền đã được chuyển vào tài khoản của bạn !',
+                        icon: 'success',
+                        timer: 1000
+                    }
+                )
             }
-        })
+        });
     }
+
+
     const handleClickReject = (bookingId) => {
+        Swal.fire({
+            title: 'Bạn muốn từ chối đơn này ?',
+            text: "Sau khi từ chối,đơn của bạn sẽ chuyển sang trạng thái đã hủy!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Thôi ! suy nghĩ lại rồi :D !',
+            confirmButtonText: 'OK !'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                try {
         axios.put(`http://localhost:8080/api/bookings/reject/${bookingId}`).then((response) => {
             const updatedBooking = response.data;
 
@@ -187,11 +235,22 @@ const ViewRent = () => {
                 updatedBookings[index] = updatedBooking;
 
                 setBookings(updatedBookings);
-
-                alert("Hủy bỏ thành công");
             }
         })
+    } catch (error) {
+                    console.error(error);
+                }
+                Swal.fire({
+                        title: 'Từ chối thành công !',
+                        text: 'Chúc bạn có đối tượng phù hợp hơn !',
+                        icon: 'success',
+                        timer: 1000
+                    }
+                )
+            }
+        });
     }
+
 
 
     const handlePopoverClick = () => {
@@ -218,7 +277,6 @@ const ViewRent = () => {
     const closeModal = () => {
         setShowModal(false);
     };
-
 
 
     const handleTooltipVisibility = (visible) => {
@@ -275,16 +333,16 @@ const ViewRent = () => {
                                         <td>
                                             <div className="user_info">
                                                 <Link to={`/detail-rent/${booking.id}`}>
-                                                    <img src={booking.bookingUser.img} alt="Avatar"
+                                                    <img src={booking.bookingUser?.img} alt="Avatar"
                                                          className="user-avatar"/>
                                                 </Link>
                                                 <div className="fill-name">
-                                                    {booking.bookingUser.username}
+                                                    {booking.bookingUser?.username}
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <div className={"fill-address"}>{booking.bookingUser?.address.name}</div>
+                                            <div className={"fill-address"}>{booking.bookingUser?.address?.name}</div>
                                         </td>
                                         <td>
                                             <div
@@ -325,7 +383,8 @@ const ViewRent = () => {
                                             </div>
                                         </td>
                                         <td className={"text-center"}>
-                                            <span dangerouslySetInnerHTML={{__html: getStatusBookedUser(booking.status)}}/>
+                                            <span
+                                                dangerouslySetInnerHTML={{__html: getStatusBookedUser(booking.status)}}/>
                                         </td>
                                         <td>
                                             <div className="total_cost">{new Intl.NumberFormat('vi-VN', {
@@ -350,7 +409,8 @@ const ViewRent = () => {
                                                                 >
                                                                     <CheckIcon className="h-4 w-4"/>
                                                                 </IconButton>
-                                                            </Tooltip>&ensp;
+                                                            </Tooltip>
+                                                            &ensp;
                                                             <Tooltip content="Từ chối" show={tooltipVisible}>
                                                                 <IconButton variant="text" color="red"
                                                                             onClick={() => handleClickReject(booking.id)}
@@ -358,46 +418,68 @@ const ViewRent = () => {
                                                                     <XMarkIcon className="h-4 w-4"/>
                                                                 </IconButton>
                                                             </Tooltip>
+                                                            &ensp;
+                                                            <Tooltip content="Chat" show={tooltipVisible}>
+                                                                <IconButton variant="text" color="blue-gray"
+                                                                            onClick={() => handleOpenChat(booking.bookingUser?.id)}
+                                                                >
+                                                                    <ChatBubbleBottomCenterIcon className="h-4 w-4"/>
+                                                                </IconButton>
+                                                            </Tooltip>
                                                         </>
                                                     }
 
                                                     {booking.status === 3 &&
-                                                        <Tooltip content="Rút tiền" show={tooltipVisible}>
-                                                            <IconButton variant="text" color="yellow"
-                                                                onClick={() => handleClickFinishPartner(booking.id)}
-                                                            >
-                                                                <CurrencyDollarIcon className="h-4 w-4"/>
-                                                            </IconButton>
-                                                        </Tooltip>
+                                                        <>
+                                                            <Tooltip content="Nhận tiền" show={tooltipVisible}>
+                                                                <IconButton variant="text" color="yellow"
+                                                                            onClick={() => handleClickFinishPartner(booking.id)}
+                                                                >
+                                                                    <CurrencyDollarIcon className="h-4 w-4"/>
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                            &ensp;
+                                                            <Tooltip content="Chat" show={tooltipVisible}>
+                                                                <IconButton variant="text" color="blue-gray"
+                                                                            onClick={() => handleOpenChat(booking.bookingUser?.id)}
+                                                                >
+                                                                    <ChatBubbleBottomCenterIcon className="h-4 w-4"/>
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                        </>
+
                                                     }
 
                                                     {booking.status === 5 &&
-                                                        <Tooltip content="Báo cáo" show={tooltipVisible}>
+                                                        <>
+                                                            <Tooltip content="Báo cáo" show={tooltipVisible}>
+                                                                <IconButton variant="text" color="blue-gray"
+                                                                            onClick={() => handleShow(booking)}>
+                                                                    <BugAntIcon className="h-4 w-4"/>
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                            &ensp;
+                                                            <Tooltip content="Chat" show={tooltipVisible}>
+                                                                <IconButton variant="text" color="blue-gray"
+                                                                            onClick={() => handleOpenChat(booking.bookingUser?.id)}
+                                                                >
+                                                                    <ChatBubbleBottomCenterIcon className="h-4 w-4"/>
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                        </>
+                                                    }
+                                                    {(booking.status === 2 || booking.status === 4) &&
+                                                        <Tooltip content="Chat" show={tooltipVisible}>
                                                             <IconButton variant="text" color="blue-gray"
-                                                                        onClick={() => handleShow(booking)}>
-                                                                <BugAntIcon className="h-4 w-4"/>
+                                                                        onClick={() => handleOpenChat(booking.bookingUser?.id)}
+                                                            >
+                                                                <ChatBubbleBottomCenterIcon className="h-4 w-4"/>
                                                             </IconButton>
                                                         </Tooltip>
                                                     }
 
-                                                    {/*<Tooltip content="Chat" show={tooltipVisible}>*/}
-                                                    {/*    <IconButton variant="text" color="blue-gray">*/}
-                                                    {/*        <ChatBubbleBottomCenterIcon className="h-4 w-4"/>*/}
-                                                    {/*    </IconButton>*/}
-                                                    {/*</Tooltip>*/}
-
                                                     <div>
-                                                        <Tooltip content="Chat" show={tooltipVisible}>
-                                                            <IconButton
-                                                                variant="text"
-                                                                color="blue-gray"
-                                                                onClick={() => handleOpenChat(booking.bookingUser?.id)}
-                                                                onMouseEnter={() => handleTooltipVisibility(true)}
-                                                                onMouseLeave={() => handleTooltipVisibility(false)}
-                                                            >
-                                                                <ChatBubbleBottomCenterIcon className="h-4 w-4" />
-                                                            </IconButton>
-                                                        </Tooltip>
+
                                                         {showModal && (
                                                             <MessageForm
                                                                 senderId={senderId}
