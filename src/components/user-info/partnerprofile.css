@@ -135,8 +135,9 @@
 }
 
 .album-of-player img {
-    width: 121px;
-    height: 121px;
+    width: 10rem;
+    height: 8rem;
+    margin-bottom: 10px;
 }
 
 .service-name {
