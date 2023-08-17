@@ -361,7 +361,6 @@ export default function EditPartnerInfo() {
                     <button className={"btn btn-light"} onClick={handleClose}>Đóng</button>
                 </Modal.Footer>
             </Modal>
-            <hr/>
         </>
     )
 }

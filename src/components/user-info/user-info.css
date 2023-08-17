@@ -5,9 +5,9 @@
     border-radius: 10px;
     margin: 2.5rem auto;
     font-family: initial;
-    min-height: auto;
-
+    height: 30rem;
 }
+
 
 .my-profile .row {
     height: 60px;
@@ -150,5 +150,6 @@
 .revenue-title .year-title span {
     font-size: 20px;
     padding-top: 5px;
-
+    color: #848486;
+    font-family: initial;
 }

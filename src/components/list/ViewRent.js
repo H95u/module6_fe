@@ -291,10 +291,12 @@ const ViewRent = () => {
                     <Typography
                         variant="h4"
                         color="red"
-                        className="mb-8 mt-4 text-center"
+                        className="mb-8 mt-5"
                         textGradient
                     >
-                        Danh sách thuê
+                        <p className={`view-rent`}>
+                            Danh sách thuê
+                        </p>
                     </Typography>
                     <div className={"main-box clearfix"}>
                         <div className={"table-responsive"}>
