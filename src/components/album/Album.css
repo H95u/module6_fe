@@ -2,3 +2,42 @@
     margin-left: 5rem;
     margin-top: 5rem;
 }
+
+.delete-button {
+    position: absolute;
+    top: 0;
+    right: 0.8rem;
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 0.3s ease;
+}
+
+.img-container:hover .delete-button,
+.delete-button:hover {
+    opacity: 1;
+}
+
+.delete-button-icon:hover {
+    transform: scale(1.1);
+}
+.img-container:hover {
+    box-shadow: 5px 10px 10px rgb(41, 42, 44);
+    transform: scale(1.05);
+}
+
+.img-container {
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 0.05rem;
+    width: calc(25% - 0.5rem);
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+}
+
+.img-container img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}

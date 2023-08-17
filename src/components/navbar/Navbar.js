@@ -106,7 +106,7 @@ function ProfileMenu() {
         ...((loggingUser.status === 1) || (loggingUser.status === 2)
             ? [
                 {
-                    label: "Chỉnh sửa thông tin",
+                    label: "Chỉnh t.tin CCDV",
                     icon: Cog6ToothIcon,
                     handler: handleEditProfile,
                 },
@@ -220,6 +220,20 @@ export function ComplexNavbar() {
         getUsers();
     }, []);
 
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            if (showPopover) {
+                setShowPopover(false);
+            }
+        };
+
+        window.addEventListener('click', handleOutsideClick);
+
+        return () => {
+            window.removeEventListener('click', handleOutsideClick);
+        };
+    }, [showPopover]);
+
     const handleInputChange = (event) => {
         const newValue = event.target.value;
         setSearchInputValue(newValue);
@@ -268,16 +282,18 @@ export function ComplexNavbar() {
                             <ul>
                                 {autocompleteResults.map((user) => (
                                     <Link to={`/user/${user.id}`} onClick={handleLinkClick} key={user.id}>
-                                        <li className="flex">
-                                            <img alt={"..."} className={"h-6 w-6 rounded-full"} src={user.img}/>
-                                            <p className="ml-4">{user.username}</p>
+                                        <li className="flex items-center">
+                                            <img alt={"..."} className={"h-10 w-10 p-2 rounded-full"} src={user.img}/>
+                                            <p className="ml-4 font-bold text-center">{user.username}</p>
                                         </li>
+                                        <hr/>
                                     </Link>
                                 ))}
                                 {autocompleteResults.length > 0 && (
                                     <li>
                                         <Link onClick={handleLinkClick} to={`/view-all?name=${searchInputValue}`}>
-                                            <Typography color={"blue"}> Xem tất cả</Typography>
+                                            <Typography className={"ml-2 p-2 text-center"} color={"blue"} variant={"h5"}> Xem tất
+                                                cả</Typography>
                                         </Link>
                                     </li>
                                 )}
@@ -301,10 +317,10 @@ export function ComplexNavbar() {
                     <div>
                         <div className="dropdown-container">
                             <IconButton color="blue" onClick={handleIconButtonClick}>
-                                <BellIcon className="h-10 w-10" />
+                                <BellIcon className="h-10 w-10"/>
                                 <div className="notification-badge"></div>
                             </IconButton>
-                            <FormNavBar showForm={showFormNavBar} onClose={() => setShowFormNavBar(false)} />
+                            <FormNavBar showForm={showFormNavBar} onClose={() => setShowFormNavBar(false)}/>
                         </div>
                     </div>
                 </div> : ""}

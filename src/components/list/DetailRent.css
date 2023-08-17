@@ -1,4 +1,7 @@
 
+.rent-detail-container .row {
+    --bs-gutter-x: 0rem;
+}
 .bill-container {
     width: 50%;
     height: 550px;

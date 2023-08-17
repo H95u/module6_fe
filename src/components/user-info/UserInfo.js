@@ -15,6 +15,7 @@ import Swal from "sweetalert2";
 import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {Link, useNavigate} from "react-router-dom";
+import RevenueChart from "../chart/RevenueChart";
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
 export default function UserInfo() {
@@ -25,6 +26,7 @@ export default function UserInfo() {
     const [addressList, setAddressList] = useState([]);
     const [showUser, setShowUser] = useState(true);
     const [showUpdateUser, setShowUpdateUser] = useState(false);
+    const [showRevenue, setShowRevenue] = useState(false);
     const [initialValues, setInitialValues] = useState({
         nickname: "",
         email: "",
@@ -86,12 +88,21 @@ export default function UserInfo() {
             }
         );
     };
+    // Revenue-Chart
+
+    function displayRevenue() {
+        setShowUser(false);
+        setShowUpdateUser(false);
+        setShowRevenue(true);
+    }
+
 
     // Update UserInfo
     function closeFormUpdate() {
         setShowUser(true)
         setShowUpdateUser(false)
     }
+
 
     function displayFormUpdate() {
         setShowUser(false);
@@ -137,22 +148,22 @@ export default function UserInfo() {
     const showAlbum = () => {
         navigate(`/album/${id}`)
     }
-    const showChart = () => {
-        navigate(`/revenue/${id}`)
-    }
+    // const showChart = () => {
+    //     navigate(`/revenue/${id}`)
+    // }
 
 
     return (
         <div className="user-info">
-            <Typography variant="h1" color="light-blue" className="mb-2 text-center" textGradient>
+            <Typography variant="h2" color="light-blue" className="mb-2 mt-2 text-center" textGradient>
                 Thông tin cá nhân
             </Typography>
             <div className={"container"}>
                 <div className={"row"}>
-                    <div className={"col-md-3"}>
-                        <div className=" flex items-center justify-between">
+                    <div className={"col-md-3 pt-4"}>
+                        <div className="flex items-center justify-between">
                             <Card
-                                className="w-84"
+                                className="w-84 img-frame"
                                 onMouseEnter={() => setIsHovered(true)}
                                 onMouseLeave={() => setIsHovered(false)}
                             >
@@ -210,7 +221,7 @@ export default function UserInfo() {
                         <div className="d-flex flex-wrap mt-2 justify-between">
                             <div className={"row btn-group"}>
                                 <div className={"col-md-6"}>
-                                    <Button size="md" color="white" className={"mb-2"} onClick={showChart}>
+                                    <Button size="md" color="white" className={"mb-2"} onClick={displayRevenue}>
                                         Doanh thu
                                     </Button>
                                     <Button size="md" color="white" onClick={displayFormUpdate}>
@@ -378,6 +389,15 @@ export default function UserInfo() {
                             </div>
                         </div>
                     </>}
+
+                    {showRevenue &&
+                       <>
+                           <div className={`col-md-9 revenue-container`}>
+                               <RevenueChart/>
+                           </div>
+                       </>
+                    }
+
                 </div>
             </div>
         </div>

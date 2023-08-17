@@ -15,6 +15,7 @@ export default function PartnerInfo() {
     const isLoggedIn = JSON.parse(localStorage.getItem("loggingUser"));
     const [user, setUser] = useState({});
     const [options, setOptions] = useState([]);
+    const [album, setAlbum] = useState([]);
     const [address, setAddress] = useState("");
     const {id} = useParams();
     const [showRentForm, setShowRentForm] = useState(false)
@@ -25,20 +26,26 @@ export default function PartnerInfo() {
     const [selectedOptionId, setSelectedOptionId] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [messageInput, setMessageInput] = useState("");
+    const [visibleImages, setVisibleImages] = useState(3);
+    const [albumLength, setAlbumLength] = useState(0);
+
+    const handleLoadMore = () => {
+        setVisibleImages(visibleImages + albumLength - 3);
+    };
 
     useEffect(() => {
         stompClient.connect({}, () => {
             console.log("STOMP Connected");
-                stompClient.subscribe('/topic/messages/chat', (data) => {
-                    console.log(data)
-                }, {})
+            stompClient.subscribe('/topic/messages/chat', (data) => {
+                console.log(data)
+            }, {})
         }, (error) => {
             console.error("STOMP Connection Error:", error);
         });
         return () => {
             stompClient.disconnect();
         };
-    },[])
+    }, [])
 
     const openModal = () => {
         // goi socket join
@@ -65,7 +72,20 @@ export default function PartnerInfo() {
         // closeModal();
     };
 
-    const handleShowRentForm = () => setShowRentForm(true);
+    const handleShowRentForm = () => {
+        if (isLoggedIn) {
+            setShowRentForm(true);
+        } else {
+            localStorage.setItem("userId", id);
+            Swal.fire({
+                icon: 'error',
+                title: 'Có gì đó sai sai ...',
+                text: 'Bạn phải đăng nhập để thuê !',
+            })
+            navigate("/login");
+        }
+
+    }
     const handleCloseRentForm = () => setShowRentForm(false)
 
     const handleStartChange = (e) => {
@@ -111,6 +131,11 @@ export default function PartnerInfo() {
             setOptions(response.data.options);
             setAddress(response.data.address);
             window.scrollTo(0, 0);
+        });
+
+        axios.get(`http://localhost:8080/api/albums/user/${id}`).then((response) => {
+            setAlbum(response.data)
+            setAlbumLength(response.data.length);
         })
     }, [id])
 
@@ -212,14 +237,6 @@ export default function PartnerInfo() {
             } else {
                 successRent();
             }
-        } else {
-            localStorage.setItem("userId", id);
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Bạn phải đăng nhập để thuê!',
-            })
-            navigate("/login");
         }
     };
 
@@ -363,26 +380,22 @@ export default function PartnerInfo() {
                             <hr/>
                             <div className={"profile"}>
                                 <h2>Thông tin</h2>
-                                <div className={"album-of-player"}>
-                                    <a>
-                                        <img
-                                            src="https://playerduo.net/api/upload-service/thumbs/medium/66f8b716-ee52-4590-aa0a-73bd28590f5f__2c6a5460-2cb6-11ee-a657-a54d6be1d46a__player_album.jpg"
-                                            alt=""/>
-                                    </a>
+                                <div className={"row album-of-player"}>
+                                    {album.slice(0, visibleImages).map((item, index) => (
+                                        <div className={"col-md-3"} key={index}>
+                                            <img
+                                                src={item.img}
+                                                alt=""/>
+                                        </div>
+                                    ))}
+                                    {visibleImages < album.length && (
+                                        <div className={"col-md-3"}>
+                                            <button onClick={handleLoadMore}>Xem tất cả</button>
+                                        </div>
+                                    )}
                                 </div>
-                                <p></p>
                                 <p>- Giọng bắc</p>
-                                <p>- Mng thuê ủng hộ tui đóng tiền đi học nha ^^</p>
-                                <p></p>
-                                <p>🤍 Liên minh huyền thoại ( Ad, Sp, Mid lo được )</p>
-                                <p></p>
-                                <p>🤍 Valorant ,CS GO ( chơi được từ bkim đổ xuống )</p>
-                                <p></p>
-                                <p>🤍 Naraka ( top 1 ez )</p>
-                                <p></p>
-                                <p>🤍 Onl Camx5</p>
-                                <p></p>
-                                <p>🤍 ... game gì cũng chơi</p>
+                                <p>🤍 ...</p>
                             </div>
                             <hr/>
                             <Feedback/>
@@ -411,7 +424,7 @@ export default function PartnerInfo() {
                                 <Modal show={isModalOpen} onHide={closeModal}>
                                     <Modal.Header closeButton>
                                         <Modal.Title
-                                            style={{color: "deep-orange", fontWeight: "bold"}} >Chat</Modal.Title>
+                                            style={{color: "deep-orange", fontWeight: "bold"}}>Chat</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
                                         <div

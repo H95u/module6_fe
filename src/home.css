@@ -35,6 +35,7 @@
 .pagination li {
     padding: 20px;
 }
+
 .page-link:active {
     background-color: black;
 }
@@ -65,17 +66,32 @@ a:hover {
     margin-top: 2.5rem;
     border-radius: 10px;
     font-family: Poppins, serif;
-    z-index:999;
+    z-index: 999;
     background-color: white;
     width: 18rem;
-    border: 1px groove gray;
-}
-.auto-complete li:hover {
-    background-color: lightcyan;
-    border-radius: 10px;
+    border: 1px solid transparent;
+    box-shadow: 5px 10px 10px rgb(41, 42, 44);
 }
 
-.wallet-info{
+.auto-complete li {
+    height: 2rem;
+}
+
+.auto-complete li:first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.auto-complete li:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.auto-complete li:hover {
+    background-color: lightcyan;
+}
+
+.wallet-info {
     height: 30rem;
 }
 
