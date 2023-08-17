@@ -151,14 +151,10 @@ export default function UserInfo() {
     const showAlbum = () => {
         navigate(`/album/${id}`)
     }
-    // const showChart = () => {
-    //     navigate(`/revenue/${id}`)
-    // }
-
 
     return (
         <div className="user-info">
-            <Typography variant="h2" color="light-blue" className="mb-2 mt-2 text-center" textGradient>
+            <Typography variant="h2" color="light-blue" className="mb-2 mt-5 text-center" textGradient>
                 Thông tin cá nhân
             </Typography>
             <div className={"container"}>
