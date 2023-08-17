@@ -74,6 +74,7 @@ a:hover {
 }
 
 .auto-complete li {
+    font-size: 16px;
     height: 2rem;
 }
 
