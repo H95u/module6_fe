@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import "./FormNavBar.css"
 import MessageReceiver from "./MessageReceiver";
-
 const FormNavBar = ({ showForm, onClose }) => {
     const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
     const receiverId = loggingUser.id;
     const [showMessages, setShowMessages] = useState(false);
+    const formNavBarRef = useRef(null);
+
     const handleViewMessagesClick = () => {
         setShowMessages(true);
     };
@@ -13,8 +14,26 @@ const FormNavBar = ({ showForm, onClose }) => {
         event.preventDefault();
         onClose();
     };
+    const handleClickOutside = (event) => {
+        if (formNavBarRef.current && !formNavBarRef.current.contains(event.target)) {
+            onClose();
+        }
+    };
+
+    useEffect(() => {
+        if (showForm) {
+            setShowMessages(false);
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [showForm]);
     return (
-        <div>
+        <div ref={formNavBarRef}>
             {showForm ? (
                 <div className="notification-form">
                     <div className="content_form">
