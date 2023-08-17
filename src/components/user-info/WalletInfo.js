@@ -94,12 +94,12 @@ export default function WalletInfo() {
         <>
 
             <div className={"row"}>
-                <div className={"col-md-7"}>
+                <div className={"col-md-6"}>
                     <div className={"col-md-10 p-4 ml-10"}>
                         <Typography color={"red"} className={"mb-4 text-center"} variant={"h3"}>
                             Thông tin ví của bạn
                         </Typography>
-                        <table className={"table border wallet-info"}>
+                        <table className={"wallet-info table border"}>
                             <tbody>
                             <tr>
                                 <td>
@@ -111,7 +111,7 @@ export default function WalletInfo() {
                             </tr>
                             <tr>
                                 <td>
-                                    <Typography className={"italic"} variant={"h3"}>Chủ tài khoản:</Typography>
+                                    <Typography className={"italic"} variant={"h3"}>Chủ tài khoản :</Typography>
                                     <p className={"mt-2"}>
                                         {user.gender === 1 ? "Nguyễn Văn" : "Trần Thị"} {user.nickname}
                                     </p>
@@ -120,7 +120,7 @@ export default function WalletInfo() {
                             <tr>
                                 <td>
                                     <Typography className={"italic"} variant={"h3"}>Số dư trong tài
-                                        khoản:</Typography>
+                                        khoản :</Typography>
                                     <p className={"mt-2"}>
                                         {formatPrice(user.money)}
                                     </p>
@@ -128,7 +128,7 @@ export default function WalletInfo() {
                             </tr>
                             <tr>
                                 <td>
-                                    <Typography className={"italic"} variant={"h3"}>Số tài khoản:</Typography>
+                                    <Typography className={"italic"} variant={"h3"}>Số tài khoản :</Typography>
                                     <p className={"mt-2"}>
                                         123456789
                                     </p>
@@ -153,8 +153,8 @@ export default function WalletInfo() {
                     </div>
 
                 </div>
-                <div className={"col-md-5"}>
-                    <img src={"/banner/thantai.jpg"} className={"pig-img mt-4"}/>
+                <div className={"col-md-6"}>
+                    <img src={"/banner/thantai.jpg"} className={"h-[calc(100vh-8rem)] pig-img mt-4 w-"}/>
                 </div>
             </div>
         </>

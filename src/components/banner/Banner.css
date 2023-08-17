@@ -39,7 +39,7 @@
     position: absolute;
     width: 800px;
     margin-top: -320px;
-    padding-left: 85px;
+    padding-left: 20%;
     display: flex;
     justify-content: center;
 }
@@ -61,7 +61,7 @@
 }
 
 #radio1:checked ~ .first{
-    margin-left: 0;
+    margin-left: 100px;
 }
 #radio2:checked ~ .first{
     margin-left: -20%;
@@ -79,7 +79,7 @@
     width: 800px;
     justify-content: center;
     margin-top: 180px;
-    padding-left: 85px;
+    padding-left: 20%;
 }
 .navigation-auto div{
     border: 2px solid #d2b9b9;

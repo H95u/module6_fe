@@ -8,7 +8,6 @@ import MenuBar from "../user-info/MenuBar";
 import HotListBock from "./HotListBock";
 
 
-
 const SearchLogin = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -43,13 +42,16 @@ const SearchLogin = () => {
     };
 
     return (
-        <div className="flex">
-            <HotListBock/>
-            <div className={"col-md-6 container-fluids user__page false"}>
+        <div className="row search-container">
+            <div className={"col-md-3"}>
+                <HotListBock/>
+            </div>
+            <div className={"col-md-6 container-fluids user__page false mt-4 ml-5"}>
                 {allUsers.length > 0 && (
                     <div className={"list-item-username"}>
                         {visibleSearchAll.map((user) => (
-                            <Card key={user.id} className="mb-2 w-96 hover:bg-gray-100 transition duration-300 ease-in-out transform hover:scale-105">
+                            <Card key={user.id}
+                                  className="mb-2 w-96 hover:bg-gray-100 transition duration-300 ease-in-out transform hover:scale-105">
                                 <List>
                                     <ListItem>
                                         <ListItemPrefix>
@@ -109,7 +111,7 @@ const SearchLogin = () => {
                         </div>
                         <div className={"rent__player--text"}>
                             <Link to={"/"}>
-                                <span>Thuê người yêu</span>
+                                <span className={"ml-2"}>Thuê người yêu</span>
                             </Link>
                         </div>
                     </div>

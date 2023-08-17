@@ -290,7 +290,7 @@ export function ComplexNavbar() {
                                     </Link>
                                 ))}
                                 {autocompleteResults.length > 0 && (
-                                    <li>
+                                    <li className="flex items-center">
                                         <Link onClick={handleLinkClick} to={`/view-all?name=${searchInputValue}`}>
                                             <Typography className={"ml-2 p-2 text-center"} color={"blue"} variant={"h5"}> Xem tất
                                                 cả</Typography>
