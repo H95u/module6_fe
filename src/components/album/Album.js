@@ -9,6 +9,7 @@ import "./Album.css"
 import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 import {storage} from "../../config/firebase";
 import Swal from "sweetalert2";
+import {TrashIcon} from "@heroicons/react/20/solid";
 
 export default function Album() {
     const {id} = useParams();
@@ -134,7 +135,7 @@ export default function Album() {
                         onMouseLeave={() => setHoveredIndex(null)}
                     >
                         <img
-                            className={"h-60 w-60 mb-20 cursor-pointer"}
+                            className={"img-container cursor-pointer"}
                             alt={"..."}
                             src={item.img}
                             onClick={() => openLightbox(index)}
@@ -146,13 +147,12 @@ export default function Album() {
                                         onClick={() => handleImageDelete(item.id)}
                                         color="red"
                                         ripple="light"
-                                        size="lg"
-                                        className="delete-button"
-                                        onMouseDown={() => setPressedDeleteIndex(item.id)}
-                                        onMouseUp={() => setPressedDeleteIndex(null)}
-                                        onMouseLeave={() => setPressedDeleteIndex(null)}
+                                        size="md"
+                                        className="delete-button-icon"
+                                        onMouseEnter={() => setHoveredIndex(item.id)}
+                                        onMouseLeave={() => setHoveredIndex(null)}
                                     >
-                                        <XMarkIcon className={"h-10 w-10"}/>
+                                        <TrashIcon className="h-6 w-6" />
                                     </IconButton>
                                 </Tooltip>
                             </div>
