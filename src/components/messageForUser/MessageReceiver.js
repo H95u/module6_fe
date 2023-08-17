@@ -2,43 +2,107 @@ import React, {useEffect, useState} from "react";
 import axios from 'axios';
 import "./FormNavBar.css"
 import { IconButton, Textarea} from "@material-tailwind/react";
+import io from 'socket.io-client';
 
 const MessageReceiver = ({receiverId}) => {
+    // const [messages, setMessages] = useState([]);
+    // const [replyContent, setReplyContent] = useState("");
+    //
+    // useEffect(() => {
+    //     const fetchReceivedMessages = async () => {
+    //         try {
+    //             const response = await axios.get(`http://localhost:8080/api/sends/received/${receiverId}`);
+    //             const receivedMessages = response.data;
+    //             setMessages(receivedMessages);
+    //         } catch (error) {
+    //             alert('Error fetching messages:' + error);
+    //         }
+    //     };
+    //     fetchReceivedMessages().then();
+    // }, [receiverId]);
+    //
+    // const handleReplySubmit = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         if (messages.length > 0) {
+    //             const latestMessage = messages[messages.length - 1];
+    //             const response = await axios.post("http://localhost:8080/api/sends/sender", {
+    //                 content: replyContent,
+    //                 senderId: receiverId,
+    //                 receiverId: latestMessage.sender.id,
+    //             });
+    //             alert("Gửi tin thành công");
+    //             setReplyContent('');
+    //         } else {
+    //             alert("Không có tin nhắn nào để gửi lại.");
+    //         }
+    //     } catch (error) {
+    //         alert('Error sending message:' + error);
+    //     }
+    // }
     const [messages, setMessages] = useState([]);
     const [replyContent, setReplyContent] = useState("");
+    const [socket, setSocket] = useState(null);
+
+    useEffect(() => {
+        // Kết nối tới WebSocket server
+        const newSocket = io("http://localhost:8080");
+        setSocket(newSocket);
+
+        return () => {
+            // Ngắt kết nối khi component bị hủy
+            newSocket.disconnect();
+        };
+    }, []);
+
+    useEffect(() => {
+        if (socket) {
+            // Lắng nghe sự kiện "newMessage" từ WebSocket server
+            socket.on("newMessage", (message) => {
+                setMessages((prevMessages) => [...prevMessages, message]);
+            });
+        }
+    }, [socket]);
 
     useEffect(() => {
         const fetchReceivedMessages = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/sends/received/${receiverId}`);
+                const response = await axios.get(
+                    `http://localhost:8080/api/sends/received/${receiverId}`
+                );
                 const receivedMessages = response.data;
                 setMessages(receivedMessages);
             } catch (error) {
-                alert('Error fetching messages:' + error);
+                alert("Error fetching messages: " + error);
             }
         };
         fetchReceivedMessages().then();
     }, [receiverId]);
 
-    const handleReplySubmit = async (e) => {
+    const handleReplySubmit = (e) => {
         e.preventDefault();
         try {
             if (messages.length > 0) {
                 const latestMessage = messages[messages.length - 1];
-                const response = await axios.post("http://localhost:8080/api/sends/sender", {
+                const newMessage = {
                     content: replyContent,
                     senderId: receiverId,
                     receiverId: latestMessage.sender.id,
-                });
+                };
+                // Gửi tin nhắn mới thông qua WebSocket
+                socket.emit("sendMessage", newMessage);
+                // Thêm tin nhắn mới vào danh sách tin nhắn hiển thị ngay lập tức
+                setMessages((prevMessages) => [...prevMessages, newMessage]);
+
                 alert("Gửi tin thành công");
-                setReplyContent('');
+                setReplyContent("");
             } else {
                 alert("Không có tin nhắn nào để gửi lại.");
             }
         } catch (error) {
-            alert('Error sending message:' + error);
+            alert("Error sending message: " + error);
         }
-    }
+    };
     return (
         <>
 
