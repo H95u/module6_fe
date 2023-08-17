@@ -126,7 +126,7 @@ const RegisterCCDV = () => {
 
                                                 <div className='col-md-4 d-none d-md-block'>
                                                     <img
-                                                        src='https://i.pinimg.com/474x/4c/f7/ee/4cf7eeecefabcfe4119c4a24920fb787.jpg'
+                                                        src='https://img.ltn.com.tw/Upload/style/page/2019/03/07/190307-9935-6-bLuzq.jpg'
                                                         alt='Sample photo' className='card-img rounded-start h-auto'/>
                                                 </div>
 
