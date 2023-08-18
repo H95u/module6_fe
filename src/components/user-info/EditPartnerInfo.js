@@ -8,7 +8,6 @@ import {Typography} from "@material-tailwind/react";
 import {Dropdown} from "react-bootstrap";
 
 export default function EditPartnerInfo() {
-    const navigate = useNavigate();
     const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
     const id = loggingUser.id;
     const [user, setUser] = useState({});
@@ -17,10 +16,8 @@ export default function EditPartnerInfo() {
     const [allOptions, setAllOptions] = useState([]);
     const [album, setAlbum] = useState([]);
     const [show, setShow] = useState(false);
-    const [showRentForm, setShowRentForm] = useState(false)
     const [showPrice, setShowPrice] = useState(true)
     const [updatePrice, setUpdatePrice] = useState(false)
-    const [status, setStatus] = useState("")
     const [visibleImages, setVisibleImages] = useState(3);
     const [albumLength, setAlbumLength] = useState(0);
     const handleLoadMore = () => {
@@ -29,9 +26,6 @@ export default function EditPartnerInfo() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const handleShowRentForm = () => setShowRentForm(true);
-
-    const handleCloseRentForm = () => setShowRentForm(false)
 
 
     const handleCheck = (id) => {
@@ -64,9 +58,7 @@ export default function EditPartnerInfo() {
     const initialPrice = {
         price: user.price
     }
-    const initialStatusPartner = {
-        status: 1
-    }
+
     const validation = Yup.object({
         price: Yup.number().min(50000, "Nhỏ nhất 50.000")
     });
@@ -102,16 +94,7 @@ export default function EditPartnerInfo() {
         setUpdatePrice(true)
     }
 
-    const isLoggedIn = JSON.parse(localStorage.getItem("loggingUser"));
 
-    const handleSubmitRent = () => {
-        if (isLoggedIn) {
-            handleShowRentForm();
-        } else {
-            localStorage.setItem("userId", id);
-            navigate("/login");
-        }
-    }
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/users/${id}`).then((response) => {
@@ -158,7 +141,6 @@ export default function EditPartnerInfo() {
                                 </select>
                             </div>
 
-                            <p className={"ready"}>{status}</p>
                             <div className={"dob"}>
                                 <span>Ngày tham gia : </span><span><span>{user.createdDate}</span></span></div>
                             <hr/>
@@ -223,7 +205,8 @@ export default function EditPartnerInfo() {
                             <div className={"profile"}>
                                 <div className={"flex"}>
                                     <h2>Thông tin</h2>
-                                    <Link className={"ml-10"} to={`/album/${id}`}><Typography variant={"h4"} color={"blue"}>Album</Typography></Link>
+                                    <Link className={"ml-10"} to={`/album/${id}`}><Typography variant={"h4"}
+                                                                                              color={"blue"}>Album</Typography></Link>
                                 </div>
                                 <div className={"row album-of-player"}>
                                     {album.slice(0, visibleImages).map((item, index) => (
@@ -287,9 +270,9 @@ export default function EditPartnerInfo() {
                                 </Formik>
                             </>}
 
-
-                            <div className={`booking`}><a className={"btn btn-danger"}
-                                                          onClick={handleShowRentForm}>THUÊ</a></div>
+                            <div className={`booking`}>
+                                <a className={"btn btn-danger"}>THUÊ</a>
+                            </div>
                             <div><a className={"btn btn-light"}>TẶNG TIỀN</a></div>
                             <div><a className={"btn btn-light"}><i className={"bi bi-chat-square-fill"}></i> CHAT</a>
                             </div>
@@ -297,46 +280,6 @@ export default function EditPartnerInfo() {
                     </div>
                 </div>
             </div>
-
-            <Modal show={showRentForm} onHide={handleCloseRentForm}>
-                <Modal.Header>
-                    <Modal.Title>Thông tin thuê</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <form>
-                        <div className={"mb-3"}>
-                            <label htmlFor={"rent-name"} className={"form-label"}>Tên người cho
-                                thuê</label>
-                            <Typography variant="h3" color="cyan" textGradient>
-                                {user.nickname}
-                            </Typography>
-                        </div>
-                        <div className={"mb-3"}>
-                            <label htmlFor={"rent-start"} className={"form-label"}>Thời gian bắt đầu
-                                thuê</label>
-                            <input type={"datetime-local"} className={"form-control"}
-                                   id={"rent-start"} name={"rent-start"} required/>
-                        </div>
-                        <div className={"mb-3"}>
-                            <label htmlFor={"rent-end"} className={"form-label"}>Thời gian kết thúc
-                                thuê</label>
-                            <input type={"datetime-local"} className={"form-control"}
-                                   id={"rent-end"} name={"rent-end"} required/>
-                        </div>
-                        <div className={"mb-3"}>
-                            <label htmlFor={"rent-price"} className={"form-label"}>Giá</label>
-                            <Typography variant="h3" color="cyan" textGradient>
-                                {user.price} đ/h
-                            </Typography>
-                        </div>
-                    </form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <button onClick={handleSubmitRent} className={"btn btn-danger"}>Thuê</button>
-                    <button className={"btn btn-light"} onClick={handleCloseRentForm}>Đóng</button>
-                </Modal.Footer>
-            </Modal>
-
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header>
