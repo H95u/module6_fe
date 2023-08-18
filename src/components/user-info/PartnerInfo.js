@@ -416,8 +416,12 @@ export default function PartnerInfo() {
                                 </div>
                             </>}
 
-                            <div className={`booking`}><a className={"btn btn-danger"}
-                                                          onClick={handleShowRentForm}>THUÊ</a></div>
+                            <div className={`booking`}>
+                                {isLoggedIn.id === user.id && isLoggedIn.status !== 0 ?
+                                    <a className={"btn btn-danger"}>THUÊ</a>
+                                    : <a className={"btn btn-danger"} onClick={handleShowRentForm}>THUÊ</a>
+                                }
+                            </div>
                             <div><a className={"btn btn-light"}>TẶNG TIỀN</a></div>
                             <div><a className={"btn btn-light"} onClick={openModal}><i
                                 className={"bi bi-chat-square-fill"}></i> CHAT</a>
