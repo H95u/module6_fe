@@ -8,11 +8,7 @@ import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 
 export default function Feedback() {
-    const isLoggedIn = JSON.parse(localStorage.getItem("loggingUser"));
     const [feedbacks, setFeedbacks] = useState([]);
-    const [message, setMessage] = useState("");
-    const [rating, setRating] = useState(0);
-    const [reload, setReload] = useState(false);
     const [active, setActive] = React.useState(1);
 
     const {id} = useParams();
@@ -23,46 +19,14 @@ export default function Feedback() {
                 const sortedFeedbacks = response.data.sort((a, b) => {
                     return new Date(b.presentTime) - new Date(a.presentTime);
                 });
+                setFeedbacks(response.data);
                 setFeedbacks(sortedFeedbacks);
             })
             .catch(error => {
                 console.error('Lỗi khi tìm nạp phản hồi:', error);
             });
-    }, [reload]);
+    }, []);
 
-
-
-    const handleSubmitFeedback = () => {
-        if (isLoggedIn) {
-            const feedback = {
-                message: message,
-                rating: rating,
-                sender: {
-                    id: isLoggedIn.id
-                },
-                receiver: {
-                    id: +id
-                }
-            }
-            FeedbackService.createFeedBack(feedback)
-                .then((response) => {
-                    setFeedbacks([...feedbacks, response.data]);
-                    setMessage("");
-                    setRating(0);
-                    setReload(!reload)
-                })
-                .catch((error) => {
-                    console.error("Lỗi khi gửi phản hồi:", error);
-                });
-        }
-    }
-
-    const handleTextareaKeyDown = (e) => {
-        if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            handleSubmitFeedback();
-        }
-    };
 
     const itemsPerPage = 5;
     const startIndex = (active - 1) * itemsPerPage;
@@ -95,18 +59,6 @@ export default function Feedback() {
                 <div className={"col-xs-6"}>
                     <span>Đánh giá</span>
                 </div>
-            </div>
-            <div className="feedback-form">
-                <div className="rating-input">
-                    <Rating value={rating} onChange={(value) => setRating(value)}/>
-                </div>
-                <textarea
-                    rows="4"
-                    placeholder="Feedback..."
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    onKeyDown={handleTextareaKeyDown}
-                />
             </div>
 
             {visibleFeedbacks.map((feedback, index) =>
