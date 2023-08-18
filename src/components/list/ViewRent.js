@@ -22,6 +22,7 @@ import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import Swal from "sweetalert2";
 import MessageForm from "../messageForUser/MessageForm";
+import FeedbackOnViewRent from "./FeedbackOnViewRent";
 
 
 const ViewRent = () => {
@@ -569,14 +570,25 @@ const ViewRent = () => {
                                             <span
                                                 dangerouslySetInnerHTML={{__html: getStatusBookingUser(userBookingRent.status)}}/>
                                         </td>
-                                        {userBookingRent.status === 2 ?
+                                        {userBookingRent.status === 2 &&
                                             <td className={"text-center"}>
-                                                <button onClick={() => handleClickFinishUser(userBookingRent.id)}
-                                                        className={`btn-info`}>Hoàn thành
-                                                </button>
+                                                <Tooltip content="Xác nhận" show={tooltipVisible}>
+                                                    <IconButton
+                                                        variant="text" color="green"
+                                                        onClick={() => handleClickFinishUser(userBookingRent.id)}
+                                                    >
+                                                        <CheckIcon className="h-4 w-4"/>
+                                                    </IconButton>
+                                                </Tooltip>
                                             </td>
-                                            : <td></td>
                                         }
+                                        {userBookingRent.status === 3 || userBookingRent.status === 5 ? (
+                                            <td className={"text-center"}>
+                                                <FeedbackOnViewRent receiverId={userBookingRent.bookedUser.id}/>
+                                            </td>
+                                        ) : (
+                                            <td></td>
+                                        )}
                                     </tr>
                                 )}
 

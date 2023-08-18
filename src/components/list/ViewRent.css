@@ -96,7 +96,7 @@
 .report-container .report input {
     height: 40px;
 }
-.report-container .report-button {
+.report-button {
     float: right;
 }
 .report .bookingUserName {
