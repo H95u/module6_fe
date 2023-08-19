@@ -1,14 +1,46 @@
 import React, {useEffect, useState} from "react";
 import "./ViewRent.css";
-import {Typography} from "@material-tailwind/react";
+import {IconButton, Popover, PopoverContent, PopoverHandler, Tooltip, Typography} from "@material-tailwind/react";
 import axios from "axios";
 import {useParams} from "react-router-dom";
 import {Link} from "react-router-dom";
 import Swal from "sweetalert2";
+import {BugAntIcon, CheckIcon} from "@heroicons/react/20/solid";
+import FeedbackOnViewRent from "./FeedbackOnViewRent";
+import Report from "./Report";
 
 const ViewUserRent = () => {
+    const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
     const [userBookingRents, setUserBookingRents] = useState([]);
     const {id} = useParams();
+    const [tooltipVisible, setTooltipVisible] = useState(false);
+    const [showUserReport, setShowUserReport] = useState(false);
+    const [initialValueReport, setInitialValueReport] = useState({
+        accuserId: null,
+        accusedId: null,
+        accusedName: ""
+    })
+
+    const handleShowUserReport = (booking) => {
+        setShowUserReport(true);
+        setInitialValueReport({
+            accuserId: loggingUser.id,
+            accusedId: booking.bookedUser?.id,
+            accusedName: booking.bookedUser?.username
+        });
+    }
+
+    const handleHideReport = () => {
+        setShowUserReport(false);
+    }
+
+    const handlePopoverClick = () => {
+        setTooltipVisible(true);
+    };
+
+    const handlePopoverMouseLeave = () => {
+        setTooltipVisible(false);
+    };
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/bookings/booking-users/${id}`)
@@ -39,7 +71,6 @@ const ViewUserRent = () => {
     }
 
 
-
     const handleClickFinishUser = (bookingId) => {
         axios.put(`http://localhost:8080/api/bookings/${bookingId}/finish-user`).then((response) => {
             const updatedBooking = response.data;
@@ -65,7 +96,6 @@ const ViewUserRent = () => {
     }
 
 
-
     return (
 
         <>
@@ -87,7 +117,7 @@ const ViewUserRent = () => {
                             <th>Thời gian thuê</th>
                             <th>Tổng đơn</th>
                             <th className={`text-center`}>Trạng thái</th>
-                            <th className={`text-center`}>Hành động</th>
+                            <th className={`text-center`}>Tùy chọn</th>
                         </tr>
                         </thead>
 
@@ -135,24 +165,56 @@ const ViewUserRent = () => {
                                             <span
                                                 dangerouslySetInnerHTML={{__html: getStatusBookingUser(userBookingRent.status)}}/>
                                 </td>
-                                {userBookingRent.status === 2 ?
+                                {userBookingRent.status === 2 &&
                                     <td className={"text-center"}>
-                                        <button onClick={() => handleClickFinishUser(userBookingRent.id)}
-                                                className={`btn-info`}>Hoàn thành
-                                        </button>
+                                        <Tooltip content="Xác nhận">
+                                            <IconButton
+                                                variant="text" color="green"
+                                                onClick={() => handleClickFinishUser(userBookingRent.id)}
+                                            >
+                                                <CheckIcon className="h-4 w-4"/>
+                                            </IconButton>
+                                        </Tooltip>
                                     </td>
-                                    : <td></td>
                                 }
+                                {userBookingRent.status === 3 || userBookingRent.status === 5 ? (
+                                    <td className={"text-center"}>
+                                        <Popover placement="bottom">
+                                            <PopoverHandler>
+                                                <i className="bi bi-three-dots icon-hover"
+                                                   onClick={handlePopoverClick}
+                                                   onMouseLeave={handlePopoverMouseLeave}></i>
+                                            </PopoverHandler>
+                                            <PopoverContent>
+                                                <Tooltip content="Báo cáo" show={tooltipVisible}>
+                                                    <IconButton variant="text" color="blue-gray"
+                                                                onClick={() => handleShowUserReport(userBookingRent)}
+                                                    >
+                                                        <BugAntIcon className="h-4 w-4"/>
+                                                    </IconButton>
+                                                </Tooltip>
+                                                <FeedbackOnViewRent receiverId={userBookingRent.bookedUser?.id} />
+                                            </PopoverContent>
+                                        </Popover>
+                                    </td>
+                                ) : (
+                                    <td></td>
+                                )}
                             </tr>
                         )}
 
                         </tbody>
                     </table>
                 </div>
+                <Report
+                    show={showUserReport}
+                    accuserId={initialValueReport.accuserId}
+                    accusedId={initialValueReport.accusedId}
+                    accusedName={initialValueReport.accusedName}
+                    onHide={handleHideReport}
+                />
             </div>
-
         </>
     );
 };
-
 export default ViewUserRent;

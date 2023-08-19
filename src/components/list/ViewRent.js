@@ -17,70 +17,41 @@ import {
     CurrencyDollarIcon
 } from "@heroicons/react/20/solid";
 import {Link} from "react-router-dom";
-import Modal from "react-bootstrap/Modal";
-import * as Yup from "yup";
-import {ErrorMessage, Field, Form, Formik} from "formik";
 import Swal from "sweetalert2";
 import MessageForm from "../messageForUser/MessageForm";
-import FeedbackOnViewRent from "./FeedbackOnViewRent";
+import ViewUserRent from "./ViewUserRent";
+import Report from "./Report";
 
 
 const ViewRent = () => {
     const [bookings, setBookings] = useState([]);
-    const [report, setReport] = useState({});
-    const [userBookingRents, setUserBookingRents] = useState([]);
     const [tooltipVisible, setTooltipVisible] = useState(false);
     const {id} = useParams();
     const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
-    const [show, setShow] = useState(false);
-
+    const [showPartnerReport, setShowPartnerReport] = useState(false);
     const [initialValueReport, setInitialValueReport] = useState({
-        description: "",
-        bookedUserId: null,
-        bookingUserId: null,
-        bookingUserName: ""
+        accuserId: null,
+        accusedId: null,
+        accusedName: ""
     })
-    const handleClose = () => setShow(false);
-    const handleShow = (booking) => {
-        setShow(true);
+
+    const handleShowPartnerReport = (booking) => {
+        setShowPartnerReport(true);
         setInitialValueReport({
-            description: "",
-            bookedUserId: loggingUser.id,
-            bookingUserId: booking.bookingUser.id,
-            bookingUserName: booking.bookingUser.username
+            accuserId: loggingUser.id,
+            accusedId: booking.bookingUser?.id,
+            accusedName: booking.bookingUser?.username
         });
     }
-    const validationOfReport = Yup.object({
-        description: Yup.string().min(3, "Tối thiệu 3 kí tự").required("Nội dung là bắt buộc")
-    });
 
-    const handleSubmit = (value) => {
-        axios.post("http://localhost:8080/api/reports", value).then((res) => {
-            setReport(res.data)
-            Swal.fire({
-                title: "Cảm ơn bạn đã phản hồi, ý kiến của bạn đang chờ duyệt!",
-                icon: "success",
-                confirmButtonText: "OK"
-            })
-            handleClose();
-        })
-    };
-
+    const handleHideReport = () => {
+        setShowPartnerReport(false);
+    }
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/bookings/booked/${id}`)
             .then(response => {
                 setBookings(response.data);
-            })
-            .catch(error => {
-                console.error("Error fetching bookings:", error);
-            });
-    }, [id]);
-
-    useEffect(() => {
-        axios.get(`http://localhost:8080/api/bookings/booking-users/${id}`)
-            .then(response => {
-                setUserBookingRents(response.data);
             })
             .catch(error => {
                 console.error("Error fetching bookings:", error);
@@ -95,23 +66,6 @@ const ViewRent = () => {
                 return `<p class="text-danger">Đang hẹn hò</p>`;
             case 3:
                 return `<p class="text-success">Đã xác nhận</p>`;
-            case 5:
-                return `<p class="text-info">Đã hoàn thành</p>`;
-            case 4:
-                return `<p class="text-danger">Đã hủy</p>`;
-            default:
-                return `<p class="text-secondary">Trạng thái không xác nhận</p>`;
-        }
-    }
-
-    const getStatusBookingUser = (status) => {
-        switch (status) {
-            case 1:
-                return `<p class="text-warning">Chờ phản hồi</p>`;
-            case 2:
-                return `<p class="text-success">Đã xác nhận</p>`;
-            case 3:
-                return `<p class="text-info">Đã hoàn thành</p>`;
             case 5:
                 return `<p class="text-info">Đã hoàn thành</p>`;
             case 4:
@@ -138,30 +92,6 @@ const ViewRent = () => {
                 Swal.fire({
                         title: 'Xác nhận thành công !',
                         text: 'Chúc bạn có buổi hẹn hò vui vẻ !',
-                        icon: 'success',
-                        timer: 1000
-                    }
-                )
-            }
-        })
-    }
-
-    const handleClickFinishUser = (bookingId) => {
-        axios.put(`http://localhost:8080/api/bookings/${bookingId}/finish-user`).then((response) => {
-            const updatedBooking = response.data;
-
-            const index = userBookingRents.findIndex(booking => booking.id === bookingId);
-
-            if (index !== -1) {
-
-                const updatedBookings = [...userBookingRents];
-                updatedBookings[index] = updatedBooking;
-
-                setUserBookingRents(updatedBookings);
-
-                Swal.fire({
-                        title: 'Xác nhận thành công !',
-                        text: 'Cảm ơn bạn đã sử dụng dịch vụ,Hẹn gặp lại !',
                         icon: 'success',
                         timer: 1000
                     }
@@ -211,7 +141,6 @@ const ViewRent = () => {
         });
     }
 
-
     const handleClickReject = (bookingId) => {
         Swal.fire({
             title: 'Bạn muốn từ chối đơn này ?',
@@ -252,7 +181,6 @@ const ViewRent = () => {
         });
     }
 
-
     const handlePopoverClick = () => {
         setTooltipVisible(true);
     };
@@ -260,7 +188,6 @@ const ViewRent = () => {
     const handlePopoverMouseLeave = () => {
         setTooltipVisible(false);
     };
-
 
     const [showModal, setShowModal] = useState(false);
     const [senderId, setSenderId] = useState('');
@@ -276,12 +203,7 @@ const ViewRent = () => {
 
     const closeModal = () => {
         setShowModal(false);
-    };
-
-
-    const handleTooltipVisibility = (visible) => {
-        setTooltipVisible(visible);
-    };
+    }
 
     return (
 
@@ -323,7 +245,7 @@ const ViewRent = () => {
                                         <span>Thành tiền</span>
                                     </th>
                                     <th className={"text-center"}>
-                                        <span>Hành động</span>
+                                        <span>Tùy chọn</span>
                                     </th>
                                 </tr>
                                 </thead>
@@ -454,7 +376,7 @@ const ViewRent = () => {
                                                         <>
                                                             <Tooltip content="Báo cáo" show={tooltipVisible}>
                                                                 <IconButton variant="text" color="blue-gray"
-                                                                            onClick={() => handleShow(booking)}>
+                                                                            onClick={() => handleShowPartnerReport(booking)}>
                                                                     <BugAntIcon className="h-4 w-4"/>
                                                                 </IconButton>
                                                             </Tooltip>
@@ -477,9 +399,7 @@ const ViewRent = () => {
                                                             </IconButton>
                                                         </Tooltip>
                                                     }
-
                                                     <div>
-
                                                         {showModal && (
                                                             <MessageForm
                                                                 senderId={senderId}
@@ -498,140 +418,20 @@ const ViewRent = () => {
                                 </tbody>
                             </table>
                         </div>
+                        <Report
+                            show={showPartnerReport}
+                            accuserId={initialValueReport.accuserId}
+                            accusedId={initialValueReport.accusedId}
+                            accusedName={initialValueReport.accusedName}
+                            onHide={handleHideReport}
+                        />
                     </div>
                 </>
             }
 
             {loggingUser.status === 0 &&
-                <>
-                    <div className={"rent-user"}>
-                        <Typography
-                            color={"pink"}
-                            variant={"h3"}
-                            className={"text-center"}
-                        >
-                            Danh sách đơn
-                        </Typography>
-
-                        <div className={`list-rent`}>
-                            <table className={`table table-hover`}>
-                                <thead>
-                                <tr>
-                                    <th>Người bạn thuê</th>
-                                    <th>Ngày thuê</th>
-                                    <th>Thời gian thuê</th>
-                                    <th>Tổng đơn</th>
-                                    <th className={`text-center`}>Trạng thái</th>
-                                    <th className={`text-center`}>Hành động</th>
-                                </tr>
-                                </thead>
-
-                                <tbody>
-                                {userBookingRents.map(userBookingRent =>
-                                    <tr key={userBookingRent.id} className={`row-rent`}>
-                                        <td>
-                                            <div className="partner_info">
-                                                <Link to={`/detail-user-rent/${userBookingRent.id}`}>
-                                                    <img src={userBookingRent.bookedUser?.img} alt="Avatar"
-                                                         className="user-avatar"/>
-                                                </Link>
-                                                <div className="fill-name">
-                                                    {userBookingRent.bookedUser?.username}
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span>
-                                                {new Date(userBookingRent.startTime).toLocaleString(undefined, {
-                                                    year: 'numeric',
-                                                    month: 'numeric',
-                                                    day: 'numeric',
-                                                })}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span>{(() => {
-                                                const start = new Date(userBookingRent.startTime);
-                                                const end = new Date(userBookingRent.endTime);
-                                                const diffInMilliseconds = end - start;
-
-                                                const hours = Math.floor(diffInMilliseconds / (1000 * 60 * 60));
-                                                const minutes = Math.floor((diffInMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
-
-                                                return `${hours} giờ ${minutes} phút`;
-                                            })()}</span>
-                                        </td>
-                                        <td>
-                                        <span>{new Intl.NumberFormat('vi-VN',
-                                            {style: 'currency', currency: 'VND'})
-                                            .format(userBookingRent.total)}</span>
-                                        </td>
-                                        <td className={"text-center"}>
-                                            <span
-                                                dangerouslySetInnerHTML={{__html: getStatusBookingUser(userBookingRent.status)}}/>
-                                        </td>
-                                        {userBookingRent.status === 2 &&
-                                            <td className={"text-center"}>
-                                                <Tooltip content="Xác nhận" show={tooltipVisible}>
-                                                    <IconButton
-                                                        variant="text" color="green"
-                                                        onClick={() => handleClickFinishUser(userBookingRent.id)}
-                                                    >
-                                                        <CheckIcon className="h-4 w-4"/>
-                                                    </IconButton>
-                                                </Tooltip>
-                                            </td>
-                                        }
-                                        {userBookingRent.status === 3 || userBookingRent.status === 5 ? (
-                                            <td className={"text-center"}>
-                                                <FeedbackOnViewRent receiverId={userBookingRent.bookedUser.id}/>
-                                            </td>
-                                        ) : (
-                                            <td></td>
-                                        )}
-                                    </tr>
-                                )}
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </>
+                <ViewUserRent/>
             }
-
-            <Modal show={show} onHide={handleClose} className={`report-container`}>
-                <Modal.Header>
-                    <Modal.Title>Báo cáo người thuê</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Formik initialValues={initialValueReport} onSubmit={handleSubmit}
-                            enableReinitialize={true}
-                            validationSchema={validationOfReport}>
-                        <Form>
-                            <div className="mb-3 d-flex report">
-                                <label htmlFor={'bookingUser'} className={'form-label'}>Người thuê:</label>
-                                <Field name={'bookingUserName'} className={'form-control bookingUserName'}
-                                       id={'bookingUserName'} disabled/>
-                            </div>
-                            <div className="mb-3 report">
-                                <label htmlFor={'description'} className={'form-label'}>
-                                    <span style={{color: "red"}}>*</span> Nội dung</label>
-                                <Field as={`textarea`} name={'description'} className={'form-control'}
-                                       id={'description'}
-                                       placeholder={'Nội dung báo cáo'}/>
-                                <span style={{color: "red"}}><ErrorMessage className={'error'}
-                                                                           name={'description'}/></span>
-                            </div>
-                            <div className={`report-button`}>
-                                <button className={"btn btn-danger"}>Báo cáo</button>
-                                &ensp;
-                                <button className={"btn btn-secondary"} onClick={handleClose}>Quay lại</button>
-                            </div>
-                        </Form>
-                    </Formik>
-                </Modal.Body>
-            </Modal>
-
         </>
     );
 };

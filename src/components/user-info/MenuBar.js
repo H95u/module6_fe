@@ -5,8 +5,6 @@ import {
     List,
     ListItem,
     ListItemPrefix,
-    ListItemSuffix,
-    Chip,
     Accordion,
     AccordionHeader,
     AccordionBody,
@@ -16,8 +14,6 @@ import {
     PresentationChartBarIcon,
     ShoppingBagIcon,
     UserCircleIcon,
-    Cog6ToothIcon,
-    InboxIcon,
     PowerIcon,
 } from "@heroicons/react/24/solid";
 import {Link, useParams} from "react-router-dom";
@@ -25,12 +21,15 @@ import Top3Rents from "../top3BookingUser/Top3Rents";
 import Top3RecentRenters from "../top3BookingUser/Top3RecentRenters";
 import ViewRent from "../list/ViewRent";
 import WalletInfo from "./WalletInfo";
+import ViewUserRent from "../list/ViewUserRent";
 
 export default function MenuBar() {
+    const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
     const [open, setOpen] = React.useState(0);
     const [showTop3Renters, setShowTop3Renters] = React.useState(false);
     const [showTop3RecentRenters, setShowTop3RecentRenters] = React.useState(false);
     const [showRentHistory, setShowRentHistory] = React.useState(true);
+    const [showUserRentHistory, setShowUserRentHistory] = React.useState(false);
     const [showWithdraw, setShowWithdraw] = React.useState(false);
     const [historyDropdownOpen, setHistoryDropdownOpen] = React.useState(false);
     const {id} = useParams();
@@ -46,6 +45,15 @@ export default function MenuBar() {
         setShowTop3Renters(false);
         setShowTop3RecentRenters(false);
         setShowWithdraw(false);
+        setShowUserRentHistory(false);
+    }
+
+    const handleOpenUserRentHistory = () => {
+        setShowUserRentHistory(true);
+        setShowRentHistory(false);
+        setShowTop3Renters(false);
+        setShowTop3RecentRenters(false);
+        setShowWithdraw(false);
     }
 
     const handleOpenTop3Renters = () => {
@@ -53,12 +61,14 @@ export default function MenuBar() {
         setShowTop3Renters(true);
         setShowTop3RecentRenters(false);
         setShowWithdraw(false);
+        setShowUserRentHistory(false);
     }
     const handleOpenTop3RecentRenters = () => {
         setShowRentHistory(false);
         setShowTop3Renters(false);
         setShowTop3RecentRenters(true);
         setShowWithdraw(false);
+        setShowUserRentHistory(false);
     }
 
     const handleOpenWithdraw = () => {
@@ -66,6 +76,7 @@ export default function MenuBar() {
         setShowTop3Renters(false);
         setShowTop3RecentRenters(false);
         setShowWithdraw(true);
+        setShowUserRentHistory(false);
     }
 
 
@@ -115,8 +126,14 @@ export default function MenuBar() {
                                             <List>
                                                 <ListItem>
                                                     <i className="bi bi-card-checklist icon-hover"
-                                                       onClick={handleOpenRentHistory}> Xem danh sách đơn thuê</i>
+                                                       onClick={handleOpenRentHistory}> Xem danh sách đơn</i>
                                                 </ListItem>
+                                                {loggingUser.status !== 0 &&
+                                                    <ListItem>
+                                                    <i className="bi bi-card-checklist icon-hover"
+                                                    onClick={handleOpenUserRentHistory}> Xem danh sách đơn đã thuê</i>
+                                                    </ListItem>
+                                                }
                                                 <ListItem>
                                                     <i className="bi bi-eye icon-hover"
                                                        onClick={handleOpenTop3Renters}> Xem người thuê nhiều nhất</i>
@@ -190,6 +207,7 @@ export default function MenuBar() {
                 </div>
                 <div className={"col-lg-9"}>
                     {showRentHistory && <ViewRent/>}
+                    {showUserRentHistory && <ViewUserRent/>}
                     {showTop3Renters && <Top3Rents selectedUserId={id}/>}
                     {showTop3RecentRenters && <Top3RecentRenters selectedUserId={id}/>}
                     {showWithdraw && <WalletInfo/>}
