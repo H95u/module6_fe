@@ -3,7 +3,7 @@
     position: fixed;
     left: 0;
     height: 100vh;
-    padding: 20px 0 60px;
+    padding:20px 10px;
     overflow-y: auto;
     overflow-x: hidden;
     z-index: 1;
@@ -23,7 +23,6 @@
 
 .list-item {
     border-radius: 5px;
-    padding: 10px 10px;
 }
 
 .list-group {

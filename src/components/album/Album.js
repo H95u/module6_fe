@@ -123,8 +123,8 @@ export default function Album() {
 
     return (
         <div className={"container album-container"}>
-            <Typography className={"text-center mt-10 mb-10"} variant={"h2"} color={"cyan"}>
-                Danh sách ảnh
+            <Typography className={"text-center mt-10 mb-10"} variant={"h2"} color={"blue"}>
+                Album ảnh
             </Typography>
             <div className={"row"}>
                 {album.map((item, index) => (

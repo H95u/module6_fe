@@ -1,6 +1,8 @@
 .add-album-btn {
-    margin-left: 5rem;
-    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
 }
 
 .delete-button {
@@ -20,6 +22,7 @@
 .delete-button-icon:hover {
     transform: scale(1.1);
 }
+
 .img-container:hover {
     transform: scale(1.05);
 }

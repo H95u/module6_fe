@@ -21,7 +21,7 @@ export default function Sidebar(props) {
         <>
             <div className={"home-flex-category"}>
                 <div className={"fixed-case"}>
-                    <p className={"ml-4 text-center"}>
+                    <p className={"mb-2 text-center"}>
                         <span className={"list-name font-bold text-danger"}>Danh mục dịch vụ</span>
                     </p>
                     <ul className={"list-group"} onClick={handleSelect}>

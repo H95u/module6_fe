@@ -126,21 +126,21 @@ export default function MenuBar() {
                                             <List>
                                                 <ListItem>
                                                     <i className="bi bi-card-checklist icon-hover"
-                                                       onClick={handleOpenRentHistory}> Xem danh sách đơn</i>
+                                                       onClick={handleOpenRentHistory}> Danh sách đơn của bạn</i>
                                                 </ListItem>
                                                 {loggingUser.status !== 0 &&
                                                     <ListItem>
                                                     <i className="bi bi-card-checklist icon-hover"
-                                                    onClick={handleOpenUserRentHistory}> Xem danh sách đơn đã thuê</i>
+                                                    onClick={handleOpenUserRentHistory}> Danh sách đơn đã thuê</i>
                                                     </ListItem>
                                                 }
                                                 <ListItem>
                                                     <i className="bi bi-eye icon-hover"
-                                                       onClick={handleOpenTop3Renters}> Xem người thuê nhiều nhất</i>
+                                                       onClick={handleOpenTop3Renters}> Người thuê nhiều nhất</i>
                                                 </ListItem>
                                                 <ListItem>
                                                     <i className="bi bi-eye icon-hover"
-                                                       onClick={handleOpenTop3RecentRenters}> Xem người thuê gần
+                                                       onClick={handleOpenTop3RecentRenters}> Người thuê gần
                                                         nhất</i>
                                                 </ListItem>
                                             </List>
@@ -190,18 +190,6 @@ export default function MenuBar() {
                                     </List>
                                 </AccordionBody>
                             </Accordion>
-                            <ListItem>
-                                <ListItemPrefix>
-                                    <UserCircleIcon className="h-5 w-5"/>
-                                </ListItemPrefix>
-                                Thông tin cá nhân
-                            </ListItem>
-                            <ListItem>
-                                <ListItemPrefix>
-                                    <PowerIcon className="h-5 w-5"/>
-                                </ListItemPrefix>
-                                Đăng xuất
-                            </ListItem>
                         </List>
                     </Card>
                 </div>

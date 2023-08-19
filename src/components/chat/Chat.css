@@ -10,7 +10,7 @@
 
 
 .sidebar-chat {
-    width: 200px;
+    width: 20rem;
     background: #f9c3d5;
     border-right: 1px solid #ddd;
     padding: 20px;
@@ -53,8 +53,8 @@
 .message-input {
     position: absolute;
     bottom: 0;
-    width: 83.6%;
-    display: flex;
+    width: 75%;
+    display: grid;
     align-items: center;
     padding: 10px;
     background-color: #f5f5f5;
@@ -62,7 +62,7 @@
 
 .message-input input {
     flex-grow: 1;
-    margin-right: 10px;
+
     border: none;
     padding: 10px;
     border-radius: 4px;
@@ -71,9 +71,6 @@
 .message-input button {
     min-width: 40px;
     padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background-color: #e92562;
     color: #fff;
     border: none;
@@ -89,7 +86,6 @@
 
 
 .chat-messages {
-    overflow-y: scroll;
     padding: 10px;
 }
 
@@ -111,7 +107,8 @@
 .other-message {
     justify-content: flex-start;
 }
-.message-content{
+
+.message-content {
     display: flex;
 }
 
@@ -126,12 +123,10 @@
 .avatar:hover {
     transform: scale(1.1);
 }
+
 .button-chat {
     min-width: 40px;
     padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background-color: #e92562;
     color: #fff;
     border: none;
@@ -139,6 +134,7 @@
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
+
 .button-chat:hover {
     background-color: #d41f53;
     transform: scale(1.05);

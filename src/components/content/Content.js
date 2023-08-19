@@ -110,55 +110,56 @@ export default function Content() {
                 <div className={"col-md-2"}>
                     <Sidebar optionId={optionId} onSearch={searchByOption}/>
                 </div>
-                <div className={"col-md-10 col-sm-1 pl-10"}>
-                    <Banner/>
-                    <Story/>
-                    <hr/>
-                    <div className={"mb-8 pt-10"}>
-                        <Filter filterForm={filterForm} onFilter={filterHandle}/>
-                    </div>
-                    <hr/>
-                    {optionChoose != "" ?
-                        generateSearchTitle()
-                        :
-                        <Typography variant="h3" color="red" className="mb-10 mt-8 ml-4" textGradient>
-                            Danh sách hot girl, hot boy
-                        </Typography>}
-                    {users.length === 0 ?
-                        "" :
-                        <div id={"partner-list"}>
-                            <div className={"row"}>
-                                {currentPageData.map((item) => (
-                                    <div className={"col-md-3"} key={item.id}>
-                                        <Link to={`/user/${item.id}`}>
-                                            <Card className={"card w-56"}>
-                                                <CardHeader color="blue-gray" className="relative h-48">
-                                                    <img
-                                                        className={"object-cover w-full h-full"}
-                                                        src={item.img}
-                                                        alt="card-image"
-                                                    />
-                                                </CardHeader>
-                                                <CardBody>
-                                                    <div className={"mb-2"}>
-                                                        <Typography color="blue" className="font-medium" textGradient>
-                                                            Tên : {item.username}
-                                                        </Typography>
-                                                        <Typography color="red" className="font-medium"
-                                                                    textGradient>
-                                                            Giá : &#32; {formatPrice(item.price)} đ/h
-                                                        </Typography>
-                                                    </div>
-                                                </CardBody>
-                                                <CardFooter className="pt-0">
-                                                    <Button color="red">Thuê ngay</Button>
-                                                </CardFooter>
-                                            </Card>
-                                        </Link>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>}
+                <div className={"col-md-10 col-sm-1"}>
+                        <Banner/>
+                        <Story/>
+                        <hr/>
+                        <div className={"mb-8 pt-10"}>
+                            <Filter filterForm={filterForm} onFilter={filterHandle}/>
+                        </div>
+                        <hr/>
+                        {optionChoose != "" ?
+                            generateSearchTitle()
+                            :
+                            <Typography variant="h3" color="red" className="mb-10 mt-8 ml-4" textGradient>
+                                Danh sách hot girl, hot boy
+                            </Typography>}
+                        {users.length === 0 ?
+                            "" :
+                            <div id={"partner-list"}>
+                                <div className={"row"}>
+                                    {currentPageData.map((item) => (
+                                        <div className={"col-md-3"} key={item.id}>
+                                            <Link to={`/user/${item.id}`}>
+                                                <Card className={"card w-56"}>
+                                                    <CardHeader color="blue-gray" className="relative h-48">
+                                                        <img
+                                                            className={"object-cover w-full h-full"}
+                                                            src={item.img}
+                                                            alt="card-image"
+                                                        />
+                                                    </CardHeader>
+                                                    <CardBody>
+                                                        <div className={"mb-2"}>
+                                                            <Typography color="blue" className="font-medium"
+                                                                        textGradient>
+                                                                Tên : {item.username}
+                                                            </Typography>
+                                                            <Typography color="red" className="font-medium"
+                                                                        textGradient>
+                                                                Giá : &#32; {formatPrice(item.price)} đ/h
+                                                            </Typography>
+                                                        </div>
+                                                    </CardBody>
+                                                    <CardFooter className="pt-0">
+                                                        <Button color="red">Thuê ngay</Button>
+                                                    </CardFooter>
+                                                </Card>
+                                            </Link>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>}
                     <div>
                         <ReactPaginate
                             previousLabel={"Previous"}

@@ -211,12 +211,12 @@ const ViewRent = () => {
             {((loggingUser.status === 1) || (loggingUser.status === 2)) &&
                 <>
                     <Typography
-                        variant="h3"
-                        color="pink"
-                        className="mb-8 mt-5 text-center"
+                        variant="h4"
+                        color="red"
+                        className="mb-8 mt-4 text-center"
                         textGradient
                     >
-                        Danh sách thuê
+                        Danh sách đơn được thuê
                     </Typography>
                     <div className={"main-box clearfix"}>
                         <div className={"table-responsive"}>

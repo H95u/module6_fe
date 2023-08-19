@@ -156,14 +156,14 @@ export default function UserInfo() {
         <div className="user-info">
             <div className={"container"}>
                 <div className={"row"}>
-                    <div className={"col-md-3 pt-14"}>
+                    <div className={"col-md-3 pt-20"}>
                         <div className="flex items-center justify-between">
                             <Card
                                 className="w-84 img-frame"
                                 onMouseEnter={() => setIsHovered(true)}
                                 onMouseLeave={() => setIsHovered(false)}
                             >
-                                <CardHeader floated={false} className="h-60">
+                                <CardHeader floated={false} className="h-66">
                                     <img
                                         className="h-60 w-60 rounded-full object-center mx-auto justify-items-center"
                                         src={user.img}
@@ -195,23 +195,6 @@ export default function UserInfo() {
                                         </p>
                                     </Typography>
                                 </CardBody>
-                                <CardFooter className="flex justify-center gap-7 pt-2">
-                                    <Tooltip content="Like">
-                                        <Typography as="a" href="#facebook" variant="lead" color="blue" textGradient>
-                                            <i className="fab fa-facebook"/>
-                                        </Typography>
-                                    </Tooltip>
-                                    <Tooltip content="Follow">
-                                        <Typography as="button" href="#" variant="lead" color="light-blue" textGradient>
-                                            <i className="fab fa-twitter"/>
-                                        </Typography>
-                                    </Tooltip>
-                                    <Tooltip content="Follow">
-                                        <Typography as="button" href="#" variant="lead" color="purple" textGradient>
-                                            <i className="fab fa-instagram"/>
-                                        </Typography>
-                                    </Tooltip>
-                                </CardFooter>
                             </Card>
                         </div>
                         <div className="d-flex flex-wrap mt-2 justify-between">
@@ -239,7 +222,7 @@ export default function UserInfo() {
 
                     {showUser && <>
                         <div className={"col-md-9"}>
-                            <Typography variant="h2" color="light-blue" className="mb-2 mt-4 text-center" textGradient>
+                            <Typography variant="h2" color="blue" className="mb-2 mt-4 text-center" textGradient>
                                 Thông tin cá nhân
                             </Typography>
                             <div className={`my-profile`}>

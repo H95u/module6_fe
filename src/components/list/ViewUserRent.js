@@ -101,13 +101,13 @@ const ViewUserRent = () => {
         <>
             <div className={"rent-user"}>
                 <Typography
-                    color={"pink"}
-                    variant={"h3"}
-                    className={"text-center"}
+                    variant="h4"
+                    color="red"
+                    className="mb-8 mt-4 text-center"
+                    textGradient
                 >
-                    Danh sách đơn
+                    Danh sách đơn đã thuê
                 </Typography>
-
                 <div className={`list-rent`}>
                     <table className={`table table-hover`}>
                         <thead>
