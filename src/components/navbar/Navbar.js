@@ -26,6 +26,7 @@ import RechargeModal from "../recharge-modal/RechargeModal";
 import {HomeIcon} from "@heroicons/react/24/solid";
 import FormNavBar from "../messageForUser/FormNavBar";
 import "./Navbar.css"
+import Swal from "sweetalert2";
 
 
 const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
@@ -45,22 +46,6 @@ function LoginButton() {
         </div>
     );
 }
-
-function Icon({id, open}) {
-    return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className={`${id === open ? "rotate-180" : ""} h-5 w-5 transition-transform`}
-        >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
-        </svg>
-    );
-}
-
 
 function ProfileMenu() {
     const [showRecharge, setShowRecharge] = useState(false);
@@ -202,9 +187,9 @@ function ProfileMenu() {
 }
 
 export function ComplexNavbar() {
-
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
+    const [bookings, setBookings] = useState([]);
     const [showPopover, setShowPopover] = useState(false);
     const [searchInputValue, setSearchInputValue] = useState("");
     const [autocompleteResults, setAutocompleteResults] = useState([]);
@@ -215,10 +200,32 @@ export function ComplexNavbar() {
             setUsers(response.data);
         });
     };
+    const getBookings = () => {
+        axios.get(`http://localhost:8080/api/bookings/waiting/${loggingUser.id}`)
+            .then(response => {
+                setBookings(response.data);
+            })
+    };
 
     useEffect(() => {
         getUsers();
+        if (loggingUser != undefined) {
+            getBookings();
+        }
     }, []);
+
+    if (bookings.length > 0) {
+        Swal.fire({
+            icon: 'info',
+            title: 'Yoyo...',
+            text: 'Bạn có đơn mới chưa xác nhận !',
+            confirmButtonText: "OK, Để sau",
+            footer: '<a href="#" id="viewOrderLink">Đến trang xem thông tin đơn ?</a>'
+        })
+        document.getElementById('viewOrderLink').addEventListener('click', () => {
+            navigate(`/view-transaction/${loggingUser.id}`);
+        });
+    }
 
     useEffect(() => {
         const handleOutsideClick = (event) => {
@@ -292,7 +299,8 @@ export function ComplexNavbar() {
                                 {autocompleteResults.length > 0 && (
                                     <li className="flex items-center">
                                         <Link onClick={handleLinkClick} to={`/view-all?name=${searchInputValue}`}>
-                                            <Typography className={"ml-2 p-2 text-center"} color={"blue"} variant={"h5"}> Xem tất
+                                            <Typography className={"ml-2 p-2 text-center"} color={"blue"}
+                                                        variant={"h5"}> Xem tất
                                                 cả</Typography>
                                         </Link>
                                     </li>

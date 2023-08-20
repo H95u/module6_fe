@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes, useNavigate} from "react-router-dom";
 import Content from "./components/content/Content";
 import TransferForm from "./components/login/TransferForm";
 import {ComplexNavbar} from "./components/navbar/Navbar";
@@ -16,6 +16,7 @@ import Album from "./components/album/Album";
 import ChatComponent from "./components/chat/ChatComponent";
 
 export default function App() {
+
     return (
         <>
 
