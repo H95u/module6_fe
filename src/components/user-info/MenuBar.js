@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
     Card,
     Typography,
@@ -12,11 +12,9 @@ import {
 import {ChevronRightIcon, ChevronDownIcon} from "@heroicons/react/24/outline";
 import {
     PresentationChartBarIcon,
-    ShoppingBagIcon,
-    UserCircleIcon,
-    PowerIcon,
+    ShoppingBagIcon
 } from "@heroicons/react/24/solid";
-import {Link, useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import Top3Rents from "../top3BookingUser/Top3Rents";
 import Top3RecentRenters from "../top3BookingUser/Top3RecentRenters";
 import ViewRent from "../list/ViewRent";
@@ -35,6 +33,15 @@ export default function MenuBar() {
     const [showChart, setShowChart] = React.useState(false);
     const [historyDropdownOpen, setHistoryDropdownOpen] = React.useState(false);
     const {id} = useParams();
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.search) {
+            if (new URLSearchParams(location.search).get("userRent") === "1") {
+                handleOpenUserRentHistory();
+            }
+        }
+    }, [location]);
     const handleOpen = (value) => {
         setOpen(open === value ? 0 : value);
     };
