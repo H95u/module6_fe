@@ -145,8 +145,9 @@ export default function MenuBar() {
                                                 </ListItem>
                                                 {loggingUser.status !== 0 &&
                                                     <ListItem>
-                                                    <i className="bi bi-card-checklist icon-hover"
-                                                    onClick={handleOpenUserRentHistory}> Danh sách đơn đã thuê</i>
+                                                        <i className="bi bi-card-checklist icon-hover"
+                                                           onClick={handleOpenUserRentHistory}> Danh sách đơn đã
+                                                            thuê</i>
                                                     </ListItem>
                                                 }
                                                 <ListItem>
@@ -158,12 +159,11 @@ export default function MenuBar() {
                                                        onClick={handleOpenTop3RecentRenters}> Người thuê gần
                                                         nhất</i>
                                                 </ListItem>
-                                                {loggingUser.status !== 0 ?
-                                                    <ListItem>
-                                                        <i className="bi bi-piggy-bank" onClick={handleOpenChart}> Doanh thu</i>
-                                                    </ListItem>
-                                                    : []
-                                                }
+                                                <ListItem>
+                                                    <i className="bi bi-piggy-bank icon-hover" onClick={handleOpenChart}> Doanh
+                                                        thu</i>
+                                                </ListItem>
+
 
                                             </List>
                                         )}
@@ -195,7 +195,8 @@ export default function MenuBar() {
                                             <ListItemPrefix>
                                                 <ChevronRightIcon strokeWidth={3} className="h-3 w-5"/>
                                             </ListItemPrefix>
-                                            <i className="bi bi-credit-card-2-back icon-hover" onClick={handleOpenWithdraw}> Rút tiền</i>
+                                            <i className="bi bi-credit-card-2-back icon-hover"
+                                               onClick={handleOpenWithdraw}> Rút tiền</i>
                                         </ListItem>
                                         <ListItem>
                                             <ListItemPrefix>
