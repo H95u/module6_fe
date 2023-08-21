@@ -417,7 +417,7 @@ export default function PartnerInfo() {
                             </>}
 
                             <div className={`booking`}>
-                                {isLoggedIn.id === user.id && isLoggedIn.status !== 0 ?
+                                {isLoggedIn?.id === user.id && isLoggedIn?.status !== 0 ?
                                     <a className={"btn btn-danger"}>THUÊ</a>
                                     : <a className={"btn btn-danger"} onClick={handleShowRentForm}>THUÊ</a>
                                 }

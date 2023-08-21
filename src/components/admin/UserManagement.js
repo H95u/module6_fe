@@ -21,6 +21,7 @@ import {
 } from "@material-tailwind/react";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import ReactPaginate from "react-paginate";
 
 const TABS = [
     {
@@ -36,61 +37,15 @@ const TABS = [
 
 const TABLE_HEAD = ["Người dùng", "Vai trò", "Trạng thái", "Ngày tham gia", "Thao tác"];
 
-const TABLE_ROWS = [
-    {
-        img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-        name: "John Michael",
-        email: "john@creative-tim.com",
-        job: "Manager",
-        org: "Organization",
-        online: true,
-        date: "23/04/18",
-    },
-    {
-        img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
-        name: "Alexa Liras",
-        email: "alexa@creative-tim.com",
-        job: "Programator",
-        org: "Developer",
-        online: false,
-        date: "23/04/18",
-    },
-    {
-        img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
-        name: "Laurent Perrier",
-        email: "laurent@creative-tim.com",
-        job: "Executive",
-        org: "Projects",
-        online: false,
-        date: "19/09/17",
-    },
-    {
-        img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
-        name: "Michael Levi",
-        email: "michael@creative-tim.com",
-        job: "Programator",
-        org: "Developer",
-        online: true,
-        date: "24/12/08",
-    },
-    {
-        img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
-        name: "Richard Gran",
-        email: "richard@creative-tim.com",
-        job: "Manager",
-        org: "Executive",
-        online: false,
-        date: "04/10/21",
-    },
-];
-
 export default function UserManagement() {
     const [users, setUsers] = useState([]);
-    const itemsPerPage = 12;
+    const itemsPerPage = 5;
     const [currentPage, setCurrentPage] = useState(0);
+    const [loading, setLoading] = useState(true);
     const getUsers = () => {
-        axios.get(`http://localhost:8080/api/users`).then((response) => {
+        axios.get(`http://localhost:8080/api/users/all`).then((response) => {
             setUsers(response.data);
+            setLoading(false);
         });
     };
 
@@ -98,14 +53,18 @@ export default function UserManagement() {
         getUsers();
     }, []);
 
-    const handlePageClick = (selectedPage) => {
-        setCurrentPage(selectedPage.selected);
+    const handlePageClick = () => {
+        const nextPage = currentPage + 1;
+        if (nextPage < totalPages) {
+            setCurrentPage(nextPage);
+        }
     };
 
     const totalPages = Math.ceil(users.length / itemsPerPage);
     const startIndex = currentPage * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const currentPageData = users.slice(startIndex, endIndex);
+
     return (
         <Card className="h-full w-full">
             <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -169,9 +128,9 @@ export default function UserManagement() {
                     </tr>
                     </thead>
                     <tbody>
-                    {users.map(
+                    {currentPageData.map(
                         ({img, username, email, status, createdDate}, index) => {
-                            const isLast = index === TABLE_ROWS.length - 1;
+                            const isLast = index === currentPageData.length - 1;
                             const classes = isLast
                                 ? "p-4"
                                 : "p-4 border-b border-blue-gray-50";
@@ -243,15 +202,27 @@ export default function UserManagement() {
             </CardBody>
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
                 <Typography variant="small" color="blue-gray" className="font-normal">
-                    Page 1 of 10
+                    Trang {currentPage + 1} / {totalPages}
                 </Typography>
                 <div className="flex gap-2">
-                    <Button variant="outlined" size="sm">
-                        Previous
-                    </Button>
-                    <Button variant="outlined" size="sm">
-                        Next
-                    </Button>
+                    <div className="flex gap-2">
+                        <Button
+                            variant="outlined"
+                            size="sm"
+                            disabled={currentPage === 0}
+                            onClick={() => setCurrentPage(currentPage - 1)}
+                        >
+                            Previous
+                        </Button>
+                        <Button
+                            variant="outlined"
+                            size="sm"
+                            disabled={currentPage === totalPages - 1}
+                            onClick={handlePageClick}
+                        >
+                            Next
+                        </Button>
+                    </div>
                 </div>
             </CardFooter>
         </Card>
