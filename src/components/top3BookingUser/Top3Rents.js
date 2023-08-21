@@ -45,7 +45,7 @@ const Top3Renters = ({selectedUserId}) => {
                     textGradient
                 >Top 3 người thuê nhiều nhất
                 </Typography>
-                {top3Renters.length > 0 ? top3Renters.map((renter,index) => {
+                {top3Renters.length > 0 ? top3Renters.map((renter, index) => {
                     const endTime = new Date(renter.endTime);
                     const currentTime = new Date();
                     const duration = Math.floor(
@@ -62,9 +62,12 @@ const Top3Renters = ({selectedUserId}) => {
                                 <div className="user__action--introduce">
                                     <div className="container-fluid user__player false">
                                        <span className="ranking-position">
-                                           {index === 0 ? <i className="bi bi-1-square"></i> : null}
-                                           {index === 1 ? <i className="bi bi-2-square"></i> : null}
-                                           {index === 2 ? <i className="bi bi-3-square"></i> : null}
+                                           {index === 0 ? <img style={{width: 38, height: 38}} src="/banner/top1.png"
+                                                               alt=""/> : null}
+                                           {index === 1 ? <img style={{width: 38, height: 38}} src="/banner/silver.png"
+                                                               alt=""/> : null}
+                                           {index === 2 ? <img style={{width: 38, height: 38}} src="/banner/bronze.png"
+                                                               alt=""/> : null}
                                       </span>
                                         <div className="user__page--info media">
                                             <div className="media-left">
@@ -76,37 +79,26 @@ const Top3Renters = ({selectedUserId}) => {
                                             </div>
                                             <div className="media-body">
                                                 <h5 className="media-heading">
-                                                    <span style={{ color: 'red' }}><h3>Top{++index}</h3></span>
                                                     <span>
                                                         <a
                                                             href={""}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
                                                         >
-                                                            Tên:  {renter.bookingUser.username} &ensp;
-                                                            Biệt danh: {renter.bookingUser.nickname} &ensp;
-                                                            Giới tính: {getGenderString(renter.bookingUser.gender)} &ensp;
-                                                            Địa chỉ: {renter.bookingUser.address.name}
+                                                            Tên: {renter.bookingUser.username} &ensp;
                                                         </a>
                                                         </span>
                                                 </h5>
-                                                <p className="media-last-time">
-
-                                                    <span>{duration} giờ trước</span>
+                                                <p className="media-heading">
+                                                    Biệt danh: {renter.bookingUser.nickname}
+                                                </p>
+                                                <p className="media-heading">
+                                                    Giới tính: {getGenderString(renter.bookingUser.gender)}
                                                 </p>
                                                 <p className="media-rentals">
                                                     Số lần thuê: {renter.bookingCount}
                                                 </p>
                                             </div>
-                                            {/*<div className="media-right">*/}
-                                            {/*    /!*<button*!/*/}
-                                            {/*    /!*    className="btn btn-default"*!/*/}
-                                            {/*    /!*    fdprocessedid={""}*!/*/}
-                                            {/*    /!*>*!/*/}
-                                            {/*    /!*    <i className="fas fa-minus-circle"></i>{" "}*!/*/}
-                                            {/*    /!*    <span>Hủy theo dõi</span>*!/*/}
-                                            {/*    /!*</button>*!/*/}
-                                            {/*</div>*/}
                                         </div>
                                     </div>
                                 </div>
