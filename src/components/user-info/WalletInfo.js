@@ -96,22 +96,24 @@ export default function WalletInfo() {
             <div className={"row"}>
                 <div className={"col-md-6"}>
                     <div className={"col-md-10 p-4 ml-10"}>
-                        <Typography color={"red"} className={"mb-4 text-center"} variant={"h3"}>
+                        <Typography color={"red"} className={"mb-4 text-center"} variant={"h2"}>
                             Thông tin ví của bạn
                         </Typography>
                         <table className={"wallet-info table border"}>
                             <tbody>
                             <tr>
                                 <td>
-                                    <Typography className={"italic"} variant={"h3"}>Cổng thanh toán :</Typography>
-                                    <p className={"mt-2"}>
-                                        Paypal
+                                    <Typography variant={"h4"}>Cổng thanh toán :</Typography>
+                                    <p style={{display: "flex"}} className={"mt-2"}>
+                                        <img style={{width: 20, height: 20}} src="/paypal/unnamed.png" alt=""/>
+                                        &nbsp;
+                                        <img style={{width: 20, height: 20}} src="/paypal/momo.png" alt=""/>
                                     </p>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <Typography className={"italic"} variant={"h3"}>Chủ tài khoản :</Typography>
+                                    <Typography  variant={"h4"}>Chủ tài khoản :</Typography>
                                     <p className={"mt-2"}>
                                         {user.gender === 1 ? "Nguyễn Văn" : "Trần Thị"} {user.nickname}
                                     </p>
@@ -119,7 +121,7 @@ export default function WalletInfo() {
                             </tr>
                             <tr>
                                 <td>
-                                    <Typography className={"italic"} variant={"h3"}>Số dư trong tài
+                                    <Typography variant={"h4"}>Số dư trong tài
                                         khoản :</Typography>
                                     <p className={"mt-2"}>
                                         {formatPrice(user.money)}
@@ -128,9 +130,9 @@ export default function WalletInfo() {
                             </tr>
                             <tr>
                                 <td>
-                                    <Typography className={"italic"} variant={"h3"}>Số tài khoản :</Typography>
+                                    <Typography variant={"h4"}>Số tài khoản :</Typography>
                                     <p className={"mt-2"}>
-                                        123456789
+                                        88888888
                                     </p>
                                 </td>
                             </tr>
