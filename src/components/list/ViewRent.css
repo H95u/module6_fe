@@ -105,3 +105,28 @@
 .report .form-label {
     padding-top: 5px;
 }
+
+.table-responsive {
+    min-height: 550px;
+    max-height: 550px;
+}
+
+.list-rent {
+    min-height: 550px;
+    max-height: 550px;
+}
+
+.page-item:first-child .page-link{
+    border-top-left-radius: var(--bs-pagination-border-radius);
+    border-bottom-left-radius: var(--bs-pagination-border-radius);
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.page-item:last-child .page-link{
+    border-top-right-radius: var(--bs-pagination-border-radius);
+    border-bottom-right-radius: var(--bs-pagination-border-radius);
+    font-size: 20px;
+    font-weight: 800;
+}
+
