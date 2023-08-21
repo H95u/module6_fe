@@ -22,6 +22,7 @@ export default function PartnerInfo() {
     const [showPrice, setShowPrice] = useState(true)
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
+    const [message, setMessage] = useState("");
     const [selectedOption, setSelectedOption] = useState(null);
     const [selectedOptionId, setSelectedOptionId] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -95,6 +96,10 @@ export default function PartnerInfo() {
     const handleEndChange = (e) => {
         setEndTime(e.target.value);
     };
+    const handleMessageChange = (e) => {
+        setMessage(e.target.value);
+    };
+
 
     const [showRecharge, setShowRecharge] = useState(false);
     const handleCloseRecharge = () => setShowRecharge(false);
@@ -164,6 +169,7 @@ export default function PartnerInfo() {
             bookedUser: {
                 id: +id
             },
+            message: message,
             total: calculateTotalPrice(),
         }
         return booking;
@@ -291,7 +297,7 @@ export default function PartnerInfo() {
                         </Typography>
                     </div>
                     <div className="grid gap-6">
-                        <Textarea label="Tin nhắn ..."/>
+                        <Textarea onChange={handleMessageChange} label="Tin nhắn ..."/>
                     </div>
                     <hr/>
                     <Typography variant="h4" color="green" textGradient>

@@ -7,10 +7,10 @@ import {useLocation} from "react-router-dom";
 
 const TABLE_HEAD = ["Người dùng", "Vai trò", "Trạng thái", "Ngày tham gia", "Thao tác"];
 export default function AllUser() {
+    const [allUsers, setAllUsers] = useState([]);
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const name = searchParams.get("name");
-    const [allUsers, setAllUsers] = useState([]);
     const itemsPerPage = 4;
     const [currentPage, setCurrentPage] = useState(0);
 
@@ -45,10 +45,12 @@ export default function AllUser() {
         setCurrentPage(selectedPage.selected);
     };
 
+    const classes = "p-3 border-b border-blue-gray-50";
+
     return (
         <>
             <CardBody className="px-0">
-                <table className="mt-4 w-full min-w-max table-auto text-left">
+                <table className="mt-4 w-full min-w-max table-auto text-center">
                     <thead>
                     <tr>
                         {TABLE_HEAD.map((head, index) => (
@@ -70,74 +72,66 @@ export default function AllUser() {
                     <tbody>
                     {currentPageData.length === 0 ?
                         <h1 className={"text-center"}>Không tìm thấy</h1> : currentPageData.map(
-                            (item, index) => {
-                                const isLast = index === currentPageData.length - 1;
-                                const classes = isLast
-                                    ? "p-4"
-                                    : "p-4 border-b border-blue-gray-50";
-
-                                return (
-                                    <tr key={item.username}>
-                                        <td className={classes}>
-                                            <div className="flex items-center gap-3">
-                                                <Avatar src={item.img} alt={item.username} size="sm"/>
-                                                <div className="flex flex-col">
-                                                    <Typography
-                                                        variant="small"
-                                                        color="blue-gray"
-                                                        className="font-normal"
-                                                    >
-                                                        {item.username}
-                                                    </Typography>
-                                                    <Typography
-                                                        variant="small"
-                                                        color="blue-gray"
-                                                        className="font-normal opacity-70"
-                                                    >
-                                                        {item.email}
-                                                    </Typography>
-                                                </div>
+                            (item, index) => (
+                                <tr key={index}>
+                                    <td className={classes}>
+                                        <div className="flex mx-auto justify-center items-center gap-3">
+                                            <Avatar src={item.img} alt={item.username} size="sm"/>
+                                            <div className="flex flex-col text-center">
+                                                <Typography
+                                                    variant="small"
+                                                    color="blue-gray"
+                                                    className="font-normal"
+                                                >
+                                                    {item.username}
+                                                </Typography>
+                                                <Typography
+                                                    variant="small"
+                                                    color="blue-gray"
+                                                    className="font-normal opacity-70"
+                                                >
+                                                    {item.email}
+                                                </Typography>
                                             </div>
-                                        </td>
-                                        <td className={classes}>
-                                            <Typography
-                                                variant="small"
-                                                color="blue-gray"
-                                                className="font-normal"
-                                            >
-                                                {item.status === 0 ? "Người dùng" : "Người CCDV"}
-                                            </Typography>
-                                        </td>
-                                        <td className={classes}>
-                                            <div className="w-max">
-                                                <Chip
-                                                    variant="ghost"
-                                                    size="sm"
-                                                    value={item.status === 1 ? "online" : "offline"}
-                                                    color={item.status === 1 ? "green" : "blue-gray"}
-                                                />
-                                            </div>
-                                        </td>
-                                        <td className={classes}>
-                                            <Typography
-                                                variant="small"
-                                                color="blue-gray"
-                                                className="font-normal"
-                                            >
-                                                {item.createdDate}
-                                            </Typography>
-                                        </td>
-                                        <td className={classes}>
-                                            <Tooltip content="Edit User">
-                                                <IconButton variant="text">
-                                                    <PencilIcon className="h-4 w-4"/>
-                                                </IconButton>
-                                            </Tooltip>
-                                        </td>
-                                    </tr>
-                                );
-                            },
-                        )}
+                                        </div>
+                                    </td>
+                                    <td className={classes}>
+                                        <Typography
+                                            variant="small"
+                                            color="blue-gray"
+                                            className="font-normal"
+                                        >
+                                            {item.status === 0 ? "Người dùng" : "Người CCDV"}
+                                        </Typography>
+                                    </td>
+                                    <td className={classes}>
+                                        <div className="w-max mx-auto">
+                                            <Chip
+                                                variant="ghost"
+                                                size="sm"
+                                                value={item.status === 1 ? "online" : "offline"}
+                                                color={item.status === 1 ? "green" : "blue-gray"}
+                                            />
+                                        </div>
+                                    </td>
+                                    <td className={classes}>
+                                        <Typography
+                                            variant="small"
+                                            color="blue-gray"
+                                            className="font-normal"
+                                        >
+                                            {item.createdDate}
+                                        </Typography>
+                                    </td>
+                                    <td className={classes}>
+                                        <Tooltip content="Edit User">
+                                            <IconButton variant="text">
+                                                <PencilIcon className="h-4 w-4"/>
+                                            </IconButton>
+                                        </Tooltip>
+                                    </td>
+                                </tr>
+                            ))}
                     </tbody>
                 </table>
             </CardBody>
