@@ -12,10 +12,11 @@ export class User {
     money;
     viewCount;
     rentCount;
+    isLocked;
     options;
     address;
     constructor(id, username, password, email, nickname, img, price, gender, dob,
-                status, money, viewCount, rentCount, options, address) {
+                status, money, viewCount, rentCount,isLocked, options, address) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -29,6 +30,7 @@ export class User {
         this.money = money;
         this.viewCount = viewCount;
         this.rentCount = rentCount;
+        this.isLocked = isLocked;
         this.options = options;
         this.address = address;
     }

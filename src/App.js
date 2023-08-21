@@ -14,6 +14,7 @@ import MenuBar from "./components/user-info/MenuBar";
 import DetailUserRent from "./components/list/DetailUserRent";
 import Album from "./components/album/Album";
 import ChatComponent from "./components/chat/ChatComponent";
+import UserManagement from "./components/admin/UserManagement";
 
 export default function App() {
 
@@ -37,6 +38,7 @@ export default function App() {
                     <Route path={"/view-all"} element={<SearchLogin/>}></Route>
                     <Route path={"/album/:id"} element={<Album/>}></Route>
                     <Route path={"/chat"} element={<ChatComponent/>}></Route>
+                    <Route path={"/blocked"} element={<UserManagement/>}></Route>
                 </Routes>
             </BrowserRouter>
         </>

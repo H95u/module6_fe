@@ -3,6 +3,7 @@ import {
     ChevronUpDownIcon,
 } from "@heroicons/react/24/outline";
 import {PencilIcon, UserPlusIcon} from "@heroicons/react/24/solid";
+import MailIcon from '@mui/icons-material/Mail';
 import {
     Card,
     CardHeader,
@@ -17,7 +18,7 @@ import {
     Tab,
     Avatar,
     IconButton,
-    Tooltip,
+    Tooltip, Switch, Badge,
 } from "@material-tailwind/react";
 import {useEffect, useState} from "react";
 import axios from "axios";
@@ -34,7 +35,7 @@ const TABS = [
 
 ];
 
-const TABLE_HEAD = ["Người dùng", "Vai trò", "Trạng thái", "Ngày tham gia", "Thao tác"];
+const TABLE_HEAD = ["Người dùng", "Vai trò", "Trạng thái", "Ngày tham gia","Tài khoản", "Thao tác"];
 
 const TABLE_ROWS = [
     {
@@ -83,7 +84,6 @@ const TABLE_ROWS = [
         date: "04/10/21",
     },
 ];
-
 export default function UserManagement() {
     const [users, setUsers] = useState([]);
     const itemsPerPage = 12;
@@ -91,6 +91,7 @@ export default function UserManagement() {
     const getUsers = () => {
         axios.get(`http://localhost:8080/api/users`).then((response) => {
             setUsers(response.data);
+            console.log(response.data)
         });
     };
 
@@ -106,6 +107,42 @@ export default function UserManagement() {
     const startIndex = currentPage * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const currentPageData = users.slice(startIndex, endIndex);
+    const [editing, setEditing] = useState(false);
+    const [lockedAccounts, setLockedAccounts] = useState([]);
+    const [notification, setNotification] = useState('');
+    const messageCount = 5;
+
+    useEffect(() => {
+        fetchUsers().then();
+    }, []);
+
+    const fetchUsers = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/api/users');
+            setUsers(response.data);
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
+    };
+
+    const handleToggleLock = async (accountId, prevLocked) => {
+        try {
+            const endpoint = prevLocked ? 'unlock' : 'lock';
+            const response = await axios.put(`http://localhost:8080/api/auth/${endpoint}/${accountId}`);
+            const updatedUsers = users.map(user =>
+                user.id === accountId ? { ...user, locked: response.data.locked } : user
+            );
+
+            setUsers(updatedUsers);
+            setNotification(`Account ${response.data.locked ? 'locked' : 'unlocked'} successfully`);
+            setTimeout(() => {
+                setNotification('');
+            }, 3000);
+            fetchUsers().then();
+        } catch (error) {
+            console.error(`Error ${prevLocked ? 'unlocking' : 'locking'} account:`, error);
+        }
+    };
     return (
         <Card className="h-full w-full">
             <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -148,6 +185,15 @@ export default function UserManagement() {
             <CardBody className="px-0">
                 <table className="mt-4 w-full min-w-max table-auto text-left">
                     <thead>
+                    <IconButton
+                        size="large"
+                        aria-label="show messages"
+                        color="inherit"
+                    >
+                        <Badge badgeContent={messageCount} color="error">
+                            <MailIcon />
+                        </Badge>
+                    </IconButton>
                     <tr>
                         {TABLE_HEAD.map((head, index) => (
                             <th
@@ -170,7 +216,7 @@ export default function UserManagement() {
                     </thead>
                     <tbody>
                     {users.map(
-                        ({img, username, email, status, createdDate}, index) => {
+                        ({id,img, username, email, status, createdDate, locked}, index) => {
                             const isLast = index === TABLE_ROWS.length - 1;
                             const classes = isLast
                                 ? "p-4"
@@ -227,12 +273,30 @@ export default function UserManagement() {
                                             {createdDate}
                                         </Typography>
                                     </td>
+                                    <td>
+                                        <Typography
+                                            variant="small"
+                                            color="blue-gray"
+                                            className="font-normal"
+                                        >
+                                            <span style={{ color:locked ? 'red' : 'green' }}>
+                                            {locked ? 'Tài khoản đang bị khóa' : 'Tài khoản bình thường'}
+                                        </span>
+                                        </Typography>
+                                    </td>
                                     <td className={classes}>
-                                        <Tooltip content="Edit User">
-                                            <IconButton variant="text">
-                                                <PencilIcon className="h-4 w-4"/>
-                                            </IconButton>
-                                        </Tooltip>
+                                        <div
+                                            className={`relative w-12 h-6 rounded-full ${
+                                                locked ? 'bg-red-600' : 'bg-gray-300'
+                                            }`}
+                                            onClick={() => handleToggleLock(id, locked)}
+                                        >
+                                            <div
+                                                className={`absolute inset-0 w-6 h-6 bg-white rounded-full transform ${
+                                                    locked ? 'translate-x-full' : ''
+                                                }`}
+                                            ></div>
+                                        </div>
                                     </td>
                                 </tr>
                             );

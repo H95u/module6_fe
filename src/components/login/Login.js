@@ -30,37 +30,46 @@ const Login = () => {
         axios
             .post("http://localhost:8080/api/auth/login", values, config)
             .then(response => {
-                Swal.fire({
-                    title: "Đăng nhập thành công!",
-                    icon: "success",
-                    confirmButtonText: "OK"
-                }).then(result => {
-                    if (result.isConfirmed) {
-                        const redirectedId = localStorage.getItem("userId");
-                        if (redirectedId) {
-                            localStorage.removeItem("userId");
-                            window.location.href = `/user/${redirectedId}`
-                            localStorage.setItem("loggingUser", JSON.stringify(response.data.body));
-                        } else {
-                            window.location.href = `/`
-                            localStorage.setItem("loggingUser", JSON.stringify(response.data.body));
+                    Swal.fire({
+                        title: "Đăng nhập thành công!",
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    }).then(result => {
+                        if (result.isConfirmed) {
+                            const redirectedId = localStorage.getItem("userId");
+                            if (redirectedId) {
+                                localStorage.removeItem("userId");
+                                window.location.href = `/user/${redirectedId}`
+                                localStorage.setItem("loggingUser", JSON.stringify(response.data.body));
+                            } else {
+                                window.location.href = `/`
+                                localStorage.setItem("loggingUser", JSON.stringify(response.data.body));
+                            }
                         }
-                    }
-                });
+                    });
             })
             .catch(error => {
-                setErrors({errorMessage: "Kiểm tra lại tên đăng nhập hoặc mật khẩu"});
-                Swal.fire({
-                    title: "Lỗi rồi!",
-                    text: "Đăng nhập thất bại",
-                    icon: "error",
-                    confirmButtonText: "OK"
-                });
+                if (error.response && error.response.status === 403) {
+                    Swal.fire({
+                        title: "Tài khoản đã bị khóa",
+                        text: "Vui lòng liên hệ quản trị viên để mở khóa tài khoản.",
+                        icon: "error",
+                        confirmButtonText: "OK"
+                    });
+                } else {
+                    setErrors({errorMessage: "Kiểm tra lại tên đăng nhập hoặc mật khẩu"});
+                    Swal.fire({
+                        title: "Lỗi rồi!",
+                        text: "Đăng nhập thất bại",
+                        icon: "error",
+                        confirmButtonText: "OK"
+                    });
+                }
             })
             .finally(() => {
                 setSubmitting(false);
             });
-    };
+    }
 
     const togglePasswordVisibility = (event)=> {
         event.preventDefault();
