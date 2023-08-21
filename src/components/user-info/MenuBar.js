@@ -158,10 +158,13 @@ export default function MenuBar() {
                                                        onClick={handleOpenTop3RecentRenters}> Người thuê gần
                                                         nhất</i>
                                                 </ListItem>
-                                                <ListItem>
-                                                    <i className="bi bi-eye icon-hover"
-                                                       onClick={handleOpenChart}> Doanh thu</i>
-                                                </ListItem>
+                                                {loggingUser.status !== 0 ?
+                                                    <ListItem>
+                                                        <i className="bi bi-piggy-bank" onClick={handleOpenChart}> Doanh thu</i>
+                                                    </ListItem>
+                                                    : []
+                                                }
+
                                             </List>
                                         )}
                                         <ListItem>
