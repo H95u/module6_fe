@@ -1,27 +1,23 @@
-import {
-    MagnifyingGlassIcon,
-    ChevronUpDownIcon,
-} from "@heroicons/react/24/outline";
+import {ChevronUpDownIcon, MagnifyingGlassIcon,} from "@heroicons/react/24/outline";
 import {PencilIcon, UserPlusIcon} from "@heroicons/react/24/solid";
 import {
-    Card,
-    CardHeader,
-    Input,
-    Typography,
+    Avatar,
     Button,
+    Card,
     CardBody,
-    Chip,
     CardFooter,
+    CardHeader,
+    Chip,
+    IconButton,
+    Input,
+    Tab,
     Tabs,
     TabsHeader,
-    Tab,
-    Avatar,
-    IconButton,
     Tooltip,
+    Typography,
 } from "@material-tailwind/react";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import ReactPaginate from "react-paginate";
 
 const TABS = [
     {
@@ -35,20 +31,24 @@ const TABS = [
 
 ];
 
-const TABLE_HEAD = ["Người dùng", "Vai trò", "Trạng thái", "Ngày tham gia", "Thao tác"];
+const TABLE_HEAD = ["Người dùng", "Vai trò", "Trạng thái", "Ngày tham gia", "Trạng thái", "Thao tác", "khóa tài khoản"];
 
 export default function UserManagement() {
     const [users, setUsers] = useState([]);
     const itemsPerPage = 5;
     const [currentPage, setCurrentPage] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [notification, setNotification] = useState('');
     const getUsers = () => {
-        axios.get(`http://localhost:8080/api/users/all`).then((response) => {
-            setUsers(response.data);
-            setLoading(false);
-        });
+        try {
+            axios.get(`http://localhost:8080/api/users/all`).then((response) => {
+                setUsers(response.data);
+                setLoading(false);
+            });
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
     };
-
     useEffect(() => {
         getUsers();
     }, []);
@@ -59,11 +59,30 @@ export default function UserManagement() {
             setCurrentPage(nextPage);
         }
     };
-
     const totalPages = Math.ceil(users.length / itemsPerPage);
     const startIndex = currentPage * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const currentPageData = users.slice(startIndex, endIndex);
+
+    const handleToggleLock = async (accountId, prevLocked) => {
+        try {
+            const endpoint = prevLocked ? 'unlock' : 'lock';
+            const response = await axios.put(`http://localhost:8080/api/auth/${endpoint}/${accountId}`);
+            const updatedUsers = users.map(user =>
+                user.id === accountId ? {...user, locked: response.data.locked} : user
+            );
+
+            setUsers(updatedUsers);
+            setNotification(`Account ${response.data.locked ? 'locked' : 'unlocked'} successfully`);
+            setTimeout(() => {
+                setNotification('');
+            }, 3000);
+
+            getUsers().then();
+        } catch (error) {
+            console.error(`Error ${prevLocked ? 'unlocking' : 'locking'} account:`, error);
+        }
+    };
 
     return (
         <Card className="h-full w-full">
@@ -129,7 +148,7 @@ export default function UserManagement() {
                     </thead>
                     <tbody>
                     {currentPageData.map(
-                        ({img, username, email, status, createdDate}, index) => {
+                        ({id, img, username, email, status, createdDate, locked}, index) => {
                             const isLast = index === currentPageData.length - 1;
                             const classes = isLast
                                 ? "p-4"
@@ -186,12 +205,37 @@ export default function UserManagement() {
                                             {createdDate}
                                         </Typography>
                                     </td>
+                                    <td>
+                                        <Typography
+                                            variant="small"
+                                            color="blue-gray"
+                                            className="font-normal"
+                                        >
+                                            <span style={{color: locked ? 'red' : 'green'}}>
+                                            {locked ? 'Tài khoản đang bị khóa' : 'Tài khoản bình thường'}
+                                        </span>
+                                        </Typography>
+                                    </td>
                                     <td className={classes}>
                                         <Tooltip content="Edit User">
                                             <IconButton variant="text">
                                                 <PencilIcon className="h-4 w-4"/>
                                             </IconButton>
                                         </Tooltip>
+                                    </td>
+                                    <td className={classes}>
+                                        <div
+                                            className={`relative w-12 h-6 rounded-full ${
+                                                locked ? 'bg-red-600' : 'bg-gray-300'
+                                            }`}
+                                            onClick={() => handleToggleLock(id, locked)}
+                                        >
+                                            <div
+                                                className={`absolute inset-0 w-6 h-6 bg-white rounded-full transform ${
+                                                    locked ? 'translate-x-full' : ''
+                                                }`}
+                                            ></div>
+                                        </div>
                                     </td>
                                 </tr>
                             );

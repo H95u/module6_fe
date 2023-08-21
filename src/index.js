@@ -13,7 +13,7 @@ import UserManagement from "./components/admin/UserManagement";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
         <ThemeProvider>
-            {/*<App/>*/}
-            <UserManagement/>
+            <App/>
+            {/*<UserManagement/>*/}
         </ThemeProvider>
 );
