@@ -29,13 +29,14 @@
 
 .img-container {
     position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin: 0.05rem;
-    width: calc(25% - 0.5rem);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, margin 0.3s ease;
+    margin: 0.5rem;
+    width: calc(25% - 1rem);
     display: inline-block;
     vertical-align: top;
     box-sizing: border-box;
 }
+
 
 .img-container img {
     box-shadow: 5px 10px 10px rgb(41, 42, 44);
