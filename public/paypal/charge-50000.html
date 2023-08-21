@@ -48,7 +48,6 @@
             });
         },
         onApprove: function (data, actions) {
-            alert("Nạp tiền thành công"); // You can add optional success message for the subscriber here
             const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
             const id = loggingUser.id;
             axios.post(`http://localhost:8080/api/paypal/deposit/${id}?amount=1150000000`)

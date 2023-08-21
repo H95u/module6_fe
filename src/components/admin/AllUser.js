@@ -13,6 +13,7 @@ export default function AllUser() {
     const [allUsers, setAllUsers] = useState([]);
     const itemsPerPage = 4;
     const [currentPage, setCurrentPage] = useState(0);
+
     const getUsers = () => {
         axios.get(`http://localhost:8080/api/users/all`).then((response) => {
             setAllUsers(response.data);
@@ -20,27 +21,29 @@ export default function AllUser() {
     };
 
     const searchUser = () => {
+        setAllUsers([]);
         axios.get(`http://localhost:8080/api/users/search?username=${name}`).then((response) => {
             setAllUsers(response.data);
+            setCurrentPage(0);
         });
     };
 
     useEffect(() => {
-        if (name) {
+        if (name !== null) {
             searchUser();
         } else {
             getUsers();
         }
     }, [name]);
 
-    const handleChangePage = (selectedPage) => {
-        setCurrentPage(selectedPage.selected);
-    };
-
     const totalPages = Math.ceil(allUsers.length / itemsPerPage);
     const startIndex = currentPage * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const currentPageData = allUsers.slice(startIndex, endIndex);
+
+    const handleChangePage = (selectedPage) => {
+        setCurrentPage(selectedPage.selected);
+    };
 
     return (
         <>
@@ -65,75 +68,76 @@ export default function AllUser() {
                     </tr>
                     </thead>
                     <tbody>
-                    {currentPageData.length > 0 && currentPageData.map(
-                        (item, index) => {
-                            const isLast = index === currentPageData.length - 1;
-                            const classes = isLast
-                                ? "p-4"
-                                : "p-4 border-b border-blue-gray-50";
+                    {currentPageData.length === 0 ?
+                        <h1 className={"text-center"}>Không tìm thấy</h1> : currentPageData.map(
+                            (item, index) => {
+                                const isLast = index === currentPageData.length - 1;
+                                const classes = isLast
+                                    ? "p-4"
+                                    : "p-4 border-b border-blue-gray-50";
 
-                            return (
-                                <tr key={item.username}>
-                                    <td className={classes}>
-                                        <div className="flex items-center gap-3">
-                                            <Avatar src={item.img} alt={item.username} size="sm"/>
-                                            <div className="flex flex-col">
-                                                <Typography
-                                                    variant="small"
-                                                    color="blue-gray"
-                                                    className="font-normal"
-                                                >
-                                                    {item.username}
-                                                </Typography>
-                                                <Typography
-                                                    variant="small"
-                                                    color="blue-gray"
-                                                    className="font-normal opacity-70"
-                                                >
-                                                    {item.email}
-                                                </Typography>
+                                return (
+                                    <tr key={item.username}>
+                                        <td className={classes}>
+                                            <div className="flex items-center gap-3">
+                                                <Avatar src={item.img} alt={item.username} size="sm"/>
+                                                <div className="flex flex-col">
+                                                    <Typography
+                                                        variant="small"
+                                                        color="blue-gray"
+                                                        className="font-normal"
+                                                    >
+                                                        {item.username}
+                                                    </Typography>
+                                                    <Typography
+                                                        variant="small"
+                                                        color="blue-gray"
+                                                        className="font-normal opacity-70"
+                                                    >
+                                                        {item.email}
+                                                    </Typography>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td className={classes}>
-                                        <Typography
-                                            variant="small"
-                                            color="blue-gray"
-                                            className="font-normal"
-                                        >
-                                            {item.status === 0 ? "Người dùng" : "Người CCDV"}
-                                        </Typography>
-                                    </td>
-                                    <td className={classes}>
-                                        <div className="w-max">
-                                            <Chip
-                                                variant="ghost"
-                                                size="sm"
-                                                value={item.status === 1 ? "online" : "offline"}
-                                                color={item.status === 1 ? "green" : "blue-gray"}
-                                            />
-                                        </div>
-                                    </td>
-                                    <td className={classes}>
-                                        <Typography
-                                            variant="small"
-                                            color="blue-gray"
-                                            className="font-normal"
-                                        >
-                                            {item.createdDate}
-                                        </Typography>
-                                    </td>
-                                    <td className={classes}>
-                                        <Tooltip content="Edit User">
-                                            <IconButton variant="text">
-                                                <PencilIcon className="h-4 w-4"/>
-                                            </IconButton>
-                                        </Tooltip>
-                                    </td>
-                                </tr>
-                            );
-                        },
-                    )}
+                                        </td>
+                                        <td className={classes}>
+                                            <Typography
+                                                variant="small"
+                                                color="blue-gray"
+                                                className="font-normal"
+                                            >
+                                                {item.status === 0 ? "Người dùng" : "Người CCDV"}
+                                            </Typography>
+                                        </td>
+                                        <td className={classes}>
+                                            <div className="w-max">
+                                                <Chip
+                                                    variant="ghost"
+                                                    size="sm"
+                                                    value={item.status === 1 ? "online" : "offline"}
+                                                    color={item.status === 1 ? "green" : "blue-gray"}
+                                                />
+                                            </div>
+                                        </td>
+                                        <td className={classes}>
+                                            <Typography
+                                                variant="small"
+                                                color="blue-gray"
+                                                className="font-normal"
+                                            >
+                                                {item.createdDate}
+                                            </Typography>
+                                        </td>
+                                        <td className={classes}>
+                                            <Tooltip content="Edit User">
+                                                <IconButton variant="text">
+                                                    <PencilIcon className="h-4 w-4"/>
+                                                </IconButton>
+                                            </Tooltip>
+                                        </td>
+                                    </tr>
+                                );
+                            },
+                        )}
                     </tbody>
                 </table>
             </CardBody>

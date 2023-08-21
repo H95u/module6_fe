@@ -107,13 +107,13 @@
 }
 
 .table-responsive {
-    min-height: 550px;
-    max-height: 550px;
+    min-height: 30rem;
+    max-height: 30rem;
 }
 
 .list-rent {
-    min-height: 550px;
-    max-height: 550px;
+    min-height: 30rem;
+    max-height: 30rem;
 }
 
 .page-item:first-child .page-link{

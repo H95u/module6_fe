@@ -70,9 +70,8 @@ function ProfileMenu() {
     };
 
 
-    const handleHelp = () => {
-        // Implement the function for "Trợ giúp"
-        // e.g., show a help modal or redirect to a help page
+    const handleManagement = () => {
+        navigate(`/management`)
     };
 
     const handleLogout = () => {
@@ -107,12 +106,14 @@ function ProfileMenu() {
             icon: EyeIcon,
             handler: handleTransaction,
         },
-
-        {
-            label: "Trợ giúp",
-            icon: LifebuoyIcon,
-            handler: handleHelp,
-        },
+        ...(loggingUser.status === 5) ? [
+                {
+                    label: "Q.lý người dùng",
+                    icon: LifebuoyIcon,
+                    handler: handleManagement,
+                },
+            ]
+            : [],
         {
             label: "Đăng xuất",
             icon: PowerIcon,

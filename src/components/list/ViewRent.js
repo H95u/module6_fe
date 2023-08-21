@@ -32,7 +32,7 @@ const ViewRent = () => {
     const {id} = useParams();
     const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
     const [showPartnerReport, setShowPartnerReport] = useState(false);
-    const itemsPerPage = 8;
+    const itemsPerPage = 7;
     const [currentPage, setCurrentPage] = useState(0);
     const [initialValueReport, setInitialValueReport] = useState({
         accuserId: null,
@@ -234,7 +234,7 @@ const ViewRent = () => {
                     </Typography>
                     <div className={"main-box clearfix"}>
                         <div className={"table-responsive"}>
-                            <table className={"table user-list table table-hover"}>
+                            <table className={"px-0 user-list table table-hover"}>
                                 <thead>
                                 <tr>
                                     <th>

@@ -16,7 +16,7 @@ const ViewUserRent = () => {
     const {id} = useParams();
     const [tooltipVisible, setTooltipVisible] = useState(false);
     const [showUserReport, setShowUserReport] = useState(false);
-    const itemsPerPage = 8;
+    const itemsPerPage = 7;
     const [currentPage, setCurrentPage] = useState(0);
     const [initialValueReport, setInitialValueReport] = useState({
         accuserId: null,

@@ -167,12 +167,6 @@ export default function MenuBar() {
 
                                             </List>
                                         )}
-                                        <ListItem>
-                                            <ListItemPrefix>
-                                                <ChevronRightIcon strokeWidth={3} className="h-3 w-5"/>
-                                            </ListItemPrefix>
-                                            <i className="bi bi-credit-card-2-back icon-hover"> Thanh toán</i>
-                                        </ListItem>
                                     </List>
                                 </AccordionBody>
                             </Accordion>
@@ -216,7 +210,7 @@ export default function MenuBar() {
                     </Card>
                 </div>
                 {showChart && <RevenueChart/>}
-                <div className={"col-lg-9"} style={{width: "69%"}}>
+                <div className={"col-lg-9"} style={{width: "70%"}}>
                     {showRentHistory && <ViewRent/>}
                     {showUserRentHistory && <ViewUserRent/>}
                     {showTop3Renters && <Top3Rents selectedUserId={id}/>}

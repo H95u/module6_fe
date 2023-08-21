@@ -66,24 +66,6 @@ export default function UserManagement() {
         <>
             <Card className="h-full w-full">
                 <CardHeader floated={false} shadow={false} className="rounded-none">
-                    <div className="mb-8 flex items-center justify-between gap-8">
-                        <div>
-                            <Typography variant="h5" color="blue-gray">
-                                Danh sách người dùng
-                            </Typography>
-                            <Typography color="gray" className="mt-1 font-normal">
-                                Quản lý thông tin tất cả người dùng
-                            </Typography>
-                        </div>
-                        <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-                            <Button variant="outlined" size="sm">
-                                view all
-                            </Button>
-                            <Button className="flex items-center gap-3" size="sm">
-                                <UserPlusIcon strokeWidth={2} className="h-4 w-4"/> Add member
-                            </Button>
-                        </div>
-                    </div>
                     <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
                         <Tabs value="all" className="w-full md:w-max">
                             <TabsHeader>
@@ -96,7 +78,15 @@ export default function UserManagement() {
                                 ))}
                             </TabsHeader>
                         </Tabs>
-                        <div className="w-full md:w-72">
+                        <div className="w-full md:w-72 text-center">
+                            <Typography variant="h5" color="blue-gray">
+                                Danh sách người dùng
+                            </Typography>
+                            <Typography color="gray" className="mt-1 font-normal">
+                                Quản lý thông tin tất cả người dùng
+                            </Typography>
+                        </div>
+                        <div className="w-52">
                             <Input
                                 label="Tìm kiếm"
                                 icon={<MagnifyingGlassIcon className="h-5 w-5"/>}
