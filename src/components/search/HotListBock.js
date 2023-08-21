@@ -22,12 +22,12 @@ export default function HotListBock({selectedUserId}) {
         <div className={"col-md-3 left-rank hidden-sm hidden-xs"}>
             <div className="suggest-user">
                 <h4>Danh sách hot</h4>
-                <div className="suggest-user-item">
+                <div className="suggest-user-item ml-10">
                     {topRenters.map(user => (
                         <Link to={`/user/${user.id}`}>
-                        <div className="avt avt-md">
+                        <div className="avt avt-md mb-3">
                             <img className="avt-img" src={user.img} alt={user.username}/>
-                            <p className="user-name">
+                            <p className="user-name font-bold">
                                 <span>{user.username}</span>
                                 <span>Người thuê: {user.rentCount} lần</span>
                             </p>

@@ -8,7 +8,7 @@ import {
     MenuList,
     MenuItem,
     Avatar,
-    Input, IconButton
+    Input, IconButton, Badge
 } from "@material-tailwind/react";
 import {
     UserCircleIcon,
@@ -205,6 +205,7 @@ export function ComplexNavbar() {
         axios.get(`http://localhost:8080/api/bookings/waiting/${loggingUser.id}`)
             .then(response => {
                 if (response.data.length > 0) {
+                    setBookings(response.data)
                     Swal.fire({
                         icon: 'info',
                         title: 'Yoyo...',
@@ -325,11 +326,11 @@ export function ComplexNavbar() {
                 {loggingUser != null ? <div className="absolute top-2/4 right-0 -translate-y-2/4 mr-24">
                     <div>
                         <div className="dropdown-container">
-                            <IconButton color="blue" onClick={handleIconButtonClick}>
-                                <BellIcon className="h-10 w-10"/>
-                                <div className="notification-badge"></div>
-                            </IconButton>
-                            <FormNavBar showForm={showFormNavBar} onClose={() => setShowFormNavBar(false)}/>
+                            <Badge content={bookings.length}>
+                                <IconButton color="blue" onClick={handleIconButtonClick}>
+                                    <BellIcon className="h-10 w-10"/>
+                                </IconButton>
+                            </Badge>
                         </div>
                     </div>
                 </div> : ""}
