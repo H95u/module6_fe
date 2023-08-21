@@ -203,29 +203,29 @@ export function ComplexNavbar() {
     const getBookings = () => {
         axios.get(`http://localhost:8080/api/bookings/waiting/${loggingUser.id}`)
             .then(response => {
-                setBookings(response.data);
+                if (response.data.length > 0) {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Yoyo...',
+                        text: 'Bạn có đơn mới chưa xác nhận !',
+                        confirmButtonText: "OK, Để sau",
+                        footer: '<a href="#" id="viewOrderLink">Đến trang xem thông tin đơn ?</a>'
+                    })
+                    document.getElementById('viewOrderLink').addEventListener('click', () => {
+                        navigate(`/view-transaction/${loggingUser.id}`);
+                    });
+                }
+                ;
             })
     };
 
     useEffect(() => {
         getUsers();
         if (loggingUser != undefined) {
-            getBookings();
+            getBookings()
         }
     }, []);
 
-    if (bookings.length > 0) {
-        Swal.fire({
-            icon: 'info',
-            title: 'Yoyo...',
-            text: 'Bạn có đơn mới chưa xác nhận !',
-            confirmButtonText: "OK, Để sau",
-            footer: '<a href="#" id="viewOrderLink">Đến trang xem thông tin đơn ?</a>'
-        })
-        document.getElementById('viewOrderLink').addEventListener('click', () => {
-            navigate(`/view-transaction/${loggingUser.id}`);
-        });
-    }
 
     useEffect(() => {
         const handleOutsideClick = (event) => {
