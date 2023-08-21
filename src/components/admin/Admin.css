@@ -1,0 +1,194 @@
+.form-admin {
+    background: #fdfefe url(https://id.duo.vn/themes/duo/images/bg.png) no-repeat center top;
+    font-size: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-width: 980px;
+    /*font-size: 10px;*/
+}
+.menu-top-li{
+    color: #3482c7;
+    font-weight: bold;
+    font-size: 13px;
+
+}
+
+.tilde {
+    margin: 10px;
+    color: #3482c7;
+    font-weight: bold;
+}
+
+
+a {
+    text-decoration: none;
+    outline: none;
+    border: none;
+}
+a img {
+    outline: none;
+    border: none;
+}
+
+.container {
+    width: 980px;
+    min-height: 100px;
+    clear: both;
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+}
+.menu-ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    list-style-type: none;
+    padding: 0;
+    background: #e4eff0;
+}
+
+.menu-li {
+    text-align: center;
+    position: relative;
+}
+
+.menu-icon {
+    position: absolute;
+    top: -30px; /* Điều chỉnh vị trí theo y để logo nằm trên chữ */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1; /* Đặt sự ưu tiên hiển thị cho logo */
+}
+
+.menu-li a {
+    text-decoration: none;
+    color: #000;
+}
+.menu-li a:hover {
+    background-color: #fff;
+}
+
+/* Header */
+#wrapper #header {
+    width: 100%;
+    min-height: 100px;
+}
+
+/* Menu */
+#wrapper #header .menu-top {
+    width: 70%;
+    height: 45px;
+    clear: both;
+    margin-left: 70px;
+}
+
+/* Menu items */
+#wrapper #header .menu-top .menu-top-ul {
+    width: 100%;
+    height: inherit;
+    list-style: none;
+}
+#wrapper #header .menu-top .menu-top-li {
+    min-width: 20px;
+    height: 16px;
+    float: left;
+    padding: 7px 10px;
+}
+
+/* Main content */
+#wrapper #main {
+    width: 100%;
+    min-height: 350px;
+    clear: both;
+}
+
+/* Left content */
+#wrapper #main > .left {
+    width: 70%;
+    min-height: 200px;
+    float: left;
+}
+
+/* Right content */
+#wrapper #main > .right {
+    width: 30%;
+    min-height: 200px;
+    float: left;
+}
+
+/* Footer */
+#wrapper #footer {
+    padding-top: 100px;
+    width: 100%;
+    height: 80px;
+    clear: both;
+}
+
+/* News section */
+.news {
+    width: 80%;
+    min-height: 20px;
+    margin-left: 150px;
+    clear: both;
+}
+.news .title {
+    color: #3482C7;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-family: UTM Avo, tahoma;
+}
+.news .news-ul {
+    width: 95%;
+    min-height: 20px;
+    list-style: square;
+    padding: 0 15px;
+    clear: both;
+}
+.news .news-ul .news-li {
+    width: 100%;
+    color: #3482C7;
+    padding: 2px 0px;
+    line-height: 20px;
+    vertical-align: baseline;
+    font-family: Verdana;
+}
+.news .news-ul .news-li a {
+    color: #3482C7;
+}
+.news .news-ul .news-li a:hover {
+    color: #F30;
+}
+
+/* Welcome section */
+.welcome {
+    width: 93%;
+    min-height: 20px;
+    clear: both;
+    margin-left: 15px;
+    padding-top: 10px;
+}
+.welcome > .img {
+    width: 95%;
+    height: 30px;
+}
+.welcome > p {
+    clear: both;
+    float: left;
+    padding-top: 7px;
+    color: #1D1E24;
+}
+.welcome > a, .but-sign-simple {
+    width: 90px;
+    height: 23px;
+    display: block;
+    background: #0088CC;
+    text-align: center;
+    color: #FFF !important;
+    text-shadow: 1px 1px 1px #434655;
+    font-weight: bold;
+    padding-top: 7px;
+    float: left;
+    border: none;
+}

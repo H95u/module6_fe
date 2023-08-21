@@ -1,6 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
 import "./FormNavBar.css"
 import MessageReceiver from "./MessageReceiver";
+import "react-toastify/dist/ReactToastify.css";
+import {toast} from "react-toastify";
+
 const FormNavBar = ({ showForm, onClose }) => {
     const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
     const receiverId = loggingUser.id;
@@ -9,10 +12,20 @@ const FormNavBar = ({ showForm, onClose }) => {
 
     const handleViewMessagesClick = () => {
         setShowMessages(true);
+        toast.info("Bạn có tin nhắn mới", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
+
     };
     const handleCloseMessagesClick = (event) => {
         event.preventDefault();
         onClose();
+
     };
     const handleClickOutside = (event) => {
         if (formNavBarRef.current && !formNavBarRef.current.contains(event.target)) {
@@ -32,6 +45,7 @@ const FormNavBar = ({ showForm, onClose }) => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [showForm]);
+
     return (
         <div ref={formNavBarRef}>
             {showForm ? (

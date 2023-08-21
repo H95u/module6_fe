@@ -2,21 +2,62 @@ import React, {useEffect, useState} from "react";
 import axios from 'axios';
 import "./FormNavBar.css"
 import { IconButton, Textarea} from "@material-tailwind/react";
+import "react-toastify/dist/ReactToastify.css";
+import {toast, ToastContainer} from "react-toastify";
 
 const MessageReceiver = ({receiverId}) => {
+    // const [messages, setMessages] = useState([]);
+    // const [replyContent, setReplyContent] = useState("");
+    //
+    // useEffect(() => {
+    //     const fetchReceivedMessages = async () => {
+    //         try {
+    //             const response = await axios.get(`http://localhost:8080/api/sends/received/${receiverId}`);
+    //             const receivedMessages = response.data;
+    //             setMessages(receivedMessages);
+    //         } catch (error) {
+    //             alert('Error fetching messages:' + error);
+    //         }
+    //     };
+    //     fetchReceivedMessages().then();
+    // }, [receiverId]);
+    //
+    // const handleReplySubmit = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         if (messages.length > 0) {
+    //             const latestMessage = messages[messages.length - 1];
+    //             const response = await axios.post("http://localhost:8080/api/sends/sender", {
+    //                 content: replyContent,
+    //                 senderId: receiverId,
+    //                 receiverId: latestMessage.sender.id,
+    //             });
+    //             alert("Gửi tin thành công");
+    //             setReplyContent('');
+    //         } else {
+    //             alert("Không có tin nhắn nào để gửi lại.");
+    //         }
+    //     } catch (error) {
+    //         alert('Error sending message:' + error);
+    //     }
+    // }
     const [messages, setMessages] = useState([]);
     const [replyContent, setReplyContent] = useState("");
+    const [unreadMessageCount, setUnreadMessageCount] = useState(0);
+
+    const fetchReceivedMessages = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/sends/received/${receiverId}`);
+            const receivedMessages = response.data;
+            setMessages(receivedMessages);
+            const newUnreadCount = response.data.unreadCount;
+            setUnreadMessageCount(newUnreadCount);
+        } catch (error) {
+            alert('Error fetching messages:' + error);
+        }
+    };
 
     useEffect(() => {
-        const fetchReceivedMessages = async () => {
-            try {
-                const response = await axios.get(`http://localhost:8080/api/sends/received/${receiverId}`);
-                const receivedMessages = response.data;
-                setMessages(receivedMessages);
-            } catch (error) {
-                alert('Error fetching messages:' + error);
-            }
-        };
         fetchReceivedMessages().then();
     }, [receiverId]);
 
@@ -30,15 +71,25 @@ const MessageReceiver = ({receiverId}) => {
                     senderId: receiverId,
                     receiverId: latestMessage.sender.id,
                 });
-                alert("Gửi tin thành công");
+
+                toast.success("Gửi tin thành công", {
+                    position: "top-right",
+                    autoClose: 10,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
                 setReplyContent('');
+                fetchReceivedMessages().then();
             } else {
                 alert("Không có tin nhắn nào để gửi lại.");
             }
         } catch (error) {
             alert('Error sending message:' + error);
         }
-    }
+    };
+
     return (
         <>
             <div className={"my-message"}>
@@ -136,6 +187,7 @@ const MessageReceiver = ({receiverId}) => {
                     </div>
                 </div>
             </form>
+            <ToastContainer />
         </>
     );
 };

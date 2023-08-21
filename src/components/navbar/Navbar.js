@@ -264,7 +264,6 @@ export function ComplexNavbar() {
                     </Avatar>
                 </a>
                 <div className="relative flex w-full gap-96 md:w-max">
-
                     <Input
                         id="search-input"
                         type="search"

@@ -14,6 +14,8 @@ import MenuBar from "./components/user-info/MenuBar";
 import DetailUserRent from "./components/list/DetailUserRent";
 import Album from "./components/album/Album";
 import ChatComponent from "./components/chat/ChatComponent";
+import Admin from "./components/admin/Admin";
+import BlockedAccountList from "./components/admin/BlockedAccountList";
 
 export default function App() {
     return (
@@ -36,6 +38,8 @@ export default function App() {
                     <Route path={"/view-all"} element={<SearchLogin/>}></Route>
                     <Route path={"/album/:id"} element={<Album/>}></Route>
                     <Route path={"/chat"} element={<ChatComponent/>}></Route>
+                    <Route path={"/admin"} element={<Admin/>}></Route>
+                    <Route path={"/blocked"} element={<BlockedAccountList/>}></Route>
                 </Routes>
             </BrowserRouter>
         </>
