@@ -34,7 +34,7 @@ export default function DetailUserRent() {
     }
 
     const handleViewRent = () => {
-        navigate(`/view-transaction/${userBookingRent.bookingUser?.id}`);
+        navigate(`/view-transaction/${userBookingRent.bookingUser?.id}?userRent=1`);
     };
 
     const getStatus = (status) => {
