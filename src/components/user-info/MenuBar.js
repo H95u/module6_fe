@@ -22,6 +22,7 @@ import Top3RecentRenters from "../top3BookingUser/Top3RecentRenters";
 import ViewRent from "../list/ViewRent";
 import WalletInfo from "./WalletInfo";
 import ViewUserRent from "../list/ViewUserRent";
+import RevenueChart from "../chart/RevenueChart";
 
 export default function MenuBar() {
     const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
@@ -31,6 +32,7 @@ export default function MenuBar() {
     const [showRentHistory, setShowRentHistory] = React.useState(true);
     const [showUserRentHistory, setShowUserRentHistory] = React.useState(false);
     const [showWithdraw, setShowWithdraw] = React.useState(false);
+    const [showChart, setShowChart] = React.useState(false);
     const [historyDropdownOpen, setHistoryDropdownOpen] = React.useState(false);
     const {id} = useParams();
     const handleOpen = (value) => {
@@ -46,6 +48,15 @@ export default function MenuBar() {
         setShowTop3RecentRenters(false);
         setShowWithdraw(false);
         setShowUserRentHistory(false);
+        setShowChart(false);
+    }
+    const handleOpenChart = () => {
+        setShowChart(true);
+        setShowRentHistory(false);
+        setShowTop3Renters(false);
+        setShowTop3RecentRenters(false);
+        setShowWithdraw(false);
+        setShowUserRentHistory(false);
     }
 
     const handleOpenUserRentHistory = () => {
@@ -54,6 +65,7 @@ export default function MenuBar() {
         setShowTop3Renters(false);
         setShowTop3RecentRenters(false);
         setShowWithdraw(false);
+        setShowChart(false);
     }
 
     const handleOpenTop3Renters = () => {
@@ -62,6 +74,7 @@ export default function MenuBar() {
         setShowTop3RecentRenters(false);
         setShowWithdraw(false);
         setShowUserRentHistory(false);
+        setShowChart(false);
     }
     const handleOpenTop3RecentRenters = () => {
         setShowRentHistory(false);
@@ -69,6 +82,7 @@ export default function MenuBar() {
         setShowTop3RecentRenters(true);
         setShowWithdraw(false);
         setShowUserRentHistory(false);
+        setShowChart(false);
     }
 
     const handleOpenWithdraw = () => {
@@ -77,6 +91,7 @@ export default function MenuBar() {
         setShowTop3RecentRenters(false);
         setShowWithdraw(true);
         setShowUserRentHistory(false);
+        setShowChart(false);
     }
 
 
@@ -143,6 +158,13 @@ export default function MenuBar() {
                                                        onClick={handleOpenTop3RecentRenters}> Người thuê gần
                                                         nhất</i>
                                                 </ListItem>
+                                                {loggingUser.status !== 0 ?
+                                                    <ListItem>
+                                                        <i className="bi bi-piggy-bank" onClick={handleOpenChart}> Doanh thu</i>
+                                                    </ListItem>
+                                                    : []
+                                                }
+
                                             </List>
                                         )}
                                         <ListItem>
@@ -193,7 +215,8 @@ export default function MenuBar() {
                         </List>
                     </Card>
                 </div>
-                <div className={"col-lg-9"}>
+                {showChart && <RevenueChart/>}
+                <div className={"col-lg-9"} style={{width: "69%"}}>
                     {showRentHistory && <ViewRent/>}
                     {showUserRentHistory && <ViewUserRent/>}
                     {showTop3Renters && <Top3Rents selectedUserId={id}/>}

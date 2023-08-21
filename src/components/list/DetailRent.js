@@ -3,6 +3,8 @@ import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import "./DetailRent.css";
 import SidebarRent from "./SidebarRent";
+import {Button, IconButton, Tooltip} from "@material-tailwind/react";
+import {CheckIcon} from "@heroicons/react/20/solid";
 
 export default function DetailRent() {
     const [booking, setBooking] = useState({});
@@ -45,7 +47,7 @@ export default function DetailRent() {
             <div className={"rent-detail-container"}>
                 <div className={"row"}>
                     <SidebarRent/>
-                    <div className={"col-lg-9 bill-container"}>
+                    <div className={"col-lg-9 bill-user-container"}>
                         <div className={`bill-detail`}>
                             <div className={`row`}>
                                 <div className={`col-md-8`}>
@@ -60,99 +62,110 @@ export default function DetailRent() {
                         <hr className={`hr1`}/>
                         <div className={`inner-bill`}>
                             <div className={`row`}>
-                                <div className={`col-md-6 user`}>
-                                    <h5>Tên người thuê</h5>
-                                    <p>{booking.bookingUser?.username}</p>
+                                <div className={`col-md-4 bill-card`}>
+                                    <div className={`partner-card`}>
+                                        <img src={booking.bookingUser?.img} alt="Avatar"
+                                             className="partner-avatar"/>
+                                    </div>
+                                    <div className={`partner-name`}>
+                                        <p><i className="bi bi-person"></i>&ensp;{booking.bookingUser?.username}
+                                        </p>
+                                    </div>
+                                    <div className={`partner-name`}>
+                                        <p><i className="bi bi-geo-alt"></i>&ensp;{booking.bookingUser?.address?.name}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className={`col-md-6 user`}>
-                                    <h5>Địa chỉ</h5>
-                                    <p>{booking.bookingUser?.address.name}</p>
-                                </div>
-                            </div>
-                            <hr className={`hr1`}/>
-                            <div className={`row`}>
-                                <div className={`col-md-6 user-time`}>
-                                    <h5>Thời gian bắt đầu</h5>
-                                </div>
-                                <div className={`col-md-6 user-time`}>
-                                    <p>{new Date(booking.startTime).toLocaleString(undefined, {
-                                        year: 'numeric',
-                                        month: 'numeric',
-                                        day: 'numeric',
-                                        hour: '2-digit',
-                                        minute: '2-digit',
-                                        hour24: true
-                                    })}</p>
-                                </div>
-                            </div>
-                            <hr className={`hr1`}/>
-                            <div className={`row`}>
-                                <div className={`col-md-6 user-time`}>
-                                    <h5 className={`th`}>Thời gian kết thúc</h5>
-                                </div>
-                                <div className={`col-md-6 user-time`}>
-                                    <p>{new Date(booking.endTime).toLocaleString(undefined, {
-                                        year: 'numeric',
-                                        month: 'numeric',
-                                        day: 'numeric',
-                                        hour: '2-digit',
-                                        minute: '2-digit',
-                                        hour24: true + "PM"
-                                    })}</p>
-                                </div>
-                            </div>
-                            <hr className={`hr1`}/>
-                            <div className={`row`}>
-                                <div className={`col-md-6 user-time`}>
-                                    <h5>Số giờ</h5>
-                                </div>
-                                <div className={`col-md-6 user-time`}>
-                                    <p>
-                                        {(() => {
-                                            const start = new Date(booking.startTime);
-                                            const end = new Date(booking.endTime);
-                                            const diffInMilliseconds = end - start;
 
-                                            const hours = Math.floor(diffInMilliseconds / (1000 * 60 * 60));
-                                            const minutes = Math.floor((diffInMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+                                <div className={`col-md-8 detail`}>
+                                    <div className={`row`}>
+                                        <div className={`col-md-6 user-time`}>
+                                            <h5>Dịch vụ</h5>
+                                        </div>
+                                        <div className={`col-md-6 user-time`}>
+                                            <p>{booking.option?.name}</p>
+                                        </div>
+                                    </div>
+                                    <hr className={`hr1`}/>
+                                    <div className={`row`}>
+                                        <div className={`col-md-6 user-time`}>
+                                            <h5>Thời gian bắt đầu</h5>
+                                        </div>
+                                        <div className={`col-md-6 user-time`}>
+                                            <p>{new Date(booking.startTime).toLocaleString(undefined, {
+                                                year: 'numeric',
+                                                month: 'numeric',
+                                                day: 'numeric',
+                                                hour: '2-digit',
+                                                minute: '2-digit',
+                                                hour24: true
+                                            })}</p>
+                                        </div>
+                                    </div>
+                                    <hr className={`hr1`}/>
+                                    <div className={`row`}>
+                                        <div className={`col-md-6 user-time`}>
+                                            <h5>Thời gian bắt đầu</h5>
+                                        </div>
+                                        <div className={`col-md-6 user-time`}>
+                                            <p>{new Date(booking.endTime).toLocaleString(undefined, {
+                                                year: 'numeric',
+                                                month: 'numeric',
+                                                day: 'numeric',
+                                                hour: '2-digit',
+                                                minute: '2-digit',
+                                                hour24: true + "PM"
+                                            })}</p>
+                                        </div>
+                                    </div>
+                                    <hr className={`hr1`}/>
+                                    <div className={`row`}>
+                                        <div className={`col-md-6 user-time`}>
+                                            <h5>Số giờ</h5>
+                                        </div>
+                                        <div className={`col-md-6 user-time`}>
+                                            <p>
+                                                {(() => {
+                                                    const start = new Date(booking.startTime);
+                                                    const end = new Date(booking.endTime);
+                                                    const diffInMilliseconds = end - start;
 
-                                            return `${hours} giờ ${minutes} phút`;
-                                        })()}
-                                    </p>
+                                                    const hours = Math.floor(diffInMilliseconds / (1000 * 60 * 60));
+                                                    const minutes = Math.floor((diffInMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+
+                                                    return `${hours} giờ ${minutes} phút`;
+                                                })()}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr className={`hr1`}/>
+                                    <div className={`row`}>
+                                        <div className={`col-md-6 user-time`}>
+                                            <h5>Tổng đơn</h5>
+                                        </div>
+                                        <div className={`col-md-6 user-time`}>
+                                            <p>
+                                                {new Intl.NumberFormat('vi-VN',
+                                                    {style: 'currency', currency: 'VND'})
+                                                    .format(booking.total)}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr className={`hr1`}/>
+                                    <div className={`row`}>
+                                        <div className={`col-md-6 user-time`}>
+                                            <h5>Trạng thái</h5>
+                                        </div>
+                                        <div className={`col-md-6 user-time d-flex`}>
+                                            <span dangerouslySetInnerHTML={{__html: getStatusString(booking.status)}}/>
+                                        </div>
+                                    </div>
+                                    <hr className={`hr1`}/>
                                 </div>
-                            </div>
-                            <hr className={`hr1`}/>
-                            <div className={`row`}>
-                                <div className={`col-md-6 user-time`}>
-                                    <h5>Dịch vụ</h5>
+                                <hr className={`hr1`}/>
+                                <div className={`detail-button`}>
+                                    <Button color="gray" onClick={handleViewRent}>Đóng</Button>
                                 </div>
-                                <div className={`col-md-6 user-time`}>
-                                    <p>{booking.option?.name}</p>
-                                </div>
-                            </div>
-                            <hr className={`hr1`}/>
-                            <div className={`row`}>
-                                <div className={`col-md-6 user-time`}>
-                                    <h5>Trạng thái</h5>
-                                </div>
-                                <div className={`col-md-6 user-time`}>
-                                    <span dangerouslySetInnerHTML={{__html: getStatusString(booking.status)}}/>
-                                </div>
-                            </div>
-                            <hr className={`hr1`}/>
-                            <div className={`row`}>
-                                <div className={`col-md-6 user-time`}>
-                                    <h5>Thành tiền</h5>
-                                </div>
-                                <div className={`col-md-6 user-time`}>
-                                    <p>{new Intl.NumberFormat('vi-VN',
-                                        { style: 'currency', currency: 'VND' })
-                                        .format(booking.total)}</p>
-                                </div>
-                            </div>
-                            <hr className={`hr1`}/>
-                            <div className={`detail-button`}>
-                                <button className={`btn btn-secondary`} onClick={handleViewRent}>Đóng</button>
                             </div>
                         </div>
                     </div>

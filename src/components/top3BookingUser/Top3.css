@@ -2,7 +2,7 @@
     padding: 10px !important;
     border-radius: 10px;
     background: #fff;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1), 5px 10px 15px rgba(0, 128, 128, 0.5);
+    box-shadow: 5px 10px 10px rgb(156, 158, 164);
     width: 100%;
     height: 100%;
 }
@@ -69,3 +69,16 @@ a, button, div, p, span {
     height: auto;
     clear: both
 }
+
+.user__player {
+    opacity: 1;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+
+.user__player:hover {
+    opacity: 1;
+    transform: translateY(0);
+}
+

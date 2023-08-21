@@ -313,7 +313,7 @@ export default function UserInfo() {
                                             </div>
                                             <div className="user-input">
                                                 <label className={"control-label"} htmlFor="email">Email</label>
-                                                <Field type="email" name="email" placeholder={'Email'}/>
+                                                <Field type="email" name="email" placeholder={'Email'} disabled/>
                                                 <ErrorMessage name="email" component="div" className="text-danger"/>
                                             </div>
                                             <div className="user-input">

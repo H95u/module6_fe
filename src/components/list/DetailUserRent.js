@@ -3,8 +3,9 @@ import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import "./DetailUserRent.css";
 import SidebarRent from "./SidebarRent";
-import {IconButton, Tooltip} from "@material-tailwind/react";
+import {Button, IconButton, Tooltip} from "@material-tailwind/react";
 import {CheckIcon} from "@heroicons/react/20/solid";
+import Swal from "sweetalert2";
 
 export default function DetailUserRent() {
     const [userBookingRent, setUserBookingRent] = useState({});
@@ -23,7 +24,12 @@ export default function DetailUserRent() {
     const handleClickFinish = (bookingId) => {
         axios.put(`http://localhost:8080/api/bookings/${bookingId}/finish-user`).then((response) => {
             setUserBookingRent(response.data)
-            alert("Hoàn thành thành công");
+            Swal.fire({
+                title: 'Xác nhận thành công !',
+                text: 'Chúc bạn có buổi hẹn hò vui vẻ !',
+                icon: 'success',
+                timer: 1000
+            })
         })
     }
 
@@ -158,7 +164,7 @@ export default function DetailUserRent() {
                                 </div>
                                 <hr className={`hr1`}/>
                                 <div className={`detail-button`}>
-                                    <button className={`btn btn-secondary`} onClick={handleViewRent}>Đóng</button>
+                                    <Button color="gray" onClick={handleViewRent}>Đóng</Button>
                                 </div>
                             </div>
                         </div>
