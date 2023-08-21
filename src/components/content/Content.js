@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import Banner from "../banner/Banner";
@@ -10,13 +10,13 @@ import {
     CardBody,
     CardFooter,
     Typography,
-    Button, Tooltip, Avatar,
+    Button
 } from "@material-tailwind/react";
-import Swal from "sweetalert2";
 import "./Content.css"
 import Sidebar from "../sidebar/Sidebar";
 import Filter from "../filter/Filter";
 import Message from "../message/Message";
+import {BackwardIcon, ForwardIcon} from "@heroicons/react/20/solid";
 
 
 export default function Content() {
@@ -162,8 +162,8 @@ export default function Content() {
                             </div>}
                     <div>
                         <ReactPaginate
-                            previousLabel={"Previous"}
-                            nextLabel={"Next"}
+                            previousLabel={<BackwardIcon className="h-5 w-5"/>}
+                            nextLabel={<ForwardIcon className="h-5 w-5"/>}
                             breakLabel={"..."}
                             pageCount={totalPages}
                             onPageChange={handlePageClick}
