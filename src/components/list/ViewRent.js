@@ -14,13 +14,16 @@ import {
     XMarkIcon,
     ChatBubbleBottomCenterIcon,
     BugAntIcon,
-    CurrencyDollarIcon
+    CurrencyDollarIcon,
+    ForwardIcon,
+    BackwardIcon
 } from "@heroicons/react/20/solid";
 import {Link} from "react-router-dom";
 import Swal from "sweetalert2";
 import MessageForm from "../messageForUser/MessageForm";
 import ViewUserRent from "./ViewUserRent";
 import Report from "./Report";
+import ReactPaginate from "react-paginate";
 
 
 const ViewRent = () => {
@@ -29,6 +32,8 @@ const ViewRent = () => {
     const {id} = useParams();
     const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
     const [showPartnerReport, setShowPartnerReport] = useState(false);
+    const itemsPerPage = 8;
+    const [currentPage, setCurrentPage] = useState(0);
     const [initialValueReport, setInitialValueReport] = useState({
         accuserId: null,
         accusedId: null,
@@ -43,6 +48,15 @@ const ViewRent = () => {
             accusedName: booking.bookingUser?.username
         });
     }
+
+    const handlePageClick = (selectedPage) => {
+        setCurrentPage(selectedPage.selected);
+    };
+
+    const totalPages = Math.ceil(bookings.length / itemsPerPage);
+    const startIndex = currentPage * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const currentPageData = bookings.slice(startIndex, endIndex);
 
     const handleHideReport = () => {
         setShowPartnerReport(false);
@@ -250,7 +264,7 @@ const ViewRent = () => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {bookings.map((booking, index) => (
+                                {currentPageData.map((booking, index) => (
                                     <tr key={index}>
                                         <td>
                                             <div className="user_info">
@@ -418,6 +432,25 @@ const ViewRent = () => {
                                 </tbody>
                             </table>
                         </div>
+
+                        <div>
+                            <ReactPaginate
+                                previousLabel={<BackwardIcon className="h-5 w-5"/>}
+                                nextLabel={<ForwardIcon className="h-5 w-5"/>}
+                                breakLabel={"..."}
+                                pageCount={totalPages}
+                                onPageChange={handlePageClick}
+                                activeClassName={"active"}
+                                containerClassName={"pagination"}
+                                pageClassName={"page-item"}
+                                pageLinkClassName={"page-link"}
+                                previousClassName={"page-item"}
+                                previousLinkClassName={"page-link"}
+                                nextClassName={"page-item"}
+                                nextLinkClassName={"page-link"}
+                            />
+                        </div>
+
                         <Report
                             show={showPartnerReport}
                             accuserId={initialValueReport.accuserId}
