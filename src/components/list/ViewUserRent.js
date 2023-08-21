@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import {BugAntIcon, CheckIcon} from "@heroicons/react/20/solid";
 import FeedbackOnViewRent from "./FeedbackOnViewRent";
 import Report from "./Report";
+import ReactPaginate from "react-paginate";
 
 const ViewUserRent = () => {
     const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
@@ -15,6 +16,8 @@ const ViewUserRent = () => {
     const {id} = useParams();
     const [tooltipVisible, setTooltipVisible] = useState(false);
     const [showUserReport, setShowUserReport] = useState(false);
+    const itemsPerPage = 6;
+    const [currentPage, setCurrentPage] = useState(0);
     const [initialValueReport, setInitialValueReport] = useState({
         accuserId: null,
         accusedId: null,
@@ -29,6 +32,15 @@ const ViewUserRent = () => {
             accusedName: booking.bookedUser?.username
         });
     }
+
+    const handlePageClick = (selectedPage) => {
+        setCurrentPage(selectedPage.selected);
+    };
+
+    const totalPages = Math.ceil(userBookingRents.length / itemsPerPage);
+    const startIndex = currentPage * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const currentPageData = userBookingRents.slice(startIndex, endIndex);
 
     const handleHideReport = () => {
         setShowUserReport(false);
@@ -122,7 +134,7 @@ const ViewUserRent = () => {
                         </thead>
 
                         <tbody>
-                        {userBookingRents.map(userBookingRent =>
+                        {currentPageData.map(userBookingRent =>
                             <tr key={userBookingRent.id} className={`row-rent`}>
                                 <td>
                                     <div className="partner_info">
@@ -205,6 +217,25 @@ const ViewUserRent = () => {
 
                         </tbody>
                     </table>
+
+                    <div>
+                        <ReactPaginate
+                            previousLabel={"Previous"}
+                            nextLabel={"Next"}
+                            breakLabel={"..."}
+                            pageCount={totalPages}
+                            onPageChange={handlePageClick}
+                            activeClassName={"active"}
+                            containerClassName={"pagination"}
+                            pageClassName={"page-item"}
+                            pageLinkClassName={"page-link"}
+                            previousClassName={"page-item"}
+                            previousLinkClassName={"page-link"}
+                            nextClassName={"page-item"}
+                            nextLinkClassName={"page-link"}
+                        />
+                    </div>
+
                 </div>
                 <Report
                     show={showUserReport}
