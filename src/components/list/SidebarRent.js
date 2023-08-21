@@ -34,7 +34,7 @@ export default function SidebarRent() {
             <Card className="h-[calc(100vh-7rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
                 <div className="mb-2 p-4">
                     <Typography variant="h5" color="blue-gray">
-                        Menu
+                        Danh mục
                     </Typography>
                 </div>
                 <List>
@@ -128,18 +128,6 @@ export default function SidebarRent() {
                             </List>
                         </AccordionBody>
                     </Accordion>
-                    <ListItem>
-                        <ListItemPrefix>
-                            <UserCircleIcon className="h-5 w-5"/>
-                        </ListItemPrefix>
-                        Thông tin cá nhân
-                    </ListItem>
-                    <ListItem>
-                        <ListItemPrefix>
-                            <PowerIcon className="h-5 w-5"/>
-                        </ListItemPrefix>
-                        Đăng xuất
-                    </ListItem>
                 </List>
             </Card>
         </div>
