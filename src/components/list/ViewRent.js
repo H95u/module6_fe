@@ -278,7 +278,8 @@ const ViewRent = () => {
                                             </div>
                                         </td>
                                         <td>
-                                            <div className={"fill-address"}>{booking.bookingUser?.address?.name}</div>
+                                            <div className={"fill-address"}>{booking.bookingUser?.address?.name ?
+                                                booking.bookingUser?.address?.name : "Chưa cập nhật"}</div>
                                         </td>
                                         <td>
                                             <div

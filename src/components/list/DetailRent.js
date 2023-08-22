@@ -72,7 +72,8 @@ export default function DetailRent() {
                                         </p>
                                     </div>
                                     <div className={`partner-name`}>
-                                        <p><i className="bi bi-geo-alt"></i>&ensp;{booking.bookingUser?.address?.name}
+                                        <p><i className="bi bi-geo-alt"></i>&ensp;{booking.bookingUser?.address?.name ? booking.bookingUser?.address?.name
+                                        : "Chưa cập nhật"}
                                         </p>
                                     </div>
                                 </div>
