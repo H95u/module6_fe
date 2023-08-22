@@ -446,7 +446,7 @@ export default function PartnerInfo() {
                                 <Modal show={isModalOpen} onHide={closeModal}>
                                     <Modal.Header closeButton>
                                         <Modal.Title
-                                            style={{color: "deep-orange", fontWeight: "bold"}}>Chat</Modal.Title>
+                                            style={{color: "deep-orange", fontWeight: "bold", paddingLeft: 100}}>Chat</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
                                         <div

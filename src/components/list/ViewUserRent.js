@@ -221,8 +221,8 @@ const ViewUserRent = () => {
 
                 <div>
                     <ReactPaginate
-                        previousLabel={<BackwardIcon className="h-5 w-5"/>}
-                        nextLabel={<ForwardIcon className="h-5 w-5"/>}
+                        previousLabel={<BackwardIcon className="h-4 w-4"/>}
+                        nextLabel={<ForwardIcon className="h-4 w-4"/>}
                         breakLabel={"..."}
                         pageCount={totalPages}
                         onPageChange={handlePageClick}

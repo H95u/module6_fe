@@ -103,7 +103,7 @@ export default function Feedback() {
                         onClick={prev}
                         disabled={active === 1}
                     >
-                        <ArrowLeftIcon strokeWidth={2} className="h-4 w-4"/> Previous
+                        <ArrowLeftIcon strokeWidth={2} className="h-4 w-4"/>
                     </Button>
                     <div className="flex items-center gap-2">
                         {[...Array(pageCount)].map((_, index) => (
@@ -118,7 +118,6 @@ export default function Feedback() {
                         onClick={next}
                         disabled={active === pageCount}
                     >
-                        Next
                         <ArrowRightIcon strokeWidth={2} className="h-4 w-4"/>
                     </Button>
                 </div>

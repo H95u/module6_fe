@@ -78,7 +78,7 @@ const SearchLogin = () => {
                         onClick={prev}
                         disabled={currentPage === 1}
                     >
-                        <ArrowLeftIcon strokeWidth={2} className="h-4 w-4"/> Previous
+                        <ArrowLeftIcon strokeWidth={2} className="h-4 w-4"/>
                     </Button>
                     <div className="flex items-center gap-2">
                         {[...Array(pageCount)].map((_, index) => (
@@ -99,7 +99,7 @@ const SearchLogin = () => {
                         onClick={next}
                         disabled={currentPage === pageCount}
                     >
-                        Next <ArrowRightIcon strokeWidth={2} className="h-4 w-4"/>
+                        <ArrowRightIcon strokeWidth={2} className="h-4 w-4"/>
                     </Button>
                 </div>
             </div>

@@ -1,8 +1,9 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Avatar, CardBody, CardFooter, Chip, IconButton, Tooltip, Typography} from "@material-tailwind/react";
 import {PencilIcon} from "@heroicons/react/24/solid";
 import ReactPaginate from "react-paginate";
+import {BackwardIcon, ForwardIcon} from "@heroicons/react/20/solid";
 
 const TABLE_HEAD = ["Người báo cáo", "Người bị báo cáo", "Lý do", "Ngày báo cáo", "Thao tác"];
 export default function Report() {
@@ -123,8 +124,8 @@ export default function Report() {
                 </Typography>
                 <div className="flex gap-2">
                     <ReactPaginate
-                        previousLabel={"Previous"}
-                        nextLabel={"Next"}
+                        previousLabel={<BackwardIcon className="h-4 w-4"/>}
+                        nextLabel={<ForwardIcon className="h-4 w-4"/>}
                         breakLabel={"..."}
                         pageCount={totalPages}
                         onPageChange={handleChangePage}
