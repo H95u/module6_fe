@@ -159,7 +159,7 @@ export default function EditPartnerInfo() {
                             <div className={"row"}>
                                 <div className={"col-md-3 col-xs-6"}>
                                     <div className={"item-nav-name"}>
-                                        <span>Số lượt xem</span>
+                                        <span>SỐ LƯỢT XEM</span>
                                     </div>
                                     <div className={"item-nav-value"}>
                                         <span>{user.viewCount} lượt</span>
@@ -167,7 +167,7 @@ export default function EditPartnerInfo() {
                                 </div>
                                 <div className={"col-md-3 col-xs-6"}>
                                     <div className={"item-nav-name"}>
-                                        <span>Số lượt thuê</span>
+                                        <span>SỐ LƯỢT THUÊ</span>
                                     </div>
                                     <div className={"item-nav-value"}>
                                         <span>{user.rentCount} lượt</span>
@@ -175,7 +175,7 @@ export default function EditPartnerInfo() {
                                 </div>
                                 <div className={"col-md-3 col-xs-6"}>
                                     <div className={"item-nav-name"}>
-                                        <span>Ngày sinh</span>
+                                        <span>NGÀY SINH</span>
                                     </div>
                                     <div className={"item-nav-value"}>
                                         <span>{user.dob}</span>
@@ -183,10 +183,10 @@ export default function EditPartnerInfo() {
                                 </div>
                                 <div className={"col-md-3 col-xs-6"}>
                                     <div className={"item-nav-name"}>
-                                        <span>Địa chỉ</span>
+                                        <span>ĐỊA CHỈ</span>
                                     </div>
                                     <div className={"item-nav-value"}>
-                                        <span>{user.address ? user.address.name : ""}</span>
+                                        <span>{user.address ? user.address.name : "Chưa cập nhật"}</span>
                                     </div>
                                 </div>
                             </div>
@@ -204,9 +204,13 @@ export default function EditPartnerInfo() {
                             <hr/>
                             <div className={"profile"}>
                                 <div className={"flex"}>
-                                    <h2>Thông tin</h2>
-                                    <Link className={"ml-10"} to={`/album/${id}`}><Typography variant={"h4"}
-                                                                                              color={"blue"}>Album</Typography></Link>
+                                    {album.length > 0 ?
+                                        <Link className={`mb-3`} to={`/album/${id}`}>
+                                            <Typography variant={"h5"} color="blue">Album</Typography>
+                                        </Link>
+                                        : <></>
+                                    }
+
                                 </div>
                                 <div className={"row overflow-auto album-of-player"}>
                                     {album.slice(0, visibleImages).map((item, index) => (
@@ -222,9 +226,6 @@ export default function EditPartnerInfo() {
                                         </div>
                                     )}
                                 </div>
-                                <p></p>
-                                <p>- Giọng bắc</p>
-                                <p>🤍 ... </p>
                             </div>
                         </div>
                         <div className={"action"}>
