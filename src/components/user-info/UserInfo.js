@@ -191,7 +191,8 @@ export default function UserInfo() {
                                         </p>
                                         ( {user.nickname} )
                                         <p>
-                                            Địa chỉ : {user.address?.name}
+                                            Địa chỉ :
+                                            {user.address?.name ? user.address?.name : " Chưa cập nhật"}
                                         </p>
                                     </Typography>
                                 </CardBody>
@@ -224,7 +225,7 @@ export default function UserInfo() {
 
                     {showUser && <>
                         <div className={"col-md-9"}>
-                            <Typography variant="h2" color="blue" className="mb-2 mt-4 text-center" textGradient>
+                            <Typography variant="h3" color="blue" className="mb-2 mt-4 text-center" textGradient>
                                 Thông tin cá nhân
                             </Typography>
                             <div className={`my-profile`}>
@@ -278,7 +279,7 @@ export default function UserInfo() {
                                         <p className={`title`}><i className="bi bi-geo-alt"></i> Địa chỉ</p>
                                     </div>
                                     <div className={`col-sm-7`}>
-                                        <p className={`value`}>{user.address?.name}</p>
+                                        <p className={`value`}>{user.address?.name ? user.address?.name : "Chưa cập nhật"}</p>
                                     </div>
                                 </div>
                                 <hr/>
