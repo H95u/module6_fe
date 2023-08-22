@@ -394,7 +394,7 @@ export default function PartnerInfo() {
                             <hr/>
                             <div className={"profile"}>
                                 <h2>Thông tin</h2>
-                                <div className={"row album-of-player"}>
+                                <div className={"overflow-auto h-96 row album-of-player"}>
                                     {album.slice(0, visibleImages).map((item, index) => (
                                         <div className={"col-md-3"} key={index}>
                                             <img
@@ -406,8 +406,10 @@ export default function PartnerInfo() {
                                         </div>
                                     ))}
                                     {visibleImages < album.length && (
-                                        <div className={"col-md-3"}>
-                                            <button onClick={handleLoadMore}>Xem tất cả</button>
+                                        <div className={"overflow-auto"}>
+                                            <div className={"col-md-3"}>
+                                                <button onClick={handleLoadMore}>Xem tất cả</button>
+                                            </div>
                                         </div>
                                     )}
                                 </div>

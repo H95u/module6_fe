@@ -142,18 +142,20 @@
 }
 .modal-title .service {
     font-weight: bold;
-    font-family: Poppins;
     color: red;
 }
 .modal-footer {
     text-align: center;
-    font-family: Poppins;
 }
 .modal-body {
-    font-family: Poppins;
     font-size: 20px;
 }
 .form-check-label {
     margin-bottom: 0;
     margin-left: 20px;
+}
+
+.album-of-player {
+    max-height: 300px;
+    overflow: scroll;
 }
