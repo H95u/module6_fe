@@ -17,10 +17,8 @@ export default function PartnerInfo() {
     const [user, setUser] = useState({});
     const [options, setOptions] = useState([]);
     const [album, setAlbum] = useState([]);
-    const [address, setAddress] = useState("");
     const {id} = useParams();
     const [showRentForm, setShowRentForm] = useState(false)
-    const [showPrice, setShowPrice] = useState(true)
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
     const [message, setMessage] = useState("");
@@ -78,7 +76,6 @@ export default function PartnerInfo() {
         }
         sendMessage(JSON.stringify(data))
         setMessageInput("");
-        // closeModal();
     };
 
     const handleShowRentForm = () => {
@@ -142,7 +139,6 @@ export default function PartnerInfo() {
         axios.get(`http://localhost:8080/api/users/${id}`).then((response) => {
             setUser(response.data);
             setOptions(response.data.options);
-            setAddress(response.data.address);
             window.scrollTo(0, 0);
         });
 
@@ -349,7 +345,7 @@ export default function PartnerInfo() {
                             <div className={"row"}>
                                 <div className={"col-md-3 col-xs-6"}>
                                     <div className={"item-nav-name"}>
-                                        <span>Số lượt xem</span>
+                                        <span>SỐ LƯỢT XEM</span>
                                     </div>
                                     <div className={"item-nav-value"}>
                                         <span>{user.viewCount} lượt</span>
@@ -357,7 +353,7 @@ export default function PartnerInfo() {
                                 </div>
                                 <div className={"col-md-3 col-xs-6"}>
                                     <div className={"item-nav-name"}>
-                                        <span>Số lượt thuê</span>
+                                        <span>SỐ LƯỢT THUÊ</span>
                                     </div>
                                     <div className={"item-nav-value"}>
                                         <span>{user.rentCount} lượt</span>
@@ -365,7 +361,7 @@ export default function PartnerInfo() {
                                 </div>
                                 <div className={"col-md-3 col-xs-6"}>
                                     <div className={"item-nav-name"}>
-                                        <span>Ngày sinh</span>
+                                        <span>NGÀY SINH</span>
                                     </div>
                                     <div className={"item-nav-value"}>
                                         <span>{user.dob}</span>
@@ -373,10 +369,10 @@ export default function PartnerInfo() {
                                 </div>
                                 <div className={"col-md-3 col-xs-6"}>
                                     <div className={"item-nav-name"}>
-                                        <span>Địa chỉ</span>
+                                        <span>ĐỊA CHỈ</span>
                                     </div>
                                     <div className={"item-nav-value"}>
-                                        <span>{address?.name}</span>
+                                        <span>{user.address?.name ? user.address?.name : "Chưa cập nhật"}</span>
                                     </div>
                                 </div>
                             </div>
@@ -393,7 +389,7 @@ export default function PartnerInfo() {
                             </div>
                             <hr/>
                             <div className={"profile"}>
-                                <h2>Thông tin</h2>
+                                <h2>Album</h2>
                                 <div className={"overflow-auto row album-of-player"}>
                                     {album.slice(0, visibleImages).map((item, index) => (
                                         <div className={"col-md-3"} key={index}>
@@ -421,14 +417,11 @@ export default function PartnerInfo() {
                                         onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % album.length)}
                                     />
                                 )}
-                                <p>- Giọng bắc</p>
-                                <p>🤍 ...</p>
                             </div>
                             <hr/>
                             <Feedback/>
                         </div>
                         <div className={"action"}>
-                            {showPrice && <>
                                 <div className={`row`}>
                                     <div className={`col-sm-8`}>
                                         {user.price != null &&
@@ -441,8 +434,6 @@ export default function PartnerInfo() {
                                         }
                                     </div>
                                 </div>
-                            </>}
-
                             <div className={`booking`}>
                                 {isLoggedIn?.id === user.id && isLoggedIn?.status !== 0 ?
                                     <a className={"btn btn-danger"}>THUÊ</a>
