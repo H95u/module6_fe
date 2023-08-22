@@ -5,7 +5,7 @@ import {PencilIcon} from "@heroicons/react/24/solid";
 import ReactPaginate from "react-paginate";
 import {useLocation} from "react-router-dom";
 
-const TABLE_HEAD = ["Người dùng", "Vai trò", "Trạng thái", "Ngày tham gia", "Thao tác"];
+const TABLE_HEAD = ["Người dùng", "Vai trò", "Trạng thái", "Ngày tham gia", "Trạng thái tài khoản", "Thao tác", "Khóa tài khoản"];
 export default function AllUser() {
     const [allUsers, setAllUsers] = useState([]);
     const location = useLocation();
@@ -13,6 +13,7 @@ export default function AllUser() {
     const name = searchParams.get("name");
     const itemsPerPage = 4;
     const [currentPage, setCurrentPage] = useState(0);
+    const [notification, setNotification] = useState('');
 
     const getUsers = () => {
         axios.get(`http://localhost:8080/api/users/all`).then((response) => {
@@ -46,6 +47,27 @@ export default function AllUser() {
     };
 
     const classes = "p-3 border-b border-blue-gray-50";
+
+
+    const handleToggleLock = async (accountId, prevLocked) => {
+        try {
+            const endpoint = prevLocked ? 'unlock' : 'lock';
+            const response = await axios.put(`http://localhost:8080/api/auth/${endpoint}/${accountId}`);
+            const updatedUsers = allUsers.map(user =>
+                user.id === accountId ? {...user, locked: response.data.locked} : user
+            );
+
+            setAllUsers(updatedUsers);
+            setNotification(`Account ${response.data.locked ? 'locked' : 'unlocked'} successfully`);
+            setTimeout(() => {
+                setNotification('');
+            }, 3000);
+
+            getUsers().then();
+        } catch (error) {
+            console.error(`Error ${prevLocked ? 'unlocking' : 'locking'} account:`, error);
+        }
+    };
 
     return (
         <>
@@ -123,12 +145,37 @@ export default function AllUser() {
                                             {item.createdDate}
                                         </Typography>
                                     </td>
+                                    <td>
+                                        <Typography
+                                            variant="small"
+                                            color="blue-gray"
+                                            className="font-normal"
+                                        >
+                                            <span style={{color: item.locked ? 'red' : 'green'}}>
+                                            {item.locked ? 'Tài khoản đang bị khóa' : 'Tài khoản bình thường'}
+                                        </span>
+                                        </Typography>
+                                    </td>
                                     <td className={classes}>
                                         <Tooltip content="Edit User">
                                             <IconButton variant="text">
                                                 <PencilIcon className="h-4 w-4"/>
                                             </IconButton>
                                         </Tooltip>
+                                    </td>
+                                    <td className={classes}>
+                                        <div
+                                            className={`relative w-12 h-6 rounded-full ${
+                                                item.locked ? 'bg-red-600' : 'bg-gray-300'
+                                            }`}
+                                            onClick={() => handleToggleLock(item.id, item.locked)}
+                                        >
+                                            <div
+                                                className={`absolute inset-0 w-6 h-6 bg-white rounded-full transform ${
+                                                    item.locked ? 'translate-x-full' : ''
+                                                }`}
+                                            ></div>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
