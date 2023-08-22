@@ -50,22 +50,24 @@ const SearchLogin = () => {
                 {allUsers.length > 0 && (
                     <div className={"list-item-username"}>
                         {visibleSearchAll.map((user) => (
-                            <Card key={user.id}
-                                  className="mb-2 w-96 hover:bg-gray-100 transition duration-300 ease-in-out transform hover:scale-105">
-                                <List>
-                                    <ListItem>
-                                        <ListItemPrefix>
-                                            {user.img &&
-                                                <Avatar variant="circular" alt={user.username} src={user.img}/>}
-                                        </ListItemPrefix>
-                                        <div>
-                                            <Typography variant="h6" color="pink">
-                                                <Link to={`/user/${user.id}`}>{user.username}</Link>
-                                            </Typography>
-                                        </div>
-                                    </ListItem>
-                                </List>
-                            </Card>
+                            <Link to={`/user/${user.id}`}>
+                                <Card key={user.id}
+                                      className="mb-2 w-96 hover:bg-gray-100 transition duration-300 ease-in-out transform hover:scale-105">
+                                    <List>
+                                        <ListItem>
+                                            <ListItemPrefix>
+                                                {user.img &&
+                                                    <Avatar variant="circular" alt={user.username} src={user.img}/>}
+                                            </ListItemPrefix>
+                                            <div>
+                                                <Typography variant="h6" color="pink">
+                                                    {user.username}
+                                                </Typography>
+                                            </div>
+                                        </ListItem>
+                                    </List>
+                                </Card>
+                            </Link>
                         ))}
                     </div>
                 )}

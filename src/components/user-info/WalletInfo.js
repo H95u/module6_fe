@@ -155,8 +155,8 @@ export default function WalletInfo() {
                     </div>
 
                 </div>
-                <div className={"col-md-6"}>
-                    <img src={"/banner/thantai.jpg"} className={"h-[calc(100vh-8rem)] pig-img mt-4 w-"}/>
+                <div className={"col-md-6 pl-14"}>
+                    <img src={"/banner/thantai.jpg"} className={"h-[calc(100vh-12rem)] pig-img mt-12"}/>
                 </div>
             </div>
         </>
