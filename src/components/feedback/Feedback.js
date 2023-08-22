@@ -3,8 +3,7 @@ import "./Feedback.css"
 import {Rating, Button, IconButton} from "@material-tailwind/react";
 import {useParams} from "react-router-dom";
 import FeedbackService from "../../services/feedback.service";
-import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
-
+import {ArrowRightIcon, ArrowLeftIcon} from "@heroicons/react/24/outline";
 
 
 export default function Feedback() {
@@ -98,34 +97,35 @@ export default function Feedback() {
                     </div>
                 </div>
             )}
-            <div className="flex items-center justify-center gap-2 paging-buttons">
-            <div className="flex items-center gap-4">
-                <Button
-                    variant="text"
-                    className="flex items-center gap-2 rounded-full"
-                    onClick={prev}
-                    disabled={active === 1}
-                >
-                    <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
-                </Button>
-                <div className="flex items-center gap-2">
-                    {[...Array(pageCount)].map((_, index) => (
-                        <IconButton key={index + 1} {...getItemProps(index + 1)}>
-                            {index + 1}
-                        </IconButton>
-                    ))}
+            {feedbacks.length > 0 ? <div className="flex items-center justify-center gap-2 paging-buttons">
+                <div className="flex items-center gap-4">
+                    <Button
+                        variant="text"
+                        className="flex items-center gap-2 rounded-full"
+                        onClick={prev}
+                        disabled={active === 1}
+                    >
+                        <ArrowLeftIcon strokeWidth={2} className="h-4 w-4"/> Previous
+                    </Button>
+                    <div className="flex items-center gap-2">
+                        {[...Array(pageCount)].map((_, index) => (
+                            <IconButton key={index + 1} {...getItemProps(index + 1)}>
+                                {index + 1}
+                            </IconButton>
+                        ))}
+                    </div>
+                    <Button
+                        variant="text"
+                        className="flex items-center gap-2 rounded-full"
+                        onClick={next}
+                        disabled={active === pageCount}
+                    >
+                        Next
+                        <ArrowRightIcon strokeWidth={2} className="h-4 w-4"/>
+                    </Button>
                 </div>
-                <Button
-                    variant="text"
-                    className="flex items-center gap-2 rounded-full"
-                    onClick={next}
-                    disabled={active === pageCount}
-                >
-                    Next
-                    <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
-                </Button>
-            </div>
-            </div>
+            </div> : ""}
+
         </>
     )
 }

@@ -208,7 +208,7 @@ export default function EditPartnerInfo() {
                                     <Link className={"ml-10"} to={`/album/${id}`}><Typography variant={"h4"}
                                                                                               color={"blue"}>Album</Typography></Link>
                                 </div>
-                                <div className={"row album-of-player"}>
+                                <div className={"row overflow-auto album-of-player"}>
                                     {album.slice(0, visibleImages).map((item, index) => (
                                         <div className={"col-md-3"} key={index}>
                                             <img

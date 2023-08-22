@@ -394,7 +394,7 @@ export default function PartnerInfo() {
                             <hr/>
                             <div className={"profile"}>
                                 <h2>Thông tin</h2>
-                                <div className={"overflow-auto h-96 row album-of-player"}>
+                                <div className={"overflow-auto row album-of-player"}>
                                     {album.slice(0, visibleImages).map((item, index) => (
                                         <div className={"col-md-3"} key={index}>
                                             <img
