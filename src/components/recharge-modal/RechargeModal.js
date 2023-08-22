@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import { Accordion, AccordionBody, AccordionHeader, Button, Typography } from '@material-tailwind/react';
 
 function RechargeModal({ showRecharge, handleCloseRecharge}) {
-    const [open, setOpen] = useState(0);
+    const [open, setOpen] = useState(1);
 
     const handleOpen = (value) => {
         setOpen(open === value ? 0 : value);

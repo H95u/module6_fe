@@ -200,18 +200,20 @@ export default function UserInfo() {
                         <div className="d-flex flex-wrap mt-2 justify-between">
                             <div className={"row btn-group"}>
                                 <div className={"col-md-6"}>
-                                    <Button size="md" color="white" className={"mb-2"} onClick={displayRevenue}>
+                                    <Button size="md" variant={"outlined"} className={"mb-2 text-black"}
+                                            onClick={displayRevenue}>
                                         Doanh thu
                                     </Button>
-                                    <Button size="md" color="white" onClick={displayFormUpdate}>
+                                    <Button size="md" variant={"outlined"} className={"text-black"}
+                                            onClick={displayFormUpdate}>
                                         Chỉnh sửa
                                     </Button>
                                 </div>
                                 <div className={"col-md-6"}>
-                                    <Button size="md" color="white" className={"mb-2"}>
+                                    <Button variant={"outlined"} size="md" className={"mb-2 text-black"}>
                                         Chat
                                     </Button>
-                                    <Button size="md" color="white" onClick={showAlbum}>
+                                    <Button variant={"outlined"} size="md" className={"text-black"} onClick={showAlbum}>
                                         Album
                                     </Button>
 

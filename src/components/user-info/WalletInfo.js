@@ -103,17 +103,17 @@ export default function WalletInfo() {
                             <tbody>
                             <tr>
                                 <td>
-                                    <Typography variant={"h4"}>Cổng thanh toán :</Typography>
+                                    <Typography variant={"h4"}>Cổng thanh toán</Typography>
                                     <p style={{display: "flex"}} className={"mt-2"}>
                                         <img style={{width: 20, height: 20}} src="/paypal/unnamed.png" alt=""/>
                                         &nbsp;
-                                        <img style={{width: 20, height: 20}} src="/paypal/momo.png" alt=""/>
+                                        <img style={{width: 40, height: 40}} src="/paypal/momo.png" alt=""/>
                                     </p>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <Typography  variant={"h4"}>Chủ tài khoản :</Typography>
+                                    <Typography  variant={"h4"}>Chủ tài khoản</Typography>
                                     <p className={"mt-2"}>
                                         {user.gender === 1 ? "Nguyễn Văn" : "Trần Thị"} {user.nickname}
                                     </p>
@@ -122,7 +122,7 @@ export default function WalletInfo() {
                             <tr>
                                 <td>
                                     <Typography variant={"h4"}>Số dư trong tài
-                                        khoản :</Typography>
+                                        khoản</Typography>
                                     <p className={"mt-2"}>
                                         {formatPrice(user.money)}
                                     </p>
@@ -130,7 +130,7 @@ export default function WalletInfo() {
                             </tr>
                             <tr>
                                 <td>
-                                    <Typography variant={"h4"}>Số tài khoản :</Typography>
+                                    <Typography variant={"h4"}>Số tài khoản</Typography>
                                     <p className={"mt-2"}>
                                         88888888
                                     </p>
