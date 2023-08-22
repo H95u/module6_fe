@@ -71,9 +71,7 @@ export default function Feedback() {
                             </div>
                             <div className={"wrapper-content-rating"}>
                                 <div className={"review-content"}>
-                                    <a href={`/user/${feedback.sender.id}`}>
-                                        <p>{feedback.sender.username}</p>
-                                    </a>
+                                    <p>{feedback.sender.username}</p>
                                     <p className={"time-player-review"}>
                                     <span>{new Date(feedback.presentTime).toLocaleString(undefined, {
                                         year: 'numeric',

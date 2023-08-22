@@ -1,5 +1,5 @@
 .create_account-content {
-    background-image: linear-gradient(to right, rgb(222, 186, 222) 0%, rgb(222, 174, 222) 25%, rgb(246, 229, 239) 50%, rgb(222, 174, 222) 75%, rgba(4, 190, 84, 0.2) 100%), linear-gradient(to bottom, transparent 50%, #ffffff 50%);
+    background-image: linear-gradient(to right, rgba(235, 52, 162, 0.57) 0%, rgba(235, 52, 198, 0.54) 25%, rgb(246, 229, 239) 50%, rgba(235, 52, 171, 0.54) 75%, rgba(4, 190, 84, 0.2) 100%), linear-gradient(to bottom, transparent 50%, #ffffff 50%);
     background-size: 200% 100%, 100% 4px;
     background-position: center, center;
     background-repeat: no-repeat;

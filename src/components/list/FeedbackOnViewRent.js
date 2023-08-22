@@ -46,7 +46,7 @@ export default function FeedbackOnViewRent(props) {
                     setRating(0);
                     setFeedbacks([response.data, ...feedbacks]);
                     Swal.fire({
-                        title: "Gửi feeback thành công!",
+                        title: "Gửi feedback thành công!",
                         icon: "success",
                         confirmButtonText: "OK"
                     });
@@ -80,7 +80,7 @@ export default function FeedbackOnViewRent(props) {
                 </IconButton>
             </Tooltip>
             <Modal show={showFeedback} onHide={handleCLoseFeedbackModal}>
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title>Đánh giá</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>

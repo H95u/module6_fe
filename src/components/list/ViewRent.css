@@ -43,7 +43,6 @@
     color: red;
 }
 
-
 .container-view {
     overflow-x: hidden;
     padding-bottom: 20px;
@@ -52,8 +51,6 @@
 .main-box {
     overflow-x: auto;
 }
-
-
 
 .rent-user-container .rent-user {
     margin-top: 50px;

@@ -89,7 +89,7 @@ const Login = () => {
                             />
                         </Col>
 
-                        <Col md="8">
+                        <Col md="8" className={"pt-4"}>
                             <Card.Body className="d-flex flex-column">
                                 <div className="d-flex flex-row mt-2">
                                     <img
