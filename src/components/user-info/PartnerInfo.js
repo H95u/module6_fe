@@ -406,11 +406,9 @@ export default function PartnerInfo() {
                                         </div>
                                     ))}
                                     {visibleImages < album.length && (
-                                        <div className={"overflow-auto"}>
                                             <div className={"col-md-3"}>
                                                 <button onClick={handleLoadMore}>Xem tất cả</button>
                                             </div>
-                                        </div>
                                     )}
                                 </div>
                                 {isOpen && (
