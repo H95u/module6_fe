@@ -143,7 +143,7 @@ export default function Content() {
                                                         <div className={"mb-2"}>
                                                             <Typography color="blue" className="font-medium"
                                                                         textGradient>
-                                                                Tên : {item.username}
+                                                                Tên : {item.nickname}
                                                             </Typography>
                                                             <Typography color="red" className="font-medium"
                                                                         textGradient>

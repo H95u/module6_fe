@@ -35,7 +35,7 @@ export default function Story() {
                                     <img src={item.img} alt="PD" className="avt-1-15 avt-img"/>
                                 </div>
                                 <Typography variant={"h5"} className={"mt-2 font-medium"}>
-                                    {item.username}
+                                    {item.nickname}
                                 </Typography>
                             </div>
                         </Link>
