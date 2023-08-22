@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { Accordion, AccordionBody, AccordionHeader, Button, Typography } from '@material-tailwind/react';
+import {Accordion, AccordionBody, AccordionHeader, Button, Typography} from '@material-tailwind/react';
 
-function RechargeModal({ showRecharge, handleCloseRecharge}) {
+function RechargeModal({showRecharge, handleCloseRecharge}) {
     const [open, setOpen] = useState(1);
 
     const handleOpen = (value) => {
@@ -25,17 +25,17 @@ function RechargeModal({ showRecharge, handleCloseRecharge}) {
                     </AccordionHeader>
                     <AccordionBody className="pt-0 text-base font-normal">
                         <Typography className={'ml-2 mb-10'} variant={'h2'} color={'black'}>
-                            <a href={'/paypal/charge-1000.html'}>
+                            <a href={'/paypal/charge-1000.html'} target={"_blank"}>
                                 Nạp 1000$
                             </a>
                         </Typography>
                         <Typography className={'ml-2 mb-10'} variant={'h2'} color={'light-green'}>
-                            <a href={'/paypal/charge-10000.html'}>
+                            <a href={'/paypal/charge-10000.html'} target={"_blank"}>
                                 Nạp 10000$
                             </a>
                         </Typography>
                         <Typography className={'ml-2'} variant={'h2'} color={'red'}>
-                            <a href={'/paypal/charge-50000.html'}>
+                            <a href={'/paypal/charge-50000.html'} target={"_blank"}>
                                 Nạp 50000$
                             </a>
                         </Typography>

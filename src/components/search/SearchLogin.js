@@ -17,7 +17,7 @@ const SearchLogin = () => {
     const [currentPage, setCurrentPage] = useState(1);
 
     const getUsers = () => {
-        axios.get(`http://localhost:8080/api/users/search?username=${name}`).then((response) => {
+        axios.get(`http://localhost:8080/api/users/search-available?username=${name}`).then((response) => {
             setAllUsers(response.data);
         });
     };
