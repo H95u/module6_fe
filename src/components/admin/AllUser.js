@@ -1,11 +1,12 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Avatar, CardBody, CardFooter, Chip, IconButton, Tooltip, Typography} from "@material-tailwind/react";
 import {PencilIcon} from "@heroicons/react/24/solid";
 import ReactPaginate from "react-paginate";
 import {useLocation} from "react-router-dom";
+import {BackwardIcon, ForwardIcon} from "@heroicons/react/20/solid";
 
-const TABLE_HEAD = ["Người dùng", "Vai trò", "Trạng thái", "Ngày tham gia", "Trạng thái tài khoản", "Thao tác", "Khóa tài khoản"];
+const TABLE_HEAD = ["Người dùng", "Vai trò", "Trạng thái", "Ngày tham gia", "Trạng thái tài khoản", "Khóa tài khoản"];
 export default function AllUser() {
     const [allUsers, setAllUsers] = useState([]);
     const location = useLocation();
@@ -157,15 +158,8 @@ export default function AllUser() {
                                         </Typography>
                                     </td>
                                     <td className={classes}>
-                                        <Tooltip content="Edit User">
-                                            <IconButton variant="text">
-                                                <PencilIcon className="h-4 w-4"/>
-                                            </IconButton>
-                                        </Tooltip>
-                                    </td>
-                                    <td className={classes}>
                                         <div
-                                            className={`relative w-12 h-6 rounded-full ${
+                                            className={`relative w-12 h-6 rounded-full ml-24 ${
                                                 item.locked ? 'bg-red-600' : 'bg-gray-300'
                                             }`}
                                             onClick={() => handleToggleLock(item.id, item.locked)}
@@ -188,8 +182,8 @@ export default function AllUser() {
                 </Typography>
                 <div className="flex gap-2">
                     <ReactPaginate
-                        previousLabel={"Previous"}
-                        nextLabel={"Next"}
+                        previousLabel={<BackwardIcon className="h-5 w-5"/>}
+                        nextLabel={<ForwardIcon className="h-5 w-5"/>}
                         breakLabel={"..."}
                         pageCount={totalPages}
                         onPageChange={handleChangePage}

@@ -30,7 +30,7 @@ export default function DetailRent() {
             case 1:
                 return `<p class="text-warning">Chờ phản hồi</p>`;
             case 2:
-                return `<p class="text-danger">Đang hẹ hò</p>`;
+                return `<p class="text-danger">Đang hẹn hò</p>`;
             case 3:
                 return `<p class="text-success">Đã xác nhận</p>`;
             case 5:

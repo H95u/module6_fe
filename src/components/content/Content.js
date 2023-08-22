@@ -131,7 +131,7 @@ export default function Content() {
                                     {currentPageData.map((item) => (
                                         <div className={"col-md-3"} key={item.id}>
                                             <Link to={`/user/${item.id}`}>
-                                                <Card className={"card w-56"}>
+                                                <Card className={"card w-62"}>
                                                     <CardHeader color="blue-gray" className="relative h-48">
                                                         <img
                                                             className={"object-cover w-full h-full"}
@@ -149,10 +149,14 @@ export default function Content() {
                                                                         textGradient>
                                                                 Giá : &#32; {formatPrice(item.price)} đ/h
                                                             </Typography>
+                                                            <Typography color="gray" className="font-medium"
+                                                                        textGradient>
+                                                                Địa chỉ : {item.address?.name}
+                                                            </Typography>
                                                         </div>
                                                     </CardBody>
                                                     <CardFooter className="pt-0">
-                                                        <Button color="red">Thuê ngay</Button>
+                                                        <Button color="red" size={"md"}>Thuê ngay</Button>
                                                     </CardFooter>
                                                 </Card>
                                             </Link>

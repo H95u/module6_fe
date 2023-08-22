@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import Feedback from "../feedback/Feedback";
 import RechargeModal from "../recharge-modal/RechargeModal";
 import stompClient, {sendMessage} from "../../services/socket.service";
+import Lightbox from "react-image-lightbox";
 
 
 export default function PartnerInfo() {
@@ -29,6 +30,13 @@ export default function PartnerInfo() {
     const [messageInput, setMessageInput] = useState("");
     const [visibleImages, setVisibleImages] = useState(3);
     const [albumLength, setAlbumLength] = useState(0);
+    const [photoIndex, setPhotoIndex] = useState(0);
+    const [isOpen, setIsOpen] = useState(false);
+
+    const openLightbox = (index) => {
+        setPhotoIndex(index);
+        setIsOpen(true);
+    };
 
     const handleLoadMore = () => {
         setVisibleImages(visibleImages + albumLength - 3);
@@ -390,8 +398,11 @@ export default function PartnerInfo() {
                                     {album.slice(0, visibleImages).map((item, index) => (
                                         <div className={"col-md-3"} key={index}>
                                             <img
+                                                className={"cursor-pointer"}
                                                 src={item.img}
-                                                alt=""/>
+                                                alt="..."
+                                                onClick={() => openLightbox(index)}
+                                            />
                                         </div>
                                     ))}
                                     {visibleImages < album.length && (
@@ -400,6 +411,16 @@ export default function PartnerInfo() {
                                         </div>
                                     )}
                                 </div>
+                                {isOpen && (
+                                    <Lightbox
+                                        mainSrc={album[photoIndex].img}
+                                        nextSrc={album[(photoIndex + 1) % album.length].img}
+                                        prevSrc={album[(photoIndex + album.length - 1) % album.length].img}
+                                        onCloseRequest={() => setIsOpen(false)}
+                                        onMovePrevRequest={() => setPhotoIndex((photoIndex + album.length - 1) % album.length)}
+                                        onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % album.length)}
+                                    />
+                                )}
                                 <p>- Giọng bắc</p>
                                 <p>🤍 ...</p>
                             </div>

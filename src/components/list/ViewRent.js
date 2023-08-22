@@ -79,7 +79,7 @@ const ViewRent = () => {
             case 2:
                 return `<p class="text-danger">Đang hẹn hò</p>`;
             case 3:
-                return `<p class="text-success">Đã xác nhận</p>`;
+                return `<p class="text-success">Có thể rút tiền</p>`;
             case 5:
                 return `<p class="text-info">Đã hoàn thành</p>`;
             case 4:

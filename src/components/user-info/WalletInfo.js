@@ -105,9 +105,9 @@ export default function WalletInfo() {
                                 <td>
                                     <Typography variant={"h4"}>Cổng thanh toán</Typography>
                                     <p style={{display: "flex"}} className={"mt-2"}>
-                                        <img style={{width: 20, height: 20}} src="/paypal/unnamed.png" alt=""/>
+                                        <img style={{width: 40, height: 40}} src="/paypal/unnamed.png" alt=""/>
                                         &nbsp;
-                                        <img style={{width: 40, height: 40}} src="/paypal/momo.png" alt=""/>
+                                        <img style={{width: 20, height: 20}} src="/paypal/momo.png" alt=""/>
                                     </p>
                                 </td>
                             </tr>
