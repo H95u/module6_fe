@@ -1,0 +1,126 @@
+.user_info {
+    display: flex;
+    align-items: center;
+    min-height: 0;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+
+.btn-update {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Định dạng ô radio */
+.fieldGroup .d-flex input[type="radio"]:checked + div:before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border: 2px solid orange; /* Màu cam đỏ */
+    border-radius: 50%;
+    background-color: white;
+    display: inline-block;
+    position: relative;
+    top: -2px;
+    margin-right: 5px;
+}
+
+.fieldGroup .d-flex input[type="radio"]:checked + div {
+    color: orange;
+}
+.icon-hover:hover {
+    color: red;
+}
+
+.container-view {
+    overflow-x: hidden;
+    padding-bottom: 20px;
+}
+
+.main-box {
+    overflow-x: auto;
+}
+
+.rent-user-container .rent-user {
+    margin-top: 50px;
+    font-family: initial;
+}
+
+
+.partner_info {
+    display: flex;
+}
+
+.partner_info .fill-name {
+    padding-top: 7px;
+    padding-left: 5px;
+}
+
+.rent-user .list-rent{
+    margin-top: 20px;
+}
+
+.rent-user .list-rent .btn-info {
+    height: 30px;
+    width: 90px;
+    border-radius: 5px;
+    background: #03bdc2;
+    color: black;
+}
+
+.report-container .report label {
+    color: dimgray;
+    font-family: initial;
+}
+
+.report-container .report input {
+    height: 40px;
+}
+.report-button {
+    float: right;
+}
+.report .accusedName {
+    width: 40%;
+    font-size: 20px;
+    background: white;
+    border: solid white;
+}
+.report .form-label {
+    padding-top: 5px;
+}
+
+.table-responsive {
+    min-height: 30rem;
+    max-height: 30rem;
+}
+
+.list-rent {
+    min-height: 30rem;
+    max-height: 30rem;
+}
+
+.page-item:first-child .page-link{
+    border-top-left-radius: var(--bs-pagination-border-radius);
+    border-bottom-left-radius: var(--bs-pagination-border-radius);
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.page-item:last-child .page-link{
+    border-top-right-radius: var(--bs-pagination-border-radius);
+    border-bottom-right-radius: var(--bs-pagination-border-radius);
+    font-size: 20px;
+    font-weight: 800;
+}
+

@@ -1,0 +1,53 @@
+
+.bill-user-container {
+    width: 48rem;
+    height: 30rem;
+    background: #f5f4f4;
+    margin: 50px;
+    border-radius: 15px;
+    box-shadow: 0 10px 8px rgb(189, 194, 197);
+    border: solid 1px #e1dede;
+    font-family: initial;
+}
+
+.bill-user-container .bill-detail .title {
+    height: 70px;
+    margin-left: 50px;
+    padding-top: 30px;
+    color: #4ca0a2;
+    font-size: 25px;
+}
+
+.bill-user-container .hr1 {
+    width: 90%;
+    margin: auto;
+    color: inherit;
+}
+
+.partner-card .partner-avatar {
+    border-radius: 10px;
+    width: 195px;
+    height: 240px;
+    box-shadow: 0 4px 6px -1px rgb(182, 181, 181);
+}
+.inner-bill .partner-name p {
+    text-align: center;
+    font-size: 15px;
+    padding-left: 25px;
+}
+.detail .user-time .btn-info {
+    margin-top: 15px;
+    margin-left: 50px;
+    height: 30px;
+    width: 90px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+.detail .user-time .icon-accept {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.inner-bill .detail-button button {
+    float: right;
+}

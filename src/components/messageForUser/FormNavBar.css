@@ -1,0 +1,82 @@
+/* Định dạng khung bọc ngoài */
+.notification-form {
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 100;
+}
+.content_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Định dạng phần Thông báo */
+.tab-notif-common {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.tab-notif-common h5 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* Định dạng phần tab-action */
+.tab-action {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    border-bottom: 1px solid #dcdcdc;
+    padding-bottom: 10px;
+}
+
+.tab-action p {
+    cursor: pointer;
+    color: #b1b0b0;
+    font-weight: 600;
+    margin-right: 50px;
+}
+
+.tab-action p {
+    color: #000;
+    /*    text-decoration: underline;*/
+    /*    margin-right: 20px; !* Khoảng cách giữa mục active cũng có thể thay đổi *!*/
+}
+
+.my-message {
+    width: 400px;
+}
+.my-message .sender {
+    color: red;
+    min-height: 30px;
+}
+.message-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.my-message .sender {
+    margin-bottom: 0; /* Loại bỏ margin dưới */
+}
+
+.my-message .sender-content {
+    margin-top: 0;
+}
+.head-message{
+    color: black;
+    font-size: 20px;
+    font-weight: 500;
+}

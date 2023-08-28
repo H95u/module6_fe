@@ -1,0 +1,84 @@
+
+.wrapper {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px;
+}
+.box-item {
+    position: relative;
+}
+
+.box-item-label{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    justify-content: end;
+    padding: 5px 8px;
+    color: #FFFFFF;
+    background-image: linear-gradient(transparent,rgba(0,0,0,.1),rgba(0,0,0,.3),rgba(0,0,0,.5),rgba(0,0,0,.7),rgba(0,0,0,.9));
+    min-height: 50px;
+}
+
+.box-item img {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.wrapper::-webkit-scrollbar {
+    width: 0;
+}
+
+.action_box--list {
+    flex: 0 0 auto;
+    margin-left: 20px;
+    border: 1px solid #e3e3ec;
+    border-radius: 12px;
+}
+
+.box-item img,
+.avt-rank img {
+    width: 130px;
+    height: 170px;
+}
+
+.avt-rank.avt-sm img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+}
+
+.wrapper {
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.box-item {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.lover-name {
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.lover-name {
+    display: flex;
+    margin: 8px 5px 3px;
+    zoom: .8;
+}
+
+.action_box--list div.lover-name p {
+    align-self: center;
+    margin-left: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 115px;
+    font-weight: 600;
+}
+

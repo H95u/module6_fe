@@ -1,0 +1,141 @@
+
+.chat-container {
+    display: flex;
+    height: 80vh;
+    position: relative;
+    margin: 20px 30px 0 2%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+
+.sidebar-chat {
+    width: 20rem;
+    background: #f9c3d5;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.sidebar-chat:hover {
+    background-color: #f9a3c5;
+}
+
+.distance {
+    padding-top: 15px;
+}
+
+.content-chat {
+    cursor: pointer;
+    display: flex;
+    padding-top: 15px;
+    border-radius: 5px;
+}
+
+.content-chat:hover {
+    background-color: #f8e2ee;
+}
+
+.avt-img-chat {
+    width: 38px;
+    height: 38px;
+    margin-right: 10px;
+    border-radius: 50%;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.avt-img-chat:hover {
+    transform: scale(1.1);
+}
+
+
+.message-input {
+    position: absolute;
+    bottom: 0;
+    width: 75%;
+    display: grid;
+    align-items: center;
+    padding: 10px;
+    background-color: #f5f5f5;
+}
+
+.message-input input {
+    flex-grow: 1;
+
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.message-input button {
+    min-width: 40px;
+    padding: 0;
+    background-color: #e92562;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.message-input button:hover {
+    background-color: #d41f53;
+    transform: scale(1.05);
+}
+
+
+.chat-messages {
+    padding: 10px;
+}
+
+.chat-message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    transition: transform 0.2s ease;
+}
+
+.chat-message:hover {
+    transform: scale(1.05);
+}
+
+.user-message {
+    justify-content: flex-end;
+}
+
+.other-message {
+    justify-content: flex-start;
+}
+
+.message-content {
+    display: flex;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 50%;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.avatar:hover {
+    transform: scale(1.1);
+}
+
+.button-chat {
+    min-width: 40px;
+    padding: 0;
+    background-color: #e92562;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.button-chat:hover {
+    background-color: #d41f53;
+    transform: scale(1.05);
+}

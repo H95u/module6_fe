@@ -1,0 +1,27 @@
+
+.-my-75 {
+    margin: 20px auto;
+    max-width: 70%;
+}
+
+.container-xxl {
+    margin: 30px auto;
+    max-width: 80%;
+}
+.password-input {
+    position: relative;
+}
+
+.eye-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 9;
+}
+
+
+

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nạp 10000$</title>
+
+</head>
+<style>
+    .modal {
+        width: 50rem;
+        height: 20rem;
+        background: #FFFFFF;
+        box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+        border-radius: 26px;
+        margin: 10rem auto;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<body>
+<div class="modal">
+    <h1 style="text-align: center;padding: 10px">Nạp 10000$</h1>
+    <form class="form">
+        <div id="paypal-button-container-P-9C424137TJ645553RMTLUNNA"></div>
+    </form>
+</div>
+
+
+<script src="https://www.paypal.com/sdk/js?client-id=AdA0PGyulJwOFSpDk38UmMe4MPdk9jdGc0E-gNI7MvMjVdf_9_TS18qTh7KQuzjcyFyrQ-re-iJV95qk&vault=true&intent=subscription"
+        data-sdk-integration-source="button-factory"></script>
+<script>
+    paypal.Buttons({
+        style: {
+            shape: 'rect',
+            color: 'gold',
+            layout: 'vertical',
+            label: 'paypal'
+        },
+        createSubscription: function (data, actions) {
+            return actions.subscription.create({
+                /* Creates the subscription */
+                plan_id: 'P-9C424137TJ645553RMTLUNNA'
+            });
+        },
+        onApprove: function (data, actions) {
+            const loggingUser = JSON.parse(localStorage.getItem("loggingUser"));
+            const id = loggingUser.id;
+            axios.post(`http://localhost:8080/api/paypal/deposit/${id}?amount=230000000`)
+                .then(response => {
+                    localStorage.setItem("loggingUser", JSON.stringify(response.data));
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Nạp tiền thành công !!',
+                        showConfirmButton: false,
+                        timer: 2000 // Thời gian độ trễ 2 giây
+                    })
+                })
+                .catch(error => {
+                    console.error('Axios error:', error);
+                });
+        }
+    }).render('#paypal-button-container-P-9C424137TJ645553RMTLUNNA'); // Renders the PayPal button
+</script>
+</body>
+</html>

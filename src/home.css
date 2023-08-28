@@ -1,0 +1,104 @@
+#nav {
+    top: 0;
+    position: sticky;
+    z-index: 999;
+}
+
+
+.content {
+    padding: 50px;
+}
+
+.footer {
+
+    background-color: #fff;
+    padding: 20px;
+}
+
+.banner {
+
+    margin-top: 150px;
+    margin-bottom: 100px;
+}
+
+.card {
+    margin-bottom: 80px;
+    box-shadow: 0 10px 8px rgb(110, 115, 119);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination li {
+    padding: 20px;
+}
+
+.page-link:active {
+    background-color: black;
+}
+
+.custom-page {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.custom-page.active {
+    background-color: black;
+}
+
+#logo {
+    width: 100px;
+    height: 45px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.auto-complete {
+    position: absolute;
+    margin-top: 2.5rem;
+    border-radius: 10px;
+    font-family: Poppins, serif;
+    z-index: 999;
+    background-color: white;
+    width: 18rem;
+    border: 1px solid transparent;
+    box-shadow: 5px 10px 10px rgb(41, 42, 44);
+}
+
+.auto-complete li {
+    font-size: 16px;
+    height: 2rem;
+}
+
+.auto-complete li:first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.auto-complete li:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.auto-complete li:hover {
+    background-color: lightcyan;
+}
+
+.wallet-info {
+    height: 30rem;
+    box-shadow: 5px 10px 10px rgb(41, 42, 44);
+}
+
+.pig-img {
+    width: 90%;
+    border-radius: 20px;
+}
+

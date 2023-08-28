@@ -1,0 +1,162 @@
+#inner-info {
+    margin-bottom: 20px;
+}
+
+.item-nav-name {
+    font-family: initial;
+    font-size: 14px;
+    color: #848486;
+}
+
+.item-nav-value {
+    color: red;
+}
+
+.partner-profile {
+    width: 80%;
+    margin: 50px auto;
+}
+.cards {
+    width: 25%;
+    border: white;
+    padding-top: 10px;
+    color: lightslategrey;
+}
+
+.cards img {
+    border-radius: 10px;
+    height: 20rem;
+    width: 20rem;
+}
+
+.ready {
+    margin-top: 12px;
+    font-family: initial;
+    font-size: 20px;
+    color: #04be54;
+    text-align: center;
+}
+
+.status select {
+    width: auto;
+    margin: 10px auto;
+    font-family: initial;
+    font-size: 20px;
+    color: #04be54;
+    text-align: center;
+}
+
+
+.dob {
+    text-align: center;
+    font-family: initial;
+    font-size: 18px;
+    padding-top: 10px;
+}
+
+.info {
+    margin: 20px;
+    width: 50%;
+}
+
+.info h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+
+.action {
+    width: 25%;
+    height: 320px;
+    margin-top: 10px;
+    text-align: center;
+    border: solid 1px #e1dede;
+    border-radius: 10px;
+}
+
+.action a {
+    border: solid 1px #e1dede;
+    margin-bottom: 20px;
+    width: 90%;
+    height: 55px;
+    padding-top: 16px;
+    font-family: initial;
+    font-weight: bold;
+}
+.booking {
+    color: white;
+}
+
+.action h1 {
+    margin-top: 10px;
+    font-size: 25px;
+    color: #fa4b2d;
+    font-weight: bold;
+    word-wrap:normal;
+    text-align: left;
+    margin-left: 12px;
+    margin-bottom: 60px;
+}
+.action #update-price {
+    margin-top: 10px;
+    margin-bottom: 60px;
+}
+#price {
+    margin-top: 10px;
+    margin-left: 12px;
+    height: 31px;
+}
+
+.option {
+    margin-top: 20px;
+}
+
+.option a {
+    width: 100%;
+}
+
+.album-of-player img {
+    width: 10rem;
+    height: 8rem;
+    margin-bottom: 10px;
+}
+
+.service-name {
+    flex: 0 0 auto;
+    width: auto;
+    margin-bottom: 10px;
+}
+
+.profile {
+    font-family: initial;
+    font-size: 17px;
+    margin-top: 20px;
+}
+
+.profile p {
+    padding-top: 2px;
+}
+.modal-title {
+    margin: auto;
+    color: red;
+}
+.modal-title .service {
+    font-weight: bold;
+    color: red;
+}
+.modal-footer {
+    text-align: center;
+}
+.modal-body {
+    font-size: 20px;
+}
+.form-check-label {
+    margin-bottom: 0;
+    margin-left: 20px;
+}
+
+.album-of-player {
+    max-height: 300px;
+    overflow: scroll;
+}
